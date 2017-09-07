@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Domain", "Core.Domain\Core.Domain.csproj", "{189C4B55-1CCD-4239-A787-81F0126F7603}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Domain.UnitTests", "Core.Domain.UnitTests\Core.Domain.UnitTests.csproj", "{82B03BB2-9784-4BE3-B5D1-F0E9B157D17D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{189C4B55-1CCD-4239-A787-81F0126F7603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{189C4B55-1CCD-4239-A787-81F0126F7603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{189C4B55-1CCD-4239-A787-81F0126F7603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82B03BB2-9784-4BE3-B5D1-F0E9B157D17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82B03BB2-9784-4BE3-B5D1-F0E9B157D17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82B03BB2-9784-4BE3-B5D1-F0E9B157D17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82B03BB2-9784-4BE3-B5D1-F0E9B157D17D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
