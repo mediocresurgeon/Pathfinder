@@ -1,17 +1,18 @@
 ﻿using Core.Domain.Spells;
+using Core.Domain.Spells.Paizo.CoreRulebook;
 using NUnit.Framework;
-using System.Linq;
 
-namespace Core.Domain.UnitTests.Spells
+
+namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 {
     [TestFixture]
     public class CureLightWoundsTests
     {
 		[Test]
-		public void CureLightWounds_AsBard()
+		public void CureLightWounds_BardVersion()
 		{
 			// Act
-			var spell = CureLightWounds.AsBard;
+            var spell = CureLightWounds.BardVersion;
 			// Assert
 			Assert.AreEqual("Cure Light Wounds", spell.Name);
 			Assert.AreEqual(1, spell.Level);
@@ -20,51 +21,52 @@ namespace Core.Domain.UnitTests.Spells
             Assert.IsEmpty(spell.Descriptors);
 		}
 
+
         [Test]
-        public void CureLightWounds_AsCleric()
+        public void CureLightWounds_ClericVersion()
         {
             // Act
-            var spell = CureLightWounds.AsCleric;
+            var spell = CureLightWounds.ClericVersion;
             // Assert
             Assert.AreEqual(1, spell.Level);
         }
 
 
         [Test]
-		public void CureLightWounds_AsDruid()
+		public void CureLightWounds_DruidVersion()
 		{
 			// Act
-			var spell = CureLightWounds.AsDruid;
+            var spell = CureLightWounds.DruidVersion;
 			// Assert
 			Assert.AreEqual(1, spell.Level);
 		}
 
 
         [Test]
-		public void CureLightWounds_AsPaladin()
+		public void CureLightWounds_PaladinVersion()
 		{
 			// Act
-			var spell = CureLightWounds.AsPaladin;
+            var spell = CureLightWounds.PaladinVersion;
 			// Assert
 			Assert.AreEqual(1, spell.Level);
 		}
 
 
         [Test]
-		public void CureLightWounds_AsRanger()
+		public void CureLightWounds_RangerVersion()
 		{
 			// Act
-			var spell = CureLightWounds.AsRanger;
+            var spell = CureLightWounds.RangerVersion;
 			// Assert
 			Assert.AreEqual(2, spell.Level);
 		}
 
 
         [Test]
-		public void CureLightWounds_AsHealingDomain()
+		public void CureLightWounds_HealingDomainVersion()
 		{
 			// Act
-			var spell = CureLightWounds.AsHealingDomain;
+            var spell = CureLightWounds.HealingDomainVersion;
 			// Assert
 			Assert.AreEqual(1, spell.Level);
 		}

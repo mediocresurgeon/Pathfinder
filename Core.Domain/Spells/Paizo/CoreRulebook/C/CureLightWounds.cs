@@ -1,4 +1,4 @@
-﻿namespace Core.Domain.Spells
+﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// Positive energy heals the living and damages undead.
@@ -22,7 +22,7 @@
         /// <summary>
         /// Returns a Bard version of Cure Light Wounds.
         /// </summary>
-		public static CureLightWounds AsBard
+		public static CureLightWounds BardVersion
 		{
 			get { return new CureLightWounds(1); }
 		}
@@ -30,7 +30,7 @@
 		/// <summary>
 		/// Returns a Cleric version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds AsCleric
+		public static CureLightWounds ClericVersion
         {
             get { return new CureLightWounds(1); }
         }
@@ -38,7 +38,7 @@
 		/// <summary>
 		/// Returns a Druid version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds AsDruid
+		public static CureLightWounds DruidVersion
 		{
 			get { return new CureLightWounds(1); }
 		}
@@ -46,7 +46,7 @@
 		/// <summary>
 		/// Returns a Paladin version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds AsPaladin
+		public static CureLightWounds PaladinVersion
 		{
 			get { return new CureLightWounds(1); }
 		}
@@ -54,7 +54,7 @@
 		/// <summary>
 		/// Returns a Ranger version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds AsRanger
+		public static CureLightWounds RangerVersion
 		{
 			get { return new CureLightWounds(2); }
 		}
@@ -62,7 +62,7 @@
 		/// <summary>
 		/// Returns a Healing Domain version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds AsHealingDomain
+		public static CureLightWounds HealingDomainVersion
 		{
 			get { return new CureLightWounds(1); }
 		}

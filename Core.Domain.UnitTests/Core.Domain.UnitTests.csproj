@@ -15,8 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Spells\" />
-    <Folder Include="Spells\A\" />
-    <Folder Include="Spells\M\" />
-    <Folder Include="Spells\C\" />
+    <Folder Include="Spells\Paizo\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\A\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\B\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\C\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\M\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\D\" />
   </ItemGroup>
 </Project>

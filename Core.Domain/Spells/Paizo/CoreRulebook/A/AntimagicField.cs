@@ -1,4 +1,4 @@
-﻿namespace Core.Domain.Spells
+﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// An invisibile barrier which prevents the function of magic within its confines.
@@ -21,7 +21,7 @@
 		/// <summary>
 		/// Returns a Cleric version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField AsCleric
+		public static AntimagicField ClericVersion
 		{
 			get { return new AntimagicField(8); }
 		}
@@ -29,7 +29,7 @@
 		/// <summary>
 		/// Returns a Sorcerer version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField AsSorcerer
+		public static AntimagicField SorcererVersion
 		{
 			get { return new AntimagicField(6); }
 		}
@@ -37,7 +37,7 @@
 		/// <summary>
 		/// Returns a Wizard version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField AsWizard
+		public static AntimagicField WizardVersion
 		{
 			get { return new AntimagicField(6); }
 		}
@@ -45,7 +45,7 @@
 		/// <summary>
 		/// Returns a Magic Domain version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField AsMagicDomain
+		public static AntimagicField MagicDomainVersion
 		{
 			get { return new AntimagicField(6); }
 		}
@@ -53,7 +53,7 @@
 		/// <summary>
 		/// Returns a Protection Domain version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField AsProtectionDomain
+		public static AntimagicField ProtectionDomainVersion
 		{
 			get { return new AntimagicField(6); }
 		}

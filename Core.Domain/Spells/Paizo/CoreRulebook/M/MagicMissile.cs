@@ -1,4 +1,4 @@
-﻿namespace Core.Domain.Spells
+﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// Missiles of force strike targets.
@@ -22,7 +22,7 @@
         /// <summary>
         /// Returns a Sorcerer version of Magic Missile.
         /// </summary>
-		public static MagicMissile AsSorcerer
+		public static MagicMissile SorcererVersion
 		{
 			get { return new MagicMissile(1); }
 		}
@@ -30,7 +30,7 @@
 		/// <summary>
 		/// Returns a Wizard version of Magic Missile.
 		/// </summary>
-		public static MagicMissile AsWizard
+		public static MagicMissile WizardVersion
         {
             get { return new MagicMissile(1); }
         }

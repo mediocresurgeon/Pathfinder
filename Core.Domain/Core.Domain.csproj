@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Spells\Paizo\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\A\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\B\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\C\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\D\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\M\" />
+  </ItemGroup>
 </Project>
