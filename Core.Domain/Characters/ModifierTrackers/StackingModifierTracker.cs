@@ -42,7 +42,7 @@ namespace Core.Domain.Characters.ModifierTrackers
         {
 			if (!Modifiers.Any())
 				return 0;
-            return Convert.ToByte(Modifiers.Cast<int>().Sum());
+            return Convert.ToByte(Modifiers.Select(b => Convert.ToInt32(b)).Sum());
         }
     }
 }

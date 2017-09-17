@@ -4,6 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+   <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup> 
+
   <ItemGroup>
     <Folder Include="Spells\Paizo\" />
     <Folder Include="Spells\Paizo\CoreRulebook\" />
