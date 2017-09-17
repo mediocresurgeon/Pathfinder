@@ -22,5 +22,7 @@
     <Folder Include="Spells\Paizo\CoreRulebook\C\" />
     <Folder Include="Spells\Paizo\CoreRulebook\M\" />
     <Folder Include="Spells\Paizo\CoreRulebook\D\" />
+    <Folder Include="Characters\" />
+    <Folder Include="Characters\ModifierTrackers\" />
   </ItemGroup>
 </Project>
