@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-namespace Core.Domain.Characters.ModifierTrackers
+﻿namespace Core.Domain.Characters.ModifierTrackers
 {
 	/// <summary>
 	/// A sacred bonus stems from the power of good.
@@ -16,7 +13,5 @@ namespace Core.Domain.Characters.ModifierTrackers
 			// This intentionally blank constructor
 			// allows this class to be instantiated.
 		}
-
-		protected override IList<byte> Modifiers { get; } = new List<byte>();
 	}
 }

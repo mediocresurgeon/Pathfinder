@@ -24,5 +24,6 @@
     <Folder Include="Spells\Paizo\CoreRulebook\D\" />
     <Folder Include="Characters\" />
     <Folder Include="Characters\ModifierTrackers\" />
+    <Folder Include="Characters\AbilityScores\" />
   </ItemGroup>
 </Project>

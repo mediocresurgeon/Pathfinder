@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-namespace Core.Domain.Characters.ModifierTrackers
+﻿namespace Core.Domain.Characters.ModifierTrackers
 {
 	/// <summary>
 	/// A circumstance bonus arises from specific conditional factors impacting the success of the task at hand.
@@ -18,7 +15,5 @@ namespace Core.Domain.Characters.ModifierTrackers
 			// This intentionally blank constructor
 			// allows this class to be instantiated.
 		}
-
-		protected override IList<byte> Modifiers { get; } = new List<byte>();
 	}
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-namespace Core.Domain.Characters.ModifierTrackers
+﻿namespace Core.Domain.Characters.ModifierTrackers
 {
 	/// <summary>
 	/// A natural armor bonus improves armor class resulting from a creature’s naturally tough hide.
@@ -16,7 +13,5 @@ namespace Core.Domain.Characters.ModifierTrackers
 			// This intentionally blank constructor
 			// allows this class to be instantiated.
 		}
-
-		protected override IList<byte> Modifiers { get; } = new List<byte>();
 	}
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-namespace Core.Domain.Characters.ModifierTrackers
+﻿namespace Core.Domain.Characters.ModifierTrackers
 {
 	/// <summary>
 	/// An insight bonus improves performance of a given activity
@@ -17,7 +14,5 @@ namespace Core.Domain.Characters.ModifierTrackers
 			// This intentionally blank constructor
 			// allows this class to be instantiated.
 		}
-
-		protected override IList<byte> Modifiers { get; } = new List<byte>();
 	}
 }

@@ -21,7 +21,7 @@ namespace Core.Domain.Characters.ModifierTrackers
         /// A mutable collection of modifier data which is used in calculations by this class.
         /// </summary>
         /// <value>The modifiers.</value>
-        protected abstract IList<byte> Modifiers { get; }
+        protected virtual IList<byte> Modifiers { get; } = new List<byte>();
 
 
         /// <summary>
