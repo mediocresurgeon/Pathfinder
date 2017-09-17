@@ -1,4 +1,5 @@
-﻿using Core.Domain.Characters.AbilityScores;
+﻿using System;
+using Core.Domain.Characters.AbilityScores;
 
 
 namespace Core.Domain.Characters
@@ -9,38 +10,93 @@ namespace Core.Domain.Characters
     /// </summary>
     public sealed class Character : ICharacter
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.Character"/> class.
-        /// </summary>
-        public Character()
+        #region Backing variables
+        private readonly byte _level;
+		#endregion
+
+		#region Constructors
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.Character"/> class.
+		/// </summary>
+		/// <param name="level">The character's level (1-20).</param>
+		/// <exception cref="System.ArgumentOutOfRangeException">Thrown when level is 0 or 21+.</exception>
+		internal Character(byte level)
         {
-            // Intentionally blank.
-            // (I doubt this will remain blank for long.)
+            if (1 > level || 20 < level)
+                throw new ArgumentOutOfRangeException($"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
+            _level = level;
         }
 
+		/// <summary>
+		/// Returns an instance of ICharacter.
+		/// </summary>
+		/// <returns>The character.</returns>
+		/// <param name="level">The character's level (1-20).</param>
+		/// <exception cref="System.ArgumentOutOfRangeException">Thrown when level is 0 or 21+.</exception>
+		public static ICharacter Create(byte level)
+        {
+            return new Character(level);
+        }
+        #endregion
+
         #region Properties
+
+        /// <summary>
+        /// Returns this character's level.
+        /// </summary>
+        public byte Level => _level;
+
         #region Ability scores
+        /// <summary>
+        /// Returns this character's Strength score.
+        /// It has a default base score of 10.
+        /// </summary>
         internal AbilityScore Strength { get; } = new Strength { BaseScore = 10 };
 
-        IAbilityScore ICharacter.Strength => this.Strength;
+		IAbilityScore ICharacter.Strength => this.Strength;
 
-        internal AbilityScore Dexterity { get; } = new Dexterity { BaseScore = 10 };
 
-        IAbilityScore ICharacter.Dexterity => this.Dexterity;
+		/// <summary>
+		/// Returns this character's Dexterity score.
+		/// It has a default base score of 10.
+		/// </summary>
+		internal AbilityScore Dexterity { get; } = new Dexterity { BaseScore = 10 };
 
-        internal AbilityScore Constitution { get; } = new Constitution { BaseScore = 10 };
+		IAbilityScore ICharacter.Dexterity => this.Dexterity;
+
+
+		/// <summary>
+		/// Returns this character's Constitution score.
+		/// It has a default base score of 10.
+		/// </summary>
+		internal AbilityScore Constitution { get; } = new Constitution { BaseScore = 10 };
 
         IAbilityScore ICharacter.Constitution => this.Constitution;
 
-        internal AbilityScore Intelligence { get; } = new Intelligence { BaseScore = 10 };
+
+		/// <summary>
+		/// Returns this character's Intelligence score.
+		/// It has a default base score of 10.
+		/// </summary>
+		internal AbilityScore Intelligence { get; } = new Intelligence { BaseScore = 10 };
 
         IAbilityScore ICharacter.Intelligence => this.Intelligence;
 
-        internal AbilityScore Wisdom { get; } = new Wisdom { BaseScore = 10 };
+
+		/// <summary>
+		/// Returns this character's Wisdom score.
+		/// It has a default base score of 10.
+		/// </summary>
+		internal AbilityScore Wisdom { get; } = new Wisdom { BaseScore = 10 };
 
         IAbilityScore ICharacter.Wisdom => this.Wisdom;
 
-        internal AbilityScore Charisma { get; } = new Charisma { BaseScore = 10 };
+
+		/// <summary>
+		/// Returns this character's Charisma score.
+		/// It has a default base score of 10.
+		/// </summary>
+		internal AbilityScore Charisma { get; } = new Charisma { BaseScore = 10 };
 
         IAbilityScore ICharacter.Charisma => this.Charisma;
 		#endregion
