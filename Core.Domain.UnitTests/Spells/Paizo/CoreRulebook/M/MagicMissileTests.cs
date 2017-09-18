@@ -16,6 +16,7 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 			// Assert
 			Assert.AreEqual("Magic Missile", spell.Name);
 			Assert.AreEqual(1, spell.Level);
+            Assert.IsFalse(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Evocation, spell.School);
             Assert.IsEmpty(spell.Subschools);
             Assert.That(spell.Descriptors, Has.Exactly(1).Matches<Descriptor>(d => Descriptor.Force == d));

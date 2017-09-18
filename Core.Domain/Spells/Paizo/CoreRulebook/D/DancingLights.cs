@@ -3,11 +3,12 @@
     public sealed class DancingLights : Spell
     {
         private DancingLights(byte level)
-			: base(name:        "Dancing Lights",
-				   webAddress:  "http://www.d20pfsrd.com/magic/all-spells/d/dancing-lights",
-				   school:      School.Evocation,
-				   level:       level,
-                   descriptors: new[] { Descriptor.Light })
+			: base(name:              "Dancing Lights",
+				   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/d/dancing-lights",
+				   school:            School.Evocation,
+				   level:             level,
+                   allowsSavingThrow: false,
+                   descriptors:       new[] { Descriptor.Light })
         {
             // Intentionally blank
         }

@@ -10,11 +10,12 @@
         /// </summary>
         /// <param name="level">The spell's level.</param>
 		private CureLightWounds(byte level)
-            : base(name:       "Cure Light Wounds",
-                   webAddress: "http://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds",
-                   school:     School.Conjuration,
-                   level:      level,
-                   subschools: new[] { Subschool.Healing })
+            : base(name:              "Cure Light Wounds",
+                   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds",
+                   school:            School.Conjuration,
+                   level:             level,
+                   allowsSavingThrow: true,
+                   subschools:        new[] { Subschool.Healing })
         {
 			// Intentionally blank
 		}

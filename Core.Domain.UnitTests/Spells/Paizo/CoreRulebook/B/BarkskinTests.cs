@@ -16,6 +16,7 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 			// Assert
 			Assert.AreEqual("Barkskin", spell.Name);
 			Assert.AreEqual(2, spell.Level);
+            Assert.IsFalse(spell.AllowsSavingThrow);
             Assert.AreEqual(School.Transmutation, spell.School);
             Assert.IsEmpty(spell.Subschools);
             Assert.IsEmpty(spell.Descriptors);

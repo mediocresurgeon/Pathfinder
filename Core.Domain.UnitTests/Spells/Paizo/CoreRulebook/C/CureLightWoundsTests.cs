@@ -16,6 +16,7 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 			// Assert
 			Assert.AreEqual("Cure Light Wounds", spell.Name);
 			Assert.AreEqual(1, spell.Level);
+            Assert.IsTrue(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Conjuration, spell.School);
             Assert.That(spell.Subschools, Has.Exactly(1).Matches<Subschool>(s => Subschool.Healing == s));
             Assert.IsEmpty(spell.Descriptors);

@@ -10,11 +10,12 @@
         /// </summary>
         /// <param name="level">The spell's level.</param>
         private MagicMissile(byte level)
-            : base(name:        "Magic Missile",
-                   webAddress:  "http://www.d20pfsrd.com/magic/all-spells/m/magic-missile",
-                   school:      School.Evocation,
-                   level:       level,
-                   descriptors: new[] { Descriptor.Force })
+            : base(name:              "Magic Missile",
+                   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/m/magic-missile",
+                   school:            School.Evocation,
+                   level:             level,
+                   allowsSavingThrow: false,
+                   descriptors:       new[] { Descriptor.Force })
         {
             // Intentionally blank
         }

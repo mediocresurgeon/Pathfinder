@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.SpellRegistries;
 
 
 namespace Core.Domain.Characters
@@ -12,6 +13,7 @@ namespace Core.Domain.Characters
     {
         #region Backing variables
         private readonly byte _level;
+		private readonly SpellRegister _spellRegister;
 		#endregion
 
 		#region Constructors
@@ -25,6 +27,7 @@ namespace Core.Domain.Characters
             if (1 > level || 20 < level)
                 throw new ArgumentOutOfRangeException($"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
             _level = level;
+            _spellRegister = new SpellRegister(this);
         }
 
 		/// <summary>
@@ -40,7 +43,6 @@ namespace Core.Domain.Characters
         #endregion
 
         #region Properties
-
         /// <summary>
         /// Returns this character's level.
         /// </summary>
@@ -99,6 +101,16 @@ namespace Core.Domain.Characters
 		internal AbilityScore Charisma { get; } = new Charisma { BaseScore = 10 };
 
         IAbilityScore ICharacter.Charisma => this.Charisma;
+		#endregion
+
+		#region Spells
+		/// <summary>
+		/// Returns this character's spell register.
+		/// </summary>
+		/// <value>The spell register.</value>
+		internal SpellRegister SpellRegister => _spellRegister;
+
+		ISpellRegister ICharacter.SpellRegister => this.SpellRegister;
 		#endregion
 		#endregion
 	}

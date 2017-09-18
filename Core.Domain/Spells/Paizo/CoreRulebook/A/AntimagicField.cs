@@ -10,10 +10,11 @@
         /// </summary>
         /// <param name="level">Level.</param>
 		private AntimagicField(byte level)
-            : base(name:        "Antimagic Field",
-                   webAddress:  "http://www.d20pfsrd.com/magic/all-spells/a/antimagic-field",
-                   school:      School.Abjuration,
-                   level:       level)
+            : base(name:              "Antimagic Field",
+                   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/a/antimagic-field",
+                   school:            School.Abjuration,
+                   level:             level,
+                   allowsSavingThrow: false)
         {
 			// Intentionally blank
 		}

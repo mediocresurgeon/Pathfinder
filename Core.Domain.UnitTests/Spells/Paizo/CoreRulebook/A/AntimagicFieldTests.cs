@@ -16,6 +16,7 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 			// Assert
 			Assert.AreEqual("Antimagic Field", spell.Name);
 			Assert.AreEqual(8, spell.Level);
+            Assert.IsFalse(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Abjuration, spell.School);
             Assert.IsEmpty(spell.Subschools);
             Assert.IsEmpty(spell.Descriptors);

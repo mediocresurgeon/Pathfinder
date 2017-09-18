@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.8.1" />
     <PackageReference Include="NUnitLite" Version="3.8.1" />
+    <PackageReference Include="Moq" Version="4.7.99" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Spells\" />
@@ -25,5 +26,6 @@
     <Folder Include="Characters\" />
     <Folder Include="Characters\ModifierTrackers\" />
     <Folder Include="Characters\AbilityScores\" />
+    <Folder Include="Characters\SpellRegistries\" />
   </ItemGroup>
 </Project>

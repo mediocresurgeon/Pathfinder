@@ -24,6 +24,12 @@ namespace Core.Domain.Spells
         byte Level { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this <see cref="T:Core.Domain.Spells.ISpell"/> allows a saving throw.
+        /// </summary>
+        /// <value><c>true</c> if it allows a saving throw; otherwise, <c>false</c>.</value>
+        bool AllowsSavingThrow { get; }
+
+        /// <summary>
         /// The Descriptors of the ISpell.
         /// </summary>
         IEnumerable<Descriptor> Descriptors { get; }

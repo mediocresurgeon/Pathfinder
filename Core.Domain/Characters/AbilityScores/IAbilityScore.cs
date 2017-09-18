@@ -25,5 +25,10 @@
         /// Returns the modifier.
         /// </summary>
         sbyte GetModifier();
+
+        /// <summary>
+        /// Returns the bonus.
+        /// </summary>
+        byte GetBonus();
     }
 }

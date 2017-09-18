@@ -10,10 +10,11 @@
         /// </summary>
         /// <param name="level">Level.</param>
         private Barkskin(byte level)
-				: base(name: "Barkskin",
-			           webAddress: "http://www.d20pfsrd.com/magic/all-spells/b/barkskin/",
-                       school: School.Transmutation,
-			           level: level)
+				: base(name:              "Barkskin",
+                       webAddress:        "http://www.d20pfsrd.com/magic/all-spells/b/barkskin/",
+                       school:            School.Transmutation,
+                       level:             level,
+                       allowsSavingThrow: false)
         {
             // Intentionally blank
         }

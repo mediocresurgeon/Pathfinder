@@ -51,7 +51,7 @@ namespace Core.Domain.Characters.AbilityScores
         /// Returns this AbilityScore's bonus.
         /// The bonus is always equal to the modifier, except when the modifier is negative (in this case, zero is returned).
         /// </summary>
-        internal virtual byte GetBonus()
+        public virtual byte GetBonus()
         {
             sbyte modifier = this.GetModifier();
             if (0 > modifier)
