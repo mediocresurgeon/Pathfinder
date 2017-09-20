@@ -13,7 +13,7 @@ namespace Core.Domain.Characters
     {
         #region Backing variables
         private readonly byte _level;
-		private readonly SpellRegister _spellRegister;
+		private readonly SpellRegistrar _spellRegistrar;
 		#endregion
 
 		#region Constructors
@@ -27,7 +27,7 @@ namespace Core.Domain.Characters
             if (1 > level || 20 < level)
                 throw new ArgumentOutOfRangeException($"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
             _level = level;
-            _spellRegister = new SpellRegister(this);
+            _spellRegistrar = new SpellRegistrar(this);
         }
 
 		/// <summary>
@@ -108,9 +108,9 @@ namespace Core.Domain.Characters
 		/// Returns this character's spell register.
 		/// </summary>
 		/// <value>The spell register.</value>
-		internal SpellRegister SpellRegister => _spellRegister;
+		internal SpellRegistrar SpellRegistrar => _spellRegistrar;
 
-		ISpellRegister ICharacter.SpellRegister => this.SpellRegister;
+		ISpellRegistrar ICharacter.SpellRegistrar => this.SpellRegistrar;
 		#endregion
 		#endregion
 	}

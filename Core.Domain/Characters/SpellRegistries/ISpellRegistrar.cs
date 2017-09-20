@@ -5,7 +5,7 @@ using Core.Domain.Spells;
 
 namespace Core.Domain.Characters.SpellRegistries
 {
-    public interface ISpellRegister
+    public interface ISpellRegistrar
     {
         IRegisteredSpell Register(ISpell spell, IAbilityScore keyAbilityScore);
 

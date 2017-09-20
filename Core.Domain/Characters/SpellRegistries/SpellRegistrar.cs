@@ -10,20 +10,20 @@ namespace Core.Domain.Characters.SpellRegistries
     /// <summary>
     /// Associates spells with a character, allowing spell-related things to be calculated (such as DCs, caster levels, etc).
     /// </summary>
-    internal sealed class SpellRegister : ISpellRegister
+    internal sealed class SpellRegistrar : ISpellRegistrar
     {
         private readonly Character _character;
         private readonly List<RegisteredSpell> _registeredSpells;
         private event OnSpellRegisteredEventHandler _eventHandler;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.SpellRegister"/> class.
+		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.SpellRegistrar"/> class.
 		/// </summary>
 		/// <param name="character">The character to register spells to.  Should not bell null.</param>
 		/// <exception cref="System.ArgumentNullException">Thrown when character argument is null.</exception>
-		internal SpellRegister(Character character)
+		internal SpellRegistrar(Character character)
         {
-            _character = character ?? throw new ArgumentNullException($"Failed to construct SpellRegister: { nameof(character) } argument annot be null.");
+            _character = character ?? throw new ArgumentNullException($"Failed to construct SpellRegistrar: { nameof(character) } argument annot be null.");
             _registeredSpells = new List<RegisteredSpell>();
         }
 

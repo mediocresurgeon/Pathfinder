@@ -10,13 +10,13 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.SpellRegistries
 {
     [TestFixture]
-    public class SpellRegisterTests
+    public class SpellRegistrarTests
     {
         [Test]
         public void Constructor_CharacterNull_Throws()
         {
             // Act
-            TestDelegate constructor = () => new SpellRegister(null);
+            TestDelegate constructor = () => new SpellRegistrar(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(constructor);
@@ -30,7 +30,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			var character = new Character(1);
 
             // Act
-            TestDelegate registerSpell = () => character.SpellRegister.Register(null, character.Charisma);
+            TestDelegate registerSpell = () => character.SpellRegistrar.Register(null, character.Charisma);
 
             // Assert
             Assert.Throws<ArgumentNullException>(registerSpell);
@@ -45,7 +45,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			var mockSpell = new Mock<ISpell>().Object;
 
 			// Act
-			TestDelegate registerSpell = () => character.SpellRegister.Register(mockSpell, null);
+			TestDelegate registerSpell = () => character.SpellRegistrar.Register(mockSpell, null);
 
 			// Assert
 			Assert.Throws<ArgumentNullException>(registerSpell);
@@ -61,7 +61,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             byte casterLevel = 20;
 
             // Act
-            var registeredSpell = character.SpellRegister.Register(mockSpell, character.Charisma, casterLevel);
+            var registeredSpell = character.SpellRegistrar.Register(mockSpell, character.Charisma, casterLevel);
             var ecl = registeredSpell.GetEffectiveCasterLevel();
 
             // Assert
@@ -77,8 +77,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var mockSpell = new Mock<ISpell>().Object;
 
             // Act
-            character.SpellRegister.Register(mockSpell, character.Charisma);
-            var registeredSpells = character.SpellRegister
+            character.SpellRegistrar.Register(mockSpell, character.Charisma);
+            var registeredSpells = character.SpellRegistrar
                                             .GetRegisteredSpells()
                                             .Select(rs => rs.Spell)
                                             .ToArray();
@@ -100,10 +100,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             OnSpellRegisteredEventHandler handler =
                 (obj, args) => eventFired = true;
 
-            character.SpellRegister.OnSpellRegistered(handler);
+            character.SpellRegistrar.OnSpellRegistered(handler);
 
             // Act
-            character.SpellRegister.Register(mockSpell, character.Charisma);
+            character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
             // Assert
             Assert.IsTrue(eventFired);
@@ -122,11 +122,11 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             OnSpellRegisteredEventHandler handler =
                 (obj, args) => eventFiredCount++;;
 
-            character.SpellRegister.OnSpellRegistered(handler);
+            character.SpellRegistrar.OnSpellRegistered(handler);
 
 			// Act
-			character.SpellRegister.Register(mockSpell, character.Charisma);
-            character.SpellRegister.Register(mockSpell, character.Charisma);
+			character.SpellRegistrar.Register(mockSpell, character.Charisma);
+            character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
             // Assert
             Assert.AreEqual(1, eventFiredCount);

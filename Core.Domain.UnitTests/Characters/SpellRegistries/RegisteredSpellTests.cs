@@ -18,7 +18,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var character = new Character(1);
 
             // Act
-            TestDelegate register = () => character.SpellRegister.Register(null, character.Charisma);
+            TestDelegate register = () => character.SpellRegistrar.Register(null, character.Charisma);
 
             // Assert
             Assert.Throws<ArgumentNullException>(register);
@@ -32,7 +32,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var mockSpell = new Mock<ISpell>().Object;
 
             // Act
-            TestDelegate register = () => character.SpellRegister.Register(mockSpell, null);
+            TestDelegate register = () => character.SpellRegistrar.Register(mockSpell, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(register);
@@ -46,7 +46,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var mockSpell = new Mock<ISpell>().Object;
 
             // Act
-            var registeredSpell = character.SpellRegister.Register(mockSpell, character.Charisma);
+            var registeredSpell = character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
             // Assert
             Assert.AreSame(mockSpell, registeredSpell.Spell);
@@ -63,7 +63,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
             var character = new Character(1);
 
-            var registeredSpell = character.SpellRegister.Register(mockSpell.Object, character.Charisma);
+            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
 
             // Act
             var dc = registeredSpell.GetDifficultyClass();
@@ -84,7 +84,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var character = new Character(1);
             character.Charisma.BaseScore = 18;
 
-            var registeredSpell = character.SpellRegister.Register(mockSpell.Object, character.Charisma);
+            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
 
             // Act
             var dc = registeredSpell.GetDifficultyClass();
@@ -102,7 +102,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var mockSpell = new Mock<ISpell>();
             var character = new Character(12);
 
-            var registeredSpell = character.SpellRegister.Register(mockSpell.Object, character.Charisma);
+            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
 
             // Act
             var ecl = registeredSpell.GetEffectiveCasterLevel();
@@ -120,7 +120,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			var character = new Character(12);
             byte casterLevel = 18;
 
-			var registeredSpell = character.SpellRegister.Register(mockSpell.Object, character.Charisma, casterLevel);
+			var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma, casterLevel);
 
 			// Act
 			var ecl = registeredSpell.GetEffectiveCasterLevel();

@@ -53,7 +53,7 @@ namespace Core.Domain.Characters
         #endregion
 
         #region Spells
-        ISpellRegister SpellRegister { get; }
+        ISpellRegistrar SpellRegistrar { get; }
         #endregion
     }
 }
