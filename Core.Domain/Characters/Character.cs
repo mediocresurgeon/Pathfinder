@@ -111,7 +111,19 @@ namespace Core.Domain.Characters
 		internal SpellRegistrar SpellRegistrar => _spellRegistrar;
 
 		ISpellRegistrar ICharacter.SpellRegistrar => this.SpellRegistrar;
-		#endregion
-		#endregion
-	}
+
+
+		/// <summary>
+		/// Returns the collection of spells known by this character.
+		/// </summary>
+		public IRegisteredSpellsCollection SpellsKnown { get; } = new RegisteredSpellsCollection();
+
+
+        /// <summary>
+        /// Returns the collection of spells prepared by this character.
+        /// </summary>
+        public IRegisteredSpellsCollection SpellsPrepared { get; } = new RegisteredSpellsCollection();
+        #endregion
+        #endregion
+    }
 }

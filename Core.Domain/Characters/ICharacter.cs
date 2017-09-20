@@ -54,6 +54,10 @@ namespace Core.Domain.Characters
 
         #region Spells
         ISpellRegistrar SpellRegistrar { get; }
+
+        IRegisteredSpellsCollection SpellsKnown { get; }
+
+        IRegisteredSpellsCollection SpellsPrepared { get; }
         #endregion
     }
 }
