@@ -1,6 +1,6 @@
 ﻿namespace Core.Domain.Characters.SpellRegistries
 {
-    public interface IRegisteredSpellsCollection
+    public interface IRegisteredSpellCollection
     {
         void Add(IRegisteredSpell spell);
 

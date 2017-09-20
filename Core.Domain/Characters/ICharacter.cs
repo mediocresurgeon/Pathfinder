@@ -1,6 +1,6 @@
 ﻿using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.SpellRegistries;
-
+using Core.Domain.Items;
 
 namespace Core.Domain.Characters
 {
@@ -55,9 +55,11 @@ namespace Core.Domain.Characters
         #region Spells
         ISpellRegistrar SpellRegistrar { get; }
 
-        IRegisteredSpellsCollection SpellsKnown { get; }
+        ISpellbook Spellbook { get; set; }
 
-        IRegisteredSpellsCollection SpellsPrepared { get; }
+        IRegisteredSpellCollection SpellsPrepared { get; }
+
+        IRegisteredSpellCollection SpellsKnown { get; }
         #endregion
     }
 }

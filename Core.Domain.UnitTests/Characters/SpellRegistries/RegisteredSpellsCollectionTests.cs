@@ -14,7 +14,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Add_NullArg_Throws()
         {
             // Arrange
-            RegisteredSpellsCollection spells = new RegisteredSpellsCollection();
+            RegisteredSpellCollection spells = new RegisteredSpellCollection();
             IRegisteredSpell spellToAdd = null;
 
             // Act
@@ -29,7 +29,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void GetSpellsByLevel_FiltersCorrectly()
 		{
 			// Arrange
-			RegisteredSpellsCollection spells = new RegisteredSpellsCollection();
+			RegisteredSpellCollection spells = new RegisteredSpellCollection();
 
             var mockSpell0 = new Mock<ISpell>();
             mockSpell0.Setup(s => s.Level).Returns(0);

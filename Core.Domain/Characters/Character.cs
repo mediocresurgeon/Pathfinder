@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.SpellRegistries;
-
+using Core.Domain.Items;
 
 namespace Core.Domain.Characters
 {
@@ -113,16 +113,23 @@ namespace Core.Domain.Characters
 		ISpellRegistrar ICharacter.SpellRegistrar => this.SpellRegistrar;
 
 
-		/// <summary>
-		/// Returns the collection of spells known by this character.
-		/// </summary>
-		public IRegisteredSpellsCollection SpellsKnown { get; } = new RegisteredSpellsCollection();
+        /// <summary>
+        /// Returns or assigns the spellbook this character uses to prepare spells.
+        /// Can be null.
+        /// </summary>
+        public ISpellbook Spellbook { get; set; }
 
 
         /// <summary>
         /// Returns the collection of spells prepared by this character.
         /// </summary>
-        public IRegisteredSpellsCollection SpellsPrepared { get; } = new RegisteredSpellsCollection();
+        public IRegisteredSpellCollection SpellsPrepared { get; } = new RegisteredSpellCollection();
+
+
+		/// <summary>
+		/// Returns the collection of spells known by this character.
+		/// </summary>
+		public IRegisteredSpellCollection SpellsKnown { get; } = new RegisteredSpellCollection();
         #endregion
         #endregion
     }

@@ -8,7 +8,7 @@ namespace Core.Domain.Characters.SpellRegistries
     /// <summary>
     /// A collection of registered spells, such as the spells prepared by a Cleric.
     /// </summary>
-    internal sealed class RegisteredSpellsCollection : IRegisteredSpellsCollection
+    internal sealed class RegisteredSpellCollection : IRegisteredSpellCollection
     {
         #region Backing variables
         private readonly List<IRegisteredSpell> _spells;
@@ -19,7 +19,7 @@ namespace Core.Domain.Characters.SpellRegistries
         /// Initializes a new instance of the
         /// <see cref="T:Core.Domain.Characters.SpellRegistries.RegisteredSpellsCollection"/> class.
         /// </summary>
-        internal RegisteredSpellsCollection()
+        internal RegisteredSpellCollection()
         {
             _spells = new List<IRegisteredSpell>();
         }
