@@ -10,7 +10,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
     [TestFixture]
     public class RegisteredSpellsCollectionTests
     {
-        [Test]
+        [Test(Description = "Ensures that adding a null IRegisteredSpell will thrown an ArgumentNullException.")]
         public void Add_NullArg_Throws()
         {
             // Arrange
@@ -21,11 +21,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             TestDelegate addMethod = () => spells.Add(spellToAdd);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(addMethod);
+            Assert.Throws<ArgumentNullException>(addMethod,
+                                                "Null arguments are not allowed.");
         }
 
 
-		[Test]
+        [Test(Description = "Ensures that GetSpellsByLevel(byte) filters the results correctly.")]
 		public void GetSpellsByLevel_FiltersCorrectly()
 		{
 			// Arrange

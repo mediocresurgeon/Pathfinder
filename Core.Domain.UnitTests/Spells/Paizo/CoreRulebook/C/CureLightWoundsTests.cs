@@ -8,18 +8,27 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
     [TestFixture]
     public class CureLightWoundsTests
     {
-		[Test]
-		public void CureLightWounds_BardVersion()
+		[Test(Description = "Ensures correct property values which are not characterclass-specific.")]
+		public void CureLightWounds_GenericProperties()
 		{
 			// Act
             var spell = CureLightWounds.BardVersion;
 			// Assert
 			Assert.AreEqual("Cure Light Wounds", spell.Name);
-			Assert.AreEqual(1, spell.Level);
             Assert.IsTrue(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Conjuration, spell.School);
             Assert.That(spell.Subschools, Has.Exactly(1).Matches<Subschool>(s => Subschool.Healing == s));
             Assert.IsEmpty(spell.Descriptors);
+		}
+
+
+        [Test]
+		public void CureLightWounds_BardVersion()
+		{
+			// Act
+			var spell = CureLightWounds.BardVersion;
+			// Assert
+			Assert.AreEqual(1, spell.Level);
 		}
 
 

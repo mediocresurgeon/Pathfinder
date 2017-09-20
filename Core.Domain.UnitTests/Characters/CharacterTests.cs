@@ -11,73 +11,29 @@ namespace Core.Domain.UnitTests.Characters
         #region ICharacter tests
         // These tests make sure that Character passes through its properties correctly to its interface.
 
-        [Test]
+        [Test(Description = "Ensures that Character.Create(byte) assigns the correct types to its ability scores.")]
         public void ICharacter_StrengthIsStrength()
         {
             // Arrange
             ICharacter character = Character.Create(1);
 
             // Assert
-            Assert.IsInstanceOf<Strength>(character.Strength);
+            Assert.IsInstanceOf<Strength>(character.Strength,
+                                          "Character.Strength should be a Strength score.");
+            Assert.IsInstanceOf<Dexterity>(character.Dexterity,
+                                           "Character.Dexterity should be a Dexterity score.");
+            Assert.IsInstanceOf<Constitution>(character.Constitution,
+                                              "Character.Constitution should be a Constitution score.");
+            Assert.IsInstanceOf<Intelligence>(character.Intelligence,
+                                              "Character.Intelligence should be a Intelligence score.");
+            Assert.IsInstanceOf<Wisdom>(character.Wisdom,
+                                        "Character.Wisdom should be a Wisdom score.");
+            Assert.IsInstanceOf<Charisma>(character.Charisma,
+                                          "Character.Charisma should be a Charisma score.");
         }
 
 
-        [Test]
-        public void ICharacter_DexterityIsDexterity()
-        {
-            // Arrange
-            ICharacter character = Character.Create(1);
-
-            // Assert
-            Assert.IsInstanceOf<Dexterity>(character.Dexterity);
-        }
-
-
-        [Test]
-        public void ICharacter_ConstitutionIsConstitution()
-        {
-            // Arrange
-            ICharacter character = Character.Create(1);
-
-            // Assert
-            Assert.IsInstanceOf<Constitution>(character.Constitution);
-        }
-
-
-        [Test]
-        public void ICharacter_IntelligenceIsIntelligence()
-        {
-            // Arrange
-            ICharacter character = Character.Create(1);
-
-            // Assert
-            Assert.IsInstanceOf<Intelligence>(character.Intelligence);
-        }
-
-
-        [Test]
-        public void ICharacter_WisdomIsWisdom()
-        {
-            // Arrange
-            ICharacter character = Character.Create(1);
-
-            // Assert
-            Assert.IsInstanceOf<Wisdom>(character.Wisdom);
-        }
-
-
-        [Test]
-        public void ICharacter_CharismaIsCharisma()
-        {
-            // Arrange
-            ICharacter character = Character.Create(1);
-
-            // Assert
-            Assert.IsInstanceOf<Charisma>(character.Charisma);
-        }
-
-
-		[Test]
+		[Test(Description = "Ensures characters are created at the correct level.")]
 		public void ICharacter_ConstructorValueIsPropertyOutput()
 		{
 			// Arrange
@@ -88,32 +44,39 @@ namespace Core.Domain.UnitTests.Characters
 			byte outputLevel = character.Level;
 
 			// Assert
-			Assert.AreEqual(inputLevel, outputLevel);
+			Assert.AreEqual(inputLevel, outputLevel,
+                            "The character level from the constructor should assign the character's level.");
 		}
         #endregion
 
         #region Constructor tests
-        [Test]
+        [Test(Description = "Ensures that the constructor rejects level arguments which are too small.")]
         public void Constructor_Level0_ArgumentOutOfRangeException()
         {
             // Arrange
             byte level = 0;
-            TestDelegate characterCreator = () => new Character(level);
 
-            // Act & Assert
-            Assert.Throws<ArgumentOutOfRangeException>(characterCreator);
+            // Act
+            TestDelegate createCharacter = () => new Character(level);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(createCharacter,
+                                                       "Characters cannot be level zero.");
         }
 
 
-        [Test]
+        [Test(Description = "Ensures that the constructor rejects level arguments which are too large.")]
         public void Constructor_Level21_ArgumentOutOfRangeException()
         {
             // Arrange
             byte level = 21;
-            TestDelegate characterCreator = () => new Character(level);
 
-            // Act & Assert
-            Assert.Throws<ArgumentOutOfRangeException>(characterCreator);
+            // Act
+            TestDelegate createCharacter = () => new Character(level);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(createCharacter,
+                                                       "Characters cannot be higher than level 20.");
         }
         #endregion
     }

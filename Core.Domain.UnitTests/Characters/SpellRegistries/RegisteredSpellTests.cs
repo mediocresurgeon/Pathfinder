@@ -11,7 +11,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
     public class RegisteredSpellTests
     {
         #region Constructor
-        [Test]
+        [Test(Description = "Ensures that a NullArgumentException is thrown when the constructor is given a null ISpell argument.")]
         public void Constructor_NullSpell_Throws()
         {
             // Arrange
@@ -21,11 +21,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             TestDelegate register = () => character.SpellRegistrar.Register(null, character.Charisma);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(register);
+            Assert.Throws<ArgumentNullException>(register,
+                                                 "Null arguments are not allowed.");
         }
 
 
-        [Test]
+        [Test(Description = "Ensures that a NullArgumentException is thrown when the constructor is given a null IAbilityScore argument.")]
         public void Constructor_NullKeyAbility_Throws()
         {
             var character = new Character(1);
@@ -35,11 +36,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             TestDelegate register = () => character.SpellRegistrar.Register(mockSpell, null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(register);
+            Assert.Throws<ArgumentNullException>(register,
+                                                "Null arguments are not allowed.");
         }
 
 
-        [Test]
+        [Test()]
         public void SpellProperty_Returns_SpellFromConstructor()
         {
             var character = new Character(1);
@@ -54,7 +56,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         #endregion
 
         #region GetDifficultyClass
-        [Test]
+        [Test(Description = "Ensures that registered spells which do not allow saving throws do not have a DC associated with them.")]
         public void GetDC_DisallowsSavingThrow_SimpleCase()
         {
             // Arrange
@@ -69,11 +71,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var dc = registeredSpell.GetDifficultyClass();
 
             // Assert
-            Assert.IsNull(dc);
+            Assert.IsFalse(dc.HasValue,
+                           "Spells which do not allow saving throws should not have a DC associated with them.");
         }
 
 
-        [Test]
+        [Test(Description = "Ensures that spells which allow saving throws have a correct DC associated with them.")]
         public void GetDC_AllowsSavingThrow_SimpleCase()
         {
             // Arrange
@@ -90,12 +93,13 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var dc = registeredSpell.GetDifficultyClass();
 
             // Assert
-            Assert.AreEqual(19, dc);
+            Assert.AreEqual(19, dc,
+                            "The DC of a spell's saving throw is: 10 + (spell level) + (associated ability score bonus)");
         }
         #endregion
 
         #region GetEffectiveCasterLevel
-        [Test]
+        [Test(Description = "Ensures correct calculation of a spell's effective caster level when it is not explicity specified.")]
         public void GetECL_Nonspecified_UseCharacterLevel()
         {
             // Arrange
@@ -108,11 +112,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var ecl = registeredSpell.GetEffectiveCasterLevel();
 
             // Assert
-            Assert.AreEqual(12, ecl);
+            Assert.AreEqual(12, ecl,
+                           "Unless otherwise specified, a registered spell's effective caster level is equal to the character's level.");
         }
 
 
-		[Test]
+		[Test(Description = "Ensures that a specified effective caster level overrides other calculations, such as using the character's level.")]
 		public void GetECL_Specified_UseCharacterLevel()
 		{
 			// Arrange
@@ -126,7 +131,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			var ecl = registeredSpell.GetEffectiveCasterLevel();
 
 			// Assert
-			Assert.AreEqual(18, ecl);
+			Assert.AreEqual(18, ecl,
+                            "The registered spell's caster level should be used when specified (instead of the character's level).");
 		}
         #endregion
     }

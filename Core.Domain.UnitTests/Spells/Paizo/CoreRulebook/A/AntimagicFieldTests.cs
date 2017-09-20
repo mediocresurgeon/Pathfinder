@@ -8,19 +8,28 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
     [TestFixture]
     public class AntimagicFieldTests
     {
-        [Test]
-		public void AntimagicField_ClericVersion()
+        [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
+		public void AntimagicField_GenericProperties()
 		{
 			// Act
 			var spell = AntimagicField.ClericVersion;
 			// Assert
 			Assert.AreEqual("Antimagic Field", spell.Name);
-			Assert.AreEqual(8, spell.Level);
             Assert.IsFalse(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Abjuration, spell.School);
             Assert.IsEmpty(spell.Subschools);
             Assert.IsEmpty(spell.Descriptors);
 		}
+
+
+        [Test]
+        public void AntimagicField_ClericVersion()
+        {
+			// Act
+			var spell = AntimagicField.ClericVersion;
+			// Assert
+			Assert.AreEqual(8, spell.Level);
+        }
 
 
 		[Test]

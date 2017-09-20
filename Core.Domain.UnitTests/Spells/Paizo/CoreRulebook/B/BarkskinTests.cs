@@ -8,19 +8,28 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
     [TestFixture]
     public class BarkskinTests
     {
-        [Test]
-        public void Barkskin_DruidVersion()
+        [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
+        public void Barkskin_GenericProperties()
         {
             // Act
             var spell = Barkskin.DruidVersion;
 			// Assert
 			Assert.AreEqual("Barkskin", spell.Name);
-			Assert.AreEqual(2, spell.Level);
             Assert.IsFalse(spell.AllowsSavingThrow);
             Assert.AreEqual(School.Transmutation, spell.School);
             Assert.IsEmpty(spell.Subschools);
             Assert.IsEmpty(spell.Descriptors);
         }
+
+
+        [Test]
+		public void Barkskin_DruidVersion()
+		{
+			// Act
+			var spell = Barkskin.DruidVersion;
+			// Assert
+			Assert.AreEqual(2, spell.Level);
+		}
 
 
 		[Test]

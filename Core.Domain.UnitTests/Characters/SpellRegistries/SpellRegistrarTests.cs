@@ -12,18 +12,19 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
     [TestFixture]
     public class SpellRegistrarTests
     {
-        [Test]
+        [Test(Description = "Ensures that an ArgumentNullException is thrown when the constructor is given a null Character argument.")]
         public void Constructor_CharacterNull_Throws()
         {
             // Act
             TestDelegate constructor = () => new SpellRegistrar(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(constructor);
+            Assert.Throws<ArgumentNullException>(constructor,
+                                                 "Null arguments are not allowed.");
         }
 
 
-        [Test]
+        [Test(Description = "Ensures that an ArgumentNullException is thrown when attempting to register a null ISpell.")]
         public void Register_NullSpell_Throws()
         {
 			// Arrange
@@ -33,11 +34,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             TestDelegate registerSpell = () => character.SpellRegistrar.Register(null, character.Charisma);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(registerSpell);
+            Assert.Throws<ArgumentNullException>(registerSpell,
+                                                 "Null arguments are not allowed.");
         }
 
 
-		[Test]
+		[Test(Description = "Ensures that an ArgumentNullException is thrown when attempting to associate a spell with a null IAbilityScore.")]
 		public void Register_NullAbilityScore_Throws()
 		{
 			// Arrange
@@ -48,47 +50,50 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			TestDelegate registerSpell = () => character.SpellRegistrar.Register(mockSpell, null);
 
 			// Assert
-			Assert.Throws<ArgumentNullException>(registerSpell);
+			Assert.Throws<ArgumentNullException>(registerSpell,
+                                                 "Null arguments are not allowed.");
 		}
 
 
-        [Test]
+        [Test(Description = "Ensures that the SpellRegistrar passes through the ECL to the RegisteredSpell.")]
         public void Register_PassesThroughCasterLevel()
         {
 			// Arrange
 			var character = new Character(1);
 			var mockSpell = new Mock<ISpell>().Object;
             byte casterLevel = 20;
+            var registeredSpell = character.SpellRegistrar.Register(mockSpell, character.Charisma, casterLevel);
 
             // Act
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell, character.Charisma, casterLevel);
             var ecl = registeredSpell.GetEffectiveCasterLevel();
 
             // Assert
-            Assert.AreEqual(casterLevel, ecl);
+            Assert.AreEqual(casterLevel, ecl,
+                            "The effective caster level of the spell should use the specified value (when available) instead of reading the character's level.");
         }
 
 
-        [Test]
+        [Test(Description = "Ensures that registered spells can be retrieved.")]
         public void Register_InputCanBeRetrieved()
         {
             // Arrange
             var character = new Character(1);
             var mockSpell = new Mock<ISpell>().Object;
+            character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
             // Act
-            character.SpellRegistrar.Register(mockSpell, character.Charisma);
             var registeredSpells = character.SpellRegistrar
                                             .GetRegisteredSpells()
                                             .Select(rs => rs.Spell)
                                             .ToArray();
 
             // Assert
-            Assert.Contains(mockSpell, registeredSpells);
+            Assert.Contains(mockSpell, registeredSpells,
+                            "The collection of registered spells should include the spells which were registered.");
         }
 
 
-        [Test]
+        [Test(Description = "Ensures that registering a new spell should fire the OnSpellRegistered event.")]
         public void Registering_NewSpell_FiresEvent()
         {
 			// Arrange
@@ -106,11 +111,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
             // Assert
-            Assert.IsTrue(eventFired);
+            Assert.IsTrue(eventFired,
+                          "The OnSpellRegistered event should trigger when registering a new spell.");
         }
 
 
-		[Test]
+		[Test(Description = "Ensures that OnSpellRegistered events are not triggered when a spell is accidentally registered twice.")]
 		public void Registering_DuplicateSpell_FiresEventOnlyOnce()
 		{
 			// Arrange
@@ -129,7 +135,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
             // Assert
-            Assert.AreEqual(1, eventFiredCount);
+            Assert.AreEqual(1, eventFiredCount,
+                            "The OnSpellRegistered event should only trigger the first time a spell is registered.");
 		}
     }
 }

@@ -7,7 +7,7 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
     [TestFixture]
     public class StackingModifierTrackerTests
     {
-        [Test]
+        [Test(Description = "Tests the default calculation for an empty StackingBonusTracker.")]
         public void Default_ZeroTotal()
         {
             // Arrange
@@ -17,11 +17,12 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
             byte total = tracker.GetTotal();
 
             // Assert
-            Assert.AreEqual(0, total);
+            Assert.AreEqual(0, total,
+                           "An unmodified NonStackingBonusTracker should have a total of zero.");
         }
 
 
-		[Test]
+		[Test(Description = "Ensures that the sum of all values from a StackingBonusTracker is returned.")]
 		public void ThreeValues_ReturnSum()
 		{
 			// Arrange
@@ -34,7 +35,8 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
 			byte total = tracker.GetTotal();
 
 			// Assert
-			Assert.AreEqual(6, total);
+			Assert.AreEqual(6, total,
+                           "The sum of all values inside a StackingBonusTracker should be returned.");
 		}
     }
 }

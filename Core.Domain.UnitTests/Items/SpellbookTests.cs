@@ -20,7 +20,8 @@ namespace Core.Domain.UnitTests.Items
             TestDelegate addNull = () => spellbook.Add(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(addNull);
+            Assert.Throws<ArgumentNullException>(addNull,
+                                                 "Null arguments are not allowed.");
         }
 
 
