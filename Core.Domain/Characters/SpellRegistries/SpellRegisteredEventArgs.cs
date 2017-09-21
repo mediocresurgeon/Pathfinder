@@ -6,7 +6,7 @@ namespace Core.Domain.Characters.SpellRegistries
 	/// <summary>
 	/// Contains data about an OnSpellRegistered event.
 	/// </summary>
-	internal sealed class SpellRegisteredEventArgs : EventArgs
+	public sealed class SpellRegisteredEventArgs : EventArgs
 	{
 		private readonly RegisteredSpell _spell;
 

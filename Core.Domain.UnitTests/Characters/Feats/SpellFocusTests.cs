@@ -37,7 +37,7 @@ namespace Core.Domain.UnitTests.Characters.Feats
             var feat = new SpellFocus(School.Necromancy);
 
             // Act
-            feat.Train(character);
+            feat.ApplyTo(character);
             var spellDC = registeredSpell.GetDifficultyClass();
 
 			// Assert
@@ -54,7 +54,7 @@ namespace Core.Domain.UnitTests.Characters.Feats
 			character.Charisma.BaseScore = 18;
 			
             var feat = new SpellFocus(School.Necromancy);
-            feat.Train(character);
+            feat.ApplyTo(character);
 
 			var mockSpell = new Mock<ISpell>();
 			mockSpell.Setup(s => s.Level).Returns(1);

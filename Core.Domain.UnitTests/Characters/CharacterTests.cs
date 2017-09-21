@@ -1,7 +1,10 @@
 ﻿using System;
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.Feats;
+using Moq;
 using NUnit.Framework;
+
 
 namespace Core.Domain.UnitTests.Characters
 {
@@ -33,20 +36,20 @@ namespace Core.Domain.UnitTests.Characters
         }
 
 
-		[Test(Description = "Ensures characters are created at the correct level.")]
-		public void ICharacter_ConstructorValueIsPropertyOutput()
-		{
-			// Arrange
-			byte inputLevel = 17;
-			ICharacter character = Character.Create(inputLevel);
+        [Test(Description = "Ensures characters are created at the correct level.")]
+        public void ICharacter_ConstructorValueIsPropertyOutput()
+        {
+            // Arrange
+            byte inputLevel = 17;
+            ICharacter character = Character.Create(inputLevel);
 
-			// Act
-			byte outputLevel = character.Level;
+            // Act
+            byte outputLevel = character.Level;
 
-			// Assert
-			Assert.AreEqual(inputLevel, outputLevel,
+            // Assert
+            Assert.AreEqual(inputLevel, outputLevel,
                             "The character level from the constructor should assign the character's level.");
-		}
+        }
         #endregion
 
         #region Constructor tests
@@ -78,6 +81,27 @@ namespace Core.Domain.UnitTests.Characters
             Assert.Throws<ArgumentOutOfRangeException>(createCharacter,
                                                        "Characters cannot be higher than level 20.");
         }
+        #endregion
+
+        #region Methods
+        [Test(Description = "Ensures that attempts to train a feat more than once are ignored.")]
+        public void TrainIFeat_Duplicates_Ignored()
+        {
+            // Arrange
+            var character = new Character(1);
+            int trainedCount = 0;
+            var mockFeat = new Mock<IFeat>();
+            mockFeat.Setup(f => f.ApplyTo(It.IsAny<ICharacter>()))
+                    .Callback(() => trainedCount++); // Calling Feat.ApplyTo() should increment the trainedCount variable
+            var feat = mockFeat.Object;
+
+            // Act
+            character.Train(feat); // Should increment trainedCount from 0 to 1
+			character.Train(feat); // Should NOT increment trainedCount from 1 to 2
+
+			// Assert
+			Assert.AreEqual(1, trainedCount);
+		}
         #endregion
     }
 }

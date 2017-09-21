@@ -1,4 +1,5 @@
 ﻿using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Items;
 
@@ -60,6 +61,10 @@ namespace Core.Domain.Characters
         IRegisteredSpellCollection SpellsPrepared { get; }
 
         IRegisteredSpellCollection SpellsKnown { get; }
+        #endregion
+
+        #region Feats
+        void Train(IFeat feat);
         #endregion
     }
 }

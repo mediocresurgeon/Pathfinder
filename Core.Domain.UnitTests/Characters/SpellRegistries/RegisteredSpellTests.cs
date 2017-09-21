@@ -1,5 +1,7 @@
 ﻿using System;
 using Core.Domain.Characters;
+using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Spells;
 using Moq;
 using NUnit.Framework;
@@ -15,10 +17,14 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Constructor_NullSpell_Throws()
         {
             // Arrange
-            var character = new Character(1);
+            var abilityScore = new Mock<IAbilityScore>().Object;
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+            var character = mockCharacter.Object;
+            var spellRegistrar = new SpellRegistrar(character);
 
             // Act
-            TestDelegate register = () => character.SpellRegistrar.Register(null, character.Charisma);
+            TestDelegate register = () => spellRegistrar.Register(null, character.Charisma);
 
             // Assert
             Assert.Throws<ArgumentNullException>(register,
@@ -30,11 +36,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Constructor_NullKeyAbility_Throws()
         {
             // Assert
-            var character = new Character(1);
-            var mockSpell = new Mock<ISpell>().Object;
+            var character = new Mock<ICharacter>().Object;
+            var spell = new Mock<ISpell>().Object;
+            var spellRegistrar = new SpellRegistrar(character);
 
             // Act
-            TestDelegate register = () => character.SpellRegistrar.Register(mockSpell, null);
+            TestDelegate register = () => spellRegistrar.Register(spell, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(register,
@@ -45,12 +52,16 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         [Test(Description = "Ensures that a RegisteredSpell wraps an ISpell correctly.")]
         public void SpellProperty_Returns_SpellFromConstructor()
         {
-            // Assert
-            var character = new Character(1);
+			// Assert
+			var abilityScore = new Mock<IAbilityScore>().Object;
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+			var character = mockCharacter.Object;
+			var spellRegistrar = new SpellRegistrar(character);
             var mockSpell = new Mock<ISpell>().Object;
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
             // Act
+            var registeredSpell = spellRegistrar.Register(mockSpell, abilityScore);
             var spell = registeredSpell.Spell;
 
             // Assert
@@ -62,13 +73,23 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         [Test(Description = "Ensures that bonuses added via AddDfficultyClassBonus(byte) are taken into account when calculating the total DC.")]
         public void AddDfficultyClassBonus_GetDC()
         {
-            // A
-			var character = new Character(3);
-            character.Charisma.BaseScore = 18;
+            // Arrange
+            var mockAbilityScore = new Mock<IAbilityScore>();
+            mockAbilityScore.Setup(a => a.GetBonus()).Returns(4);
+            var abilityScore = mockAbilityScore.Object;
+			
+            var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+			var character = mockCharacter.Object;
+
 			var mockSpell = new Mock<ISpell>();
             mockSpell.Setup(s => s.Level).Returns(2);
             mockSpell.Setup(s => s.AllowsSavingThrow).Returns(true);
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
+            var spell = mockSpell.Object;
+
+            var spellRegistrar = new SpellRegistrar(character);
+
+            var registeredSpell = spellRegistrar.Register(mockSpell.Object, character.Charisma);
 
             // Act
             registeredSpell.AddDifficultyClassBonus(10);
@@ -80,18 +101,23 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         }
         #endregion
 
-
         #region GetDifficultyClass
         [Test(Description = "Ensures that registered spells which do not allow saving throws do not have a DC associated with them.")]
         public void GetDC_DisallowsSavingThrow_SimpleCase()
         {
-            // Arrange
+			// Arrange
+			var abilityScore = new Mock<IAbilityScore>().Object;
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+			var character = mockCharacter.Object;
+
             var mockSpell = new Mock<ISpell>();
             mockSpell.Setup(Spell => Spell.AllowsSavingThrow).Returns(false);
 
-            var character = new Character(1);
+            var spellRegistrar = new SpellRegistrar(character);
 
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
+            var registeredSpell = spellRegistrar.Register(mockSpell.Object, character.Charisma);
 
             // Act
             var dc = registeredSpell.GetDifficultyClass();
@@ -105,22 +131,30 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         [Test(Description = "Ensures that spells which allow saving throws have a correct DC associated with them.")]
         public void GetDC_AllowsSavingThrow_SimpleCase()
         {
-            // Arrange
-            var mockSpell = new Mock<ISpell>();
-            mockSpell.Setup(spell => spell.Level).Returns(5);
-            mockSpell.Setup(Spell => Spell.AllowsSavingThrow).Returns(true);
+			// Arrange
+			var mockAbilityScore = new Mock<IAbilityScore>();
+			mockAbilityScore.Setup(a => a.GetBonus()).Returns(5);
+			var abilityScore = mockAbilityScore.Object;
 
-            var character = new Character(1);
-            character.Charisma.BaseScore = 18;
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+			var character = mockCharacter.Object;
 
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
+			var mockSpell = new Mock<ISpell>();
+			mockSpell.Setup(s => s.Level).Returns(5);
+			mockSpell.Setup(s => s.AllowsSavingThrow).Returns(true);
+			var spell = mockSpell.Object;
+
+			var spellRegistrar = new SpellRegistrar(character);
+
+            var registeredSpell = spellRegistrar.Register(mockSpell.Object, character.Charisma);
 
             // Act
             var dc = registeredSpell.GetDifficultyClass();
 
-            // Assert
-            Assert.AreEqual(19, dc,
-                            "The DC of a spell's saving throw is: 10 + (spell level) + (associated ability score bonus)");
+			// Assert
+			Assert.AreEqual(20, dc,
+							"The DC of a spell's saving throw is: 10 + (spell level) + (associated ability score bonus)");
         }
         #endregion
 
@@ -128,13 +162,22 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         [Test(Description = "Ensures correct calculation of a spell's effective caster level when it is not explicity specified.")]
         public void GetECL_Nonspecified_UseCharacterLevel()
         {
-            // Arrange
-            var mockSpell = new Mock<ISpell>();
-            var character = new Character(12);
+			// Arrange
+			var mockAbilityScore = new Mock<IAbilityScore>();
+			mockAbilityScore.Setup(a => a.GetBonus()).Returns(4);
+			var abilityScore = mockAbilityScore.Object;
 
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+            mockCharacter.Setup(c => c.Level).Returns(12);
+			var character = mockCharacter.Object;
+
+            var spell = new Mock<ISpell>().Object;
+
+            var spellRegistrar = new SpellRegistrar(character);
 
             // Act
+            var registeredSpell = spellRegistrar.Register(spell, character.Charisma);
             var ecl = registeredSpell.GetEffectiveCasterLevel();
 
             // Assert
@@ -147,13 +190,21 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void GetECL_Specified_UseCharacterLevel()
 		{
 			// Arrange
-			var mockSpell = new Mock<ISpell>();
-			var character = new Character(12);
-            byte casterLevel = 18;
+			var mockAbilityScore = new Mock<IAbilityScore>();
+			mockAbilityScore.Setup(a => a.GetBonus()).Returns(4);
+			var abilityScore = mockAbilityScore.Object;
 
-			var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma, casterLevel);
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+			mockCharacter.Setup(c => c.Level).Returns(12);
+			var character = mockCharacter.Object;
+
+			var spell = new Mock<ISpell>().Object;
+
+            var spellRegistrar = new SpellRegistrar(character);
 
 			// Act
+            var registeredSpell = spellRegistrar.Register(spell, character.Charisma, 18); // Note the specified caster level!
 			var ecl = registeredSpell.GetEffectiveCasterLevel();
 
 			// Assert

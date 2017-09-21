@@ -33,7 +33,7 @@ namespace Core.Domain.Characters.Feats
         /// </summary>
         /// <param name="character">The character to train.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when the character argument is null.</exception>
-        internal override void Train(Character character)
+        public override void ApplyTo(ICharacter character)
         {
             if (null == character)
                 throw new ArgumentNullException($"{nameof(character) } argument cannot be null.");

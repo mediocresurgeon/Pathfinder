@@ -12,7 +12,7 @@ namespace Core.Domain.Characters.SpellRegistries
     /// </summary>
     internal sealed class SpellRegistrar : ISpellRegistrar
     {
-        private readonly Character _character;
+        private readonly ICharacter _character;
         private readonly List<RegisteredSpell> _registeredSpells;
         private event OnSpellRegisteredEventHandler _eventHandler;
 
@@ -21,7 +21,7 @@ namespace Core.Domain.Characters.SpellRegistries
 		/// </summary>
 		/// <param name="character">The character to register spells to.  Should not bell null.</param>
 		/// <exception cref="System.ArgumentNullException">Thrown when character argument is null.</exception>
-		internal SpellRegistrar(Character character)
+		internal SpellRegistrar(ICharacter character)
         {
             _character = character ?? throw new ArgumentNullException($"Failed to construct SpellRegistrar: { nameof(character) } argument annot be null.");
             _registeredSpells = new List<RegisteredSpell>();
@@ -70,7 +70,7 @@ namespace Core.Domain.Characters.SpellRegistries
         /// Allows an event handler to be called whenever a new spell is registered.
         /// </summary>
         /// <param name="handler">Handler.</param>
-        internal void OnSpellRegistered(OnSpellRegisteredEventHandler handler)
+        public void OnSpellRegistered(OnSpellRegisteredEventHandler handler)
         {
             _eventHandler += handler;
         }

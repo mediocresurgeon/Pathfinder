@@ -12,5 +12,7 @@ namespace Core.Domain.Characters.SpellRegistries
         IRegisteredSpell Register(ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel);
 
         IEnumerable<IRegisteredSpell> GetRegisteredSpells();
+
+        void OnSpellRegistered(OnSpellRegisteredEventHandler handler);
     }
 }
