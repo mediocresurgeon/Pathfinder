@@ -7,6 +7,8 @@ namespace Core.Domain.Characters.SpellRegistries
 	{
 		ISpell Spell { get; }
 
+        void AddDifficultyClassBonus(byte bonus);
+
         byte? GetDifficultyClass();
 
         byte GetEffectiveCasterLevel();

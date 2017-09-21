@@ -29,6 +29,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         [Test(Description = "Ensures that a NullArgumentException is thrown when the constructor is given a null IAbilityScore argument.")]
         public void Constructor_NullKeyAbility_Throws()
         {
+            // Assert
             var character = new Character(1);
             var mockSpell = new Mock<ISpell>().Object;
 
@@ -41,19 +42,44 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         }
 
 
-        [Test()]
+        [Test(Description = "Ensures that a RegisteredSpell wraps an ISpell correctly.")]
         public void SpellProperty_Returns_SpellFromConstructor()
         {
+            // Assert
             var character = new Character(1);
             var mockSpell = new Mock<ISpell>().Object;
-
-            // Act
             var registeredSpell = character.SpellRegistrar.Register(mockSpell, character.Charisma);
 
+            // Act
+            var spell = registeredSpell.Spell;
+
             // Assert
-            Assert.AreSame(mockSpell, registeredSpell.Spell);
+            Assert.AreSame(mockSpell, spell);
         }
         #endregion
+
+        #region AddDfficultyClassBonus
+        [Test(Description = "Ensures that bonuses added via AddDfficultyClassBonus(byte) are taken into account when calculating the total DC.")]
+        public void AddDfficultyClassBonus_GetDC()
+        {
+            // A
+			var character = new Character(3);
+            character.Charisma.BaseScore = 18;
+			var mockSpell = new Mock<ISpell>();
+            mockSpell.Setup(s => s.Level).Returns(2);
+            mockSpell.Setup(s => s.AllowsSavingThrow).Returns(true);
+            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
+
+            // Act
+            registeredSpell.AddDifficultyClassBonus(10);
+
+            // Assert
+            Assert.AreEqual(26, registeredSpell.GetDifficultyClass(),
+                            "10 base + 2 level + 4 ability + 10 untyped = DC 26");
+
+        }
+        #endregion
+
 
         #region GetDifficultyClass
         [Test(Description = "Ensures that registered spells which do not allow saving throws do not have a DC associated with them.")]

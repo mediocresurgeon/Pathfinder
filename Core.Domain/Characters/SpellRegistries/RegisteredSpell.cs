@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.ModifierTrackers;
 using Core.Domain.Spells;
 
 
@@ -14,6 +15,7 @@ namespace Core.Domain.Characters.SpellRegistries
         private readonly ISpell _spell;
         private readonly IAbilityScore _keyAbilityScore;
         private readonly byte _casterLevel;
+        private readonly UntypedBonusTracker _dcBonuses;
         #endregion
 
         #region Constructor
@@ -29,6 +31,7 @@ namespace Core.Domain.Characters.SpellRegistries
             _spell = spell ?? throw new ArgumentNullException($"{ nameof(spell) } argument cannot be null.");
             _keyAbilityScore = keyAbilityScore ?? throw new ArgumentNullException($"{ nameof(keyAbilityScore) } argument cannot be null.");
             _casterLevel = casterLevel;
+            _dcBonuses = new UntypedBonusTracker();
         }
         #endregion
 
@@ -37,9 +40,19 @@ namespace Core.Domain.Characters.SpellRegistries
         /// Returns data about the spell which is independent of the caster.
         /// </summary>
         public ISpell Spell => _spell;
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
+        /// <summary>
+        /// Adds an untyped bonus to this spell's difficulty class (DC).
+        /// </summary>
+        /// <param name="bonus">The bonus to add.</param>
+		public void AddDifficultyClassBonus(byte bonus)
+		{
+			_dcBonuses.Add(bonus);
+		}
+
+
         /// <summary>
         /// Returns the difficulty class of the spell, factoring in the character's stats and abilities.
         /// </summary>
@@ -50,6 +63,7 @@ namespace Core.Domain.Characters.SpellRegistries
             byte runningTotal = 10;
             runningTotal += Spell.Level;
             runningTotal += _keyAbilityScore.GetBonus();
+            runningTotal += _dcBonuses.GetTotal();
             return runningTotal;
         }
 

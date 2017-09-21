@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+
 
 namespace Core.Domain.Spells
 {
@@ -32,7 +32,7 @@ namespace Core.Domain.Spells
         /// <summary>
         /// The Descriptors of the ISpell.
         /// </summary>
-        IEnumerable<Descriptor> Descriptors { get; }
+        Descriptor[] Descriptors { get; }
 
         /// <summary>
         /// The School of the ISpell.
@@ -42,6 +42,6 @@ namespace Core.Domain.Spells
         /// <summary>
         /// The Subschools of the ISpell.
         /// </summary>
-        IEnumerable<Subschool> Subschools { get; }
+        Subschool[] Subschools { get; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
+﻿using System;
+
+namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// An invisibile barrier which prevents the function of magic within its confines.
@@ -12,12 +14,18 @@
 		private AntimagicField(byte level)
             : base(name:              "Antimagic Field",
                    webAddress:        "http://www.d20pfsrd.com/magic/all-spells/a/antimagic-field",
-                   school:            School.Abjuration,
-                   level:             level,
-                   allowsSavingThrow: false)
+                   level:             level)
         {
 			// Intentionally blank
 		}
+
+		public override Descriptor[] Descriptors => new Descriptor[0];
+
+		public override School School => School.Abjuration;
+
+		public override Subschool[] Subschools => new Subschool[0];
+
+		public override bool AllowsSavingThrow => false;
 
 		/// <summary>
 		/// Returns a Cleric version of Antimagic Field.

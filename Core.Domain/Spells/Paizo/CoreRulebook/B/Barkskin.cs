@@ -1,4 +1,6 @@
-﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
+﻿using System;
+
+namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// Toughens a creature's skin, providing an enchancement bonus to natural armor.
@@ -12,12 +14,18 @@
         private Barkskin(byte level)
 				: base(name:              "Barkskin",
                        webAddress:        "http://www.d20pfsrd.com/magic/all-spells/b/barkskin/",
-                       school:            School.Transmutation,
-                       level:             level,
-                       allowsSavingThrow: false)
+                       level:             level)
         {
             // Intentionally blank
         }
+
+		public override Descriptor[] Descriptors => new Descriptor[0];
+
+		public override School School => School.Transmutation;
+
+		public override Subschool[] Subschools => new Subschool[0];
+
+		public override bool AllowsSavingThrow => false;
 
 		/// <summary>
 		/// Returns a Druid version of Barkskin.

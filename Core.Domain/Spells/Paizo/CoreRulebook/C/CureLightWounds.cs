@@ -1,4 +1,6 @@
-﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
+﻿using System;
+
+namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// Positive energy heals the living and damages undead.
@@ -12,13 +14,18 @@
 		private CureLightWounds(byte level)
             : base(name:              "Cure Light Wounds",
                    webAddress:        "http://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds",
-                   school:            School.Conjuration,
-                   level:             level,
-                   allowsSavingThrow: true,
-                   subschools:        new[] { Subschool.Healing })
+                   level:             level)
         {
 			// Intentionally blank
 		}
+
+		public override Descriptor[] Descriptors => new Descriptor[0];
+
+		public override School School => School.Conjuration;
+
+		public override Subschool[] Subschools => new[] { Subschool.Healing };
+
+		public override bool AllowsSavingThrow => true;
 
         /// <summary>
         /// Returns a Bard version of Cure Light Wounds.

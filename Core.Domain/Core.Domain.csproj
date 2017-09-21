@@ -21,5 +21,7 @@
     <Folder Include="Characters\AbilityScores\" />
     <Folder Include="Characters\SpellRegistries\" />
     <Folder Include="Items\" />
+    <Folder Include="Characters\Feats\" />
+    <Folder Include="Characters\Feats\S\" />
   </ItemGroup>
 </Project>

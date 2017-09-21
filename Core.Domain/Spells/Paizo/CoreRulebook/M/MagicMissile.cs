@@ -1,4 +1,6 @@
-﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
+﻿using System;
+
+namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// Missiles of force strike targets.
@@ -12,13 +14,18 @@
         private MagicMissile(byte level)
             : base(name:              "Magic Missile",
                    webAddress:        "http://www.d20pfsrd.com/magic/all-spells/m/magic-missile",
-                   school:            School.Evocation,
-                   level:             level,
-                   allowsSavingThrow: false,
-                   descriptors:       new[] { Descriptor.Force })
+                   level:             level)
         {
             // Intentionally blank
         }
+
+		public override Descriptor[] Descriptors => new[] { Descriptor.Force };
+
+		public override School School => School.Evocation;
+
+		public override Subschool[] Subschools => new Subschool[0];
+
+		public override bool AllowsSavingThrow => false;
 
         /// <summary>
         /// Returns a Sorcerer version of Magic Missile.
