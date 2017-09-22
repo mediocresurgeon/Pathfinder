@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Domain.Spells;
+﻿using Core.Domain.Spells;
 
 
 namespace Core.Domain.Characters.SpellRegistries

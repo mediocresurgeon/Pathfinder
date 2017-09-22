@@ -5,6 +5,7 @@ using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Items;
 
+
 namespace Core.Domain.Characters
 {
     /// <summary>
@@ -16,6 +17,7 @@ namespace Core.Domain.Characters
         #region Backing variables
         private readonly byte _level;
         private readonly SpellRegistrar _spellRegistrar;
+        private readonly SpellLikeAbilityRegistrar _spellLikeAbilityRegistrar;
         private readonly List<IFeat> _feats;
         #endregion
 
@@ -31,6 +33,7 @@ namespace Core.Domain.Characters
                 throw new ArgumentOutOfRangeException($"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
             _level = level;
             _spellRegistrar = new SpellRegistrar(this);
+            _spellLikeAbilityRegistrar = new SpellLikeAbilityRegistrar(this);
             _feats = new List<IFeat>();
         }
 
@@ -125,13 +128,25 @@ namespace Core.Domain.Characters
         /// <summary>
         /// Returns the collection of spells prepared by this character.
         /// </summary>
-        public IRegisteredSpellCollection SpellsPrepared { get; } = new RegisteredSpellCollection();
+        public ICastableSpellCollection SpellsPrepared { get; } = new CastableSpellCollection();
 
 
         /// <summary>
         /// Returns the collection of spells known by this character.
         /// </summary>
-        public IRegisteredSpellCollection SpellsKnown { get; } = new RegisteredSpellCollection();
+        public ICastableSpellCollection SpellsKnown { get; } = new CastableSpellCollection();
+
+
+		/// <summary>
+		/// Returns this character's spell-like ability register.
+		/// </summary>
+		public ISpellLikeAbilityRegistrar SpellLikeAbilityRegistrar => _spellLikeAbilityRegistrar;
+
+
+        /// <summary>
+        /// Returns the collection of spell-like abilities known by this character.
+        /// </summary>
+        public ISpellLikeAbilityCollection SpellLikeAbilities { get; } = new SpellLikeAbilityCollection();
         #endregion
 
         #region Feats

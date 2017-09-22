@@ -7,11 +7,11 @@ namespace Core.Domain.Characters.SpellRegistries
 {
     public interface ISpellRegistrar
     {
-        IRegisteredSpell Register(ISpell spell, IAbilityScore keyAbilityScore);
+        ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore);
 
-        IRegisteredSpell Register(ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel);
+        ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel);
 
-        IEnumerable<IRegisteredSpell> GetRegisteredSpells();
+        ICastableSpell[] GetSpells();
 
         void OnSpellRegistered(OnSpellRegisteredEventHandler handler);
     }

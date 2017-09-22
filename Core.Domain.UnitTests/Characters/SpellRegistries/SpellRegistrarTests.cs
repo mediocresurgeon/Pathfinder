@@ -83,7 +83,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
             // Act
             var registeredSpells = character.SpellRegistrar
-                                            .GetRegisteredSpells()
+                                            .GetSpells()
                                             .Select(rs => rs.Spell)
                                             .ToArray();
 

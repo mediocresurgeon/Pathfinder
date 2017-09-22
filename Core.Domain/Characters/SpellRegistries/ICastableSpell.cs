@@ -3,7 +3,7 @@
 
 namespace Core.Domain.Characters.SpellRegistries
 {
-	public interface IRegisteredSpell
+	public interface ICastableSpell
 	{
 		ISpell Spell { get; }
 

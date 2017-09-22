@@ -3,6 +3,7 @@ using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Items;
 
+
 namespace Core.Domain.Characters
 {
     /// <summary>
@@ -58,9 +59,13 @@ namespace Core.Domain.Characters
 
         ISpellbook Spellbook { get; set; }
 
-        IRegisteredSpellCollection SpellsPrepared { get; }
+        ICastableSpellCollection SpellsPrepared { get; }
 
-        IRegisteredSpellCollection SpellsKnown { get; }
+        ICastableSpellCollection SpellsKnown { get; }
+
+        ISpellLikeAbilityRegistrar SpellLikeAbilityRegistrar { get; }
+
+        ISpellLikeAbilityCollection SpellLikeAbilities { get; }
         #endregion
 
         #region Feats

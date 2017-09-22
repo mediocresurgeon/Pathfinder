@@ -14,8 +14,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Add_NullArg_Throws()
         {
             // Arrange
-            RegisteredSpellCollection spells = new RegisteredSpellCollection();
-            IRegisteredSpell spellToAdd = null;
+            CastableSpellCollection spells = new CastableSpellCollection();
+            ICastableSpell spellToAdd = null;
 
             // Act
             TestDelegate addMethod = () => spells.Add(spellToAdd);
@@ -30,18 +30,18 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void GetSpellsByLevel_FiltersCorrectly()
 		{
 			// Arrange
-			RegisteredSpellCollection spells = new RegisteredSpellCollection();
+			CastableSpellCollection spells = new CastableSpellCollection();
 
             var mockSpell0 = new Mock<ISpell>();
             mockSpell0.Setup(s => s.Level).Returns(0);
-            var mockRegSpell0 = new Mock<IRegisteredSpell>();
+            var mockRegSpell0 = new Mock<ICastableSpell>();
             mockRegSpell0.Setup(rs => rs.Spell).Returns(mockSpell0.Object);
             var regSpell0 = mockRegSpell0.Object;
             spells.Add(regSpell0);
 
 			var mockSpell1 = new Mock<ISpell>();
 			mockSpell1.Setup(s => s.Level).Returns(1);
-			var mockRegSpell1 = new Mock<IRegisteredSpell>();
+			var mockRegSpell1 = new Mock<ICastableSpell>();
 			mockRegSpell1.Setup(rs => rs.Spell).Returns(mockSpell1.Object);
             var regSpell1 = mockRegSpell1.Object;
 			spells.Add(regSpell1);

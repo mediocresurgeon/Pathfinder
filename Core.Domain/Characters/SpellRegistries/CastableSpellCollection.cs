@@ -6,32 +6,32 @@ using System.Linq;
 namespace Core.Domain.Characters.SpellRegistries
 {
     /// <summary>
-    /// A collection of registered spells, such as the spells prepared by a Cleric.
+    /// A collection of ready-to-cast spells, such as the spells prepared by a Cleric.
     /// </summary>
-    internal sealed class RegisteredSpellCollection : IRegisteredSpellCollection
+    internal sealed class CastableSpellCollection : ICastableSpellCollection
     {
         #region Backing variables
-        private readonly List<IRegisteredSpell> _spells;
-        #endregion
+        private readonly List<ICastableSpell> _spells;
+		#endregion
 
-        #region Constructor
-        /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="T:Core.Domain.Characters.SpellRegistries.RegisteredSpellsCollection"/> class.
-        /// </summary>
-        internal RegisteredSpellCollection()
+		#region Constructor
+		/// <summary>
+		/// Initializes a new instance of the
+		/// <see cref="T:Core.Domain.Characters.SpellRegistries.CastableSpellCollection"/> class.
+		/// </summary>
+		internal CastableSpellCollection()
         {
-            _spells = new List<IRegisteredSpell>();
+            _spells = new List<ICastableSpell>();
         }
         #endregion
 
         #region Methods
         /// <summary>
-        /// Adds the registered spell to this collection.
+        /// Adds the spell to this collection.
         /// </summary>
-        /// <param name="spell">The registered spell to add.</param>
+        /// <param name="spell">The spell to add.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when spell argument is null.</exception>
-        public void Add(IRegisteredSpell spell)
+        public void Add(ICastableSpell spell)
         {
             if (null == spell)
                 throw new ArgumentNullException($"{ nameof(spell) } argument cannot be null.");
@@ -42,9 +42,9 @@ namespace Core.Domain.Characters.SpellRegistries
         /// <summary>
         /// Returns the subset of spells which have a matching level.
         /// </summary>
-        /// <returns>The registered spells.</returns>
+        /// <returns>The spells.</returns>
         /// <param name="level">The spell level to filter by.</param>
-        public IRegisteredSpell[] GetSpellsByLevel(byte level)
+        public ICastableSpell[] GetSpellsByLevel(byte level)
         {
             return _spells.Where(s => level == s.Spell.Level)
                           .ToArray();

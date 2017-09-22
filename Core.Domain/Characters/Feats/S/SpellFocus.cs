@@ -38,7 +38,7 @@ namespace Core.Domain.Characters.Feats
             if (null == character)
                 throw new ArgumentNullException($"{nameof(character) } argument cannot be null.");
             // First, look through already registered spells and update them as necessary
-            foreach(var spell in character.SpellRegistrar.GetRegisteredSpells())
+            foreach(var spell in character.SpellRegistrar.GetSpells())
             {
                 ApplyToSpell(spell);
             }
@@ -55,7 +55,7 @@ namespace Core.Domain.Characters.Feats
 		/// </summary>
 		/// <param name="spell">The spell to apply this feat to.</param>
 		/// <exception cref="System.ArgumentNullException">Thrown when the spell argument is null.</exception>
-		private void ApplyToSpell(IRegisteredSpell spell)
+		private void ApplyToSpell(ICastableSpell spell)
         {
             if (null == spell)
                 throw new ArgumentNullException($"{nameof(spell) } argument cannot be null.");
