@@ -4,6 +4,6 @@
     {
 		void Add(ISpellLikeAbility spell);
 
-		ISpellLikeAbility[] GetSpellsByLevel(byte level);
+		ISpellLikeAbility[] GetAll();
     }
 }

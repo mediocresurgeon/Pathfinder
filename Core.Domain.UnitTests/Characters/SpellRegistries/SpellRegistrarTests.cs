@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Core.Domain.Characters;
+using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Spells;
 using Moq;
@@ -12,131 +12,246 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
     [TestFixture]
     public class SpellRegistrarTests
     {
-        [Test(Description = "Ensures that an ArgumentNullException is thrown when the constructor is given a null Character argument.")]
-        public void Constructor_CharacterNull_Throws()
-        {
-            // Act
-            TestDelegate constructor = () => new SpellRegistrar(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(constructor,
-                                                 "Null arguments are not allowed.");
-        }
-
-
-        [Test(Description = "Ensures that an ArgumentNullException is thrown when attempting to register a null ISpell.")]
-        public void Register_NullSpell_Throws()
-        {
-			// Arrange
-			var character = new Character(1);
-
-            // Act
-            TestDelegate registerSpell = () => character.SpellRegistrar.Register(null, character.Charisma);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(registerSpell,
-                                                 "Null arguments are not allowed.");
-        }
-
-
-		[Test(Description = "Ensures that an ArgumentNullException is thrown when attempting to associate a spell with a null IAbilityScore.")]
-		public void Register_NullAbilityScore_Throws()
+		#region Constructor
+		[Test(Description = "Ensures that SpellRegistrar cannot be created with a null ICharacter argument.")]
+		public void Constructor_NullCharacter_Throws()
 		{
 			// Arrange
-            var character = new Character(1);
-			var mockSpell = new Mock<ISpell>().Object;
+			ICharacter character = null;
 
 			// Act
-			TestDelegate registerSpell = () => character.SpellRegistrar.Register(mockSpell, null);
+			TestDelegate constructor = () => new SpellRegistrar(character);
 
 			// Assert
-			Assert.Throws<ArgumentNullException>(registerSpell,
-                                                 "Null arguments are not allowed.");
+			Assert.Throws<ArgumentNullException>(constructor);
 		}
+		#endregion
 
-
-        [Test(Description = "Ensures that the SpellRegistrar passes through the ECL to the RegisteredSpell.")]
-        public void Register_PassesThroughCasterLevel()
-        {
-			// Arrange
-			var character = new Character(1);
-			var mockSpell = new Mock<ISpell>().Object;
-            byte casterLevel = 20;
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell, character.Charisma, casterLevel);
-
-            // Act
-            var ecl = registeredSpell.GetEffectiveCasterLevel();
-
-            // Assert
-            Assert.AreEqual(casterLevel, ecl,
-                            "The effective caster level of the spell should use the specified value (when available) instead of reading the character's level.");
-        }
-
-
-        [Test(Description = "Ensures that registered spells can be retrieved.")]
-        public void Register_InputCanBeRetrieved()
-        {
-            // Arrange
-            var character = new Character(1);
-            var mockSpell = new Mock<ISpell>().Object;
-            character.SpellRegistrar.Register(mockSpell, character.Charisma);
-
-            // Act
-            var registeredSpells = character.SpellRegistrar
-                                            .GetSpells()
-                                            .Select(rs => rs.Spell)
-                                            .ToArray();
-
-            // Assert
-            Assert.Contains(mockSpell, registeredSpells,
-                            "The collection of registered spells should include the spells which were registered.");
-        }
-
-
-        [Test(Description = "Ensures that registering a new spell should fire the OnSpellRegistered event.")]
-        public void Registering_NewSpell_FiresEvent()
-        {
-			// Arrange
-			var character = new Character(1);
-			var mockSpell = new Mock<ISpell>().Object;
-
-            bool eventFired = false; // We mutate this variable are read from it later
-
-            OnSpellRegisteredEventHandler handler =
-                (obj, args) => eventFired = true;
-
-            character.SpellRegistrar.OnSpellRegistered(handler);
-
-            // Act
-            character.SpellRegistrar.Register(mockSpell, character.Charisma);
-
-            // Assert
-            Assert.IsTrue(eventFired,
-                          "The OnSpellRegistered event should trigger when registering a new spell.");
-        }
-
-
-		[Test(Description = "Ensures that OnSpellRegistered events are not triggered when a spell is accidentally registered twice.")]
-		public void Registering_DuplicateSpell_FiresEventOnlyOnce()
+		#region Register()
+		[Test(Description = "Ensures that calling Register() with a null ISpell argument throws an ArgumentNullException.")]
+		public void Register1_NullISpell_Throws()
 		{
 			// Arrange
-			var character = new Character(1);
-			var mockSpell = new Mock<ISpell>().Object;
+			ISpell spell = null;
+			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
 
-			int eventFiredCount = 0; // We mutate this variable are read from it later
-
-            OnSpellRegisteredEventHandler handler =
-                (obj, args) => eventFiredCount++;;
-
-            character.SpellRegistrar.OnSpellRegistered(handler);
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			// Act
-			character.SpellRegistrar.Register(mockSpell, character.Charisma);
-            character.SpellRegistrar.Register(mockSpell, character.Charisma);
+			TestDelegate registerMethod = () => spellReg.Register(spell, abilityScore);
 
-            // Assert
-            Assert.AreEqual(1, eventFiredCount,
-                            "The OnSpellRegistered event should only trigger the first time a spell is registered.");
+			// Assert
+			Assert.Throws<ArgumentNullException>(registerMethod,
+												 "Null arguments are not allowed.");
 		}
-    }
+
+
+		[Test(Description = "Ensures that calling Register() with a null IAbilityScore argument throws an ArgumentNullException.")]
+		public void Register1_NullIAbilityScore_Throws()
+		{
+			// Arrange
+			ISpell spell = new Mock<ISpell>().Object;
+			IAbilityScore abilityScore = null;
+
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			// Act
+			TestDelegate registerMethod = () => spellReg.Register(spell, abilityScore);
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(registerMethod,
+												 "Null arguments are not allowed.");
+		}
+
+
+		[Test(Description = "Ensures that calling Register() with sensible arguments results in a configured ICastableSpell.")]
+		public void Register1_Returns_ConfiguredISpellLikeAbility()
+		{
+			// Arrange
+			var mockSpell = new Mock<ISpell>();
+			mockSpell.Setup(s => s.Level).Returns(7);
+			ISpell spell = mockSpell.Object;
+
+			var mockAbilityScore = new Mock<IAbilityScore>();
+			mockAbilityScore.Setup(ab => ab.GetBonus()).Returns(4);
+			IAbilityScore abilityScore = mockAbilityScore.Object;
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Level).Returns(19);
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+			ICharacter character = mockCharacter.Object;
+
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			// Act
+            ICastableSpell castable = spellReg.Register(spell, character.Charisma);
+
+			// Assert
+			Assert.IsNotNull(castable);
+			Assert.AreSame(spell, castable.Spell);
+		}
+
+
+		[Test(Description = "Ensures that calling Register() with a null ISpell argument throws an ArgumentNullException.")]
+		public void Register2_NullISpell_Throws()
+		{
+			// Arrange
+			byte casterLevel = 10;
+			ISpell spell = null;
+			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			// Act
+			TestDelegate registerMethod = () => spellReg.Register(spell, abilityScore, casterLevel);
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(registerMethod,
+												 "Null arguments are not allowed.");
+		}
+
+
+		[Test(Description = "Ensures that calling Register() with a null IAbilityScore argument throws an ArgumentNullException.")]
+		public void Register2_NullIAbilityScore_Throws()
+		{
+			// Arrange
+			byte casterLevel = 10;
+			ISpell spell = new Mock<ISpell>().Object;
+			IAbilityScore abilityScore = null;
+
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			// Act
+			TestDelegate registerMethod = () => spellReg.Register(spell, abilityScore, casterLevel);
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(registerMethod,
+												 "Null arguments are not allowed.");
+		}
+
+
+		[Test(Description = "Ensures that calling Register() with sensible arguments results in a configured ICastableSpell.")]
+		public void Register2_Returns_ConfiguredISpellLikeAbility()
+		{
+			// Arrange
+			byte casterLevel = 9;
+
+			var mockSpell = new Mock<ISpell>();
+			mockSpell.Setup(s => s.Level).Returns(7);
+			ISpell spell = mockSpell.Object;
+
+			var mockAbilityScore = new Mock<IAbilityScore>();
+			mockAbilityScore.Setup(ab => ab.GetBonus()).Returns(4);
+			IAbilityScore abilityScore = mockAbilityScore.Object;
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.Level).Returns(19);
+			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
+			ICharacter character = mockCharacter.Object;
+
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			// Act
+            ICastableSpell castable = spellReg.Register(spell, character.Charisma, casterLevel);
+
+			// Assert
+			Assert.IsNotNull(castable);
+			Assert.AreSame(spell, castable.Spell);
+		}
+		#endregion
+
+		#region GetSpellLikeAbilities()
+		[Test(Description = "Ensures that registered spells can be retrieved later.")]
+		public void GetSpellLikeAbilities_Register1_RoundTrip()
+		{
+			// Arrange
+			ISpell spell = new Mock<ISpell>().Object;
+			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+            ICastableSpell castable = spellReg.Register(spell, abilityScore);
+
+			// Act
+            var result = spellReg.GetSpells();
+
+			// Assert
+			Assert.AreEqual(1, result.Length);
+			Assert.Contains(castable, result);
+		}
+
+
+		[Test(Description = "Ensures that registered spells can be retrieved later.")]
+		public void GetSpellLikeAbilities_Register2_RoundTrip()
+		{
+			// Arrange
+			byte casterLevel = 10;
+			ISpell spell = new Mock<ISpell>().Object;
+			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			ICastableSpell castable = spellReg.Register(spell, abilityScore, casterLevel);
+
+			// Act
+            var result = spellReg.GetSpells();
+
+			// Assert
+			Assert.AreEqual(1, result.Length);
+			Assert.Contains(castable, result);
+		}
+		#endregion
+
+		#region OnSpellLikeAbilityRegistered()
+		[Test(Description = "Ensures that calling the Register() method triggers the OnSpellRegistered event.")]
+		public void Register1_TriggersEvent()
+		{
+			// Arrange
+			ISpell spell = new Mock<ISpell>().Object;
+			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			bool wasCalled = false; // This tracks whether the event was fired.
+			OnSpellRegisteredEventHandler handler = (sender, e) => wasCalled = true;
+            spellReg.OnSpellRegistered(handler);
+
+			// Act
+			spellReg.Register(spell, abilityScore);
+
+			// Assert
+			Assert.IsTrue(wasCalled);
+		}
+
+
+		[Test(Description = "Ensures that calling the Register() method triggers the OnSpellRegistered event.")]
+		public void Register2_TriggersEvent()
+		{
+			// Arrange
+			byte casterLevel = 10;
+			ISpell spell = new Mock<ISpell>().Object;
+			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+
+			ICharacter character = new Mock<ICharacter>().Object;
+			SpellRegistrar spellReg = new SpellRegistrar(character);
+
+			bool wasCalled = false; // This tracks whether the event was fired.
+			OnSpellRegisteredEventHandler handler = (sender, e) => wasCalled = true;
+			spellReg.OnSpellRegistered(handler);
+
+			// Act
+			spellReg.Register(spell, abilityScore, casterLevel);
+
+			// Assert
+			Assert.IsTrue(wasCalled);
+		}
+		#endregion
+	}
 }

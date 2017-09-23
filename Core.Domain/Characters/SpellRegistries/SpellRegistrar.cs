@@ -69,7 +69,7 @@ namespace Core.Domain.Characters.SpellRegistries
         /// <summary>
         /// Allows an event handler to be called whenever a new spell is registered.
         /// </summary>
-        /// <param name="handler">Handler.</param>
+        /// <param name="handler">The callback function.</param>
         public void OnSpellRegistered(OnSpellRegisteredEventHandler handler)
         {
             _eventHandler += handler;

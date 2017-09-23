@@ -4,6 +4,6 @@
     {
         void Add(ICastableSpell spell);
 
-        ICastableSpell[] GetSpellsByLevel(byte level);
+        ICastableSpell[] GetAll();
     }
 }

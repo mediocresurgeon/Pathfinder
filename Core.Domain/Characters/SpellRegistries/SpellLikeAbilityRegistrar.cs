@@ -7,7 +7,10 @@ using Core.Domain.Spells;
 
 namespace Core.Domain.Characters.SpellRegistries
 {
-    internal sealed class SpellLikeAbilityRegistrar : ISpellLikeAbilityRegistrar
+	/// <summary>
+	/// Associates spells-like abilities with a character, allowing spell-like ability aggregates to be calculated (such as DCs, caster levels, etc).
+	/// </summary>
+	internal sealed class SpellLikeAbilityRegistrar : ISpellLikeAbilityRegistrar
     {
         #region Backing variables
         private readonly ICharacter _character;
@@ -16,6 +19,12 @@ namespace Core.Domain.Characters.SpellRegistries
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Core.Domain.Characters.SpellRegistries.SpellLikeAbilityRegistrar"/> class.
+        /// </summary>
+        /// <param name="character">The character who owns the registered spell-like abilities.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
         public SpellLikeAbilityRegistrar(ICharacter character)
         {
             _character = character ?? throw new ArgumentNullException($"{ nameof(character) } argument cannot be null.");
@@ -24,12 +33,27 @@ namespace Core.Domain.Characters.SpellRegistries
 		#endregion
 
 		#region Methods
+		/// <summary>
+		/// Registers a spell-like ability.  The caster level is assumed to be equal to the character's level.
+		/// </summary>
+		/// <param name="usesPerDay">The number of times per day the spell-like ability can be used.</param>
+		/// <param name="spell">The spell this spell-like ability imitates.</param>
+		/// <param name="keyAbilityScore">The ability score associated with the spell-like ability.</param>
+		/// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		public ISpellLikeAbility Register(byte usesPerDay, ISpell spell, IAbilityScore keyAbilityScore)
 		{
             return this.Register(usesPerDay, spell, keyAbilityScore, this._character.Level);
 		}
 
 
+        /// <summary>
+        /// Registers a spell-like ability.
+        /// </summary>
+        /// <param name="usesPerDay">The number of times per day the spell-like ability can be used.</param>
+        /// <param name="spell">The spell this spell-like ability imitates.</param>
+        /// <param name="keyAbilityScore">The ability score associated with the spell-like ability.</param>
+        /// <param name="casterLevel">The caster level of the spell-like ability.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		public ISpellLikeAbility Register(byte usesPerDay, ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel)
 		{
 			if (null == spell)
@@ -47,12 +71,19 @@ namespace Core.Domain.Characters.SpellRegistries
 		}
 
 
+        /// <summary>
+        /// Allows an event handler to be called when a new spell-like ability is registered.
+        /// </summary>
+        /// <param name="handler">The callback function.</param>
 		public void OnSpellLikeAbilityRegistered(OnSpellLikeAbilityRegisteredEventHandler handler)
 		{
 			_eventHandler += handler;
 		}
 
 
+        /// <summary>
+        /// Retuens a copy of the collection of registered spell-like abilities.
+        /// </summary>
 		public ISpellLikeAbility[] GetSpellLikeAbilities()
         {
             return _registeredSpells.ToArray();

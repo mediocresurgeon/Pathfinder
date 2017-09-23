@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 
 namespace Core.Domain.Characters.SpellRegistries
@@ -43,11 +42,9 @@ namespace Core.Domain.Characters.SpellRegistries
         /// Returns the subset of spells which have a matching level.
         /// </summary>
         /// <returns>The spells.</returns>
-        /// <param name="level">The spell level to filter by.</param>
-        public ICastableSpell[] GetSpellsByLevel(byte level)
+        public ICastableSpell[] GetAll()
         {
-            return _spells.Where(s => level == s.Spell.Level)
-                          .ToArray();
+            return _spells.ToArray();
         }
         #endregion
     }

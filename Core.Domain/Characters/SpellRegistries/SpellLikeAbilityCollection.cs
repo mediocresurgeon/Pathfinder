@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 
 namespace Core.Domain.Characters.SpellRegistries
@@ -40,11 +39,9 @@ namespace Core.Domain.Characters.SpellRegistries
 		/// Returns the subset of spell-like abilities which have a matching level.
 		/// </summary>
 		/// <returns>The spell-like abilities.</returns>
-		/// <param name="level">The spell level to filter by.</param>
-		public ISpellLikeAbility[] GetSpellsByLevel(byte level)
+		public ISpellLikeAbility[] GetAll()
 		{
-			return _spells.Where(s => level == s.Spell.Level)
-						  .ToArray();
+			return _spells.ToArray();
 		}
 		#endregion
 	}
