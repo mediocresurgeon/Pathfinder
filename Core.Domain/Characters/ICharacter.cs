@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Items;
 
@@ -16,6 +17,13 @@ namespace Core.Domain.Characters
         /// Gets the level.
         /// </summary>
         byte Level { get; }
+
+        #region Movements
+        /// <summary>
+        /// Gets the land speed.
+        /// </summary>
+        IMovement LandSpeed { get; }
+        #endregion
 
         #region Ability scores
         /// <summary>

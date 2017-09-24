@@ -23,5 +23,6 @@
     <Folder Include="Items\" />
     <Folder Include="Characters\Feats\" />
     <Folder Include="Characters\Feats\S\" />
+    <Folder Include="Characters\Movements\" />
   </ItemGroup>
 </Project>

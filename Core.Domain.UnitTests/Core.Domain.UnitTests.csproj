@@ -29,5 +29,6 @@
     <Folder Include="Characters\SpellRegistries\" />
     <Folder Include="Items\" />
     <Folder Include="Characters\Feats\" />
+    <Folder Include="Characters\Movements\" />
   </ItemGroup>
 </Project>

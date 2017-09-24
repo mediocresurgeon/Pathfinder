@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Items;
 
@@ -54,6 +55,14 @@ namespace Core.Domain.Characters
         /// Returns this character's level.
         /// </summary>
         public byte Level => _level;
+
+        #region Movements
+        /// <summary>
+        /// Returns this character's land speed.
+        /// It has a default base speed of 6 squares.
+        /// </summary>
+        public IMovement LandSpeed { get; } = new Land { BaseSpeed = 6 };
+        #endregion
 
         #region Ability scores
         /// <summary>
