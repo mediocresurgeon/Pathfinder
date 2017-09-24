@@ -37,15 +37,26 @@ namespace Core.Domain.Characters.Feats
         {
             if (null == character)
                 throw new ArgumentNullException($"{nameof(character) } argument cannot be null.");
+
             // First, look through already registered spells and update them as necessary
             foreach(var spell in character.SpellRegistrar.GetSpells())
             {
-                ApplyToSpell(spell);
+                this.ApplyToSpell(spell);
             }
+			// Do the same things for spell-like abilities
+			foreach (var spell in character.SpellLikeAbilityRegistrar.GetSpellLikeAbilities())
+			{
+				this.ApplyToSpell(spell);
+			}
+
             // Second, listen for the event that triggers when a spell is registered so they can be updated
             character.SpellRegistrar.OnSpellRegistered((sender, e) => {
                 this.ApplyToSpell(e.Spell);
             });
+			// Do the same thing for spell-like abilities
+            character.SpellLikeAbilityRegistrar.OnSpellLikeAbilityRegistered((sender, e) => {
+                this.ApplyToSpell(e.SpellLikeAbility);
+			});
         }
 		#endregion
 

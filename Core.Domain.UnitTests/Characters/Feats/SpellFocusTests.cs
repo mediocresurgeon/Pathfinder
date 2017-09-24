@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Characters;
 using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Spells;
 using Moq;
 using NUnit.Framework;
@@ -16,58 +17,156 @@ namespace Core.Domain.UnitTests.Characters.Feats
             // Arrange
             var feat = new SpellFocus(School.Enchantment);
 
+            // Act
+            var result = feat.Name;
+
             // Assert
-            Assert.AreEqual("Spell Focus (Enchantment)", feat.Name);
+            Assert.AreEqual("Spell Focus (Enchantment)", result);
+        }
+
+        [Test(Description = "Ensures that applying this feat to a character calls the AddDifficultyClassBonus(1) method of all matching registered spells and spell-like abilities.")]
+        public void ApplyTo_AddDifficultyClassBonus()
+        {
+            /* This test is a bit complex for a unit test, but bear with me.
+             * Consider the following situation:
+             *  Character has two spells registered: an enchantment spell and a necromany spell
+             *  Character has two spell-like abilities registered: an enchantment SLA and a necromancy SLA
+             *  The character learns Spell Focus: Necromancy
+             * We would expect that...
+             *  Enchantment spell remains unaffected
+             *  Necromancy spell has DC increased by +1
+             *  Enchantment SLA remains unaffected
+             *  Necromancy SLA has DC increased by +1
+             * Simple, right?
+             * The scary wall of text is from setting up mocks.
+             */
+
+			// Arrange
+			#region Mock ICastable (necromancy)
+			// Set up ICastableSpell from Necromancy school
+			bool necromancySpellMethodCalled = false;
+            var mockNecromancySpell = new Mock<ISpell>();
+            mockNecromancySpell.Setup(ns => ns.School)
+                               .Returns(School.Necromancy);
+            var mockCastableNecromancy = new Mock<ICastableSpell>();
+            mockCastableNecromancy.Setup(c => c.Spell)
+                                  .Returns(mockNecromancySpell.Object);
+            mockCastableNecromancy.Setup(c => c.AddDifficultyClassBonus(It.Is<byte>(dcBonus => dcBonus == 1)))
+                                  .Callback(() => necromancySpellMethodCalled = true);
+            var castableNecromancy = mockCastableNecromancy.Object;
+            #endregion
+
+            #region Mock ICastable (enchantment)
+            bool enchantmentSpellMethodCalled = false;
+            var mockEnchantmentSpell = new Mock<ISpell>();
+            mockEnchantmentSpell.Setup(ns => ns.School)
+                                .Returns(School.Enchantment);
+            var mockCastableEnchantment = new Mock<ICastableSpell>();
+            mockCastableEnchantment.Setup(c => c.Spell)
+                                  .Returns(mockEnchantmentSpell.Object);
+            mockCastableEnchantment.Setup(c => c.AddDifficultyClassBonus(It.Is<byte>(dcBonus => dcBonus == 1)))
+                                  .Callback(() => enchantmentSpellMethodCalled = true);
+            var castableEnchantment = mockCastableEnchantment.Object;
+            #endregion
+
+            #region mock ISpellRegistrar
+            var mockSpellRegistrar = new Mock<ISpellRegistrar>();
+            mockSpellRegistrar.Setup(sr => sr.GetSpells())
+                              .Returns(new ICastableSpell[] { castableEnchantment, castableNecromancy });
+            #endregion
+
+            #region Mock ISpellLikeAbility (necromancy)
+            // Set up ICastableSpell from Necromancy school
+            bool necromancySlaMethodCalled = false;
+            var mockSlaNecromancy = new Mock<ISpellLikeAbility>();
+            mockSlaNecromancy.Setup(c => c.Spell)
+                                  .Returns(mockNecromancySpell.Object);
+            mockSlaNecromancy.Setup(c => c.AddDifficultyClassBonus(It.Is<byte>(dcBonus => dcBonus == 1)))
+                                  .Callback(() => necromancySlaMethodCalled = true);
+            var slaNecromancy = mockSlaNecromancy.Object;
+            #endregion
+
+            #region Mock ISpellLikeAbility (enchantment)
+            bool enchantmentSlaMethodCalled = false;
+            var mockSlaEnchantment = new Mock<ISpellLikeAbility>();
+            mockSlaEnchantment.Setup(c => c.Spell)
+                                  .Returns(mockEnchantmentSpell.Object);
+            mockSlaEnchantment.Setup(c => c.AddDifficultyClassBonus(It.Is<byte>(dcBonus => dcBonus == 1)))
+                                  .Callback(() => enchantmentSpellMethodCalled = true);
+            var slaEnchantment = mockSlaEnchantment.Object;
+            #endregion
+
+            #region mock ISpellLikeAbilityRegistrar
+            var mockSlaRegistrar = new Mock<ISpellLikeAbilityRegistrar>();
+            mockSlaRegistrar.Setup(sr => sr.GetSpellLikeAbilities())
+                            .Returns(new ISpellLikeAbility[] { slaEnchantment, slaNecromancy });
+            #endregion
+
+            #region Mock ICharacter
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.SpellRegistrar)
+                         .Returns(mockSpellRegistrar.Object);
+            mockCharacter.Setup(c => c.SpellLikeAbilityRegistrar)
+						 .Returns(mockSlaRegistrar.Object);
+            #endregion
+
+            var spellFocus = new SpellFocus(School.Necromancy);
+
+            // Act
+            spellFocus.ApplyTo(mockCharacter.Object);
+
+            // Assert
+            Assert.IsTrue(necromancySpellMethodCalled,
+                          "Spell Focus: Necromancy should increase the DC of necromancy spells.");
+            Assert.IsFalse(enchantmentSpellMethodCalled,
+                          "Spell Focus: Necromancy should not increase the DC of non-necromancy spells.");
+            Assert.IsTrue(necromancySlaMethodCalled,
+                         "Spell Focus: Necromancy should increase the DC of necromancy spell-like abilities.");
+            Assert.IsFalse(enchantmentSlaMethodCalled,
+                          "Spell Focus: Necromancy should not increase the DC of non-necromancy spell-like abilities.");
         }
 
 
-		[Test(Description = "Ensures that training this feat gives a bonus to spells which are already registered")]
-		public void Training_AppliesToExistingSpells()
-		{
+        [Test(Description = "Ensures that applying SpellFocus to a character subscribes to Registrar events.")]
+        public void ApplyTo_SubscribesTo_OnRegisteredEvents()
+        {
             // Arrange
-            var character = new Character(1);
-            character.Charisma.BaseScore = 18;
+            #region mock ISpellRegistrar
+            var spellRegistrarEventSubscribed = false;
+			var mockSpellRegistrar = new Mock<ISpellRegistrar>();
+			mockSpellRegistrar.Setup(sr => sr.GetSpells())
+							  .Returns(new ICastableSpell[0]);
+            mockSpellRegistrar.Setup(sr => sr.OnSpellRegistered(It.IsNotNull<OnSpellRegisteredEventHandler>()))
+                              .Callback(() => spellRegistrarEventSubscribed = true);
+			#endregion
 
-            var mockSpell = new Mock<ISpell>();
-            mockSpell.Setup(s => s.Level).Returns(1);
-            mockSpell.Setup(s => s.AllowsSavingThrow).Returns(true);
-            mockSpell.Setup(s => s.School).Returns(School.Necromancy);
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
+			#region mock ISpellLikeAbilityRegistrar
+            var slaRegistrarEventSubscribed = false;
+			var mockSlaRegistrar = new Mock<ISpellLikeAbilityRegistrar>();
+			mockSlaRegistrar.Setup(sr => sr.GetSpellLikeAbilities())
+							.Returns(new ISpellLikeAbility[0]);
+            mockSlaRegistrar.Setup(sr => sr.OnSpellLikeAbilityRegistered(It.IsNotNull<OnSpellLikeAbilityRegisteredEventHandler>()))
+							  .Callback(() => slaRegistrarEventSubscribed = true);
+			#endregion
 
-            var feat = new SpellFocus(School.Necromancy);
+			#region Mock ICharacter
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.SpellRegistrar)
+						 .Returns(mockSpellRegistrar.Object);
+			mockCharacter.Setup(c => c.SpellLikeAbilityRegistrar)
+						 .Returns(mockSlaRegistrar.Object);
+            #endregion
+
+            var spellFocus = new SpellFocus(School.Necromancy);
 
             // Act
-            feat.ApplyTo(character);
-            var spellDC = registeredSpell.GetDifficultyClass();
+            spellFocus.ApplyTo(mockCharacter.Object);
 
-			// Assert
-            Assert.AreEqual(16, spellDC,
-                            "10 base + 4 ability + 1 level + 1 spell focus = DC 16");
-		}
-
-
-		[Test(Description = "Ensures that spells regsitered after training this feat are affected.")]
-		public void Training_AppliesToNewSpells()
-		{
-			// Arrange
-			var character = new Character(1);
-			character.Charisma.BaseScore = 18;
-			
-            var feat = new SpellFocus(School.Necromancy);
-            feat.ApplyTo(character);
-
-			var mockSpell = new Mock<ISpell>();
-			mockSpell.Setup(s => s.Level).Returns(1);
-			mockSpell.Setup(s => s.AllowsSavingThrow).Returns(true);
-			mockSpell.Setup(s => s.School).Returns(School.Necromancy);
-
-			// Act
-            var registeredSpell = character.SpellRegistrar.Register(mockSpell.Object, character.Charisma);
-			var spellDC = registeredSpell.GetDifficultyClass();
-
-			// Assert
-			Assert.AreEqual(16, spellDC,
-							"10 base + 4 ability + 1 level + 1 spell focus = DC 16");
+            // Assert
+            Assert.IsTrue(spellRegistrarEventSubscribed,
+                          "Spell Focus should add an event listener to Character.SpellRegistrar.OnSpellRegistered()");
+			Assert.IsTrue(slaRegistrarEventSubscribed,
+						  "Spell Focus should add an event listener to Character.SpellLikeAbilityRegistrar.OnSpellLikeAbilityRegistered()");
 		}
     }
 }
