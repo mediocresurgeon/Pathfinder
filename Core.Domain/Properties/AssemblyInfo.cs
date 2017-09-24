@@ -26,4 +26,5 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyKeyFile("")]
 
 // Allows unit testing of internal classes
-[assembly: InternalsVisibleTo("Core.Domain.UnitTests")]
+[assembly: InternalsVisibleTo("Core.Domain.UnitTests")]     // For unit test project
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]  // For Moq library (in unit test project)

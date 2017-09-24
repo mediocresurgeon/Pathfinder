@@ -1,4 +1,5 @@
 ﻿using Core.Domain.Characters.ModifierTrackers;
+using Moq;
 using NUnit.Framework;
 
 
@@ -11,7 +12,7 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
         public void Default_ZeroTotal()
         {
             // Arrange
-            NonStackingModifierTracker tracker = new AlchemicalBonusTracker();
+            NonStackingModifierTracker tracker = new Mock<NonStackingModifierTracker> { CallBase = true}.Object;
 
             // Act
             byte total = tracker.GetTotal();
@@ -26,7 +27,7 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
 		public void ThreeValues_GreatestValueReturned()
 		{
 			// Arrange
-			NonStackingModifierTracker tracker = new AlchemicalBonusTracker();
+			NonStackingModifierTracker tracker = new Mock<NonStackingModifierTracker> { CallBase = true }.Object;
             tracker.Add(2);
 			tracker.Add(5);
             tracker.Add(3);
