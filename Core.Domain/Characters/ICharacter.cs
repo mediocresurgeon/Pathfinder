@@ -18,6 +18,11 @@ namespace Core.Domain.Characters
         /// </summary>
         byte Level { get; }
 
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        SizeCategory Size { get; set; }
+
 		#region Movements
 		/// <summary>
 		/// Gets the burrow speed.

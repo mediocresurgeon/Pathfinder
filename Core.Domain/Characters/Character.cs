@@ -56,6 +56,11 @@ namespace Core.Domain.Characters
         /// </summary>
         public byte Level => _level;
 
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        public SizeCategory Size { get; set; } = SizeCategory.Medium;
+
         #region Movements
         /// <summary>
         /// Returns this character's burrow speed.

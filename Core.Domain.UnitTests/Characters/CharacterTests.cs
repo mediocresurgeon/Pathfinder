@@ -96,6 +96,20 @@ namespace Core.Domain.UnitTests.Characters
             Assert.AreEqual(6, character.LandSpeed.BaseSpeed.Value,
                            "By default, a character should have a land speed of 6 squares.");
         }
+
+
+        [Test(Description = "Ensures that a default character has a sensible value for .Size")]
+        public void Size_DefaultValue()
+        {
+			// Arrange
+			var character = Character.Create(1);
+
+            // Act
+            var size = character.Size;
+
+            // Assert
+            Assert.AreEqual(SizeCategory.Medium, size);
+        }
         #endregion
 
         #region Methods
