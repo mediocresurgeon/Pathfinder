@@ -22,7 +22,9 @@
     <Folder Include="Characters\SpellRegistries\" />
     <Folder Include="Items\" />
     <Folder Include="Characters\Feats\" />
-    <Folder Include="Characters\Feats\S\" />
     <Folder Include="Characters\Movements\" />
+    <Folder Include="Characters\Feats\Paizo\" />
+    <Folder Include="Characters\Feats\Paizo\CoreRulebook\" />
+    <Folder Include="Characters\Feats\Paizo\CoreRulebook\S\" />
   </ItemGroup>
 </Project>

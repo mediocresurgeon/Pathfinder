@@ -3,7 +3,7 @@ using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Spells;
 
 
-namespace Core.Domain.Characters.Feats
+namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
 {
     /// <summary>
     /// Spells of the chosen school are more difficult to resist.

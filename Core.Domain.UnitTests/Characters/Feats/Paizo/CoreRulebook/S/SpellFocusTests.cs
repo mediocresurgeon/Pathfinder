@@ -1,12 +1,12 @@
 ﻿using Core.Domain.Characters;
-using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.Feats.Paizo.CoreRulebook;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Spells;
 using Moq;
 using NUnit.Framework;
 
 
-namespace Core.Domain.UnitTests.Characters.Feats
+namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook
 {
     [TestFixture]
     public class SpellFocusTests
