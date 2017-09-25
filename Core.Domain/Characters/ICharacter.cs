@@ -18,11 +18,31 @@ namespace Core.Domain.Characters
         /// </summary>
         byte Level { get; }
 
-        #region Movements
+		#region Movements
+		/// <summary>
+		/// Gets the burrow speed.
+		/// </summary>
+		IMovement BurrowSpeed { get; }
+
+		/// <summary>
+		/// Gets the climb speed.
+		/// </summary>
+		IMovement ClimbSpeed { get; }
+
+		/// <summary>
+		/// Gets the fly speed.
+		/// </summary>
+		IFly FlySpeed { get; }
+
         /// <summary>
         /// Gets the land speed.
         /// </summary>
         IMovement LandSpeed { get; }
+
+		/// <summary>
+		/// Gets the swim speed.
+		/// </summary>
+		IMovement SwimSpeed { get; }
         #endregion
 
         #region Ability scores

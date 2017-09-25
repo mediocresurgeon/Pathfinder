@@ -83,6 +83,21 @@ namespace Core.Domain.UnitTests.Characters
         }
         #endregion
 
+        #region Properties
+        [Test(Description = "Ensures that a default character has sensible default values for LandSpeed.")]
+        public void LandSpeed_DefaultValues()
+        {
+            // Arrange
+            var character = Character.Create(1);
+
+            // Assert
+            Assert.IsTrue(character.LandSpeed.BaseSpeed.HasValue,
+                         "By default, a character should have a land speed.");
+            Assert.AreEqual(6, character.LandSpeed.BaseSpeed.Value,
+                           "By default, a character should have a land speed of 6 squares.");
+        }
+        #endregion
+
         #region Methods
         [Test(Description = "Ensures that attempts to train a feat more than once are ignored.")]
         public void TrainIFeat_Duplicates_Ignored()

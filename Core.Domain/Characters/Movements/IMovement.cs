@@ -5,7 +5,5 @@
         byte? BaseSpeed { get; set; }
 
         byte? GetTotal();
-
-        void AddEnhancementBonus(byte squares);
     }
 }

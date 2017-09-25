@@ -58,10 +58,48 @@ namespace Core.Domain.Characters
 
         #region Movements
         /// <summary>
+        /// Returns this character's burrow speed.
+        /// It has a null default base speed.
+        /// </summary>
+        internal Movement BurrowSpeed { get; } = new Movement();
+
+        IMovement ICharacter.BurrowSpeed => this.BurrowSpeed;
+
+
+		/// <summary>
+		/// Returns this character's climb speed.
+		/// It has a null default base speed.
+		/// </summary>
+		internal Movement ClimbSpeed { get; } = new Movement();
+
+        IMovement ICharacter.ClimbSpeed => this.ClimbSpeed;
+
+
+		/// <summary>
+		/// Returns this character's fly speed.
+		/// It has a null default base speed.
+		/// </summary>
+		internal Fly FlySpeed { get; } = new Fly();
+
+        IFly ICharacter.FlySpeed => this.FlySpeed;
+
+
+        /// <summary>
         /// Returns this character's land speed.
         /// It has a default base speed of 6 squares.
         /// </summary>
-        public IMovement LandSpeed { get; } = new Land { BaseSpeed = 6 };
+        internal Movement LandSpeed { get; } = new Movement { BaseSpeed = 6 };
+
+        IMovement ICharacter.LandSpeed => this.LandSpeed;
+
+
+		/// <summary>
+		/// Returns this character's swim speed.
+		/// It has a null default base speed.
+		/// </summary>
+		internal Movement SwimSpeed { get; } = new Movement();
+
+        IMovement ICharacter.SwimSpeed => this.SwimSpeed;
         #endregion
 
         #region Ability scores

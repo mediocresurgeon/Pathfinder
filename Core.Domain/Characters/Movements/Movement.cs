@@ -6,8 +6,10 @@ namespace Core.Domain.Characters.Movements
     /// <summary>
     /// A mode of movement, such as burrowing, climbing, flying, swimming, or walking.
     /// </summary>
-    internal abstract class Movement : IMovement
+    internal class Movement : IMovement
     {
+        // This class is intended to support inheritance.
+
         #region Properties
         /// <summary>
         /// The base speed.
