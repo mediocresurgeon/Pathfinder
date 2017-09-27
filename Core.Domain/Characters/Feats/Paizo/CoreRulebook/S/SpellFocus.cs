@@ -14,18 +14,18 @@ namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
 
         #region Backing variables
         private readonly School _school;
+		#endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.Feats.SpellFocus"/> class.
-        /// </summary>
-        /// <param name="school">The school which is the focus.</param>
-        public SpellFocus(School school)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.Feats.SpellFocus"/> class.
+		/// </summary>
+		/// <param name="school">The school which is the focus.</param>
+		public SpellFocus(School school)
             : base(name: $"Spell Focus ({ school })",
                    webAddress: "http://www.d20pfsrd.com/feats/general-feats/spell-focus-final")
         {
             _school = school;
         }
-        #endregion
 
         #region Override methods
         /// <summary>

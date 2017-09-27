@@ -1,6 +1,7 @@
 ﻿using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Movements;
+using Core.Domain.Characters.Skills;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Items;
 
@@ -86,6 +87,8 @@ namespace Core.Domain.Characters
         /// </summary>
         IAbilityScore Charisma { get; }
         #endregion
+
+        ISkillSection Skills { get; }
 
         #region Spells
         ISpellRegistrar SpellRegistrar { get; }

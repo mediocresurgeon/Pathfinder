@@ -2,6 +2,7 @@
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.Skills;
 using Moq;
 using NUnit.Framework;
 
@@ -88,7 +89,7 @@ namespace Core.Domain.UnitTests.Characters
         public void LandSpeed_DefaultValues()
         {
             // Arrange
-            var character = Character.Create(1);
+            var character = new Character(1);
 
             // Assert
             Assert.IsTrue(character.LandSpeed.BaseSpeed.HasValue,
@@ -102,13 +103,29 @@ namespace Core.Domain.UnitTests.Characters
         public void Size_DefaultValue()
         {
 			// Arrange
-			var character = Character.Create(1);
+			var character = new Character(1);
 
             // Act
             var size = character.Size;
 
             // Assert
             Assert.AreEqual(SizeCategory.Medium, size);
+        }
+        #endregion
+
+        #region Skills
+        [Test(Description = "Ensures Character.Skills is an instance of the correct type.")]
+        public void Skills()
+        {
+            // Arrange
+            var character = new Character(1);
+
+            // Act
+            var skills = character.Skills;
+
+            // Act & Assert
+            Assert.IsNotNull(skills);
+            Assert.IsInstanceOf<SkillSection>(skills);
         }
         #endregion
 

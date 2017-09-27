@@ -33,5 +33,6 @@
     <Folder Include="Characters\Feats\Paizo\" />
     <Folder Include="Characters\Feats\Paizo\CoreRulebook\" />
     <Folder Include="Characters\Feats\Paizo\CoreRulebook\S\" />
+    <Folder Include="Characters\Skills\" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Movements;
+using Core.Domain.Characters.Skills;
 using Core.Domain.Characters.SpellRegistries;
 using Core.Domain.Items;
 
@@ -16,9 +17,6 @@ namespace Core.Domain.Characters
     public sealed class Character : ICharacter
     {
         #region Backing variables
-        private readonly byte _level;
-        private readonly SpellRegistrar _spellRegistrar;
-        private readonly SpellLikeAbilityRegistrar _spellLikeAbilityRegistrar;
         private readonly List<IFeat> _feats;
         #endregion
 
@@ -32,10 +30,11 @@ namespace Core.Domain.Characters
         {
             if (1 > level || 20 < level)
                 throw new ArgumentOutOfRangeException($"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
-            _level = level;
-            _spellRegistrar = new SpellRegistrar(this);
-            _spellLikeAbilityRegistrar = new SpellLikeAbilityRegistrar(this);
+            this.Level = level;
+            this.SpellRegistrar = new SpellRegistrar(this);
+            this.SpellLikeAbilityRegistrar = new SpellLikeAbilityRegistrar(this);
             _feats = new List<IFeat>();
+            this.Skills = new SkillSection(this);
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace Core.Domain.Characters
         /// <summary>
         /// Returns this character's level.
         /// </summary>
-        public byte Level => _level;
+        public byte Level { get; }
 
         /// <summary>
         /// Gets or sets the size.
@@ -84,7 +83,7 @@ namespace Core.Domain.Characters
 		/// Returns this character's fly speed.
 		/// It has a null default base speed.
 		/// </summary>
-		internal Fly FlySpeed { get; } = new Fly();
+		internal Movements.Fly FlySpeed { get; } = new Movements.Fly();
 
         IFly ICharacter.FlySpeed => this.FlySpeed;
 
@@ -162,12 +161,14 @@ namespace Core.Domain.Characters
         IAbilityScore ICharacter.Charisma => this.Charisma;
         #endregion
 
+        public ISkillSection Skills { get; }
+
         #region Spells
         /// <summary>
         /// Returns this character's spell register.
         /// </summary>
         /// <value>The spell register.</value>
-        public ISpellRegistrar SpellRegistrar => _spellRegistrar;
+        public ISpellRegistrar SpellRegistrar { get; }
 
 
         /// <summary>
@@ -192,7 +193,7 @@ namespace Core.Domain.Characters
 		/// <summary>
 		/// Returns this character's spell-like ability register.
 		/// </summary>
-		public ISpellLikeAbilityRegistrar SpellLikeAbilityRegistrar => _spellLikeAbilityRegistrar;
+        public ISpellLikeAbilityRegistrar SpellLikeAbilityRegistrar { get; }
 
 
         /// <summary>
@@ -200,17 +201,13 @@ namespace Core.Domain.Characters
         /// </summary>
         public ISpellLikeAbilityCollection SpellLikeAbilities { get; } = new SpellLikeAbilityCollection();
         #endregion
-
-        #region Feats
-        public 
-        #endregion
         #endregion
 
         #region Methods
         /// <summary>
         /// Trains this character in a feat.
         /// </summary>
-        void Train(IFeat feat)
+        public void Train(IFeat feat)
         {
             if (_feats.Contains(feat)) return; // Ignore attempts to train a feat that has already been trained.
             _feats.Add(feat);
