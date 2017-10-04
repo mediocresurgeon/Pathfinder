@@ -5,7 +5,6 @@ using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.Skills;
 using Core.Domain.Characters.SpellRegistries;
-using Core.Domain.Items;
 
 
 namespace Core.Domain.Characters
@@ -29,12 +28,11 @@ namespace Core.Domain.Characters
         internal Character(byte level)
         {
             if (1 > level || 20 < level)
-                throw new ArgumentOutOfRangeException($"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
+                throw new ArgumentOutOfRangeException(nameof(level), $"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
             this.Level = level;
-            this.SpellRegistrar = new SpellRegistrar(this);
-            this.SpellLikeAbilityRegistrar = new SpellLikeAbilityRegistrar(this);
             _feats = new List<IFeat>();
             this.Skills = new SkillSection(this);
+            this.Spells = new SpellSection(this);
         }
 
         /// <summary>
@@ -60,147 +58,15 @@ namespace Core.Domain.Characters
         /// </summary>
         public SizeCategory Size { get; set; } = SizeCategory.Medium;
 
-        #region Movements
-        /// <summary>
-        /// Returns this character's burrow speed.
-        /// It has a null default base speed.
-        /// </summary>
-        internal Movement BurrowSpeed { get; } = new Movement();
+        public IMovementSection MovementModes { get; } = new MovementSection(); 
 
-        IMovement ICharacter.BurrowSpeed => this.BurrowSpeed;
-
-
-		/// <summary>
-		/// Returns this character's climb speed.
-		/// It has a null default base speed.
-		/// </summary>
-		internal Movement ClimbSpeed { get; } = new Movement();
-
-        IMovement ICharacter.ClimbSpeed => this.ClimbSpeed;
-
-
-		/// <summary>
-		/// Returns this character's fly speed.
-		/// It has a null default base speed.
-		/// </summary>
-		internal Movements.Fly FlySpeed { get; } = new Movements.Fly();
-
-        IFly ICharacter.FlySpeed => this.FlySpeed;
-
-
-        /// <summary>
-        /// Returns this character's land speed.
-        /// It has a default base speed of 6 squares.
-        /// </summary>
-        internal Movement LandSpeed { get; } = new Movement { BaseSpeed = 6 };
-
-        IMovement ICharacter.LandSpeed => this.LandSpeed;
-
-
-		/// <summary>
-		/// Returns this character's swim speed.
-		/// It has a null default base speed.
-		/// </summary>
-		internal Movement SwimSpeed { get; } = new Movement();
-
-        IMovement ICharacter.SwimSpeed => this.SwimSpeed;
-        #endregion
-
-        #region Ability scores
-        /// <summary>
-        /// Returns this character's Strength score.
-        /// It has a default base score of 10.
-        /// </summary>
-        internal AbilityScore Strength { get; } = new Strength { BaseScore = 10 };
-
-        IAbilityScore ICharacter.Strength => this.Strength;
-
-
-        /// <summary>
-        /// Returns this character's Dexterity score.
-        /// It has a default base score of 10.
-        /// </summary>
-        internal AbilityScore Dexterity { get; } = new Dexterity { BaseScore = 10 };
-
-        IAbilityScore ICharacter.Dexterity => this.Dexterity;
-
-
-        /// <summary>
-        /// Returns this character's Constitution score.
-        /// It has a default base score of 10.
-        /// </summary>
-        internal AbilityScore Constitution { get; } = new Constitution { BaseScore = 10 };
-
-        IAbilityScore ICharacter.Constitution => this.Constitution;
-
-
-        /// <summary>
-        /// Returns this character's Intelligence score.
-        /// It has a default base score of 10.
-        /// </summary>
-        internal AbilityScore Intelligence { get; } = new Intelligence { BaseScore = 10 };
-
-        IAbilityScore ICharacter.Intelligence => this.Intelligence;
-
-
-        /// <summary>
-        /// Returns this character's Wisdom score.
-        /// It has a default base score of 10.
-        /// </summary>
-        internal AbilityScore Wisdom { get; } = new Wisdom { BaseScore = 10 };
-
-        IAbilityScore ICharacter.Wisdom => this.Wisdom;
-
-
-        /// <summary>
-        /// Returns this character's Charisma score.
-        /// It has a default base score of 10.
-        /// </summary>
-        internal AbilityScore Charisma { get; } = new Charisma { BaseScore = 10 };
-
-        IAbilityScore ICharacter.Charisma => this.Charisma;
-        #endregion
+        public IAbilityScoreSection AbilityScores { get; } = new AbilityScoreSection();
 
         public ISkillSection Skills { get; }
 
-        #region Spells
-        /// <summary>
-        /// Returns this character's spell register.
-        /// </summary>
-        /// <value>The spell register.</value>
-        public ISpellRegistrar SpellRegistrar { get; }
+        public ISpellSection Spells { get; }
 
-
-        /// <summary>
-        /// Returns or assigns the spellbook this character uses to prepare spells.
-        /// Can be null.
-        /// </summary>
-        public ISpellbook Spellbook { get; set; }
-
-
-        /// <summary>
-        /// Returns the collection of spells prepared by this character.
-        /// </summary>
-        public ICastableSpellCollection SpellsPrepared { get; } = new CastableSpellCollection();
-
-
-        /// <summary>
-        /// Returns the collection of spells known by this character.
-        /// </summary>
-        public ICastableSpellCollection SpellsKnown { get; } = new CastableSpellCollection();
-
-
-		/// <summary>
-		/// Returns this character's spell-like ability register.
-		/// </summary>
-        public ISpellLikeAbilityRegistrar SpellLikeAbilityRegistrar { get; }
-
-
-        /// <summary>
-        /// Returns the collection of spell-like abilities known by this character.
-        /// </summary>
-        public ISpellLikeAbilityCollection SpellLikeAbilities { get; } = new SpellLikeAbilityCollection();
-        #endregion
+        public ISpellLikeAbilitySection SpellLikeAbilities { get; }
         #endregion
 
         #region Methods

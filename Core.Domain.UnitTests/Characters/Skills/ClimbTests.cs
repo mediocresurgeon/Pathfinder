@@ -20,9 +20,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
 
             IAbilityScore strength = new Mock<IAbilityScore>().Object;
 
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
+
+            var mockSpeeds = new Mock<IMovementSection>();
+            mockSpeeds.Setup(ms => ms.Climb).Returns(mockClimb.Object);
+
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength).Returns(strength);
-            mockCharacter.Setup(c => c.ClimbSpeed).Returns(mockClimb.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 
             Climb climb = new Climb(mockCharacter.Object);
 
@@ -43,9 +49,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
 
             IAbilityScore strength = new Mock<IAbilityScore>().Object;
 
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+            mockSpeeds.Setup(ms => ms.Climb).Returns(mockClimb.Object);
+
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Strength).Returns(strength);
-			mockCharacter.Setup(c => c.ClimbSpeed).Returns(mockClimb.Object);
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 
 			Climb climb = new Climb(mockCharacter.Object);
 

@@ -13,6 +13,6 @@ namespace Core.Domain.Characters.SpellRegistries
 
         ICastableSpell[] GetSpells();
 
-        void OnSpellRegistered(OnSpellRegisteredEventHandler handler);
+        void OnRegistered(OnSpellRegisteredEventHandler handler);
     }
 }

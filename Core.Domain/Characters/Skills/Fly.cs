@@ -14,14 +14,14 @@ namespace Core.Domain.Characters.Skills
         /// <param name="character">The character to whom this skill belongs.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         internal Fly(ICharacter character)
-            : base(character, character?.Dexterity, "Fly")
+            : base(character, character?.AbilityScores?.Dexterity, "Fly")
         {
             #region Untyped maneuverability bonus
             this.UntypedBonuses.Add(() =>
             {
-                if (this.Character.FlySpeed.BaseSpeed.HasValue)
+                if (this.Character.MovementModes.Fly.BaseSpeed.HasValue)
                 {
-                    switch (this.Character.FlySpeed.Maneuverability)
+                    switch (this.Character.MovementModes.Fly.Maneuverability)
                     {
                         case Maneuverability.Perfect: return 8;
                         case Maneuverability.Good: return 4;
@@ -33,9 +33,9 @@ namespace Core.Domain.Characters.Skills
             #region Maneuverabiity penalty
             this.Penalties.Add(() =>
             {
-                if (this.Character.FlySpeed.BaseSpeed.HasValue)
+                if (this.Character.MovementModes.Fly.BaseSpeed.HasValue)
                 {
-                    switch (this.Character.FlySpeed.Maneuverability)
+                    switch (this.Character.MovementModes.Fly.Maneuverability)
                     {
                         case Maneuverability.Clumsy: return 8;
                         case Maneuverability.Poor: return 4;
@@ -47,7 +47,7 @@ namespace Core.Domain.Characters.Skills
             #region Size bonus
             this.SizeBonuses.Add(() =>
             {
-                if (this.Character.FlySpeed.BaseSpeed.HasValue)
+                if (this.Character.MovementModes.Fly.BaseSpeed.HasValue)
                 {
                     switch (this.Character.Size)
                     {
@@ -61,7 +61,7 @@ namespace Core.Domain.Characters.Skills
             #region Size penalty
             this.Penalties.Add(() =>
             {
-                if (this.Character.FlySpeed.BaseSpeed.HasValue)
+                if (this.Character.MovementModes.Fly.BaseSpeed.HasValue)
                 {
                     switch (this.Character.Size)
                     {
@@ -83,7 +83,7 @@ namespace Core.Domain.Characters.Skills
             // Characters with a fly speed treat Fly as a class skill.
             get
             {
-                return (this.Character.FlySpeed.BaseSpeed.HasValue || base.IsClassSkill);
+                return (this.Character.MovementModes.Fly.BaseSpeed.HasValue || base.IsClassSkill);
             }
             set => base.IsClassSkill = value;
         }

@@ -30,27 +30,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Act) is instantiated correctly.")]
         public void Default_Act()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -67,27 +54,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Comedy) is instantiated correctly.")]
         public void Default_Comedy()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -104,27 +78,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Dance) is instantiated correctly.")]
         public void Default_Dance()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -141,27 +102,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Keyboard Instruments) is instantiated correctly.")]
         public void Default_KeyboardInstruments()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -178,27 +126,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Oratory) is instantiated correctly.")]
         public void Default_Oratory()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -215,27 +150,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Percussion Instruments) is instantiated correctly.")]
         public void Default_PercussionInstruments()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -252,27 +174,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (String Instruments) is instantiated correctly.")]
         public void Default_StringInstruments()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -289,27 +198,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Wind Instruments) is instantiated correctly.")]
         public void Default_WindInstruments()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -326,27 +222,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Perform (Sing) is instantiated correctly.")]
         public void Default_Sing()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var charisma = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 

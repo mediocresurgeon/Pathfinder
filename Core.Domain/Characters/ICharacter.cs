@@ -24,85 +24,15 @@ namespace Core.Domain.Characters
         /// </summary>
         SizeCategory Size { get; set; }
 
-		#region Movements
-		/// <summary>
-		/// Gets the burrow speed.
-		/// </summary>
-		IMovement BurrowSpeed { get; }
+        IMovementSection MovementModes { get; }
 
-		/// <summary>
-		/// Gets the climb speed.
-		/// </summary>
-		IMovement ClimbSpeed { get; }
-
-		/// <summary>
-		/// Gets the fly speed.
-		/// </summary>
-		IFly FlySpeed { get; }
-
-        /// <summary>
-        /// Gets the land speed.
-        /// </summary>
-        IMovement LandSpeed { get; }
-
-		/// <summary>
-		/// Gets the swim speed.
-		/// </summary>
-		IMovement SwimSpeed { get; }
-        #endregion
-
-        #region Ability scores
-        /// <summary>
-        /// Gets the Strength.
-        /// </summary>
-        IAbilityScore Strength { get; }
-
-
-        /// <summary>
-        /// Gets the Dexterity.
-        /// </summary>
-        IAbilityScore Dexterity { get; }
-
-
-        /// <summary>
-        /// Gets the Consitution.
-        /// </summary>
-        IAbilityScore Constitution { get; }
-
-
-        /// <summary>
-        /// Gets the Intelligence.
-        /// </summary>
-        IAbilityScore Intelligence { get; }
-
-
-        /// <summary>
-        /// Gets the Wisdom.
-        /// </summary>
-        IAbilityScore Wisdom { get; }
-
-
-        /// <summary>
-        /// Gets the Charisma.
-        /// </summary>
-        IAbilityScore Charisma { get; }
-        #endregion
+        IAbilityScoreSection AbilityScores { get; }
 
         ISkillSection Skills { get; }
 
-        #region Spells
-        ISpellRegistrar SpellRegistrar { get; }
+        ISpellSection Spells { get; }
 
-        ISpellbook Spellbook { get; set; }
-
-        ICastableSpellCollection SpellsPrepared { get; }
-
-        ICastableSpellCollection SpellsKnown { get; }
-
-        ISpellLikeAbilityRegistrar SpellLikeAbilityRegistrar { get; }
-
-        ISpellLikeAbilityCollection SpellLikeAbilities { get; }
-        #endregion
+        ISpellLikeAbilitySection SpellLikeAbilities { get; }
 
         #region Feats
         void Train(IFeat feat);

@@ -15,7 +15,7 @@ namespace Core.Domain.Characters.Skills
 		internal Craft(ICharacter character, string craftType)
             : base(
                 character:       character,
-                keyAbilityScore: character?.Intelligence,
+                keyAbilityScore: character?.AbilityScores?.Intelligence,
                 name:            $"Craft ({ craftType ?? throw new ArgumentNullException(nameof(craftType), "Argument cannot be null.") })")
         {
             // Intentionally blank

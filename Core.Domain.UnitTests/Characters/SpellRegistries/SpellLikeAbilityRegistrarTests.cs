@@ -84,13 +84,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level).Returns(19);
-            mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
             ICharacter character = mockCharacter.Object;
 
             SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
 
             // Act
-            ISpellLikeAbility sla = slaReg.Register(usesPerDay, spell, character.Charisma);
+            ISpellLikeAbility sla = slaReg.Register(usesPerDay, spell, abilityScore);
 
             // Assert
             Assert.IsNotNull(sla);
@@ -158,13 +157,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level).Returns(19);
-            mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
             ICharacter character = mockCharacter.Object;
 
             SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
 
             // Act
-            ISpellLikeAbility sla = slaReg.Register(usesPerDay, spell, character.Charisma, casterLevel);
+            ISpellLikeAbility sla = slaReg.Register(usesPerDay, spell, abilityScore, casterLevel);
 
             // Assert
             Assert.IsNotNull(sla);
@@ -233,7 +231,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
             bool wasCalled = false; // This tracks whether the event was fired.
             OnSpellLikeAbilityRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-            slaReg.OnSpellLikeAbilityRegistered(handler);
+            slaReg.OnRegistered(handler);
 
 			// Act
 			slaReg.Register(usesPerDay, spell, abilityScore);
@@ -257,7 +255,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
 			bool wasCalled = false; // This tracks whether the event was fired.
 			OnSpellLikeAbilityRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-			slaReg.OnSpellLikeAbilityRegistered(handler);
+			slaReg.OnRegistered(handler);
 
 			// Act
             slaReg.Register(usesPerDay, spell, abilityScore, casterLevel);

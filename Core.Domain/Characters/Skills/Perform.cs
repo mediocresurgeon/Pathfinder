@@ -15,7 +15,7 @@ namespace Core.Domain.Characters.Skills
         internal Perform(ICharacter character, string performType)
             : base(
                 character:       character,
-                keyAbilityScore: character?.Charisma,
+                keyAbilityScore: character?.AbilityScores?.Charisma,
                 name:            $"Perform ({ performType ?? throw new ArgumentNullException(nameof(performType), "Argument cannot be null.") })")
         {
             // Intentionally blank

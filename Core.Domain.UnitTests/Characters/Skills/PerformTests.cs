@@ -32,8 +32,10 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			IAbilityScore charisma = new Mock<IAbilityScore>().Object;
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Charisma).Returns(charisma);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 			string performType = null;
 
 			// Act
@@ -49,8 +51,10 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			IAbilityScore charisma = new Mock<IAbilityScore>().Object;
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Charisma).Returns(charisma);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 			string performType = "Trash Talk";
 
 			// Act

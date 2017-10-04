@@ -32,9 +32,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
             // Arrange
             IAbilityScore intelligence = new Mock<IAbilityScore>().Object;
+
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Intelligence).Returns(intelligence);
-			string craftType = null;
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			
+            string craftType = null;
 
 			// Act
 			TestDelegate constructor = () => new Craft(mockCharacter.Object, craftType);
@@ -49,9 +54,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         {
 			// Arrange
 			IAbilityScore intelligence = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Intelligence).Returns(intelligence);
-			string craftType = "Robot";
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			
+            string craftType = "Robot";
 
 			// Act
             var craft = new Craft(mockCharacter.Object, craftType);

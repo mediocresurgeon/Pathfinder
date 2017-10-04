@@ -12,6 +12,6 @@ namespace Core.Domain.Characters.SpellRegistries
 
 		ISpellLikeAbility[] GetSpellLikeAbilities();
 
-		void OnSpellLikeAbilityRegistered(OnSpellLikeAbilityRegisteredEventHandler handler);
+		void OnRegistered(OnSpellLikeAbilityRegisteredEventHandler handler);
 	}
 }

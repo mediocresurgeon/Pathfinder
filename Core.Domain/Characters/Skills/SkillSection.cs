@@ -15,32 +15,32 @@ namespace Core.Domain.Characters.Skills
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Arguments cannot be null.");
-            this.Acrobatics     = new Skill(character, character.Dexterity, "Acrobatics");
-            this.Appraise       = new Skill(character, character.Intelligence, "Appraise");
-            this.Bluff          = new Skill(character, character.Charisma, "Bluff");
+            this.Acrobatics     = new Skill(character, character?.AbilityScores?.Dexterity, "Acrobatics");
+            this.Appraise       = new Skill(character, character?.AbilityScores?.Intelligence, "Appraise");
+            this.Bluff          = new Skill(character, character?.AbilityScores?.Charisma, "Bluff");
             this.Climb          = new Climb(character);
             this.Craft = new CraftSkillSection(character);
-            this.Diplomacy      = new Skill(character, character.Charisma, "Diplomacy");
-            this.DisableDevice  = new Skill(character, character.Dexterity, "Disable Device") { CanBeUsedUntrained = false };
-            this.Disguise       = new Skill(character, character.Charisma, "Disguise");
-            this.EscapeArtist   = new Skill(character, character.Dexterity, "Escape Artist");
+            this.Diplomacy      = new Skill(character, character?.AbilityScores?.Charisma, "Diplomacy");
+            this.DisableDevice  = new Skill(character, character?.AbilityScores?.Dexterity, "Disable Device") { CanBeUsedUntrained = false };
+            this.Disguise       = new Skill(character, character?.AbilityScores?.Charisma, "Disguise");
+            this.EscapeArtist   = new Skill(character, character?.AbilityScores?.Dexterity, "Escape Artist");
             this.Fly            = new Fly(character);
-            this.HandleAnimal   = new Skill(character, character.Charisma, "Handle Animal") { CanBeUsedUntrained = false };
-            this.Heal           = new Skill(character, character.Wisdom, "Heal");
-            this.Intimidate     = new Skill(character, character.Charisma, "Intimidate");
+            this.HandleAnimal   = new Skill(character, character?.AbilityScores?.Charisma, "Handle Animal") { CanBeUsedUntrained = false };
+            this.Heal           = new Skill(character, character?.AbilityScores?.Wisdom, "Heal");
+            this.Intimidate     = new Skill(character, character?.AbilityScores?.Charisma, "Intimidate");
             this.Knowledge = new KnowledgeSkillSection(character);
-            this.Linguistics    = new Skill(character, character.Intelligence, "Linguistics") { CanBeUsedUntrained = false };
-            this.Perception     = new Skill(character, character.Wisdom, "Perception");
+            this.Linguistics    = new Skill(character, character?.AbilityScores?.Intelligence, "Linguistics") { CanBeUsedUntrained = false };
+            this.Perception     = new Skill(character, character?.AbilityScores?.Wisdom, "Perception");
             this.Perform = new PerformSkillSection(character);
             this.Profession = new ProfessionSkillSection(character);
-            this.Ride           = new Skill(character, character.Dexterity, "Ride");
-            this.SenseMotive    = new Skill(character, character.Wisdom, "Sense Motive");
-            this.SleightOfHand  = new Skill(character, character.Dexterity, "Sleight of Hand") { CanBeUsedUntrained = false };
-            this.Spellcraft     = new Skill(character, character.Intelligence, "Spellcraft") { CanBeUsedUntrained = false };
+            this.Ride           = new Skill(character, character?.AbilityScores?.Dexterity, "Ride");
+            this.SenseMotive    = new Skill(character, character?.AbilityScores?.Wisdom, "Sense Motive");
+            this.SleightOfHand  = new Skill(character, character?.AbilityScores?.Dexterity, "Sleight of Hand") { CanBeUsedUntrained = false };
+            this.Spellcraft     = new Skill(character, character?.AbilityScores?.Intelligence, "Spellcraft") { CanBeUsedUntrained = false };
             this.Stealth        = new Stealth(character);
-            this.Survival       = new Skill(character, character.Wisdom, "Survival");
+            this.Survival       = new Skill(character, character?.AbilityScores?.Wisdom, "Survival");
             this.Swim           = new Swim(character);
-            this.UseMagicDevice = new Skill(character, character.Charisma, "Use Magic Device") { CanBeUsedUntrained = false };
+            this.UseMagicDevice = new Skill(character, character?.AbilityScores?.Charisma, "Use Magic Device") { CanBeUsedUntrained = false };
         }
         #endregion
 

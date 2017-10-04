@@ -11,10 +11,10 @@
 		/// <param name="character">The character to whom this skill belongs.</param>
 		/// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		internal Climb(ICharacter character)
-            : base(character, character?.Strength, "Climb")
+            : base(character, character?.AbilityScores?.Strength, "Climb")
         {
             // If the character has a climb speed, it gets a +8 racial bonus to climb.
-            this.RacialBonuses.Add(() => this.Character.ClimbSpeed.BaseSpeed.HasValue ? (byte)8 : (byte)0);
+            this.RacialBonuses.Add(() => this.Character.MovementModes.Climb.BaseSpeed.HasValue ? (byte)8 : (byte)0);
         }
     }
 }

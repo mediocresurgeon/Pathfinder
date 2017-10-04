@@ -15,7 +15,7 @@ namespace Core.Domain.Characters.Skills
 		internal Knowledge(ICharacter character, string knowledgeType)
             : base(
                 character:       character,
-                keyAbilityScore: character?.Intelligence,
+                keyAbilityScore: character?.AbilityScores?.Intelligence,
                 name:            $"Knowledge ({ knowledgeType ?? throw new ArgumentNullException(nameof(knowledgeType), $"Argument cannot be null.") })")
         {
             this.CanBeUsedUntrained = false;

@@ -31,26 +31,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Default_Alchemy()
 		{
 			// Arrange
-			var strength     = new Mock<IAbilityScore>().Object;
-			var dexterity    = new Mock<IAbilityScore>().Object;
-			var constitution = new Mock<IAbilityScore>().Object;
 			var intelligence = new Mock<IAbilityScore>().Object;
-			var wisdom       = new Mock<IAbilityScore>().Object;
-			var charisma     = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Strength)
-						 .Returns(strength);
-			mockCharacter.Setup(c => c.Dexterity)
-						 .Returns(dexterity);
-			mockCharacter.Setup(c => c.Constitution)
-						 .Returns(constitution);
-			mockCharacter.Setup(c => c.Intelligence)
-						 .Returns(intelligence);
-			mockCharacter.Setup(c => c.Wisdom)
-						 .Returns(wisdom);
-			mockCharacter.Setup(c => c.Charisma)
-						 .Returns(charisma);
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -67,27 +54,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Armor) is instantiated correctly.")]
         public void Default_Armor()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -104,27 +78,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Baskets) is instantiated correctly.")]
         public void Default_Baskets()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -141,27 +102,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Books) is instantiated correctly.")]
         public void Default_Books()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -178,27 +126,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Bows) is instantiated correctly.")]
         public void Default_Bows()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -215,27 +150,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Calligraphy) is instantiated correctly.")]
         public void Default_Calligraphy()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -252,27 +174,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Carpentry) is instantiated correctly.")]
         public void Default_Carpentry()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -289,27 +198,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Cloth) is instantiated correctly.")]
         public void Default_Cloth()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -326,27 +222,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Clothing) is instantiated correctly.")]
         public void Default_Clothing()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -363,27 +246,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Glass) is instantiated correctly.")]
         public void Default_Glass()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -400,27 +270,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Jewelry) is instantiated correctly.")]
         public void Default_Jewelry()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -437,27 +294,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Leather) is instantiated correctly.")]
         public void Default_Leather()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -474,27 +318,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Locks) is instantiated correctly.")]
         public void Default_Locks()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -511,27 +342,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Paintings) is instantiated correctly.")]
         public void Default_Paintings()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -548,27 +366,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Pottery) is instantiated correctly.")]
         public void Default_Pottery()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -585,27 +390,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Sculptures) is instantiated correctly.")]
         public void Default_Sculptures()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -622,27 +414,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Ships) is instantiated correctly.")]
         public void Default_Ships()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -659,27 +438,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Shoes) is instantiated correctly.")]
         public void Default_Shoes()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -696,27 +462,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Stonemasonry) is instantiated correctly.")]
         public void Default_Stonemasonry()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -733,27 +486,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Traps) is instantiated correctly.")]
         public void Default_Traps()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 
@@ -770,27 +510,14 @@ namespace Core.Domain.UnitTests.Characters.Skills
         [Test(Description = "Ensures Craft (Weapons) is instantiated correctly.")]
         public void Default_Weapons()
         {
-            // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+			// Arrange
+			var intelligence = new Mock<IAbilityScore>().Object;
 
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Strength)
-                         .Returns(strength);
-            mockCharacter.Setup(c => c.Dexterity)
-                         .Returns(dexterity);
-            mockCharacter.Setup(c => c.Constitution)
-                         .Returns(constitution);
-            mockCharacter.Setup(c => c.Intelligence)
-                         .Returns(intelligence);
-            mockCharacter.Setup(c => c.Wisdom)
-                         .Returns(wisdom);
-            mockCharacter.Setup(c => c.Charisma)
-                         .Returns(charisma);
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+
+			var mockCharacter = new Mock<ICharacter>();
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 
             var crafts = new CraftSkillSection(mockCharacter.Object);
 

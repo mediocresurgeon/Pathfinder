@@ -23,7 +23,7 @@ namespace Core.Domain.Characters.SpellRegistries
 		/// <exception cref="System.ArgumentNullException">Thrown when character argument is null.</exception>
 		internal SpellRegistrar(ICharacter character)
         {
-            _character = character ?? throw new ArgumentNullException($"Failed to construct SpellRegistrar: { nameof(character) } argument annot be null.");
+            _character = character ?? throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
             _registeredSpells = new List<ICastableSpell>();
         }
 
@@ -56,7 +56,7 @@ namespace Core.Domain.Characters.SpellRegistries
             if (null == keyAbilityScore)
                 throw new ArgumentNullException($"{ nameof(keyAbilityScore) } argument cannot be null.");
             ICastableSpell existingSpell = _registeredSpells.Where(rs => rs.Spell == spell)
-                                                             .FirstOrDefault();
+                                                            .FirstOrDefault();
             if (null != existingSpell)
                 return existingSpell;
             ICastableSpell newSpell = new CastableSpell(spell, keyAbilityScore, casterLevel);
@@ -70,7 +70,7 @@ namespace Core.Domain.Characters.SpellRegistries
         /// Allows an event handler to be called whenever a new spell is registered.
         /// </summary>
         /// <param name="handler">The callback function.</param>
-        public void OnSpellRegistered(OnSpellRegisteredEventHandler handler)
+        public void OnRegistered(OnSpellRegisteredEventHandler handler)
         {
             _eventHandler += handler;
         }

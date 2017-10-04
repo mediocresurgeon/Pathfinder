@@ -21,19 +21,11 @@ namespace Core.Domain.UnitTests.Characters
             // Arrange
             ICharacter character = Character.Create(1);
 
+            // Act
+            var abilityScores = character.AbilityScores;
+
             // Assert
-            Assert.IsInstanceOf<Strength>(character.Strength,
-                                          "Character.Strength should be a Strength score.");
-            Assert.IsInstanceOf<Dexterity>(character.Dexterity,
-                                           "Character.Dexterity should be a Dexterity score.");
-            Assert.IsInstanceOf<Constitution>(character.Constitution,
-                                              "Character.Constitution should be a Constitution score.");
-            Assert.IsInstanceOf<Intelligence>(character.Intelligence,
-                                              "Character.Intelligence should be a Intelligence score.");
-            Assert.IsInstanceOf<Wisdom>(character.Wisdom,
-                                        "Character.Wisdom should be a Wisdom score.");
-            Assert.IsInstanceOf<Charisma>(character.Charisma,
-                                          "Character.Charisma should be a Charisma score.");
+            Assert.IsInstanceOf<AbilityScoreSection>(abilityScores);
         }
 
 
@@ -92,9 +84,9 @@ namespace Core.Domain.UnitTests.Characters
             var character = new Character(1);
 
             // Assert
-            Assert.IsTrue(character.LandSpeed.BaseSpeed.HasValue,
+            Assert.IsTrue(character.MovementModes.Land.BaseSpeed.HasValue,
                          "By default, a character should have a land speed.");
-            Assert.AreEqual(6, character.LandSpeed.BaseSpeed.Value,
+            Assert.AreEqual(6, character.MovementModes.Land.BaseSpeed.Value,
                            "By default, a character should have a land speed of 6 squares.");
         }
 

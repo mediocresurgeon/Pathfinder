@@ -11,7 +11,7 @@
 		/// <param name="character">The character to whom this skill belongs.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		internal Stealth(ICharacter character)
-            : base(character, character?.Dexterity, "Stealth")
+            : base(character, character?.AbilityScores?.Dexterity, "Stealth")
         {
 			#region Size bonus
 			this.SizeBonuses.Add(() =>

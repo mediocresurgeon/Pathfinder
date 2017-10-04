@@ -14,10 +14,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Small_SizeBonus_NoPenalty()
         {
 			// Arrange
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Small);
 
 			Stealth stealthSkill = new Stealth(mockCharacter.Object);
@@ -33,10 +36,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Medium_NoSizeBonus_NoPenalty()
 		{
 			// Arrange
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Medium);
 
 			Stealth stealthSkill = new Stealth(mockCharacter.Object);
@@ -51,10 +57,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Large_NoSizeBonus_NoPenalty()
 		{
 			// Arrange
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Large);
 
 			Stealth stealthSkill = new Stealth(mockCharacter.Object);

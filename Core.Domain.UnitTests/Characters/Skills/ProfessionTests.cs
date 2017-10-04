@@ -32,8 +32,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Wisdom).Returns(wisdom);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+
 			string professionType = null;
 
 			// Act
@@ -49,8 +54,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Wisdom).Returns(wisdom);
+			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+
 			string professionType = "Superhero";
 
 			// Act

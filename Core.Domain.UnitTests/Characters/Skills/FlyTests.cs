@@ -17,11 +17,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             var mockFlySpeed = new Mock<IFly>();
             // mockFlySpeed.Setup(f => f.BaseSpeed).Returns(null); // Redundant, since it will return null be default
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
 
@@ -42,11 +48,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             var mockFlySpeed = new Mock<IFly>();
             mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
 
@@ -69,11 +81,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             var mockFlySpeed = new Mock<IFly>();
             // mockFlySpeed.Setup(f => f.BaseSpeed).Returns(null); // Redundant, since it will return null be default
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
             mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Small);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -93,11 +111,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
             mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Perfect);
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
             mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Small);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -119,11 +143,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
             mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Good);
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
             mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Small);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -145,11 +175,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
             mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Average);
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
             mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Small);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -170,11 +206,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
             mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Poor);
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
             mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Small);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -196,11 +238,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
             mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
             mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Clumsy);
 
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-            mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
             mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Small);
 
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -222,11 +270,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			var mockFlySpeed = new Mock<IFly>();
 			// mockFlySpeed.Setup(f => f.BaseSpeed).Returns(null); // Redundant, since it will return null be default
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Medium);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -246,11 +300,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Perfect);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Medium);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -271,11 +331,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Good);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Medium);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -296,11 +362,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Average);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Medium);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -320,11 +392,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Poor);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Medium);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -345,11 +423,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Clumsy);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Medium);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -370,11 +454,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			var mockFlySpeed = new Mock<IFly>();
 			// mockFlySpeed.Setup(f => f.BaseSpeed).Returns(null); // Redundant, since it will return null be default
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Large);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -394,11 +484,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Perfect);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Large);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -420,11 +516,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Good);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Large);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -446,11 +548,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Average);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Large);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -471,11 +579,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Poor);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Large);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
@@ -496,11 +610,17 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			mockFlySpeed.Setup(f => f.BaseSpeed).Returns(6);
 			mockFlySpeed.Setup(f => f.Maneuverability).Returns(Maneuverability.Clumsy);
 
-			var abilityScore = new Mock<IAbilityScore>().Object;
+			var dexterity = new Mock<IAbilityScore>().Object;
+
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
+
+			var mockSpeeds = new Mock<IMovementSection>();
+			mockSpeeds.Setup(ms => ms.Fly).Returns(mockFlySpeed.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Dexterity).Returns(abilityScore);
-			mockCharacter.Setup(c => c.FlySpeed).Returns(mockFlySpeed.Object);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
 			mockCharacter.Setup(c => c.Size).Returns(SizeCategory.Large);
 
 			var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);

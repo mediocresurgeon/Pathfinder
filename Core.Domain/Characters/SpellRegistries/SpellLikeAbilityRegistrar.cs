@@ -75,7 +75,7 @@ namespace Core.Domain.Characters.SpellRegistries
         /// Allows an event handler to be called when a new spell-like ability is registered.
         /// </summary>
         /// <param name="handler">The callback function.</param>
-		public void OnSpellLikeAbilityRegistered(OnSpellLikeAbilityRegisteredEventHandler handler)
+		public void OnRegistered(OnSpellLikeAbilityRegisteredEventHandler handler)
 		{
 			_eventHandler += handler;
 		}

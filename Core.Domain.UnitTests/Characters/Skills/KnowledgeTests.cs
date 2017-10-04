@@ -32,8 +32,10 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			IAbilityScore intelligence = new Mock<IAbilityScore>().Object;
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Intelligence).Returns(intelligence);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 			string knowledgeType = null;
 
 			// Act
@@ -49,8 +51,10 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			IAbilityScore intelligence = new Mock<IAbilityScore>().Object;
+			var mockAbilityScores = new Mock<IAbilityScoreSection>();
+			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Intelligence).Returns(intelligence);
+            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
 			string knowledgeType = "Chemistry";
 
 			// Act

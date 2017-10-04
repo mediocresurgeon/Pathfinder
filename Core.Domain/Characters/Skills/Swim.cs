@@ -11,10 +11,10 @@
 		/// <param name="character">The character to whom this skill belongs.</param>
 		/// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		internal Swim(ICharacter character)
-            : base(character, character?.Strength, "Swim")
+            : base(character, character?.AbilityScores?.Strength, "Swim")
         {
 			// If the character has a swim speed, it gets a +8 racial bonus to swim.
-			this.RacialBonuses.Add(() => this.Character.SwimSpeed.BaseSpeed.HasValue ? (byte)8 : (byte)0);
+            this.RacialBonuses.Add(() => this.Character.MovementModes.Swim.BaseSpeed.HasValue ? (byte)8 : (byte)0);
         }
     }
 }

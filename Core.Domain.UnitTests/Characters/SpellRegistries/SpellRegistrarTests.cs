@@ -80,13 +80,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
 			var mockCharacter = new Mock<ICharacter>();
 			mockCharacter.Setup(c => c.Level).Returns(19);
-			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
 			ICharacter character = mockCharacter.Object;
 
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			// Act
-            ICastableSpell castable = spellReg.Register(spell, character.Charisma);
+            ICastableSpell castable = spellReg.Register(spell, abilityScore);
 
 			// Assert
 			Assert.IsNotNull(castable);
@@ -150,13 +149,12 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
 			var mockCharacter = new Mock<ICharacter>();
 			mockCharacter.Setup(c => c.Level).Returns(19);
-			mockCharacter.Setup(c => c.Charisma).Returns(abilityScore);
 			ICharacter character = mockCharacter.Object;
 
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			// Act
-            ICastableSpell castable = spellReg.Register(spell, character.Charisma, casterLevel);
+            ICastableSpell castable = spellReg.Register(spell, abilityScore, casterLevel);
 
 			// Assert
 			Assert.IsNotNull(castable);
@@ -221,7 +219,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
 			bool wasCalled = false; // This tracks whether the event was fired.
 			OnSpellRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-            spellReg.OnSpellRegistered(handler);
+            spellReg.OnRegistered(handler);
 
 			// Act
 			spellReg.Register(spell, abilityScore);
@@ -244,7 +242,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 
 			bool wasCalled = false; // This tracks whether the event was fired.
 			OnSpellRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-			spellReg.OnSpellRegistered(handler);
+			spellReg.OnRegistered(handler);
 
 			// Act
 			spellReg.Register(spell, abilityScore, casterLevel);

@@ -102,12 +102,24 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook
                             .Returns(new ISpellLikeAbility[] { slaEnchantment, slaNecromancy });
             #endregion
 
+            #region Mock SpellSection
+            var mockSpellSection = new Mock<ISpellSection>();
+            mockSpellSection.Setup(ss => ss.Registrar)
+                            .Returns(mockSpellRegistrar.Object);
+            #endregion
+
+            #region mock SpellLikeAbilitySection
+            var mockSlaSection = new Mock<ISpellLikeAbilitySection>();
+            mockSlaSection.Setup(slaSec => slaSec.Registrar)
+                          .Returns(mockSlaRegistrar.Object);
+            #endregion
+
             #region Mock ICharacter
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.SpellRegistrar)
-                         .Returns(mockSpellRegistrar.Object);
-            mockCharacter.Setup(c => c.SpellLikeAbilityRegistrar)
-						 .Returns(mockSlaRegistrar.Object);
+            mockCharacter.Setup(c => c.Spells)
+                         .Returns(mockSpellSection.Object);
+            mockCharacter.Setup(c => c.SpellLikeAbilities)
+                         .Returns(mockSlaSection.Object);
             #endregion
 
             var spellFocus = new SpellFocus(School.Necromancy);
@@ -136,7 +148,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook
 			var mockSpellRegistrar = new Mock<ISpellRegistrar>();
 			mockSpellRegistrar.Setup(sr => sr.GetSpells())
 							  .Returns(new ICastableSpell[0]);
-            mockSpellRegistrar.Setup(sr => sr.OnSpellRegistered(It.IsNotNull<OnSpellRegisteredEventHandler>()))
+            mockSpellRegistrar.Setup(sr => sr.OnRegistered(It.IsNotNull<OnSpellRegisteredEventHandler>()))
                               .Callback(() => spellRegistrarEventSubscribed = true);
 			#endregion
 
@@ -145,16 +157,28 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook
 			var mockSlaRegistrar = new Mock<ISpellLikeAbilityRegistrar>();
 			mockSlaRegistrar.Setup(sr => sr.GetSpellLikeAbilities())
 							.Returns(new ISpellLikeAbility[0]);
-            mockSlaRegistrar.Setup(sr => sr.OnSpellLikeAbilityRegistered(It.IsNotNull<OnSpellLikeAbilityRegisteredEventHandler>()))
+            mockSlaRegistrar.Setup(sr => sr.OnRegistered(It.IsNotNull<OnSpellLikeAbilityRegisteredEventHandler>()))
 							  .Callback(() => slaRegistrarEventSubscribed = true);
+			#endregion
+
+			#region Mock SpellSection
+			var mockSpellSection = new Mock<ISpellSection>();
+			mockSpellSection.Setup(ss => ss.Registrar)
+							.Returns(mockSpellRegistrar.Object);
+			#endregion
+
+			#region mock SpellLikeAbilitySection
+			var mockSlaSection = new Mock<ISpellLikeAbilitySection>();
+			mockSlaSection.Setup(slaSec => slaSec.Registrar)
+						  .Returns(mockSlaRegistrar.Object);
 			#endregion
 
 			#region Mock ICharacter
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.SpellRegistrar)
-						 .Returns(mockSpellRegistrar.Object);
-			mockCharacter.Setup(c => c.SpellLikeAbilityRegistrar)
-						 .Returns(mockSlaRegistrar.Object);
+			mockCharacter.Setup(c => c.Spells)
+						 .Returns(mockSpellSection.Object);
+			mockCharacter.Setup(c => c.SpellLikeAbilities)
+						 .Returns(mockSlaSection.Object);
             #endregion
 
             var spellFocus = new SpellFocus(School.Necromancy);

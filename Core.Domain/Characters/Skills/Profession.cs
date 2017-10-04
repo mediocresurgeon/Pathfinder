@@ -12,7 +12,7 @@ namespace Core.Domain.Characters.Skills
         internal Profession(ICharacter character, string professionType)
             : base(
                 character:       character,
-                keyAbilityScore: character?.Wisdom,
+                keyAbilityScore: character?.AbilityScores?.Wisdom,
                 name:            $"Profession ({ professionType ?? throw new ArgumentNullException(nameof(professionType), "Argument may not be null.") })")
         {
             this.CanBeUsedUntrained = false;
