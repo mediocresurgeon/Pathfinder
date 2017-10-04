@@ -2,7 +2,7 @@
 using Core.Domain.Characters.Skills;
 
 
-namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook.S
+namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
 {
     /// <summary>
     /// A trained character is more adept at the chosen skill.
@@ -21,7 +21,7 @@ namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook.S
         /// <param name="skill">The skill being focused on.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         public SkillFocus(ISkill skill)
-            : base(name: $"Spell Focus ({ skill.ToString() })",
+            : base(name: $"Spell Focus ({ skill?.ToString() })",
                    webAddress: "http://www.d20pfsrd.com/feats/general-feats/skill-focus-final/")
         {
             _skill = skill ?? throw new ArgumentNullException(nameof(skill), "Argument cannot be null.");
