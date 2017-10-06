@@ -36,7 +36,7 @@ namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
         public override void ApplyTo(ICharacter character)
         {
             if (null == character)
-                throw new ArgumentNullException($"{nameof(character) } argument cannot be null.");
+                throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
 
             // First, look through already registered spells and update them as necessary
             foreach(var spell in character.Spells.Registrar.GetSpells())
@@ -69,7 +69,7 @@ namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
 		private void ApplyToSpell(ICastableSpell spell)
         {
             if (null == spell)
-                throw new ArgumentNullException($"{nameof(spell) } argument cannot be null.");
+                throw new ArgumentNullException(nameof(spell), "Argument cannot be null.");
             if (_school == spell.Spell.School)
                 spell.AddDifficultyClassBonus(1);
         }

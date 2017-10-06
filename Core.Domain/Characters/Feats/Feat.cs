@@ -54,10 +54,7 @@ namespace Core.Domain.Characters.Feats
         /// Override this behavior to control what happens when a character trains this feat.
         /// </remarks>
         /// <param name="character">The character which is being trained in this feat.</param>
-        public virtual void ApplyTo(ICharacter character)
-        {
-            // Intentionally blank
-        }
+        public abstract void ApplyTo(ICharacter character);
         #endregion
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Domain.Characters.Feats;
+﻿using Core.Domain.Characters.Feats;
 using Moq;
 using NUnit.Framework;
 

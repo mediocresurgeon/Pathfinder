@@ -34,5 +34,9 @@
     <Folder Include="Characters\Feats\Paizo\CoreRulebook\" />
     <Folder Include="Characters\Feats\Paizo\CoreRulebook\S\" />
     <Folder Include="Characters\Skills\" />
+    <Folder Include="Characters\SavingThrows\" />
+    <Folder Include="Characters\Feats\Paizo\CoreRulebook\G\" />
+    <Folder Include="Characters\Feats\Paizo\CoreRulebook\L\" />
+    <Folder Include="Characters\Feats\Paizo\CoreRulebook\I\" />
   </ItemGroup>
 </Project>

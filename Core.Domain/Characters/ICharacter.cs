@@ -1,9 +1,9 @@
 ﻿using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Movements;
+using Core.Domain.Characters.SavingThrows;
 using Core.Domain.Characters.Skills;
 using Core.Domain.Characters.SpellRegistries;
-using Core.Domain.Items;
 
 
 namespace Core.Domain.Characters
@@ -27,6 +27,8 @@ namespace Core.Domain.Characters
         IMovementSection MovementModes { get; }
 
         IAbilityScoreSection AbilityScores { get; }
+
+        ISavingThrowSection SavingThrows { get; }
 
         ISkillSection Skills { get; }
 
