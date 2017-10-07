@@ -2,6 +2,7 @@
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Skills;
 using Moq;
 using NUnit.Framework;
@@ -101,7 +102,23 @@ namespace Core.Domain.UnitTests.Characters
             var size = character.Size;
 
             // Assert
-            Assert.AreEqual(SizeCategory.Medium, size);
+            Assert.AreEqual(SizeCategory.Medium, size,
+                           "By default, a character should be medium-sized.");
+        }
+
+
+        [Test(Description = "Ensures that Character.Initiative is not null and is an instance to the correct class.")]
+        public void Initiative()
+        {
+			// Arrange
+			var character = new Character(1);
+
+            // Act
+            var inititive = character.Initiative;
+
+            // Assert
+            Assert.IsNotNull(inititive);
+            Assert.IsInstanceOf<Initiative>(inititive);
         }
         #endregion
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.SavingThrows;
 using Core.Domain.Characters.Skills;
@@ -32,6 +33,7 @@ namespace Core.Domain.Characters
                 throw new ArgumentOutOfRangeException(nameof(level), $"Invalid character level ({ level }): Character levels must be between 1 and 20 (inclusive).");
             this.Level = level;
             _feats = new List<IFeat>();
+            this.Initiative = new Initiative(this.AbilityScores.Dexterity);
             this.SavingThrows = new SavingThrowSection(this);
             this.Skills = new SkillSection(this);
             this.Spells = new SpellSection(this);
@@ -63,6 +65,8 @@ namespace Core.Domain.Characters
         public IMovementSection MovementModes { get; } = new MovementSection(); 
 
         public IAbilityScoreSection AbilityScores { get; } = new AbilityScoreSection();
+
+        public IInitiative Initiative { get; }
 
         public ISavingThrowSection SavingThrows { get; }
 

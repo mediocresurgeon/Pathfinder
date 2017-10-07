@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Feats;
+using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.SavingThrows;
 using Core.Domain.Characters.Skills;
@@ -27,6 +28,8 @@ namespace Core.Domain.Characters
         IMovementSection MovementModes { get; }
 
         IAbilityScoreSection AbilityScores { get; }
+
+        IInitiative Initiative { get; }
 
         ISavingThrowSection SavingThrows { get; }
 
