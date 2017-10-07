@@ -4,7 +4,7 @@ using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.SavingThrows;
 using Core.Domain.Characters.Skills;
-using Core.Domain.Characters.SpellRegistries;
+using Core.Domain.Characters.Spellcasting;
 
 
 namespace Core.Domain.Characters

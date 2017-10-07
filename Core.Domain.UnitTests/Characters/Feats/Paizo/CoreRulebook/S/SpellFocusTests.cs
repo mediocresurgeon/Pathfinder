@@ -1,6 +1,6 @@
 ﻿using Core.Domain.Characters;
 using Core.Domain.Characters.Feats.Paizo.CoreRulebook;
-using Core.Domain.Characters.SpellRegistries;
+using Core.Domain.Characters.Spellcasting;
 using Core.Domain.Spells;
 using Moq;
 using NUnit.Framework;

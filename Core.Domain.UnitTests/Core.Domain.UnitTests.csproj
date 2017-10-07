@@ -26,7 +26,7 @@
     <Folder Include="Characters\" />
     <Folder Include="Characters\ModifierTrackers\" />
     <Folder Include="Characters\AbilityScores\" />
-    <Folder Include="Characters\SpellRegistries\" />
+    <Folder Include="Characters\Spellcasting\" />
     <Folder Include="Items\" />
     <Folder Include="Characters\Feats\" />
     <Folder Include="Characters\Movements\" />

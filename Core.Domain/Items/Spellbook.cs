@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Domain.Characters.SpellRegistries;
+using Core.Domain.Characters.Spellcasting;
 using Core.Domain.Spells;
 
 
