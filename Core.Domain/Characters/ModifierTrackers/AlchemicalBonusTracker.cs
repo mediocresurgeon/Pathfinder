@@ -4,7 +4,7 @@
 	/// An alchemical bonus is granted by the use of a non-magical,
     /// alchemical substance such as antitoxin.
 	/// </summary>
-	internal sealed class AlchemicalBonusTracker : NonStackingModifierTracker
+	internal sealed class AlchemicalBonusTracker : GreatestModifierTracker
     {
         /// <summary>
         /// Initializes a new instance of the

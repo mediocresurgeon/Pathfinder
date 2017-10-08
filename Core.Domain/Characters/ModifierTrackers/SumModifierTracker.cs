@@ -8,13 +8,13 @@ namespace Core.Domain.Characters.ModifierTrackers
     /// <summary>
     /// Stores the state of a modifier which aggregates by returning a sum.
     /// </summary>
-    internal abstract class StackingModifierTracker : IModifierTracker
+    internal abstract class SumModifierTracker : IModifierTracker
     {
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="T:Core.Domain.Characters.BonusTrackers.StackingModifierTracker"/> class.
         /// </summary>
-        protected StackingModifierTracker()
+        protected SumModifierTracker()
         {
             // Intentionally blank
         }

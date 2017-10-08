@@ -6,7 +6,7 @@
     /// or magic effect
     /// that makes attacks veer off harmlessly.
 	/// </summary>
-	internal sealed class DeflectionBonusTracker : NonStackingModifierTracker
+	internal sealed class DeflectionBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.DeflectionBonusTracker"/> class.

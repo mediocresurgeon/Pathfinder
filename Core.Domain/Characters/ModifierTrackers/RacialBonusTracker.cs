@@ -5,7 +5,7 @@
     /// was brought up in or because of innate characteristics of that type of creature.
     /// Racial bonuses always stack.
     /// </summary>
-    internal sealed class RacialBonusTracker : StackingModifierTracker
+    internal sealed class RacialBonusTracker : SumModifierTracker
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.RacialBonusTracker"/> class.

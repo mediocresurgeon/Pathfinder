@@ -7,7 +7,7 @@
 	/// This description can be improved.
 	/// See http://www.d20pfsrd.com/basics-ability-scores/glossary/
 	/// </remarks>
-	internal sealed class InherentBonusTracker : NonStackingModifierTracker
+	internal sealed class InherentBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.InherentBonusTracker"/> class.

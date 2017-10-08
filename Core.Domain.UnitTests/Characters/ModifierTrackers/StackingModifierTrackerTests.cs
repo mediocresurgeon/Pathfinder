@@ -12,7 +12,7 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
         public void Default_ZeroTotal()
         {
             // Arrange
-            StackingModifierTracker tracker = new Mock<StackingModifierTracker> { CallBase = true }.Object;
+            SumModifierTracker tracker = new Mock<SumModifierTracker> { CallBase = true }.Object;
 
             // Act
             byte total = tracker.GetTotal();
@@ -27,7 +27,7 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
 		public void ThreeValues_ReturnSum()
 		{
 			// Arrange
-			StackingModifierTracker tracker = new Mock<StackingModifierTracker> { CallBase = true }.Object;
+			SumModifierTracker tracker = new Mock<SumModifierTracker> { CallBase = true }.Object;
             tracker.Add(1);
             tracker.Add(2);
             tracker.Add(3);

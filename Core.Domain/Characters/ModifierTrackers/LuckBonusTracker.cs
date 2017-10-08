@@ -3,7 +3,7 @@
 	/// <summary>
 	/// A luck bonus represents good fortune.
 	/// </summary>
-	internal sealed class LuckBonusTracker : NonStackingModifierTracker
+	internal sealed class LuckBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.LuckBonusTracker"/> class.

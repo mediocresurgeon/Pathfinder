@@ -5,7 +5,7 @@
     /// resulting from physical skill at avoiding blows and other ill effects.
 	/// Dodge bonuses always stack.
 	/// </summary>
-	internal sealed class DodgeBonusTracker : StackingModifierTracker
+	internal sealed class DodgeBonusTracker : SumModifierTracker
 	{
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.DodgeBonusTracker"/> class.

@@ -4,7 +4,7 @@
     /// Represents a set of penalties.
     /// Penalties always stack.
     /// </summary>
-    internal sealed class PenaltyTracker : StackingModifierTracker
+    internal sealed class PenaltyTracker : SumModifierTracker
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.PenaltyTracker"/> class.

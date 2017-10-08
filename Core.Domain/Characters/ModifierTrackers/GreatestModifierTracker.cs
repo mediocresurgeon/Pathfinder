@@ -8,13 +8,13 @@ namespace Core.Domain.Characters.ModifierTrackers
 	/// <summary>
 	/// Stores the state of a modifier which aggregates by returning the maximum.
 	/// </summary>
-	internal abstract class NonStackingModifierTracker : IModifierTracker
+	internal abstract class GreatestModifierTracker : IModifierTracker
 	{
 		/// <summary>
 		/// Initializes a new instance of the
 		/// <see cref="T:Core.Domain.Characters.BonusTrackers.StackingModifierTracker"/> class.
 		/// </summary>
-		protected NonStackingModifierTracker()
+		protected GreatestModifierTracker()
 		{
 			// Intentionally blank
 		}

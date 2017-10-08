@@ -5,7 +5,7 @@
     /// courage,
     /// and determination.
 	/// </summary>
-	internal sealed class MoraleBonusTracker : NonStackingModifierTracker
+	internal sealed class MoraleBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.MoraleBonusTracker"/> class.

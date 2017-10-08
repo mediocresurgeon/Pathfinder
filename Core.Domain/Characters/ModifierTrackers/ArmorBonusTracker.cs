@@ -6,7 +6,7 @@
     /// or magical effect
     /// that mimics armor.
 	/// </summary>
-	internal sealed class ArmorBonusTracker : NonStackingModifierTracker
+	internal sealed class ArmorBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.ArmorBonusTracker"/> class.

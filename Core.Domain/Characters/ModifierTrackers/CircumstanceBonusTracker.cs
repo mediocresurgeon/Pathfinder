@@ -4,7 +4,7 @@
 	/// A circumstance bonus arises from specific conditional factors impacting the success of the task at hand.
 	/// Circumstance bonuses always stack.
 	/// </summary>
-	internal sealed class CircumstanceBonusTracker : StackingModifierTracker
+	internal sealed class CircumstanceBonusTracker : SumModifierTracker
 	{
         /// <summary>
         /// Initializes a new instance of the

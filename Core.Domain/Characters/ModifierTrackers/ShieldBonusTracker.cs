@@ -6,7 +6,7 @@
     /// or by a spell
     /// or magic effect that mimics a shield.
 	/// </summary>
-	internal sealed class ShieldBonusTracker : NonStackingModifierTracker
+	internal sealed class ShieldBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.ShieldBonusTracker"/> class.

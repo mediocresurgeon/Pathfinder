@@ -6,7 +6,7 @@
     /// or the effectiveness of a weapon,
     /// or a general bonus to an ability score.
 	/// </summary>
-	internal sealed class EnhancementBonusTracker : NonStackingModifierTracker
+	internal sealed class EnhancementBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.EnhancementBonusTracker"/> class.

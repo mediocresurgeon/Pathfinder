@@ -4,7 +4,7 @@
 	/// An insight bonus improves performance of a given activity
     /// by granting the character an almost precognitive knowledge of what might occur.
 	/// </summary>
-	internal sealed class InsightBonusTracker : NonStackingModifierTracker
+	internal sealed class InsightBonusTracker : GreatestModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.InsightBonusTracker"/> class.

@@ -3,7 +3,7 @@
 	/// <summary>
 	/// A profane bonus stems from the power of evil.
 	/// </summary>
-	internal sealed class ProfaneBonusTracker : NonStackingModifierTracker
+	internal sealed class ProfaneBonusTracker : GreatestModifierTracker
 	{
         /// <summary>
         /// Initializes a new instance of the

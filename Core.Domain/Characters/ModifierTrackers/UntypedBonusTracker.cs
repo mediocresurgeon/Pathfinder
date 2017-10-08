@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Untyped bonuses always stack.
 	/// </summary>
-	internal sealed class UntypedBonusTracker : StackingModifierTracker
+	internal sealed class UntypedBonusTracker : SumModifierTracker
 	{
 		/// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.ModifierTrackers.UntypedBonusTracker"/> class.
