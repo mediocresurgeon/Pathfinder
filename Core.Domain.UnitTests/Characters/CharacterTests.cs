@@ -2,6 +2,7 @@
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ArmorClasses;
+using Core.Domain.Characters.BaseAttackBonuses;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Skills;
@@ -76,6 +77,21 @@ namespace Core.Domain.UnitTests.Characters
             Assert.Throws<ArgumentOutOfRangeException>(createCharacter,
                                                        "Characters cannot be higher than level 20.");
         }
+
+
+        [Test(Description = "Ensures that a fresh instance of Character has sensible defaults.")]
+        public void Default()
+        {
+            // Arrange
+            Character character = new Character(1);
+
+            // Assert
+            Assert.IsInstanceOf<Initiative>(character.Initiative);
+            Assert.IsInstanceOf<ArmorClass>(character.ArmorClass);
+            Assert.IsInstanceOf<BaseAttackBonus>(character.BaseAttackBonus);
+			Assert.AreEqual(SizeCategory.Medium, character.Size,
+						   "By default, a character should be medium-sized.");
+        }
         #endregion
 
         #region Properties
@@ -90,51 +106,6 @@ namespace Core.Domain.UnitTests.Characters
                          "By default, a character should have a land speed.");
             Assert.AreEqual(6, character.MovementModes.Land.BaseSpeed.Value,
                            "By default, a character should have a land speed of 6 squares.");
-        }
-
-
-        [Test(Description = "Ensures that a default character has a sensible value for .Size")]
-        public void Size_DefaultValue()
-        {
-			// Arrange
-			var character = new Character(1);
-
-            // Act
-            var size = character.Size;
-
-            // Assert
-            Assert.AreEqual(SizeCategory.Medium, size,
-                           "By default, a character should be medium-sized.");
-        }
-
-
-        [Test(Description = "Ensures that Character.Initiative is not null and is an instance to the correct class.")]
-        public void Initiative()
-        {
-			// Arrange
-			var character = new Character(1);
-
-            // Act
-            var inititive = character.Initiative;
-
-            // Assert
-            Assert.IsNotNull(inititive);
-            Assert.IsInstanceOf<Initiative>(inititive);
-        }
-
-
-        [Test(Description = "Ensures that Character.ArmorClass is not null and is an instance of the correct type.")]
-        public void ArmorClass()
-        {
-            // Arrange
-            var character = new Character(1);
-
-            // Act
-            var armorClass = character.ArmorClass;
-
-            // Arrange
-            Assert.IsNotNull(armorClass);
-            Assert.IsInstanceOf<ArmorClass>(armorClass);
         }
         #endregion
 

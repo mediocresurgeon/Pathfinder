@@ -1,5 +1,6 @@
 ﻿using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ArmorClasses;
+using Core.Domain.Characters.BaseAttackBonuses;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Movements;
@@ -41,6 +42,8 @@ namespace Core.Domain.Characters
         ISpellLikeAbilitySection SpellLikeAbilities { get; }
 
         IArmorClass ArmorClass { get; }
+
+        IBaseAttackBonus BaseAttackBonus { get; }
 
         #region Feats
         void Train(IFeat feat);
