@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.ArmorClasses;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Skills;
@@ -119,6 +120,21 @@ namespace Core.Domain.UnitTests.Characters
             // Assert
             Assert.IsNotNull(inititive);
             Assert.IsInstanceOf<Initiative>(inititive);
+        }
+
+
+        [Test(Description = "Ensures that Character.ArmorClass is not null and is an instance of the correct type.")]
+        public void ArmorClass()
+        {
+            // Arrange
+            var character = new Character(1);
+
+            // Act
+            var armorClass = character.ArmorClass;
+
+            // Arrange
+            Assert.IsNotNull(armorClass);
+            Assert.IsInstanceOf<ArmorClass>(armorClass);
         }
         #endregion
 

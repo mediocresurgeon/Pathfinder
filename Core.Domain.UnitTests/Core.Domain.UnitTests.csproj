@@ -40,5 +40,6 @@
     <Folder Include="Characters\Feats\Paizo\CoreRulebook\I\" />
     <Folder Include="Characters\Initiatives\" />
     <Folder Include="Characters\ArmorClasses\" />
+    <Folder Include="Characters\Feats\Paizo\CoreRulebook\D\" />
   </ItemGroup>
 </Project>
