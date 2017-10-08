@@ -8,12 +8,12 @@ namespace Core.Domain.Characters.AbilityScores
 	/// An AbilityScore scores represent a creature’s most basic attributes.
     /// The higher the total score, the more raw potential and talent the character possesses.
 	/// </summary>
-	internal abstract class AbilityScore : IAbilityScore
+	internal sealed class AbilityScore : IAbilityScore
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.AbilityScores.AbilityScore"/> class.
         /// </summary>
-        protected AbilityScore()
+        internal AbilityScore()
         {
             // Intentionally blank
         }
@@ -21,37 +21,37 @@ namespace Core.Domain.Characters.AbilityScores
         /// <summary>
         /// Gets or sets the base score.
         /// </summary>
-        public virtual byte? BaseScore { get; set; }
+        public byte? BaseScore { get; set; }
 
         /// <summary>
         /// Tracks enhancement bonuses.
         /// </summary>
-        internal virtual IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
+        public IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
 
 
         /// <summary>
         /// Tracks inherent bonuses.
         /// </summary>
-        internal virtual IModifierTracker InherentBonuses { get; } = new InherentBonusTracker();
+        public IModifierTracker InherentBonuses { get; } = new InherentBonusTracker();
 
 
         /// <summary>
         /// Tracks morale bonuses.
         /// </summary>
-        internal virtual IModifierTracker MoraleBonuses { get; } = new MoraleBonusTracker();
+        public IModifierTracker MoraleBonuses { get; } = new MoraleBonusTracker();
 
 
         /// <summary>
         /// Tracks penalties.
         /// </summary>
-        internal virtual IModifierTracker Penalties { get; } = new PenaltyTracker();
+        public IModifierTracker Penalties { get; } = new PenaltyTracker();
 
 
         /// <summary>
         /// Returns this AbilityScore's bonus.
         /// The bonus is always equal to the modifier, except when the modifier is negative (in this case, zero is returned).
         /// </summary>
-        public virtual byte GetBonus()
+        public byte GetBonus()
         {
             sbyte modifier = this.GetModifier();
             if (0 > modifier)
@@ -64,7 +64,7 @@ namespace Core.Domain.Characters.AbilityScores
         /// Returns this AbilityScore's modifier.
         /// If the BaseScore is null, returns zero.
         /// </summary>
-        public virtual sbyte GetModifier()
+        public sbyte GetModifier()
         {
             double? totalScore = this.GetTotal();
             if (!totalScore.HasValue)
@@ -76,7 +76,7 @@ namespace Core.Domain.Characters.AbilityScores
         /// <summary>
         /// Returns this AbilityScore's total.
         /// </summary>
-        public virtual byte? GetTotal()
+        public byte? GetTotal()
         {
             if (!this.BaseScore.HasValue)
                 return null;

@@ -12,7 +12,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void NonNullBaseScore_PropertyHasValue()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 8;
 
 			// Act
@@ -28,7 +28,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
         public void NoBaseScore_PropertyHasNoValue()
         {
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = null;
 
             // Act
@@ -44,7 +44,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void NoBaseScore_GetTotal_NoValue()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = null;
 
 			// Act
@@ -60,7 +60,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
         public void NoBaseScore_GetModifier_Zero()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = null;
 
 			// Act
@@ -76,7 +76,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void NoBaseScore_GetBonus_Zero()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = null;
 
 			// Act
@@ -92,7 +92,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
         public void BaseScoreSix_Aggregates()
         {
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 6;
 
             // Assert
@@ -111,7 +111,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void BaseScoreSeven_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 7;
 
 			// Assert
@@ -130,7 +130,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void BaseScoreTen_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
 
 			// Assert
@@ -149,7 +149,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void BaseScoreEleven_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 11;
 
 			// Assert
@@ -167,7 +167,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void BaseScoreEighteen_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 18;
 
 			// Assert
@@ -186,7 +186,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void BaseScoreNineteen_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 19;
 
 			// Assert
@@ -205,7 +205,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void EnhancementBonuses_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
             abilityScore.EnhancementBonuses.Add(6);
 
@@ -228,7 +228,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void InherentBonuses_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
             abilityScore.InherentBonuses.Add(6);
 
@@ -251,7 +251,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void MoraleBonuses_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
             abilityScore.MoraleBonuses.Add(6);
 
@@ -274,7 +274,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void TypicalPenalties_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
             abilityScore.Penalties.Add(6);
 
@@ -297,7 +297,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 		public void BigPenalties_Aggregates()
 		{
 			// Arrange
-			AbilityScore abilityScore = new Mock<AbilityScore> { CallBase = true }.Object;
+			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 1;
 			abilityScore.Penalties.Add(6);
 

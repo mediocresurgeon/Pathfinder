@@ -14,12 +14,12 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
             AbilityScoreSection abilityScores = new AbilityScoreSection();
 
             // Assert
-            Assert.IsInstanceOf<Strength>(abilityScores.Strength);
-            Assert.IsInstanceOf<Dexterity>(abilityScores.Dexterity);
-            Assert.IsInstanceOf<Constitution>(abilityScores.Constitution);
-            Assert.IsInstanceOf<Intelligence>(abilityScores.Intelligence);
-            Assert.IsInstanceOf<Wisdom>(abilityScores.Wisdom);
-            Assert.IsInstanceOf<Charisma>(abilityScores.Charisma);
+            Assert.IsInstanceOf<AbilityScore>(abilityScores.Strength);
+            Assert.IsInstanceOf<AbilityScore>(abilityScores.Dexterity);
+            Assert.IsInstanceOf<AbilityScore>(abilityScores.Constitution);
+            Assert.IsInstanceOf<AbilityScore>(abilityScores.Intelligence);
+            Assert.IsInstanceOf<AbilityScore>(abilityScores.Wisdom);
+            Assert.IsInstanceOf<AbilityScore>(abilityScores.Charisma);
         }
     }
 }
