@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ArmorClasses;
 using Core.Domain.Characters.BaseAttackBonuses;
+using Core.Domain.Characters.CombatManeuverDefenses;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Movements;
@@ -41,6 +42,7 @@ namespace Core.Domain.Characters
             this.Spells = new SpellSection(this);
             this.ArmorClass = new ArmorClass(this);
             this.BaseAttackBonus = new BaseAttackBonus(this);
+            this.CombatManeuverDefense = new CombatManeuverDefense(this);
         }
 
         /// <summary>
@@ -83,6 +85,8 @@ namespace Core.Domain.Characters
         public IArmorClass ArmorClass { get; }
 
         public IBaseAttackBonus BaseAttackBonus { get; }
+
+        public ICombatManeuverDefense CombatManeuverDefense { get; }
         #endregion
 
         #region Methods

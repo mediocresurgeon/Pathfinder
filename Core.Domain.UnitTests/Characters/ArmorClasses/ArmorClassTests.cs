@@ -50,12 +50,17 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
             // Assert
             Assert.AreSame(dexterity, ac.KeyAbilityScore);
             Assert.IsInstanceOf<ArmorBonusTracker>(ac.ArmorBonuses);
+            Assert.IsInstanceOf<CircumstanceBonusTracker>(ac.CircumstanceBonuses);
             Assert.IsInstanceOf<DeflectionBonusTracker>(ac.DeflectionBonuses);
             Assert.IsInstanceOf<DodgeBonusTracker>(ac.DodgeBonuses);
+            Assert.IsInstanceOf<InsightBonusTracker>(ac.InsightBonuses);
+            Assert.IsInstanceOf<LuckBonusTracker>(ac.LuckBonuses);
+            Assert.IsInstanceOf<MoraleBonusTracker>(ac.MoraleBonuses);
             Assert.IsInstanceOf<NaturalArmorBonusTracker>(ac.NaturalArmorBonuses);
             Assert.IsInstanceOf<NaturalArmorBonusTracker>(ac.NaturalArmorEnhancementBonuses);
+            Assert.IsInstanceOf<ProfaneBonusTracker>(ac.ProfaneBonuses);
+            Assert.IsInstanceOf<SacredBonusTracker>(ac.SacredBonuses);
             Assert.IsInstanceOf<ShieldBonusTracker>(ac.ShieldBonuses);
-            Assert.IsInstanceOf<SizeBonusTracker>(ac.SizeBonuses);
             Assert.IsInstanceOf<UntypedBonusTracker>(ac.UntypedBonuses);
             Assert.IsInstanceOf<PenaltyTracker>(ac.Penalties);
         }
@@ -82,12 +87,10 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
             ArmorClass ac = new ArmorClass(mockCharacter.Object);
 
             // Act
-            var bonus = ac.SizeBonuses.GetTotal();
-            var penalty = ac.Penalties.GetTotal();
+            var modifier = ac.GetSizeModifier();
 
             // Assert
-            Assert.AreEqual(1, bonus);
-            Assert.AreEqual(0, penalty);
+            Assert.AreEqual(1, modifier);
         }
 
 
@@ -110,12 +113,10 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
             ArmorClass ac = new ArmorClass(mockCharacter.Object);
 
             // Act
-            var bonus = ac.SizeBonuses.GetTotal();
-            var penalty = ac.Penalties.GetTotal();
+            var modifier = ac.GetSizeModifier();
 
             // Assert
-            Assert.AreEqual(0, bonus);
-            Assert.AreEqual(0, penalty);
+            Assert.AreEqual(0, modifier);
         }
 
 
@@ -138,12 +139,10 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
             ArmorClass ac = new ArmorClass(mockCharacter.Object);
 
             // Act
-            var bonus = ac.SizeBonuses.GetTotal();
-            var penalty = ac.Penalties.GetTotal();
+            var modifier = ac.GetSizeModifier();
 
             // Assert
-            Assert.AreEqual(0, bonus);
-            Assert.AreEqual(1, penalty);
+            Assert.AreEqual(-1, modifier);
         }
         #endregion
 
@@ -225,22 +224,28 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
 						 .Returns(SizeCategory.Small);
 
 			ArmorClass ac = new ArmorClass(mockCharacter.Object);
-            ac.ArmorBonuses.Add(5);
-            ac.DeflectionBonuses.Add(7);
-            ac.DodgeBonuses.Add(11);
-            ac.NaturalArmorBonuses.Add(13);
-            ac.NaturalArmorEnhancementBonuses.Add(17);
-            ac.ShieldBonuses.Add(19);
-            ac.UntypedBonuses.Add(23);
-            ac.Penalties.Add(29);
+            ac.ArmorBonuses.Add(3);
+            ac.CircumstanceBonuses.Add(4);
+            ac.DeflectionBonuses.Add(5);
+            ac.DodgeBonuses.Add(6);
+            ac.InsightBonuses.Add(7);
+            ac.LuckBonuses.Add(8);
+            ac.MoraleBonuses.Add(9);
+            ac.NaturalArmorBonuses.Add(10);
+            ac.NaturalArmorEnhancementBonuses.Add(11);
+            ac.ProfaneBonuses.Add(12);
+            ac.SacredBonuses.Add(13);
+            ac.ShieldBonuses.Add(14);
+            ac.UntypedBonuses.Add(15);
+            ac.Penalties.Add(16);
             ac.MaxKeyAbilityScore.Add(2);
 
             // Act
             var result = ac.GetTotal();
 
             // Assert
-            Assert.AreEqual(79, result,
-                            "79 = (10 base) + (3 dex; +2 max dex) + (1 size) + (5 armor) + (7 deflection) + (11 dodge) + (13 natural) + (17 natural enhancement) + (19 shield) + (23 untyped) - (29 penalties)");
+            Assert.AreEqual(114, result,
+                            "114 = (10 base) + (3 dex; +2 max dex) + (1 size) + (3 armor) + (4 circumstance) + (5 deflection) + (6 dodge) + (7 insight) + (8 luck) + (9 morale) + (10 natural) + (11 natural enhancement) + (12 profane) + (13 sacred) + (14 shield) + (15 untyped) - (16 penalties)");
         }
         #endregion
     }

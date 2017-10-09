@@ -35,5 +35,6 @@
     <Folder Include="Characters\ArmorClasses\" />
     <Folder Include="Characters\Feats\Paizo\CoreRulebook\D\" />
     <Folder Include="Characters\BaseAttackBonuses\" />
+    <Folder Include="Characters\CombatManeuverDefenses\" />
   </ItemGroup>
 </Project>

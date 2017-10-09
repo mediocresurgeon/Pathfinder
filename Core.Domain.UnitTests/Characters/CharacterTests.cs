@@ -3,6 +3,7 @@ using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ArmorClasses;
 using Core.Domain.Characters.BaseAttackBonuses;
+using Core.Domain.Characters.CombatManeuverDefenses;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Skills;
@@ -89,6 +90,7 @@ namespace Core.Domain.UnitTests.Characters
             Assert.IsInstanceOf<Initiative>(character.Initiative);
             Assert.IsInstanceOf<ArmorClass>(character.ArmorClass);
             Assert.IsInstanceOf<BaseAttackBonus>(character.BaseAttackBonus);
+            Assert.IsInstanceOf<CombatManeuverDefense>(character.CombatManeuverDefense);
 			Assert.AreEqual(SizeCategory.Medium, character.Size,
 						   "By default, a character should be medium-sized.");
         }

@@ -14,19 +14,31 @@ namespace Core.Domain.Characters.ArmorClasses
 
         IModifierTracker ShieldBonuses { get; }
 
-        IModifierTracker SizeBonuses { get; }
+        IModifierTracker CircumstanceBonuses { get; }
 
         IModifierTracker DodgeBonuses { get; }
 
         IModifierTracker DeflectionBonuses { get; }
 
+        IModifierTracker InsightBonuses { get; }
+
+        IModifierTracker LuckBonuses { get; }
+
+        IModifierTracker MoraleBonuses { get; }
+
         IModifierTracker NaturalArmorBonuses { get; }
 
         IModifierTracker NaturalArmorEnhancementBonuses { get; }
 
+        IModifierTracker ProfaneBonuses { get; }
+
+        IModifierTracker SacredBonuses { get; }
+
         IModifierTracker UntypedBonuses { get; }
 
         IModifierTracker Penalties { get; }
+
+        sbyte GetSizeModifier();
 
         sbyte GetTotal();
     }

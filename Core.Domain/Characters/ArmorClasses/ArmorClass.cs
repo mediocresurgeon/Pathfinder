@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ModifierTrackers;
@@ -10,6 +11,7 @@ namespace Core.Domain.Characters.ArmorClasses
     internal sealed class ArmorClass : IArmorClass
     {
         #region Backing variables
+        private readonly ICharacter _character;
         private IAbilityScore _keyAbilityScore;
         #endregion
 
@@ -21,29 +23,8 @@ namespace Core.Domain.Characters.ArmorClasses
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         internal ArmorClass(ICharacter character)
         {
-            if (null == character)
-                throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
+            _character = character ?? throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
             this.KeyAbilityScore = character?.AbilityScores?.Dexterity;
-            // Characters smaller than Medium should have a size bonus to AC.
-            this.SizeBonuses.Add(() =>
-            {
-                switch (character.Size)
-                {
-                    case SizeCategory.Small: return 1;
-                    // Other sizes go here
-                    default:                 return 0;
-                }
-            });
-            // Characters larger than medium should have a penalty to AC.
-            this.Penalties.Add(() =>
-			{
-				switch (character.Size)
-				{
-					case SizeCategory.Large: return 1;
-					// Other sizes go here
-					default:                 return 0;
-				}
-			});
         }
         #endregion
 
@@ -60,15 +41,25 @@ namespace Core.Domain.Characters.ArmorClasses
 
         public IModifierTracker ShieldBonuses { get; } = new ShieldBonusTracker();
 
-        public IModifierTracker SizeBonuses { get; } = new SizeBonusTracker();
+        public IModifierTracker CircumstanceBonuses { get; } = new CircumstanceBonusTracker();
 
         public IModifierTracker DodgeBonuses { get; } = new DodgeBonusTracker();
 
         public IModifierTracker DeflectionBonuses { get; } = new DeflectionBonusTracker();
 
+        public IModifierTracker InsightBonuses { get; } = new InsightBonusTracker();
+
+        public IModifierTracker LuckBonuses { get; } = new LuckBonusTracker();
+
+        public IModifierTracker MoraleBonuses { get; } = new MoraleBonusTracker();
+
         public IModifierTracker NaturalArmorBonuses { get; } = new NaturalArmorBonusTracker();
 
         public IModifierTracker NaturalArmorEnhancementBonuses { get; } = new NaturalArmorBonusTracker();
+
+        public IModifierTracker ProfaneBonuses { get; } = new ProfaneBonusTracker();
+
+        public IModifierTracker SacredBonuses { get; } = new SacredBonusTracker();
 
         public IModifierTracker UntypedBonuses { get; } = new UntypedBonusTracker();
 
@@ -76,6 +67,19 @@ namespace Core.Domain.Characters.ArmorClasses
         #endregion
 
         #region Methods
+        public sbyte GetSizeModifier()
+        {
+            switch(_character.Size)
+            {
+                case SizeCategory.Small:  return  1;
+                case SizeCategory.Medium: return  0;
+                case SizeCategory.Large:  return -1;
+                default:
+                    throw new InvalidEnumArgumentException($"Unable to calculate a size modifier for SizeCategory { _character.Size }");
+            }
+        }
+
+
         public sbyte GetTotal()
         {
             sbyte abilityScoreModifier = this.KeyAbilityScore.GetModifier();
@@ -85,13 +89,19 @@ namespace Core.Domain.Characters.ArmorClasses
                                            : (int)maxAbilityScoreModifier;
             int runningTotal = 10;
             runningTotal += cappedAbilityScoreModifier;
+            runningTotal += this.GetSizeModifier();
             runningTotal += this.ArmorBonuses.GetTotal();
             runningTotal += this.ShieldBonuses.GetTotal();
-            runningTotal += this.SizeBonuses.GetTotal();
+            runningTotal += this.CircumstanceBonuses.GetTotal();
             runningTotal += this.DodgeBonuses.GetTotal();
             runningTotal += this.DeflectionBonuses.GetTotal();
+            runningTotal += this.InsightBonuses.GetTotal();
+            runningTotal += this.LuckBonuses.GetTotal();
+            runningTotal += this.MoraleBonuses.GetTotal();
             runningTotal += this.NaturalArmorBonuses.GetTotal();
             runningTotal += this.NaturalArmorEnhancementBonuses.GetTotal();
+            runningTotal += this.ProfaneBonuses.GetTotal();
+            runningTotal += this.SacredBonuses.GetTotal();
             runningTotal += this.UntypedBonuses.GetTotal();
             runningTotal -= this.Penalties.GetTotal();
             return Convert.ToSByte(runningTotal);
