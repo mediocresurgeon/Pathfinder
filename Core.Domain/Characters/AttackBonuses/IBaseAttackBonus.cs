@@ -1,4 +1,4 @@
-﻿namespace Core.Domain.Characters.BaseAttackBonuses
+﻿namespace Core.Domain.Characters.AttackBonuses
 {
     public interface IBaseAttackBonus
     {

@@ -2,7 +2,7 @@
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ArmorClasses;
-using Core.Domain.Characters.BaseAttackBonuses;
+using Core.Domain.Characters.AttackBonuses;
 using Core.Domain.Characters.CombatManeuverDefenses;
 using Core.Domain.Characters.ModifierTrackers;
 using Moq;
@@ -376,6 +376,10 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverDefenses
             mockBaseAttackBonus.Setup(bab => bab.GetTotal())
                                .Returns(0);
 
+            var mockAttackBonusesSection = new Mock<IAttackBonusSection>();
+            mockAttackBonusesSection.Setup(abs => abs.BaseAttackBonus)
+                                    .Returns(mockBaseAttackBonus.Object);
+
             var mockStrength = new Mock<IAbilityScore>();
             mockStrength.Setup(str => str.GetModifier())
                         .Returns(0);
@@ -391,8 +395,8 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverDefenses
                              .Returns(mockDexterity.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.BaseAttackBonus)
-                         .Returns(mockBaseAttackBonus.Object);
+            mockCharacter.Setup(c => c.AttackBonuses)
+                         .Returns(mockAttackBonusesSection.Object);
             mockCharacter.Setup(c => c.AbilityScores)
                          .Returns(mockAbilityScores.Object);
             mockCharacter.Setup(c => c.Size)
@@ -418,6 +422,10 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverDefenses
             mockBaseAttackBonus.Setup(bab => bab.GetTotal())
                                .Returns(20);
 
+            var mockAttackBonusesSection = new Mock<IAttackBonusSection>();
+            mockAttackBonusesSection.Setup(abs => abs.BaseAttackBonus)
+                                    .Returns(mockBaseAttackBonus.Object);
+
             var mockStrength = new Mock<IAbilityScore>();
             mockStrength.Setup(str => str.GetModifier())
                         .Returns(3);
@@ -433,8 +441,8 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverDefenses
                              .Returns(mockDexterity.Object);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.BaseAttackBonus)
-                         .Returns(mockBaseAttackBonus.Object);
+            mockCharacter.Setup(c => c.AttackBonuses)
+                         .Returns(mockAttackBonusesSection.Object);
             mockCharacter.Setup(c => c.AbilityScores)
                          .Returns(mockAbilityScores.Object);
             mockCharacter.Setup(c => c.Size)

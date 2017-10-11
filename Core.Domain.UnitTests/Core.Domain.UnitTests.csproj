@@ -12,7 +12,7 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.8.1" />
     <PackageReference Include="NUnitLite" Version="3.8.1" />
-    <PackageReference Include="Moq" Version="4.7.137" />
+    <PackageReference Include="Moq" Version="4.7.142" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Spells\" />
@@ -41,7 +41,7 @@
     <Folder Include="Characters\Initiatives\" />
     <Folder Include="Characters\ArmorClasses\" />
     <Folder Include="Characters\Feats\Paizo\CoreRulebook\D\" />
-    <Folder Include="Characters\BaseAttackBonuses\" />
     <Folder Include="Characters\CombatManeuverDefenses\" />
+    <Folder Include="Characters\AttackBonuses\" />
   </ItemGroup>
 </Project>

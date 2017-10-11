@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using Core.Domain.Characters.ModifierTrackers;
 
 
@@ -104,7 +103,7 @@ namespace Core.Domain.Characters.CombatManeuverDefenses
                 case SizeCategory.Medium: return  0;
                 case SizeCategory.Large:  return  1;
                 default:
-                    throw new InvalidEnumArgumentException($"Unable to calculate CMD size modifier for SizeCategory { _character.Size }");
+                    throw new NotImplementedException($"Unable to calculate CMD size modifier for SizeCategory { _character.Size }.");
             }
         }
 
@@ -112,7 +111,7 @@ namespace Core.Domain.Characters.CombatManeuverDefenses
         public sbyte GetTotal()
         {
             int runningTotal = 10;
-            runningTotal += _character.BaseAttackBonus.GetTotal();
+            runningTotal += _character.AttackBonuses.BaseAttackBonus.GetTotal();
             runningTotal += _character.AbilityScores.Strength.GetModifier();
             runningTotal += _character.AbilityScores.Dexterity.GetModifier();
             runningTotal += this.GetSizeModifier();

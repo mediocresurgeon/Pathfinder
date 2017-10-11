@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ModifierTrackers;
@@ -75,7 +74,7 @@ namespace Core.Domain.Characters.ArmorClasses
                 case SizeCategory.Medium: return  0;
                 case SizeCategory.Large:  return -1;
                 default:
-                    throw new InvalidEnumArgumentException($"Unable to calculate a size modifier for SizeCategory { _character.Size }");
+                    throw new NotImplementedException($"Unable to calculate a size modifier for SizeCategory { _character.Size }");
             }
         }
 

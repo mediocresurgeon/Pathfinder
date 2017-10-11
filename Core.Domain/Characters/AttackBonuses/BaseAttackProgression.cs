@@ -1,4 +1,4 @@
-﻿namespace Core.Domain.Characters.BaseAttackBonuses
+﻿namespace Core.Domain.Characters.AttackBonuses
 {
     /// <summary>
     /// The rate at which a character's base attack bonus progresses relative to its level.

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 
 
-namespace Core.Domain.Characters.BaseAttackBonuses
+namespace Core.Domain.Characters.AttackBonuses
 {
     internal sealed class BaseAttackBonus : IBaseAttackBonus
     {
@@ -48,7 +47,7 @@ namespace Core.Domain.Characters.BaseAttackBonuses
         /// Finds the coefficient which determines a character's base attack bonus based on the character's level.
         /// </summary>
         /// <returns>The base attack bonus multiplier.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when this method references an unsupported BaseAttackBonusProgression enum.</exception>
+        /// <exception cref="System.NotImplementedException">Thrown when this method references an unsupported BaseAttackBonusProgression enum.</exception>
         private float GetBabMultiplier()
         {
             switch(this.Rate)
@@ -57,7 +56,7 @@ namespace Core.Domain.Characters.BaseAttackBonuses
                 case BaseAttackProgression.AsCleric:  return 0.75f;
                 case BaseAttackProgression.AsFighter: return 1.00f;
                 default:
-                    throw new InvalidEnumArgumentException($"Dev error!  Unable to convert { this.Rate } into a base attack bonus progression multiplier.");
+                    throw new NotImplementedException($"Dev error!  Unable to convert { this.Rate } into a base attack bonus progression multiplier.");
             }
         }
 		#endregion

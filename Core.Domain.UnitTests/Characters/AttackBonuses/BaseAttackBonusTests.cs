@@ -1,11 +1,11 @@
 ﻿using System;
 using Core.Domain.Characters;
-using Core.Domain.Characters.BaseAttackBonuses;
+using Core.Domain.Characters.AttackBonuses;
 using Moq;
 using NUnit.Framework;
 
 
-namespace Core.Domain.UnitTests.Characters.BaseAttackBonuses
+namespace Core.Domain.UnitTests.Characters.AttackBonuses
 {
     [TestFixture]
     public class BaseAttackBonusTests

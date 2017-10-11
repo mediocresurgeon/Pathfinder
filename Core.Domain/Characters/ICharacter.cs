@@ -1,6 +1,6 @@
 ﻿using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.ArmorClasses;
-using Core.Domain.Characters.BaseAttackBonuses;
+using Core.Domain.Characters.AttackBonuses;
 using Core.Domain.Characters.CombatManeuverDefenses;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
@@ -44,7 +44,7 @@ namespace Core.Domain.Characters
 
         IArmorClass ArmorClass { get; }
 
-        IBaseAttackBonus BaseAttackBonus { get; }
+        IAttackBonusSection AttackBonuses { get; }
 
         ICombatManeuverDefense CombatManeuverDefense { get; }
 
