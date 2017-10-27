@@ -249,13 +249,7 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void GetTotal_Aggregates()
         {
             // Arrange
-            var mockUniversalAttackBonus = new Mock<IUniversalAttackBonus>();
-            mockUniversalAttackBonus.Setup(uab => uab.EnhancementBonuses)
-                                    .Returns(new Mock<IModifierTracker>().Object);
-            mockUniversalAttackBonus.Setup(uab => uab.UntypedBonuses)
-                                    .Returns(new Mock<IModifierTracker>().Object);
-            mockUniversalAttackBonus.Setup(uab => uab.Penalties)
-                                    .Returns(new Mock<IModifierTracker>().Object);
+            IUniversalAttackBonus universalAttackBonus = new Mock<IUniversalAttackBonus>().Object;
 
             var mockAbilityScore = new Mock<IAbilityScore>();
             mockAbilityScore.Setup(mas => mas.GetModifier())
@@ -275,7 +269,7 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
             mockCharacter.Setup(c => c.AttackBonuses)
                          .Returns(mockAttackBonusSection.Object);
 
-            WeaponAttackBonus wab = new WeaponAttackBonus(mockCharacter.Object, mockAbilityScore.Object, mockUniversalAttackBonus.Object);
+            WeaponAttackBonus wab = new WeaponAttackBonus(mockCharacter.Object, mockAbilityScore.Object, universalAttackBonus);
             wab.EnhancementBonuses.Add(3);
             wab.UntypedBonuses.Add(4);
             wab.Penalties.Add(5);

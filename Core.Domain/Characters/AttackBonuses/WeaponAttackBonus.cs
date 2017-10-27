@@ -25,13 +25,13 @@ namespace Core.Domain.Characters.AttackBonuses
             this.KeyAbilityScore = keyAbilityScore ?? throw new ArgumentNullException(nameof(keyAbilityScore), "Argument cannot be null");
             this.SharedAttackBonus = sharedAttackBonus ?? throw new ArgumentNullException(nameof(sharedAttackBonus), "Argument cannot be null");
             this.EnhancementBonuses.Add(
-                () => this.SharedAttackBonus.EnhancementBonuses.GetTotal()
+                () => this.SharedAttackBonus.EnhancementBonuses?.GetTotal() ?? 0
             );
             this.UntypedBonuses.Add(
-                () => this.SharedAttackBonus.UntypedBonuses.GetTotal()
+                () => this.SharedAttackBonus.UntypedBonuses?.GetTotal() ?? 0
             );
             this.Penalties.Add(
-                () => this.SharedAttackBonus.Penalties.GetTotal()
+                () => this.SharedAttackBonus.Penalties?.GetTotal() ?? 0
             );
         }
         #endregion
@@ -41,6 +41,11 @@ namespace Core.Domain.Characters.AttackBonuses
 
         private IUniversalAttackBonus SharedAttackBonus { get; }
 
+        /// <summary>
+        /// Gets or sets the key ability score.
+        /// </summary>
+        /// <value>The key ability score.</value>
+        /// <exception cref="System.ArgumentNullException">Thrown when assignment is null.</exception>
         public IAbilityScore KeyAbilityScore
         {
             get => _keyAbilityScore;
