@@ -37,5 +37,6 @@
     <Folder Include="Characters\CombatManeuverDefenses\" />
     <Folder Include="Characters\AttackBonuses\" />
     <Folder Include="Characters\CombatManeuverBonuses\" />
+    <Folder Include="Dice\" />
   </ItemGroup>
 </Project>
