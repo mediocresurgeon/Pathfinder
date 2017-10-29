@@ -1,15 +1,16 @@
 ﻿using System;
+using Core.Domain.Characters;
 using Core.Domain.Characters.Spellcasting;
 using Core.Domain.Spells;
 
 
-namespace Core.Domain.Items
+namespace Core.Domain.Items.Spellbooks.Paizo.CoreRulebook
 {
     /// <summary>
     /// A tome which contains the magical writings necessary
     /// for some spellcasters (such as wizards) to prepare spells.
     /// </summary>
-    public class Spellbook : ISpellbook
+    public class Spellbook : Item, ISpellbook
     {
 		// This class isn't sealed,
 		// so we need to assume
@@ -55,6 +56,19 @@ namespace Core.Domain.Items
         }
         #endregion
 
+        #region Public properties
+        /// <summary>
+        /// The weight of this spellbook (in pounds).
+        /// </summary>
+        public override double Weight => 3;
+
+
+        /// <summary>
+        /// The caster level of this spellbook.
+        /// </summary>
+        public override byte? CasterLevel => null;
+        #endregion
+
         #region Public methods
         /// <summary>
         /// Scribes a spell into this spellbook.
@@ -84,7 +98,7 @@ namespace Core.Domain.Items
         /// Calculates the market price for this spellbook.
         /// </summary>
         /// <returns>The market price (in gold pieces).</returns>
-        public virtual double GetMarketPrice()
+        public override double GetMarketPrice()
         {
             double runningTotal = this.MarketPriceWhenEmpty;
             // Assume that we only have to deal with levels 0-9
@@ -95,6 +109,37 @@ namespace Core.Domain.Items
                 runningTotal += numberofSpells * priceOfEachSpell;
             }
             return runningTotal;
+        }
+
+        public override INameFragment[] GetName()
+        {
+            return new INameFragment[]
+            {
+                new NameFragment(
+                    text:       "Spellbook",
+                    webAddress: "http://www.d20pfsrd.com/equipment/goods-and-services/books-paper-writing-supplies/#TOC-Spellbook"
+                )
+            };
+        }
+
+        public override byte GetHardness()
+        {
+            return 2;
+        }
+
+        public override ushort GetHitPoints()
+        {
+            return 1;
+        }
+
+        public override School[] GetSchools()
+        {
+            return new School[0];
+        }
+
+        public virtual void ApplyTo(ICharacter character)
+        {
+            // Intentionally blank.
         }
         #endregion
     }

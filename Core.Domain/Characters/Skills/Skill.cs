@@ -98,6 +98,12 @@ namespace Core.Domain.Characters.Skills
         }
 
 
+        /// <summary>
+        /// Gets the luck bonuses associated with this skill.
+        /// </summary>
+        public virtual IModifierTracker LuckBonuses { get; } = new LuckBonusTracker();
+
+
 		/// <summary>
 		/// Gets the racial bonuses associated with this skill.
 		/// </summary>
@@ -133,6 +139,7 @@ namespace Core.Domain.Characters.Skills
                 return null;
             int runningTotal = this.Ranks;
             runningTotal += this.KeyAbilityScore.GetModifier();
+            runningTotal += this.LuckBonuses.GetTotal();
             runningTotal += this.RacialBonuses.GetTotal();
             runningTotal += this.SizeBonuses.GetTotal();
             runningTotal += this.UntypedBonuses.GetTotal();

@@ -38,5 +38,13 @@
     <Folder Include="Characters\AttackBonuses\" />
     <Folder Include="Characters\CombatManeuverBonuses\" />
     <Folder Include="Dice\" />
+    <Folder Include="Items\Spellbooks\" />
+    <Folder Include="Items\Spellbooks\Paizo\" />
+    <Folder Include="Items\Spellbooks\Paizo\CoreRulebook\" />
+    <Folder Include="Items\WonderousItems\" />
+    <Folder Include="Items\WonderousItems\Paizo\" />
+    <Folder Include="Items\WonderousItems\Paizo\CoreRulebook\" />
+    <Folder Include="Items\WonderousItems\Paizo\CoreRulebook\S\" />
+    <Folder Include="Characters\Equipment\" />
   </ItemGroup>
 </Project>

@@ -42,9 +42,9 @@ namespace Core.Domain.Characters.Skills
 
         public ISkill StringInstruments { get; }
 
-        public ISkill WindInstruments { get; }
-
         public ISkill Sing { get; }
+
+        public ISkill WindInstruments { get; }
         #endregion
     }
 }

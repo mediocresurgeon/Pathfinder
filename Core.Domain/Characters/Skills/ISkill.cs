@@ -14,6 +14,8 @@ namespace Core.Domain.Characters.Skills
 
         byte Ranks { get; set; }
 
+        IModifierTracker LuckBonuses { get; }
+
         IModifierTracker RacialBonuses { get; }
 
         IModifierTracker SizeBonuses { get; }

@@ -8,6 +8,8 @@ namespace Core.Domain.Characters.Initiatives
     {
         IAbilityScore KeyAbilityScore { get; set; }
 
+        IModifierTracker LuckBonuses { get; }
+
         IModifierTracker UntypedBonuses { get; }
 
         IModifierTracker Penalties { get; }

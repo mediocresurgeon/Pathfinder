@@ -29,6 +29,8 @@ namespace Core.Domain.Characters.Initiatives
             set => _keyAbilityScore = value ?? throw new ArgumentNullException(nameof(value), "Assignment cannot be null.");
         }
 
+        public IModifierTracker LuckBonuses { get; } = new LuckBonusTracker();
+
         public IModifierTracker UntypedBonuses { get; } = new UntypedBonusTracker();
 
         public IModifierTracker Penalties { get; } = new PenaltyTracker();
@@ -38,6 +40,7 @@ namespace Core.Domain.Characters.Initiatives
         public sbyte GetTotal()
         {
             int runningTotal = this.KeyAbilityScore.GetModifier();
+            runningTotal += this.LuckBonuses.GetTotal();
             runningTotal += this.UntypedBonuses.GetTotal();
             runningTotal -= this.Penalties.GetTotal();
             return Convert.ToSByte(runningTotal);

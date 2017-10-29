@@ -27,6 +27,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
             Assert.IsTrue(skill.CanBeUsedUntrained);
             Assert.IsFalse(skill.IsClassSkill);
             Assert.AreEqual(0, skill.Ranks);
+            Assert.IsInstanceOf<LuckBonusTracker>(skill.LuckBonuses);
             Assert.IsInstanceOf<RacialBonusTracker>(skill.RacialBonuses);
             Assert.IsInstanceOf<SizeBonusTracker>(skill.SizeBonuses);
             Assert.IsInstanceOf<UntypedBonusTracker>(skill.UntypedBonuses);
@@ -196,18 +197,19 @@ namespace Core.Domain.UnitTests.Characters.Skills
                 IsClassSkill = true,
                 Ranks        = 1
             };
-            skill.RacialBonuses.Add(7);
-            skill.SizeBonuses.Add(11);
-            skill.UntypedBonuses.Add(13);
-            skill.Penalties.Add(17);
+            skill.LuckBonuses.Add(7);
+            skill.RacialBonuses.Add(11);
+            skill.SizeBonuses.Add(13);
+            skill.UntypedBonuses.Add(17);
+            skill.Penalties.Add(19);
 
 			// Act
 			var result = skill.GetTotal();
 
             // Assert
             Assert.IsTrue(result.HasValue);
-            Assert.AreEqual(23, result.Value,
-                            "23 = (1 rank) + (3 trained) + (5 ability) + (7 racial) + (11 size) + (13 untyped) - (17 penalties)");
+            Assert.AreEqual(38, result.Value,
+                            "38 = (1 rank) + (3 trained) + (5 ability) + (7 luck) + (11 racial) + (13 size) + (17 untyped) - (19 penalties)");
 		}
         #endregion
     }

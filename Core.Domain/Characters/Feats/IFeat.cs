@@ -1,7 +1,7 @@
 ﻿namespace Core.Domain.Characters.Feats
 {
-    public interface IFeat
+    public interface IFeat : IApplicable
     {
-        void ApplyTo(ICharacter character);
+        // Composite interface; intentionally blank
     }
 }

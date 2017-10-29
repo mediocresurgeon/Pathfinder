@@ -30,7 +30,7 @@ namespace Core.Domain.Dice
         #region Methods
         public override string ToString()
         {
-            return $"{ this.Quantity }d{ this.Quality}";
+            return $"{ this.Quantity }d{ this.Quality }";
         }
 
 

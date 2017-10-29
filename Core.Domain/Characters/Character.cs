@@ -5,6 +5,7 @@ using Core.Domain.Characters.ArmorClasses;
 using Core.Domain.Characters.AttackBonuses;
 using Core.Domain.Characters.CombatManeuverBonuses;
 using Core.Domain.Characters.CombatManeuverDefenses;
+using Core.Domain.Characters.Equipment;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Movements;
@@ -45,6 +46,7 @@ namespace Core.Domain.Characters
             this.AttackBonuses = new AttackBonusSection(this);
             this.CombatManeuverBonus = new CombatManeuverBonus(this);
             this.CombatManeuverDefense = new CombatManeuverDefense(this);
+            this.Equipment = new EquipmentSection(this);
         }
 
         /// <summary>
@@ -91,6 +93,8 @@ namespace Core.Domain.Characters
         public ICombatManeuverBonus CombatManeuverBonus { get; }
 
         public ICombatManeuverDefense CombatManeuverDefense { get; }
+
+        public IEquipmentSection Equipment { get; }
         #endregion
 
         #region Methods
