@@ -12,55 +12,65 @@ namespace Core.Domain.Characters.Spellcasting
     /// </summary>
     internal sealed class SpellRegistrar : ISpellRegistrar
     {
-        private readonly ICharacter _character;
-        private readonly List<ICastableSpell> _registeredSpells;
+        #region Backing variables
         private event OnSpellRegisteredEventHandler _eventHandler;
+        #endregion
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.SpellRegistrar"/> class.
-		/// </summary>
-		/// <param name="character">The character to register spells to.  Should not bell null.</param>
-		/// <exception cref="System.ArgumentNullException">Thrown when character argument is null.</exception>
-		internal SpellRegistrar(ICharacter character)
+        #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.SpellRegistrar"/> class.
+        /// </summary>
+        /// <param name="character">The character to register spells to.  Should not bell null.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when character argument is null.</exception>
+        internal SpellRegistrar(ICharacter character)
         {
-            _character = character ?? throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            _registeredSpells = new List<ICastableSpell>();
+            this.Character = character ?? throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
         }
+        #endregion
+
+        #region Properties
+        private ICharacter Character { get; }
 
 
-		/// <summary>
-		/// Registers a spell.  The spell's caster level is assumed to be the character's level.
-		/// </summary>
-		/// <returns>The registered spell.</returns>
-		/// <param name="spell">The spell to register.</param>
-		/// <param name="keyAbilityScore">The ability score which powers the spell.</param>
-		/// <exception cref="System.ArgumentNullException"></exception>
-		public ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore)
-        {
-            return this.Register(spell, keyAbilityScore, _character.Level);
-        }
+        private List<ICastableSpell> RegisteredSpells { get; } = new List<ICastableSpell>();
+        #endregion
 
-
-		/// <summary>
-		/// Registers a spell.
-		/// </summary>
-		/// <returns>The registered spell.</returns>
-		/// <param name="spell">The spell to register.</param>
+        #region Methods
+        /// <summary>
+        /// Registers a spell.  The spell's caster level is assumed to be the character's level.
+        /// </summary>
+        /// <returns>The registered spell.</returns>
+        /// <param name="spell">The spell to register.</param>
         /// <param name="keyAbilityScore">The ability score which powers the spell.</param>
-        /// <param name="casterLevel">The spell's caster level.</param>
-		/// <exception cref="System.ArgumentNullException"></exception>
-		public ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel)
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore)
+        {
+            return this.Register(spell, keyAbilityScore, () => this.Character.Level);
+        }
+
+
+        /// <summary>
+        /// Registers a spell.
+        /// </summary>
+        /// <returns>The registered spell.</returns>
+        /// <param name="spell">The spell to register.</param>
+        /// <param name="keyAbilityScore">The ability score which powers the spell.</param>
+        /// <param name="baseCasterLevel">The spell's caster level.</param>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore, Func<byte> baseCasterLevel)
         {
             if (null == spell)
-                throw new ArgumentNullException($"{ nameof(spell) } argument cannot be null.");
+                throw new ArgumentNullException(nameof(spell), "Argument cannot be null.");
             if (null == keyAbilityScore)
-                throw new ArgumentNullException($"{ nameof(keyAbilityScore) } argument cannot be null.");
-            ICastableSpell existingSpell = _registeredSpells.Where(rs => rs.Spell == spell)
-                                                            .FirstOrDefault();
+                throw new ArgumentNullException(nameof(keyAbilityScore), "Argument cannot be null.");
+            if (null == baseCasterLevel)
+                throw new ArgumentNullException(nameof(baseCasterLevel), "Argument cannot be null.");
+            ICastableSpell existingSpell = this.RegisteredSpells.Where(rs => rs.Spell == spell)
+                                                                .FirstOrDefault();
             if (null != existingSpell)
                 return existingSpell;
-            ICastableSpell newSpell = new CastableSpell(spell, keyAbilityScore, casterLevel);
-            _registeredSpells.Add(newSpell);
+            ICastableSpell newSpell = new CastableSpell(spell, keyAbilityScore, baseCasterLevel);
+            this.RegisteredSpells.Add(newSpell);
             _eventHandler?.Invoke(this, new SpellRegisteredEventArgs(newSpell));
             return newSpell;
         }
@@ -72,6 +82,8 @@ namespace Core.Domain.Characters.Spellcasting
         /// <param name="handler">The callback function.</param>
         public void OnRegistered(OnSpellRegisteredEventHandler handler)
         {
+            if (null == handler)
+                throw new ArgumentNullException(nameof(handler), "Argument cannot be null.");
             _eventHandler += handler;
         }
 
@@ -82,7 +94,8 @@ namespace Core.Domain.Characters.Spellcasting
         /// <returns>The registered spells.</returns>
         public ICastableSpell[] GetSpells()
         {
-            return _registeredSpells.ToArray();
+            return this.RegisteredSpells.ToArray();
         }
+        #endregion
     }
 }

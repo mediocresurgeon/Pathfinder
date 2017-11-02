@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Characters.Spellcasting;
 using Core.Domain.Spells;
@@ -12,14 +11,14 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
     [TestFixture]
     public class CastableSpellTests
     {
-        #region Constructor 1
+        #region Constructor
         [Test(Description = "Ensures that null ISpell arguments are not possible.")]
         public void Constructor1_NullISpell_Throws()
         {
             // Arrange
             ISpell spell = null;
             IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            byte casterLevel = 1;
+            Func<byte> casterLevel = () => 1;
 
             // Act
             TestDelegate constructor = () => new CastableSpell(spell, abilityScore, casterLevel);
@@ -36,7 +35,24 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             // Arrange
             ISpell spell = new Mock<ISpell>().Object;
             IAbilityScore abilityScore = null;
-            byte casterLevel = 1;
+            Func<byte> casterLevel = () => 1;
+
+            // Act
+            TestDelegate constructor = () => new CastableSpell(spell, abilityScore, casterLevel);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(constructor,
+                                                "Null arguments should not be accepted.");
+        }
+
+
+        [Test(Description = "Ensures that null Func<byte> arguments are not possible.")]
+        public void Constructor1_NullFunc_Throws()
+        {
+            // Arrange
+            ISpell spell = new Mock<ISpell>().Object;
+            IAbilityScore abilityScore = null;
+            Func<byte> casterLevel = null;
 
             // Act
             TestDelegate constructor = () => new CastableSpell(spell, abilityScore, casterLevel);
@@ -47,122 +63,35 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         }
         #endregion
 
-        #region Constructor 2
-        [Test(Description = "Ensures that null ISpell arguments are not possible.")]
-        public void Constructor2_NullISpell_Throws()
-        {
-            // Arrange
-            ISpell spell = null;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            // Act
-            TestDelegate constructor = () => new CastableSpell(spell, abilityScore, character);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(constructor,
-                                                "Null arguments should not be accepted.");
-        }
-
-
-        [Test(Description = "Ensures that null IAbilityScore arguments are not possible.")]
-        public void Constructor2_NullIAbilityScore_Throws()
-        {
-            // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = null;
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            // Act
-            TestDelegate constructor = () => new CastableSpell(spell, abilityScore, character);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(constructor,
-                                                "Null arguments should not be accepted.");
-        }
-
-
-        [Test(Description = "Ensures that null ICharacter arguments are not possible.")]
-        public void Constructor2_NullICharacter_Throws()
+        #region Properties
+        [Test(Description = "Ensures sensible defaults for a fresh instance of CastableSpell.")]
+        public void Default()
         {
             // Arrange
             ISpell spell = new Mock<ISpell>().Object;
             IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            ICharacter character = null;
+            Func<byte> casterLevel = () => 1;
 
-            // Act
-            TestDelegate constructor = () => new CastableSpell(spell, abilityScore, character);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(constructor,
-                                                "Null arguments should not be accepted.");
-        }
-        #endregion
-
-        #region .Spell
-        [Test(Description = "Ensures the ISpell given to the constructor is returned from the Spell property.")]
-        public void ISpell_Property_IsReturned()
-        {
-            // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            ICharacter character = new Mock<ICharacter>().Object;
-            CastableSpell castable = new CastableSpell(spell, abilityScore, character);
-
-            // Act
-            var result = castable.Spell;
-
-            // Assert
-            Assert.AreSame(spell, result);
-        }
-        #endregion
-
-        #region GetEffectiveCasterLevel()
-        [Test(Description = "Ensures that by default, the character's level is used as the caster level.")]
-        public void GetEffectiveCasterLevel_FromCharacter()
-        {
-            // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Level).Returns(20);
-            CastableSpell castable = new CastableSpell(spell, abilityScore, mockCharacter.Object);
-
-            // Act
-            var result = castable.GetEffectiveCasterLevel();
-
-            // Assert
-            Assert.AreEqual(20, result);
-        }
-
-
-        [Test(Description = "Ensures that a specific caster level overrides the character's level when determining the caster level.")]
-        public void GetEffectiveCasterLevel_FromByte()
-        {
-            // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            byte casterLevel = 10;
             CastableSpell castable = new CastableSpell(spell, abilityScore, casterLevel);
 
             // Act
-            var result = castable.GetEffectiveCasterLevel();
-
-            // Assert
-            Assert.AreEqual(10, result);
+            Assert.IsInstanceOf<CasterLevel>(castable.CasterLevel);
+            Assert.AreSame(spell, castable.Spell);
         }
-		#endregion
+        #endregion
 
-		#region GetDifficultyClass()
-		[Test(Description = "Ensures the GetDifficultyClass() returns null when the spell does not allow a saving throw.")]
+        #region GetDifficultyClass()
+        [Test(Description = "Ensures the GetDifficultyClass() returns null when the spell does not allow a saving throw.")]
 		public void GetDifficultyClass_NoSavingThrow()
 		{
 			// Arrange
 			var mockSpell = new Mock<ISpell>();
-			mockSpell.Setup(s => s.AllowsSavingThrow).Returns(false);
+			mockSpell.Setup(s => s.AllowsSavingThrow)
+                     .Returns(false);
 			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-			ICharacter character = new Mock<ICharacter>().Object;
-			CastableSpell castable = new CastableSpell(mockSpell.Object, abilityScore, character);
+            Func<byte> casterLevel = () => 1;
+
+            CastableSpell castable = new CastableSpell(mockSpell.Object, abilityScore, casterLevel);
 
 			// Act
 			var result = castable.GetDifficultyClass();
@@ -178,12 +107,17 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         {
             // Arrange
             var mockSpell = new Mock<ISpell>();
-            mockSpell.Setup(s => s.AllowsSavingThrow).Returns(true);
-            mockSpell.Setup(s => s.Level).Returns(3);
+            mockSpell.Setup(s => s.AllowsSavingThrow)
+                     .Returns(true);
+            mockSpell.Setup(s => s.Level)
+                     .Returns(3);
             var mockAbilityScore = new Mock<IAbilityScore>();
-            mockAbilityScore.Setup(a => a.GetBonus()).Returns(5);
-			ICharacter character = new Mock<ICharacter>().Object;
-            CastableSpell castable = new CastableSpell(mockSpell.Object, mockAbilityScore.Object, character);
+            mockAbilityScore.Setup(a => a.GetBonus())
+                            .Returns(5);
+
+            Func<byte> casterLevel = () => 1;
+
+            CastableSpell castable = new CastableSpell(mockSpell.Object, mockAbilityScore.Object, casterLevel);
 
             // Act
             var result = castable.GetDifficultyClass();
@@ -200,12 +134,16 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			var mockSpell = new Mock<ISpell>();
-            mockSpell.Setup(s => s.AllowsSavingThrow).Returns(true);
-			mockSpell.Setup(s => s.Level).Returns(3);
+            mockSpell.Setup(s => s.AllowsSavingThrow)
+                     .Returns(true);
+			mockSpell.Setup(s => s.Level)
+                     .Returns(3);
 			var mockAbilityScore = new Mock<IAbilityScore>();
-			mockAbilityScore.Setup(a => a.GetBonus()).Returns(5);
-			ICharacter character = new Mock<ICharacter>().Object;
-			CastableSpell castable = new CastableSpell(mockSpell.Object, mockAbilityScore.Object, character);
+			mockAbilityScore.Setup(a => a.GetBonus())
+                            .Returns(5);
+            Func<byte> casterLevel = () => 1;
+
+            CastableSpell castable = new CastableSpell(mockSpell.Object, mockAbilityScore.Object, casterLevel);
             castable.AddDifficultyClassBonus(2);
 
 			// Act

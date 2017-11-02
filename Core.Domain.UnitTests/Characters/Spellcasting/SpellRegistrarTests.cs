@@ -88,7 +88,6 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             ICastableSpell castable = spellReg.Register(spell, abilityScore);
 
 			// Assert
-			Assert.IsNotNull(castable);
 			Assert.AreSame(spell, castable.Spell);
 		}
 
@@ -97,7 +96,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void Register2_NullISpell_Throws()
 		{
 			// Arrange
-			byte casterLevel = 10;
+			Func<byte> casterLevel = () => 10;
 			ISpell spell = null;
 			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
 
@@ -117,7 +116,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void Register2_NullIAbilityScore_Throws()
 		{
 			// Arrange
-			byte casterLevel = 10;
+			Func<byte> casterLevel = () => 10;
 			ISpell spell = new Mock<ISpell>().Object;
 			IAbilityScore abilityScore = null;
 
@@ -137,7 +136,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void Register2_Returns_ConfiguredISpellLikeAbility()
 		{
 			// Arrange
-			byte casterLevel = 9;
+			Func<byte> casterLevel = () => 9;
 
 			var mockSpell = new Mock<ISpell>();
 			mockSpell.Setup(s => s.Level).Returns(7);
@@ -188,7 +187,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void GetSpellLikeAbilities_Register2_RoundTrip()
 		{
 			// Arrange
-			byte casterLevel = 10;
+			Func<byte> casterLevel = () => 10;
 			ISpell spell = new Mock<ISpell>().Object;
 			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
 
@@ -204,10 +203,29 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			Assert.AreEqual(1, result.Length);
 			Assert.Contains(castable, result);
 		}
-		#endregion
+        #endregion
 
-		#region OnSpellLikeAbilityRegistered()
-		[Test(Description = "Ensures that calling the Register() method triggers the OnSpellRegistered event.")]
+        #region OnRegistered()
+        [Test(Description = "Ensures that calling SpellRegistrar.OnRegistered() with a null argument throws an exception.")]
+        public void OnRegistered_NullHandler_Throws()
+        {
+            // Arrange
+            ISpell spell = new Mock<ISpell>().Object;
+            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+
+            ICharacter character = new Mock<ICharacter>().Object;
+            SpellRegistrar spellReg = new SpellRegistrar(character);
+
+            // Act
+            TestDelegate onReg = () => spellReg.OnRegistered(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(onReg);
+        }
+        #endregion
+
+        #region OnSpellLikeAbilityRegistered()
+        [Test(Description = "Ensures that calling the Register() method triggers the OnSpellRegistered event.")]
 		public void Register1_TriggersEvent()
 		{
 			// Arrange
@@ -233,7 +251,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void Register2_TriggersEvent()
 		{
 			// Arrange
-			byte casterLevel = 10;
+			Func<byte> casterLevel = () => 10;
 			ISpell spell = new Mock<ISpell>().Object;
 			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
 

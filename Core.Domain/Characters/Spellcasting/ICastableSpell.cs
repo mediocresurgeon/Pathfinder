@@ -9,8 +9,8 @@ namespace Core.Domain.Characters.Spellcasting
 
         void AddDifficultyClassBonus(byte bonus);
 
-        byte? GetDifficultyClass();
+        ICasterLevel CasterLevel { get; }
 
-        byte GetEffectiveCasterLevel();
+        byte? GetDifficultyClass();
 	}
 }

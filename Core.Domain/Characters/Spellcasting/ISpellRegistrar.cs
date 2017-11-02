@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Spells;
 
@@ -9,7 +9,7 @@ namespace Core.Domain.Characters.Spellcasting
     {
         ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore);
 
-        ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel);
+        ICastableSpell Register(ISpell spell, IAbilityScore keyAbilityScore, Func<byte> baseCasterLevel);
 
         ICastableSpell[] GetSpells();
 

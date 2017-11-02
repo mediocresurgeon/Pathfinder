@@ -13,8 +13,6 @@ namespace Core.Domain.Characters.Spellcasting
 	internal sealed class SpellLikeAbilityRegistrar : ISpellLikeAbilityRegistrar
     {
         #region Backing variables
-        private readonly ICharacter _character;
-        private readonly List<ISpellLikeAbility> _registeredSpells;
 		private event OnSpellLikeAbilityRegisteredEventHandler _eventHandler;
         #endregion
 
@@ -27,22 +25,27 @@ namespace Core.Domain.Characters.Spellcasting
         /// <exception cref="System.ArgumentNullException"></exception>
         public SpellLikeAbilityRegistrar(ICharacter character)
         {
-            _character = character ?? throw new ArgumentNullException($"{ nameof(character) } argument cannot be null.");
-            _registeredSpells = new List<ISpellLikeAbility>();
+            this.Character = character ?? throw new ArgumentNullException($"{ nameof(character) } argument cannot be null.");
         }
-		#endregion
+        #endregion
 
-		#region Methods
-		/// <summary>
-		/// Registers a spell-like ability.  The caster level is assumed to be equal to the character's level.
-		/// </summary>
-		/// <param name="usesPerDay">The number of times per day the spell-like ability can be used.</param>
-		/// <param name="spell">The spell this spell-like ability imitates.</param>
-		/// <param name="keyAbilityScore">The ability score associated with the spell-like ability.</param>
-		/// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
-		public ISpellLikeAbility Register(byte usesPerDay, ISpell spell, IAbilityScore keyAbilityScore)
+        #region Properties
+        private ICharacter Character { get; }
+
+        private List<ISpellLikeAbility> RegisteredSpells { get; } = new List<ISpellLikeAbility>();
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Registers a spell-like ability.  The caster level is assumed to be equal to the character's level.
+        /// </summary>
+        /// <param name="usesPerDay">The number of times per day the spell-like ability can be used.</param>
+        /// <param name="spell">The spell this spell-like ability imitates.</param>
+        /// <param name="keyAbilityScore">The ability score associated with the spell-like ability.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
+        public ISpellLikeAbility Register(byte usesPerDay, ISpell spell, IAbilityScore keyAbilityScore)
 		{
-            return this.Register(usesPerDay, spell, keyAbilityScore, this._character.Level);
+            return this.Register(usesPerDay, spell, keyAbilityScore, () => this.Character.Level);
 		}
 
 
@@ -52,20 +55,22 @@ namespace Core.Domain.Characters.Spellcasting
         /// <param name="usesPerDay">The number of times per day the spell-like ability can be used.</param>
         /// <param name="spell">The spell this spell-like ability imitates.</param>
         /// <param name="keyAbilityScore">The ability score associated with the spell-like ability.</param>
-        /// <param name="casterLevel">The caster level of the spell-like ability.</param>
+        /// <param name="baseCasterLevel">The caster level of the spell-like ability.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
-		public ISpellLikeAbility Register(byte usesPerDay, ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel)
+		public ISpellLikeAbility Register(byte usesPerDay, ISpell spell, IAbilityScore keyAbilityScore, Func<byte> baseCasterLevel)
 		{
 			if (null == spell)
-				throw new ArgumentNullException($"{ nameof(spell) } argument cannot be null.");
+				throw new ArgumentNullException(nameof(spell), "Argument cannot be null.");
 			if (null == keyAbilityScore)
-				throw new ArgumentNullException($"{ nameof(keyAbilityScore) } argument cannot be null.");
-            ISpellLikeAbility existingSpell = _registeredSpells.Where(rs => rs.Spell == spell)
-															   .FirstOrDefault();
+                throw new ArgumentNullException(nameof(keyAbilityScore), "Argument cannot be null.");
+            if (null == baseCasterLevel)
+                throw new ArgumentNullException(nameof(baseCasterLevel), "Argument cannot be null.");
+            ISpellLikeAbility existingSpell = this.RegisteredSpells.Where(rs => rs.Spell == spell)
+															       .FirstOrDefault();
 			if (null != existingSpell)
 				return existingSpell;
-            ISpellLikeAbility newSpell = new SpellLikeAbility(usesPerDay, spell, keyAbilityScore, casterLevel);
-			_registeredSpells.Add(newSpell);
+            ISpellLikeAbility newSpell = new SpellLikeAbility(usesPerDay, spell, keyAbilityScore, baseCasterLevel);
+			this.RegisteredSpells.Add(newSpell);
 			_eventHandler?.Invoke(this, new SpellLikeAbilityRegisteredEventArgs(newSpell));
 			return newSpell;
 		}
@@ -77,6 +82,8 @@ namespace Core.Domain.Characters.Spellcasting
         /// <param name="handler">The callback function.</param>
 		public void OnRegistered(OnSpellLikeAbilityRegisteredEventHandler handler)
 		{
+            if (null == handler)
+                throw new ArgumentNullException(nameof(handler), "Argument cannot be null.");
 			_eventHandler += handler;
 		}
 
@@ -86,7 +93,7 @@ namespace Core.Domain.Characters.Spellcasting
         /// </summary>
 		public ISpellLikeAbility[] GetSpellLikeAbilities()
         {
-            return _registeredSpells.ToArray();
+            return this.RegisteredSpells.ToArray();
         }
         #endregion
     }

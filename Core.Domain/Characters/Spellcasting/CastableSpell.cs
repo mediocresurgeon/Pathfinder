@@ -9,51 +9,29 @@ namespace Core.Domain.Characters.Spellcasting
     /// <summary>
     /// A spell which is ready for a character to cast.
     /// </summary>
-    public class CastableSpell : ICastableSpell
+    internal class CastableSpell : ICastableSpell
     {
         #region Backing variables
         private readonly ISpell _spell;
         private readonly IAbilityScore _keyAbilityScore;
-        private readonly ICharacter _character;
-        private readonly byte? _casterLevel;
+        private readonly ICasterLevel _casterLevel;
 		#endregion
 
 		#region Constructors
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.SpellRegistries.CastableSpell"/> class.
-		/// </summary>
-		/// <param name="spell">The spell.</param>
-		/// <param name="keyAbilityScore">The ability score which powers the spell.</param>
-		/// <param name="casterLevel">The spell's caster level.</param>
-		/// <exception cref="System.ArgumentNullException"></exception>
-		internal CastableSpell(ISpell spell, IAbilityScore keyAbilityScore, byte casterLevel)
-            :this(spell, keyAbilityScore, null, casterLevel)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.Spellcasting.CastableSpell"/> class.
+        /// </summary>
+        /// <param name="spell">The spell.</param>
+        /// <param name="keyAbilityScore">The ability scored which is tied to the DC of this spell.</param>
+        /// <param name="baseCasterLevel">The base caster level of this spell.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
+        internal CastableSpell(ISpell spell, IAbilityScore keyAbilityScore, Func<byte> baseCasterLevel)
         {
-            // Intentionally blank
-        }
-
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.SpellRegistries.CastableSpell"/> class.
-		/// </summary>
-		/// <param name="spell">The spell.</param>
-		/// <param name="keyAbilityScore">The ability score which powers this spell.</param>
-        /// <param name="character">The character associated with this spell.</param>
-		/// <exception cref="System.ArgumentNullException"></exception>
-		internal CastableSpell(ISpell spell, IAbilityScore keyAbilityScore, ICharacter character)
-			: this(spell, keyAbilityScore, character, null)
-		{
-            if (null == character)
-                throw new ArgumentNullException($"{ nameof(character) } argument cannot be null.");
-		}
-
-
-        private CastableSpell(ISpell spell, IAbilityScore keyAbilityScore, ICharacter character, byte? casterLevel)
-        {
-			_spell = spell ?? throw new ArgumentNullException($"{ nameof(spell) } argument cannot be null.");
+            if (null == baseCasterLevel)
+                throw new ArgumentNullException(nameof(baseCasterLevel), "Argument cannot be null.");
+            _spell = spell ?? throw new ArgumentNullException($"{ nameof(spell) } argument cannot be null.");
 			_keyAbilityScore = keyAbilityScore ?? throw new ArgumentNullException($"{ nameof(keyAbilityScore) } argument cannot be null.");
-            _character = character;
-			_casterLevel = casterLevel;
+            _casterLevel = new CasterLevel(baseCasterLevel);
         }
         #endregion
 
@@ -63,13 +41,11 @@ namespace Core.Domain.Characters.Spellcasting
         /// </summary>
         public virtual ISpell Spell => _spell;
 
+        public virtual ICasterLevel CasterLevel => _casterLevel;
+
         protected virtual IModifierTracker DcBonusesTracker { get; } = new UntypedBonusTracker();
 
         protected virtual IAbilityScore KeyAbilityScore => _keyAbilityScore;
-
-        protected ICharacter Character => _character;
-
-        protected byte? CasterLevelOverride => _casterLevel;
 		#endregion
 
 		#region Methods
@@ -95,17 +71,6 @@ namespace Core.Domain.Characters.Spellcasting
             runningTotal += this.KeyAbilityScore.GetBonus();
             runningTotal += this.DcBonusesTracker.GetTotal();
             return runningTotal;
-        }
-
-
-        /// <summary>
-        /// Returns the effective caster level of the spell, factoring in the character's stats and abilities.
-        /// </summary>
-        public virtual byte GetEffectiveCasterLevel()
-        {
-            if (this.CasterLevelOverride.HasValue)
-                return this.CasterLevelOverride.Value;
-            return this.Character.Level;
         }
         #endregion
     }

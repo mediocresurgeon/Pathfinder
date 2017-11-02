@@ -103,9 +103,9 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         {
             // Arrange
             byte usesPerDay = 3;
-            byte casterLevel = 10;
             ISpell spell = null;
             IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            Func<byte> casterLevel = () => 10;
 
             ICharacter character = new Mock<ICharacter>().Object;
             SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
@@ -124,9 +124,30 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         {
             // Arrange
             byte usesPerDay = 3;
-            byte casterLevel = 10;
             ISpell spell = new Mock<ISpell>().Object;
             IAbilityScore abilityScore = null;
+            Func<byte> casterLevel = () => 10;
+
+            ICharacter character = new Mock<ICharacter>().Object;
+            SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
+
+            // Act
+            TestDelegate registerMethod = () => slaReg.Register(usesPerDay, spell, abilityScore, casterLevel);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(registerMethod,
+                                                 "Null arguments are not allowed.");
+        }
+
+
+        [Test(Description = "Ensures that calling Register() with a null IAbilityScore argument throws an ArgumentNullException.")]
+        public void Register2_NullCasterLevel_Throws()
+        {
+            // Arrange
+            byte usesPerDay = 3;
+            ISpell spell = new Mock<ISpell>().Object;
+            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            Func<byte> casterLevel = null;
 
             ICharacter character = new Mock<ICharacter>().Object;
             SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
@@ -145,7 +166,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         {
             // Arrange
             byte usesPerDay = 3;
-            byte casterLevel = 9;
+            Func<byte> casterLevel = () => 9;
 
             var mockSpell = new Mock<ISpell>();
             mockSpell.Setup(s => s.Level).Returns(7);
@@ -169,9 +190,25 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             Assert.AreEqual(usesPerDay, sla.UsesPerDay);
             Assert.AreSame(spell, sla.Spell);
         }
-		#endregion
+        #endregion
 
-		#region GetSpellLikeAbilities()
+        #region OnRegistered()
+        [Test(Description = "Ensures that SpellLikeAbilityRegistrar.OnRegistered() cannot be called with a null argument.")]
+        public void OnRegistered_NullHandler_Throws()
+        {
+            // Arrange
+            ICharacter character = new Mock<ICharacter>().Object;
+            SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
+
+            // Act
+            TestDelegate onReg = () => slaReg.OnRegistered(null);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(onReg);
+        }
+        #endregion
+
+        #region GetSpellLikeAbilities()
         [Test(Description = "Ensures that registered spell-like abilities can be retrieved later.")]
         public void GetSpellLikeAbilities_Register1_RoundTrip()
         {
@@ -199,7 +236,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			byte usesPerDay = 3;
-            byte casterLevel = 10;
+            Func<byte> casterLevel = () => 10;
 			ISpell spell = new Mock<ISpell>().Object;
 			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
 
@@ -246,7 +283,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			byte usesPerDay = 3;
-            byte casterLevel = 10;
+            Func<byte> casterLevel = () => 10;
 			ISpell spell = new Mock<ISpell>().Object;
 			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
 
