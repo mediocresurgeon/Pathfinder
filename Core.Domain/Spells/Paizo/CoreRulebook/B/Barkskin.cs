@@ -11,10 +11,10 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
         /// Initializes a new instance of the <see cref="T:Core.Domain.Spells.Barkskin"/> class.
         /// </summary>
         /// <param name="level">Level.</param>
-        private Barkskin(byte level)
-				: base(name:              "Barkskin",
-                       webAddress:        "http://www.d20pfsrd.com/magic/all-spells/b/barkskin/",
-                       level:             level)
+        private Barkskin(byte spellLevel)
+				: base(name:       "Barkskin",
+                       webAddress: "http://www.d20pfsrd.com/magic/all-spells/b/barkskin/",
+                       spellLevel: spellLevel)
         {
             // Intentionally blank
         }

@@ -4,10 +4,10 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     public sealed class DancingLights : Spell
     {
-        private DancingLights(byte level)
-			: base(name:              "Dancing Lights",
-				   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/d/dancing-lights",
-				   level:             level)
+        private DancingLights(byte spellLevel)
+			: base(name:       "Dancing Lights",
+				   webAddress: "http://www.d20pfsrd.com/magic/all-spells/d/dancing-lights",
+				   spellLevel: spellLevel)
         {
             // Intentionally blank
         }

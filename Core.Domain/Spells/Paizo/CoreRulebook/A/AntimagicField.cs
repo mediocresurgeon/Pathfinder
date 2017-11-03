@@ -11,10 +11,10 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
         /// Initializes a new instance of the <see cref="T:Core.Domain.Spells.AntimagicField"/> class.
         /// </summary>
         /// <param name="level">Level.</param>
-		private AntimagicField(byte level)
-            : base(name:              "Antimagic Field",
-                   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/a/antimagic-field",
-                   level:             level)
+        private AntimagicField(byte spellLevel)
+            : base(name:       "Antimagic Field",
+                   webAddress: "http://www.d20pfsrd.com/magic/all-spells/a/antimagic-field",
+                   spellLevel: spellLevel)
         {
 			// Intentionally blank
 		}

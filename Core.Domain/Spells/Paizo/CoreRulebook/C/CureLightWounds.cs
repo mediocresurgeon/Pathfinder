@@ -11,10 +11,10 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
         /// Initializes a new instance of the <see cref="T:Core.Domain.Spells.CureLightWounds"/> class.
         /// </summary>
         /// <param name="level">The spell's level.</param>
-		private CureLightWounds(byte level)
-            : base(name:              "Cure Light Wounds",
-                   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds",
-                   level:             level)
+		private CureLightWounds(byte spellLevel)
+            : base(name:       "Cure Light Wounds",
+                   webAddress: "http://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds",
+                   spellLevel: spellLevel)
         {
 			// Intentionally blank
 		}

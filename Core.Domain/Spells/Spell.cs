@@ -22,11 +22,12 @@ namespace Core.Domain.Spells
         /// </summary>
         /// <param name="name">The name of the spell.</param>
         /// <param name="webAddress">The URL of the spell.</param>
+        /// <param name="spellLevel">The spell's level.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when a parameter is null.</exception>
         /// <exception cref="System.ArgumentException">Thrown when url is not a valid web address.</exception>
         protected Spell(string name,
                         string webAddress,
-                        byte level)
+                        byte   spellLevel)
         {
             _name = name ?? throw new ArgumentNullException($"{ nameof(name) } argument cannot be null.");
             if (null == webAddress)
@@ -35,7 +36,7 @@ namespace Core.Domain.Spells
                 || (_uri.Scheme != "https"
                     && _uri.Scheme != "http"))
                 throw new ArgumentException($"{ nameof(webAddress) } argument is not a well-formed Url.");
-            _level = level;
+            _level = spellLevel;
         }
         #endregion
 

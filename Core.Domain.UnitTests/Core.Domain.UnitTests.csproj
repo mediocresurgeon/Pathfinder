@@ -54,5 +54,6 @@
     <Folder Include="Items\WonderousItems\Paizo\CoreRulebook\S\" />
     <Folder Include="Characters\Equipment\" />
     <Folder Include="Items\WonderousItems\Paizo\CoreRulebook\V\" />
+    <Folder Include="Items\WonderousItems\Paizo\CoreRulebook\H\" />
   </ItemGroup>
 </Project>

@@ -11,10 +11,10 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
         /// Initializes a new instance of the <see cref="T:Core.Domain.Spells.MagicMissile"/> class.
         /// </summary>
         /// <param name="level">The spell's level.</param>
-        private MagicMissile(byte level)
-            : base(name:              "Magic Missile",
-                   webAddress:        "http://www.d20pfsrd.com/magic/all-spells/m/magic-missile",
-                   level:             level)
+        private MagicMissile(byte spellLevel)
+            : base(name:       "Magic Missile",
+                   webAddress: "http://www.d20pfsrd.com/magic/all-spells/m/magic-missile",
+                   spellLevel: spellLevel)
         {
             // Intentionally blank
         }
