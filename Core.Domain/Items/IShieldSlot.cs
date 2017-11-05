@@ -6,8 +6,10 @@ namespace Core.Domain.Items
     /// <summary>
     /// An item which occupies a character's shield slot when equipped.
     /// </summary>
-    public interface IShieldSlot : IItem, IApplicable
+    public interface IShieldSlot : IItem, IApplicable, IArmorCheckPenalty
     {
-        // Composite interface; intentionally blank.
+        bool IsMasterwork { get; }
+
+        byte GetShieldBonus();
     }
 }
