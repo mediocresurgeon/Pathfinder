@@ -51,5 +51,8 @@
     <Folder Include="Items\Shields\" />
     <Folder Include="Items\Shields\Paizo\" />
     <Folder Include="Items\Shields\Paizo\CoreRulebook\" />
+    <Folder Include="Items\Shields\Enchantments\" />
+    <Folder Include="Items\Shields\Enchantments\Paizo\" />
+    <Folder Include="Items\Shields\Enchantments\Paizo\CoreRulebook\" />
   </ItemGroup>
 </Project>

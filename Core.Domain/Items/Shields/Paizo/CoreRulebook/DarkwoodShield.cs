@@ -8,6 +8,15 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     /// </summary>
     internal static class DarkwoodShield
     {
+        public static byte Hardness { get; } = 5;
+
+
+        public static byte HitPointsPerInch { get; } = 10;
+
+
+        public static string WebAddress { get; } = "http://www.d20pfsrd.com/equipment/special-materials#TOC-Darkwood";
+
+
         /// <summary>
         /// Making a shield from Darkwood cuts the weight of the shield in half.
         /// </summary>

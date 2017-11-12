@@ -5,6 +5,15 @@
     /// </summary>
     internal static class DragonhideShield
     {
+        public static byte Hardness { get; } = 10;
+
+
+        public static byte HitPointsPerInch { get; } = 10;
+
+
+        public static string WebAddress { get; } = "http://www.d20pfsrd.com/equipment/special-materials#TOC-Darkwood";
+
+
         /// <summary>
         /// Determines the market value for a Dragonhide shield.
         /// The cost is: base cost, plus masterwork cost, multiplied by two.

@@ -8,6 +8,15 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     /// </summary>
     internal static class MithralShield
     {
+        public static byte Hardness { get; } = 15;
+
+
+        public static byte HitPointsPerInch { get; } = 30;
+
+
+        public static string WebAddress { get; } = "http://www.d20pfsrd.com/equipment/special-materials/#TOC-Mithral";
+
+
         /// <summary>
         /// Making a shield from Mithral cuts the weight of the shield in half.
         /// </summary>
