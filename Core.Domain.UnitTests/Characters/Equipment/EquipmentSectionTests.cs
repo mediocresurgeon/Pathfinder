@@ -31,7 +31,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void Default()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -63,7 +63,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipArmor_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IArmorSlot armor = null;
 
@@ -79,9 +79,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipArmor_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var armor = Mock.Of<IArmorSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IArmorSlot armor = new Mock<IArmorSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(armor);
@@ -96,15 +96,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipArmor_HappyPath()
         {
             // Arrange
-            bool armorAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockArmor = new Mock<IArmorSlot>();
-            mockArmor.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                     .Callback(() => armorAppliedCorrectly = true);
-            IArmorSlot armor = mockArmor.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var armor = Mock.Of<IArmorSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -113,8 +106,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(armor, equipmentSection.Armor,
                           "Equipping armor should create a reference in the equipment section's Armor slot.");
-            Assert.IsTrue(armorAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(armor)
+                .Verify(a => a.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -123,7 +117,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipBelt_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IBeltSlot belt = null;
 
@@ -139,9 +133,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipBelt_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var belt = Mock.Of<IBeltSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IBeltSlot belt = new Mock<IBeltSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(belt);
@@ -156,15 +150,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipBelt_HappyPath()
         {
             // Arrange
-            bool beltAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockBelt = new Mock<IBeltSlot>();
-            mockBelt.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                    .Callback(() => beltAppliedCorrectly = true);
-            IBeltSlot belt = mockBelt.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var belt = Mock.Of<IBeltSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -173,8 +160,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(belt, equipmentSection.Belt,
                           "Equipping a belt should create a reference in the equipment section's Belt slot.");
-            Assert.IsTrue(beltAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(belt)
+                .Verify(b => b.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -183,7 +171,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipBody_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IBodySlot body = null;
 
@@ -199,9 +187,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipBody_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var body = Mock.Of<IBodySlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IBodySlot body = new Mock<IBodySlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(body);
@@ -216,15 +204,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipBody_HappyPath()
         {
             // Arrange
-            bool bodyAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockBody = new Mock<IBodySlot>();
-            mockBody.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                    .Callback(() => bodyAppliedCorrectly = true);
-            IBodySlot body = mockBody.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var body = Mock.Of<IBodySlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -233,8 +214,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(body, equipmentSection.Body,
                           "Equipping a body should create a reference in the equipment section's Body slot.");
-            Assert.IsTrue(bodyAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(body)
+                .Verify(b => b.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -243,7 +225,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipChest_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IChestSlot chest = null;
 
@@ -259,9 +241,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipChest_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var chest = Mock.Of<IChestSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IChestSlot chest = new Mock<IChestSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(chest);
@@ -276,15 +258,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipChest_HappyPath()
         {
             // Arrange
-            bool chestAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockChest = new Mock<IChestSlot>();
-            mockChest.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                     .Callback(() => chestAppliedCorrectly = true);
-            IChestSlot chest = mockChest.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var chest = Mock.Of<IChestSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -293,8 +268,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(chest, equipmentSection.Chest,
                           "Equipping a chest should create a reference in the equipment section's Chest slot.");
-            Assert.IsTrue(chestAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(chest)
+                .Verify(ch => ch.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -303,7 +279,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipEyes_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IEyesSlot eyes = null;
 
@@ -319,9 +295,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipEyes_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var eyes = Mock.Of<IEyesSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IEyesSlot eyes = new Mock<IEyesSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(eyes);
@@ -336,15 +312,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipEyes_HappyPath()
         {
             // Arrange
-            bool eyesAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockEyes = new Mock<IEyesSlot>();
-            mockEyes.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                    .Callback(() => eyesAppliedCorrectly = true);
-            IEyesSlot eyes = mockEyes.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var eyes = Mock.Of<IEyesSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -353,8 +322,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(eyes, equipmentSection.Eyes,
                           "Equipping an eyes should create a reference in the equipment section's Eyes slot.");
-            Assert.IsTrue(eyesAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(eyes)
+                .Verify(e => e.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -363,7 +333,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipFeet_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IFeetSlot feet = null;
 
@@ -379,9 +349,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipFeet_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var feet = Mock.Of<IFeetSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IFeetSlot feet = new Mock<IFeetSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(feet);
@@ -396,15 +366,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipFeet_HappyPath()
         {
             // Arrange
-            bool feetAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockFeet = new Mock<IFeetSlot>();
-            mockFeet.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                    .Callback(() => feetAppliedCorrectly = true);
-            IFeetSlot feet = mockFeet.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var feet = Mock.Of<IFeetSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -413,8 +376,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(feet, equipmentSection.Feet,
                           "Equipping feet should create a reference in the equipment section's Feet slot.");
-            Assert.IsTrue(feetAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(feet)
+                .Verify(f => f.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -423,7 +387,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHands_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IHandsSlot hands = null;
 
@@ -439,9 +403,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHands_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var hands = Mock.Of<IHandsSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IHandsSlot hands = new Mock<IHandsSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(hands);
@@ -456,15 +420,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHands_HappyPath()
         {
             // Arrange
-            bool handsAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockHands = new Mock<IHandsSlot>();
-            mockHands.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                     .Callback(() => handsAppliedCorrectly = true);
-            IHandsSlot hands = mockHands.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var hands = Mock.Of<IHandsSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -473,8 +430,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(hands, equipmentSection.Hands,
                           "Equipping hands should create a reference in the equipment section's Hands slot.");
-            Assert.IsTrue(handsAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(hands)
+                .Verify(h => h.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -483,7 +441,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHead_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IHeadSlot head = null;
 
@@ -499,9 +457,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHead_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var head = Mock.Of<IHeadSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IHeadSlot head = new Mock<IHeadSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(head);
@@ -516,15 +474,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHead_HappyPath()
         {
             // Arrange
-            bool headAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockHead = new Mock<IHeadSlot>();
-            mockHead.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                    .Callback(() => headAppliedCorrectly = true);
-            IHeadSlot head = mockHead.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var head = Mock.Of<IHeadSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -533,8 +484,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(head, equipmentSection.Head,
                           "Equipping a head should create a reference in the equipment section's Head slot.");
-            Assert.IsTrue(headAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(head)
+                .Verify(h => h.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -543,7 +495,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHeadband_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IHeadbandSlot headband = null;
 
@@ -559,9 +511,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHeadband_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var headband = Mock.Of<IHeadbandSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IHeadbandSlot headband = new Mock<IHeadbandSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(headband);
@@ -576,15 +528,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipHeadband_HappyPath()
         {
             // Arrange
-            bool headbandAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockHeadband = new Mock<IHeadbandSlot>();
-            mockHeadband.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                        .Callback(() => headbandAppliedCorrectly = true);
-            IHeadbandSlot headband = mockHeadband.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var headband = Mock.Of<IHeadbandSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -593,8 +538,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(headband, equipmentSection.Headband,
                           "Equipping a headband should create a reference in the equipment section's Headband slot.");
-            Assert.IsTrue(headbandAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(headband)
+                .Verify(h => h.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -603,7 +549,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipNeck_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             INeckSlot neck = null;
 
@@ -619,9 +565,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipNeck_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var neck = Mock.Of<INeckSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            INeckSlot neck = new Mock<INeckSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(neck);
@@ -636,15 +582,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipNeck_HappyPath()
         {
             // Arrange
-            bool neckAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockNeck = new Mock<INeckSlot>();
-            mockNeck.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                        .Callback(() => neckAppliedCorrectly = true);
-            INeckSlot neck = mockNeck.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var neck = Mock.Of<INeckSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -653,8 +592,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(neck, equipmentSection.Neck,
                           "Equipping a neck should create a reference in the equipment section's Neck slot.");
-            Assert.IsTrue(neckAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(neck)
+                .Verify(n => n.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -663,7 +603,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipShield_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IShieldSlot shield = null;
 
@@ -679,9 +619,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipShield_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var shield = Mock.Of<IShieldSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IShieldSlot shield = new Mock<IShieldSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(shield);
@@ -696,15 +636,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipShield_HappyPath()
         {
             // Arrange
-            bool shieldAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockShield = new Mock<IShieldSlot>();
-            mockShield.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                      .Callback(() => shieldAppliedCorrectly = true);
-            IShieldSlot shield = mockShield.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var shield = Mock.Of<IShieldSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -713,8 +646,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(shield, equipmentSection.Shield,
                           "Equipping a shield should create a reference in the equipment section's Shield slot.");
-            Assert.IsTrue(shieldAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(shield)
+                .Verify(s => s.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -723,7 +657,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipShoulders_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IShouldersSlot shoulders = null;
 
@@ -739,9 +673,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipShoulders_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var shoulders = Mock.Of<IShouldersSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IShouldersSlot shoulders = new Mock<IShouldersSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(shoulders);
@@ -756,15 +690,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipShoulders_HappyPath()
         {
             // Arrange
-            bool shouldersAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockShoulders = new Mock<IShouldersSlot>();
-            mockShoulders.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                         .Callback(() => shouldersAppliedCorrectly = true);
-            IShouldersSlot shoulders = mockShoulders.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var shoulders = Mock.Of<IShouldersSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -773,8 +700,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(shoulders, equipmentSection.Shoulders,
                           "Equipping shoulders should create a reference in the equipment section's Shoulders slot.");
-            Assert.IsTrue(shouldersAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(shoulders)
+                .Verify(s => s.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -783,7 +711,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipWrists_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IWristsSlot wrists = null;
 
@@ -799,9 +727,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipWrists_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var wrists = Mock.Of<IWristsSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IWristsSlot wrists = new Mock<IWristsSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(wrists);
@@ -816,15 +744,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipWrists_HappyPath()
         {
             // Arrange
-            bool wristsAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockWrists = new Mock<IWristsSlot>();
-            mockWrists.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                      .Callback(() => wristsAppliedCorrectly = true);
-            IWristsSlot wrists = mockWrists.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var wrists = Mock.Of<IWristsSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -833,8 +754,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(wrists, equipmentSection.Wrists,
                           "Equipping wrists should create a reference in the equipment section's Wrists slot.");
-            Assert.IsTrue(wristsAppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(wrists)
+                .Verify(w => w.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -843,7 +765,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipRing_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IRingSlot ring = null;
 
@@ -859,9 +781,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipRing_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var ring = Mock.Of<IRingSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IRingSlot ring = new Mock<IRingSlot>().Object;
 
             // Act
             TestDelegate equip = () => equipmentSection.Equip(ring);
@@ -876,11 +798,11 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipingThirdRing_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var ring1 = Mock.Of<IRingSlot>();
+            var ring2 = Mock.Of<IRingSlot>();
+            var ring3 = Mock.Of<IRingSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IRingSlot ring1 = new Mock<IRingSlot>().Object;
-            IRingSlot ring2 = new Mock<IRingSlot>().Object;
-            IRingSlot ring3 = new Mock<IRingSlot>().Object;
 
             // Act
             TestDelegate firstEquip = () => equipmentSection.Equip(ring1);
@@ -898,21 +820,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void EquipRings_HappyPath()
         {
             // Arrange
-            bool ring1AppliedCorrectly = false; // We'll check on these later
-            bool ring2AppliedCorrectly = false; // We'll check on these later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockRing1 = new Mock<IRingSlot>();
-            mockRing1.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                     .Callback(() => ring1AppliedCorrectly = true);
-            IRingSlot ring1 = mockRing1.Object;
-
-            var mockRing2 = new Mock<IRingSlot>();
-            mockRing2.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                     .Callback(() => ring2AppliedCorrectly = true);
-            IRingSlot ring2 = mockRing2.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var ring1 = Mock.Of<IRingSlot>();
+            var ring2 = Mock.Of<IRingSlot>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -922,12 +832,14 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(ring1, equipmentSection.Rings.Item1,
                           "The first equipped ring should be stored in the first ring slot.");
-            Assert.IsTrue(ring1AppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
             Assert.AreSame(ring2, equipmentSection.Rings.Item2,
                           "The second equipped ring should be stored in the first ring slot.");
-            Assert.IsTrue(ring2AppliedCorrectly,
-                          "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(ring1)
+                .Verify(r => r.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(ring2)
+                .Verify(r => r.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Equipping the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -936,7 +848,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void StowSpellbook_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             ISpellbook spellbook = null;
 
@@ -952,9 +864,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void StowSpellbook_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var spellbook = Mock.Of<ISpellbook>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            ISpellbook spellbook = new Mock<ISpellbook>().Object;
 
             // Act
             TestDelegate stow = () => equipmentSection.Stow(spellbook);
@@ -969,15 +881,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void StowSpellbook_HappyPath()
         {
             // Arrange
-            bool spellbookAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockSpellbook = new Mock<ISpellbook>();
-            mockSpellbook.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                         .Callback(() => spellbookAppliedCorrectly = true);
-            ISpellbook spellbook = mockSpellbook.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var spellbook = Mock.Of<ISpellbook>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -986,8 +891,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.AreSame(spellbook, equipmentSection.Spellbook,
                           "Stowing a spellbook should create a reference in the equipment section's Spellbook slot.");
-            Assert.IsTrue(spellbookAppliedCorrectly,
-                          "Stowing the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(spellbook)
+                .Verify(s => s.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Stowing the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
 
@@ -996,7 +902,7 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void StowIStowable_Null_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
             IStowable item = null;
 
@@ -1012,9 +918,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void StowIStowable_Twice_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
+            var item = Mock.Of<IStowable>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
-            IStowable item = new Mock<IStowable>().Object;
 
             // Act
             TestDelegate stow = () => equipmentSection.Stow(item);
@@ -1029,15 +935,8 @@ namespace Core.Domain.UnitTests.Characters.Equipment
         public void StowIStowable_HappyPath()
         {
             // Arrange
-            bool itemAppliedCorrectly = false; // We'll check on this later
-
-            ICharacter character = new Mock<ICharacter>().Object;
-
-            var mockItem = new Mock<IStowable>();
-            mockItem.Setup(i => i.ApplyTo(It.Is<ICharacter>(input => character == input)))
-                    .Callback(() => itemAppliedCorrectly = true);
-            IStowable item = mockItem.Object;
-
+            var character = Mock.Of<ICharacter>();
+            var item = Mock.Of<IStowable>();
             EquipmentSection equipmentSection = new EquipmentSection(character);
 
             // Act
@@ -1046,8 +945,9 @@ namespace Core.Domain.UnitTests.Characters.Equipment
             // Assert
             Assert.Contains(item, equipmentSection.GetInventory(),
                           "Stowing an item should create a reference in the equipment section's GetInventory collection.");
-            Assert.IsTrue(itemAppliedCorrectly,
-                          "Stowing the item should call the item's .ApplyTo method, passing in the character as an argument.");
+            Mock.Get(item)
+                .Verify(i => i.ApplyTo(It.Is<ICharacter>(c => c == character)),
+                        "Stowing the item should call the item's .ApplyTo method, passing in the character as an argument.");
         }
         #endregion
     }

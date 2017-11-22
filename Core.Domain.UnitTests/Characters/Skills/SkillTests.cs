@@ -16,8 +16,8 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void DefaultValues()
         {
             // Arrange
-            var character = new Mock<ICharacter>().Object;
-            var abilityScore = new Mock<IAbilityScore>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
             string skillName = "my skill";
 
             Skill skill = new Skill(character, abilityScore, skillName);
@@ -42,10 +42,11 @@ namespace Core.Domain.UnitTests.Characters.Skills
         {
             // Arrange
             var mockAbilityScore = new Mock<IAbilityScore>();
-            mockAbilityScore.Setup(a => a.GetModifier()).Returns(0);
+            mockAbilityScore.Setup(a => a.GetModifier())
+                            .Returns(0);
             IAbilityScore abilityScore = mockAbilityScore.Object;
 
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
 
             string skillName = "my skill";
 
@@ -66,17 +67,18 @@ namespace Core.Domain.UnitTests.Characters.Skills
         {
             // Arrange
             var mockAbilityScore = new Mock<IAbilityScore>();
-            mockAbilityScore.Setup(a => a.GetModifier()).Returns(0);
+            mockAbilityScore.Setup(a => a.GetModifier())
+                            .Returns(0);
             IAbilityScore abilityScore = mockAbilityScore.Object;
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Level).Returns(20);
+            mockCharacter.Setup(c => c.Level)
+                         .Returns(20);
             ICharacter character = mockCharacter.Object;
 
             string skillName = "my skill";
 
-            Skill skill = new Skill(character, abilityScore, skillName)
-            {
+            Skill skill = new Skill(character, abilityScore, skillName) {
                 Ranks              = 0,
                 CanBeUsedUntrained = false
             };
@@ -95,17 +97,18 @@ namespace Core.Domain.UnitTests.Characters.Skills
         {
             // Arrange
             var mockAbilityScore = new Mock<IAbilityScore>();
-            mockAbilityScore.Setup(a => a.GetModifier()).Returns(0);
+            mockAbilityScore.Setup(a => a.GetModifier())
+                            .Returns(0);
             IAbilityScore abilityScore = mockAbilityScore.Object;
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Level).Returns(20);
+            mockCharacter.Setup(c => c.Level)
+                         .Returns(20);
             ICharacter character = mockCharacter.Object;
 
             string skillName = "my skill";
 
-            Skill skill = new Skill(character, abilityScore, skillName)
-            {
+            Skill skill = new Skill(character, abilityScore, skillName) {
                 Ranks              = 1,
                 CanBeUsedUntrained = false
             };
@@ -126,17 +129,18 @@ namespace Core.Domain.UnitTests.Characters.Skills
         {
             // Arrange
             var mockAbilityScore = new Mock<IAbilityScore>();
-            mockAbilityScore.Setup(a => a.GetModifier()).Returns(0);
+            mockAbilityScore.Setup(a => a.GetModifier())
+                            .Returns(0);
             IAbilityScore abilityScore = mockAbilityScore.Object;
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Level).Returns(20);
+            mockCharacter.Setup(c => c.Level)
+                         .Returns(20);
             ICharacter character = mockCharacter.Object;
 
             string skillName = "my skill";
 
-            Skill skill = new Skill(character, abilityScore, skillName)
-            {
+            Skill skill = new Skill(character, abilityScore, skillName) {
                 IsClassSkill = true,
                 Ranks        = 1
             };
@@ -156,16 +160,16 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Ranks_ExceedCharacterLevel_Throws()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Level).Returns(1);
+            mockCharacter.Setup(c => c.Level)
+                         .Returns(1);
             ICharacter character = mockCharacter.Object;
 
             string skillName = "my skill";
 
-            Skill skill = new Skill(character, abilityScore, skillName)
-            {
+            Skill skill = new Skill(character, abilityScore, skillName) {
                 IsClassSkill = true
             };
 
@@ -184,17 +188,18 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			var mockAbilityScore = new Mock<IAbilityScore>();
-			mockAbilityScore.Setup(a => a.GetModifier()).Returns(5);
+			mockAbilityScore.Setup(a => a.GetModifier())
+                            .Returns(5);
 			IAbilityScore abilityScore = mockAbilityScore.Object;
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Level).Returns(1);
+			mockCharacter.Setup(c => c.Level)
+                         .Returns(1);
 			ICharacter character = mockCharacter.Object;
 
             string skillName = "my skill";
 
-            Skill skill = new Skill(character, abilityScore, skillName)
-            {
+            Skill skill = new Skill(character, abilityScore, skillName) {
                 IsClassSkill = true,
                 Ranks        = 1
             };

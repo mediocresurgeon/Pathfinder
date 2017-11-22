@@ -18,8 +18,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         {
             // Arrange
             ICharacter character = null;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            IUniversalAttackBonus attackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
+            var attackBonus = Mock.Of<IUniversalAttackBonus>();
 
             // Act
             TestDelegate constructor = () => new WeaponAttackBonus(character, abilityScore, attackBonus);
@@ -33,9 +33,9 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void Constructor_NullIAbilityScore_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             IAbilityScore abilityScore = null;
-            IUniversalAttackBonus attackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var attackBonus = Mock.Of<IUniversalAttackBonus>();
 
             // Act
             TestDelegate constructor = () => new WeaponAttackBonus(character, abilityScore, attackBonus);
@@ -49,8 +49,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void Constructor_NullIAttackBonus_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
             IUniversalAttackBonus attackBonus = null;
 
             // Act
@@ -66,9 +66,9 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void KeyAbilityScore_PassThrough()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            IUniversalAttackBonus attackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
+            var attackBonus = Mock.Of<IUniversalAttackBonus>();
 
             WeaponAttackBonus wab = new WeaponAttackBonus(character, abilityScore, attackBonus);
 
@@ -85,9 +85,9 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void KeyAbilityScore_NullAssignment_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            IUniversalAttackBonus attackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
+            var attackBonus = Mock.Of<IUniversalAttackBonus>();
 
             WeaponAttackBonus wab = new WeaponAttackBonus(character, abilityScore, attackBonus);
 
@@ -105,8 +105,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void EnhancementBonuses_GetTotal()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockModifierTracker = new Mock<IModifierTracker>();
             mockModifierTracker.Setup(mt => mt.GetTotal())
@@ -131,8 +131,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void UntypedBonuses_GetTotal()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockModifierTracker = new Mock<IModifierTracker>();
             mockModifierTracker.Setup(mt => mt.GetTotal())
@@ -157,8 +157,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void Penalties_GetTotal()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockModifierTracker = new Mock<IModifierTracker>();
             mockModifierTracker.Setup(mt => mt.GetTotal())
@@ -187,8 +187,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Size)
                          .Returns(SizeCategory.Small);
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            IUniversalAttackBonus attackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
+            var attackBonus = Mock.Of<IUniversalAttackBonus>();
 
             WeaponAttackBonus wab = new WeaponAttackBonus(mockCharacter.Object, abilityScore, attackBonus);
 
@@ -208,8 +208,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Size)
                          .Returns(SizeCategory.Medium);
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            IUniversalAttackBonus attackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
+            var attackBonus = Mock.Of<IUniversalAttackBonus>();
 
             WeaponAttackBonus wab = new WeaponAttackBonus(mockCharacter.Object, abilityScore, attackBonus);
 
@@ -229,8 +229,8 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Size)
                          .Returns(SizeCategory.Large);
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
-            IUniversalAttackBonus attackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
+            var attackBonus = Mock.Of<IUniversalAttackBonus>();
 
             WeaponAttackBonus wab = new WeaponAttackBonus(mockCharacter.Object, abilityScore, attackBonus);
 
@@ -249,7 +249,7 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void GetTotal_Aggregates()
         {
             // Arrange
-            IUniversalAttackBonus universalAttackBonus = new Mock<IUniversalAttackBonus>().Object;
+            var universalAttackBonus = Mock.Of<IUniversalAttackBonus>();
 
             var mockAbilityScore = new Mock<IAbilityScore>();
             mockAbilityScore.Setup(mas => mas.GetModifier())

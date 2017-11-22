@@ -11,19 +11,47 @@ namespace Core.Domain.Items.Shields
     {
         #region Backing variables
         private bool _isMasterwork = false;
-        private readonly ShieldBonusAggregator _armorClass;
-        private readonly ShieldEnchantmentAggregator _enchantments;
-        private readonly ShieldHardnessAggregator _hardness;
-        private readonly ShieldHitPointAggregator _hitPoints;
+        private readonly IShieldBonusAggregator _armorClass;
+        private readonly IShieldEnchantmentAggregator _enchantments;
+        private readonly IShieldHardnessAggregator _hardness;
+        private readonly IShieldHitPointAggregator _hitPoints;
         #endregion
 
         #region Constructor
-        internal Shield(byte armorBonus, float materialInchesOfThickness, byte materialHitPointsPerInch, byte materialHardness)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Shield"/> class.
+        /// </summary>
+        /// <param name="armorClassBonus">The bonus to armor class that the shield provides.</param>
+        /// <param name="materialInchesOfThickness">The thickness of the shield (in inches).  This should account for sizing differences.</param>
+        /// <param name="materialHitPointsPerInch">The hitpoints-per-inch of the material this shield is made from.</param>
+        /// <param name="materialHardness">The hardness of the material this shield is made from.</param>
+        internal Shield(byte armorClassBonus, float materialInchesOfThickness, byte materialHitPointsPerInch, byte materialHardness)
+            : this(shieldBonus:  new ShieldBonusAggregator(armorClassBonus),
+                   hardness:     new ShieldHardnessAggregator(materialHardness),
+                   hitPoints:    new ShieldHitPointAggregator(materialInchesOfThickness, materialHitPointsPerInch),
+                   enchantments: null)
         {
-            _armorClass = new ShieldBonusAggregator(armorBonus);
-            _enchantments = new ShieldEnchantmentAggregator(this);
-            _hardness = new ShieldHardnessAggregator(materialHardness);
-            _hitPoints = new ShieldHitPointAggregator(materialInchesOfThickness, materialHitPointsPerInch);
+            // Intentionally blank
+        }
+
+        /// <summary>
+        /// Dependency injection constructor (used for testing).
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Shield"/> class.
+        /// </summary>
+        /// <param name="enchantments">If this is null, this will assign a new instance of ShieldEnchantmentAggregator to the Enchantments property.</param>
+        /// <param name="shieldBonus">Tied to the ArmorClass property; cannot be null.</param>
+        /// <param name="hardness">Tied to the Hardness property; cannot be null.</param>
+        /// <param name="hitPoints">Tied to the HitPoints property; cannot be null.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
+        internal Shield(IShieldBonusAggregator shieldBonus,
+                        IShieldHardnessAggregator hardness,
+                        IShieldHitPointAggregator hitPoints,
+                        IShieldEnchantmentAggregator enchantments)
+        {
+            _armorClass = shieldBonus ?? throw new ArgumentNullException(nameof(shieldBonus), "Argument may not be null.");
+            _hardness = hardness ?? throw new ArgumentNullException(nameof(hardness), "Argument cannot be null.");
+            _hitPoints = hitPoints ?? throw new ArgumentNullException(nameof(hitPoints), "Argument cannot be null.");
+            _enchantments = enchantments ?? new ShieldEnchantmentAggregator(this);
         }
 
 
@@ -116,13 +144,13 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Internal
-        internal virtual ShieldBonusAggregator ArmorClass { get => _armorClass; }
+        internal virtual IShieldBonusAggregator ArmorClass { get => _armorClass; }
 
-        internal virtual ShieldHardnessAggregator Hardness { get => _hardness; }
+        internal virtual IShieldHardnessAggregator Hardness { get => _hardness; }
 
-        internal virtual ShieldHitPointAggregator HitPoints { get => _hitPoints; }
+        internal virtual IShieldHitPointAggregator HitPoints { get => _hitPoints; }
 
-        internal virtual ShieldEnchantmentAggregator Enchantments { get => _enchantments; }
+        internal virtual IShieldEnchantmentAggregator Enchantments { get => _enchantments; }
         #endregion
 
         #region Public

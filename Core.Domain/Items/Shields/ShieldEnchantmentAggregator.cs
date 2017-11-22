@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Domain.Characters;
+using Core.Domain.Items.Shields.Enchantments;
 using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
-using Core.Domain.Items.Shields.ShieldEnchantments.Enchantments;
 using Core.Domain.Spells;
 
 
 namespace Core.Domain.Items.Shields
 {
-    internal sealed class ShieldEnchantmentAggregator : IApplicable
+    internal sealed class ShieldEnchantmentAggregator : IShieldEnchantmentAggregator
     {
         #region Constructor
         /// <summary>
@@ -26,7 +26,7 @@ namespace Core.Domain.Items.Shields
         #region Properties
         private Shield Shield { get; }
 
-        private List<ShieldEnchantment> Enchantments { get; } = new List<ShieldEnchantment>();
+        private List<IShieldEnchantment> Enchantments { get; } = new List<IShieldEnchantment>();
 
         private ICharacter Character { get; set; }
         #endregion
@@ -42,11 +42,11 @@ namespace Core.Domain.Items.Shields
         /// Thrown when attempting to apply an enchantment twice,
         /// or when attempting to apply an enchantment before applying an enhancement bonus.
         /// </exception>
-        internal void EnchantWith<T>(T enchantment) where T : ShieldEnchantment
+        public void EnchantWith<T>(T enchantment) where T : IShieldEnchantment
         {
             if (null == enchantment)
                 throw new ArgumentNullException(nameof(enchantment), "Argument cannot be null.");
-            if (typeof(T) != typeof(EnhancementBonus) && !this.Enchantments.Any(e => e is EnhancementBonus))
+            if (!(enchantment is EnhancementBonus) && !this.Enchantments.Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException($"Non-enhancement bonus enchantments may not be applied until an enhancement bonus has been applied.");
             if (this.Enchantments.Any(e => e.GetType() == typeof(T)))
                 throw new InvalidOperationException($"{ this.Shield } may not be enchanted with { typeof(T) } a second time.");
@@ -63,7 +63,7 @@ namespace Core.Domain.Items.Shields
         /// Gets the total market value from enchantments.
         /// </summary>
         /// <returns>The enchantment market value.</returns>
-        internal double GetEnchantmentMarketValue()
+        public double GetEnchantmentMarketValue()
         {
             if (!this.Enchantments.Any())
                 return 0;
@@ -79,7 +79,7 @@ namespace Core.Domain.Items.Shields
         /// <summary>
         /// Returns the enchantment schools.
         /// </summary>
-        internal School[] GetSchools()
+        public School[] GetSchools()
         {
             //If there are no enchantments, return an empty array.
             if (!this.Enchantments.Any())
@@ -97,7 +97,7 @@ namespace Core.Domain.Items.Shields
         }
 
 
-        internal (INameFragment enhancement, INameFragment[] others) GetNames()
+        public (INameFragment enhancement, INameFragment[] others) GetNames()
         {
             if (!this.Enchantments.Any())
                 return (null, new INameFragment[0]);
@@ -114,7 +114,7 @@ namespace Core.Domain.Items.Shields
         /// <summary>
         /// Returns the caster level.
         /// </summary>
-        internal byte? GetCasterLevel()
+        public byte? GetCasterLevel()
         {
             if (!this.Enchantments.Any())
                 return null;

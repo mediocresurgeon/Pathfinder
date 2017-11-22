@@ -31,7 +31,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Constructor_NullCraftType_Throws()
 		{
 			// Arrange
-			IAbilityScore charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
 			var mockCharacter = new Mock<ICharacter>();
@@ -50,7 +50,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Default()
 		{
 			// Arrange
-			IAbilityScore charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
 			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
 			var mockCharacter = new Mock<ICharacter>();

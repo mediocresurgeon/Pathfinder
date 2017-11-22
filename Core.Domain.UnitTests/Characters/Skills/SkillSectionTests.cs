@@ -31,23 +31,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Acrobatics()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-			var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-            mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-            mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-            mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-            mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-            mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-            mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
 			var skills = new SkillSection(mockCharacter.Object);
 
@@ -66,25 +73,32 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Appraise()
 		{
 			// Arrange
-			var strength     = new Mock<IAbilityScore>().Object;
-			var dexterity    = new Mock<IAbilityScore>().Object;
-			var constitution = new Mock<IAbilityScore>().Object;
-			var intelligence = new Mock<IAbilityScore>().Object;
-			var wisdom       = new Mock<IAbilityScore>().Object;
-			var charisma     = new Mock<IAbilityScore>().Object;
+			var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
-			var skills = new SkillSection(mockCharacter.Object);
+            var skills = new SkillSection(mockCharacter.Object);
 
 			// Act
 			var skill = skills.Appraise;
@@ -101,25 +115,32 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Default_Bluff()
 		{
 			// Arrange
-			var strength     = new Mock<IAbilityScore>().Object;
-			var dexterity    = new Mock<IAbilityScore>().Object;
-			var constitution = new Mock<IAbilityScore>().Object;
-			var intelligence = new Mock<IAbilityScore>().Object;
-			var wisdom       = new Mock<IAbilityScore>().Object;
-			var charisma     = new Mock<IAbilityScore>().Object;
+			var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
-			var skills = new SkillSection(mockCharacter.Object);
+            var skills = new SkillSection(mockCharacter.Object);
 
 			// Act
 			var skill = skills.Bluff;
@@ -136,23 +157,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Climb()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -169,23 +197,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Diplomacy()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -204,23 +239,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_DisableDevice()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -239,23 +281,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Disguise()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -274,23 +323,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_EscapeArtist()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -309,23 +365,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Fly()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -342,23 +405,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_HandleAnimal()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -377,23 +447,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Heal()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -412,23 +489,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Intimidate()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -447,23 +531,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Linguistics()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -482,23 +573,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Perception()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -517,23 +615,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Ride()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -552,23 +657,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_SenseMotive()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -587,23 +699,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_SleightOfHand()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -622,23 +741,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Spellcraft()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -657,23 +783,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Stealth()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -690,23 +823,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Survival()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -725,23 +865,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Swim()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -758,23 +905,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_UseMagicDevice()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -794,23 +948,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Craft()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -827,23 +988,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Knowledge()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -860,23 +1028,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Perform()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 
@@ -893,23 +1068,30 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Profession()
         {
             // Arrange
-            var strength     = new Mock<IAbilityScore>().Object;
-            var dexterity    = new Mock<IAbilityScore>().Object;
-            var constitution = new Mock<IAbilityScore>().Object;
-            var intelligence = new Mock<IAbilityScore>().Object;
-            var wisdom       = new Mock<IAbilityScore>().Object;
-            var charisma     = new Mock<IAbilityScore>().Object;
+            var strength     = Mock.Of<IAbilityScore>();
+            var dexterity    = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var intelligence = Mock.Of<IAbilityScore>();
+            var wisdom       = Mock.Of<IAbilityScore>();
+            var charisma     = Mock.Of<IAbilityScore>();
 
-			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
-			mockAbilityScores.Setup(abs => abs.Dexterity).Returns(dexterity);
-			mockAbilityScores.Setup(abs => abs.Constitution).Returns(constitution);
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            var mockAbilityScores = new Mock<IAbilityScoreSection>();
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Dexterity)
+                             .Returns(dexterity);
+            mockAbilityScores.Setup(abs => abs.Constitution)
+                             .Returns(constitution);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
-			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            var mockCharacter = new Mock<ICharacter>();
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var skills = new SkillSection(mockCharacter.Object);
 

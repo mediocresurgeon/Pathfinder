@@ -28,7 +28,7 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
         public void Default()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             AttackBonusSection attackBonusSection = new AttackBonusSection(character);
 
             // Assert

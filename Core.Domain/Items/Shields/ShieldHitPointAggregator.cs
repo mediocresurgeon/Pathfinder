@@ -4,7 +4,7 @@ using Core.Domain.Characters.ModifierTrackers;
 
 namespace Core.Domain.Items.Shields
 {
-    public sealed class ShieldHitPointAggregator
+    internal sealed class ShieldHitPointAggregator : IShieldHitPointAggregator
     {
         #region Constructor
         /// <summary>
@@ -23,15 +23,15 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Properties
-        internal float InchesOfThickness { get; }
+        public float InchesOfThickness { get; }
 
-        internal byte HitPointsPerInchOfThickness { get; }
+        public byte HitPointsPerInchOfThickness { get; }
 
-        internal IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
+        public IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
         #endregion
 
         #region Methods
-        internal ushort GetTotal()
+        public ushort GetTotal()
         {
             ushort runningTotal = Convert.ToUInt16(Math.Floor(this.InchesOfThickness * this.HitPointsPerInchOfThickness));
             runningTotal = 1 > runningTotal ? (ushort)1 : runningTotal; // Items always have at least 1 hit point

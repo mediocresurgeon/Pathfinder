@@ -28,7 +28,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Default()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
 
             // Act
             SpellSection spells = new SpellSection(character);

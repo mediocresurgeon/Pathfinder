@@ -31,11 +31,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Constructor_NullCraftType_Throws()
 		{
 			// Arrange
-			IAbilityScore intelligence = new Mock<IAbilityScore>().Object;
+			var intelligence = Mock.Of<IAbilityScore>();
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
-            mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 			string knowledgeType = null;
 
 			// Act
@@ -50,11 +52,13 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Default()
 		{
 			// Arrange
-			IAbilityScore intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 			string knowledgeType = "Chemistry";
 
 			// Act

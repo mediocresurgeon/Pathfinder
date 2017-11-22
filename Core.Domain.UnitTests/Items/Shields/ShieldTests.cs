@@ -25,6 +25,26 @@ namespace Core.Domain.UnitTests.Items.Shields
         }
 
 
+        [Test(Description = "Ensures that the constructor intended to enable dependency injection works as intended.")]
+        public void InjectionConstructor_TypicalCase()
+        {
+            // Arrange
+            var enchantmentAgg = Mock.Of<IShieldEnchantmentAggregator>();
+            var shieldAgg = Mock.Of<IShieldBonusAggregator>();
+            var hardnessAgg = Mock.Of<IShieldHardnessAggregator>();
+            var hitPointAgg = Mock.Of<IShieldHitPointAggregator>();
+
+            // Act
+            Shield shield = new Mock<Shield>(MockBehavior.Loose, shieldAgg, hardnessAgg, hitPointAgg, enchantmentAgg) { CallBase = true }.Object;
+
+            // Assert
+            Assert.AreSame(enchantmentAgg, shield.Enchantments);
+            Assert.AreSame(shieldAgg, shield.ArmorClass);
+            Assert.AreSame(hardnessAgg, shield.Hardness);
+            Assert.AreSame(hitPointAgg, shield.HitPoints);
+        }
+
+
         [Test(Description = "Ensures that a Shield cannot be applied to a null ICharacter.")]
         public void ApplyTo_NullICharacter_Throws()
         {

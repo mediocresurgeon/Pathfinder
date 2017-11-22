@@ -1,6 +1,5 @@
 ﻿using System;
 using Core.Domain.Characters;
-using Core.Domain.Items.Shields.ShieldEnchantments.Enchantments;
 using Core.Domain.Spells;
 
 

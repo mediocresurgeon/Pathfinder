@@ -31,13 +31,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Act()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-            mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+            mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -55,13 +57,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Comedy()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -79,13 +83,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Dance()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -103,13 +109,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_KeyboardInstruments()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -127,13 +135,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Oratory()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -151,13 +161,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_PercussionInstruments()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -175,13 +187,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_StringInstruments()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -199,13 +213,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_WindInstruments()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 
@@ -223,13 +239,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Sing()
         {
 			// Arrange
-			var charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Charisma).Returns(charisma);
+			mockAbilityScores.Setup(abs => abs.Charisma)
+                             .Returns(charisma);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var performs = new PerformSkillSection(mockCharacter.Object);
 

@@ -17,7 +17,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         {
             // Arrange
             ISpell spell = null;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
             Func<byte> casterLevel = () => 1;
 
             // Act
@@ -33,7 +33,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Constructor1_NullIAbilityScore_Throws()
         {
             // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
+            var spell = Mock.Of<ISpell>();
             IAbilityScore abilityScore = null;
             Func<byte> casterLevel = () => 1;
 
@@ -50,7 +50,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Constructor1_NullFunc_Throws()
         {
             // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
+            var spell = Mock.Of<ISpell>();
             IAbilityScore abilityScore = null;
             Func<byte> casterLevel = null;
 
@@ -68,8 +68,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Default()
         {
             // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var spell = Mock.Of<ISpell>();
+            var abilityScore = Mock.Of<IAbilityScore>();
             Func<byte> casterLevel = () => 1;
 
             CastableSpell castable = new CastableSpell(spell, abilityScore, casterLevel);
@@ -88,7 +88,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			var mockSpell = new Mock<ISpell>();
 			mockSpell.Setup(s => s.AllowsSavingThrow)
                      .Returns(false);
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var abilityScore = Mock.Of<IAbilityScore>();
             Func<byte> casterLevel = () => 1;
 
             CastableSpell castable = new CastableSpell(mockSpell.Object, abilityScore, casterLevel);

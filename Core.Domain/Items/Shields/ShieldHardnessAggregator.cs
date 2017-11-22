@@ -3,7 +3,7 @@
 
 namespace Core.Domain.Items.Shields
 {
-    public sealed class ShieldHardnessAggregator
+    internal sealed class ShieldHardnessAggregator : IShieldHardnessAggregator
     {
         #region Constructor
         /// <summary>
@@ -17,13 +17,13 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Properties
-        internal byte MaterialHardness { get; }
+        public byte MaterialHardness { get; }
 
-        internal IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
+        public IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
         #endregion
 
         #region Methods
-        internal byte GetTotal()
+        public byte GetTotal()
         {
             byte runningTotal = this.MaterialHardness;
             runningTotal += this.EnhancementBonuses.GetTotal();

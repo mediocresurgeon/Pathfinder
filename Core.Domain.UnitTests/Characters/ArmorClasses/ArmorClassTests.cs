@@ -33,7 +33,7 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
         public void Default()
         {
             // Arrange
-            IAbilityScore dexterity = new Mock<IAbilityScore>().Object;
+            var dexterity = Mock.Of<IAbilityScore>();
 
             var abilityScores = new Mock<IAbilityScoreSection>();
             abilityScores.Setup(abs => abs.Dexterity)
@@ -72,7 +72,7 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
         public void SizeBonuses_Small()
         {
             // Arrange
-            IAbilityScore dexterity = new Mock<IAbilityScore>().Object;
+            var dexterity = Mock.Of<IAbilityScore>();
 
             var abilityScores = new Mock<IAbilityScoreSection>();
             abilityScores.Setup(abs => abs.Dexterity)
@@ -98,7 +98,7 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
         public void SizeBonuses_Medium()
         {
             // Arrange
-            IAbilityScore dexterity = new Mock<IAbilityScore>().Object;
+            var dexterity = Mock.Of<IAbilityScore>();
 
             var abilityScores = new Mock<IAbilityScoreSection>();
             abilityScores.Setup(abs => abs.Dexterity)
@@ -124,7 +124,7 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
         public void SizeBonuses_Large()
         {
             // Arrange
-            IAbilityScore dexterity = new Mock<IAbilityScore>().Object;
+            var dexterity = Mock.Of<IAbilityScore>();
 
             var abilityScores = new Mock<IAbilityScoreSection>();
             abilityScores.Setup(abs => abs.Dexterity)
@@ -152,7 +152,7 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
         public void MaxKeyAbilityScore_Default()
         {
 			// Arrange
-			IAbilityScore dexterity = new Mock<IAbilityScore>().Object;
+			var dexterity = Mock.Of<IAbilityScore>();
 
 			var abilityScores = new Mock<IAbilityScoreSection>();
 			abilityScores.Setup(abs => abs.Dexterity)
@@ -178,7 +178,7 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
 		public void MaxKeyAbilityScore_Aggregates()
 		{
 			// Arrange
-			IAbilityScore dexterity = new Mock<IAbilityScore>().Object;
+			var dexterity = Mock.Of<IAbilityScore>();
 
 			var abilityScores = new Mock<IAbilityScoreSection>();
 			abilityScores.Setup(abs => abs.Dexterity)

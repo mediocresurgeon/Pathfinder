@@ -17,17 +17,21 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			var mockSwim = new Mock<IMovement>();
 			//mockSwim.Setup(c => c.BaseSpeed).Returns(null);  // Redundant - the default behavior is to return null
 
-			IAbilityScore strength = new Mock<IAbilityScore>().Object;
+			var strength = Mock.Of<IAbilityScore>();
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
-            mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
+            mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
 
             var mockSpeeds = new Mock<IMovementSection>();
-            mockSpeeds.Setup(ms => ms.Swim).Returns(mockSwim.Object);
+            mockSpeeds.Setup(ms => ms.Swim)
+                      .Returns(mockSwim.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
-            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes)
+                         .Returns(mockSpeeds.Object);
 
 			Swim swim = new Swim(mockCharacter.Object);
 
@@ -44,19 +48,24 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		{
 			// Arrange
 			var mockSwim = new Mock<IMovement>();
-			mockSwim.Setup(c => c.BaseSpeed).Returns(6);
+			mockSwim.Setup(c => c.BaseSpeed)
+                    .Returns(6);
 
-			IAbilityScore strength = new Mock<IAbilityScore>().Object;
+			var strength = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Strength).Returns(strength);
+			mockAbilityScores.Setup(abs => abs.Strength)
+                             .Returns(strength);
 
 			var mockSpeeds = new Mock<IMovementSection>();
-			mockSpeeds.Setup(ms => ms.Swim).Returns(mockSwim.Object);
+			mockSpeeds.Setup(ms => ms.Swim)
+                      .Returns(mockSwim.Object);
 
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
-            mockCharacter.Setup(c => c.MovementModes).Returns(mockSpeeds.Object);
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.MovementModes)
+                         .Returns(mockSpeeds.Object);
 
 			Swim swim = new Swim(mockCharacter.Object);
 

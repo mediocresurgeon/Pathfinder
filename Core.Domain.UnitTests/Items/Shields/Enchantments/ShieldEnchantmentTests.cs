@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Core.Domain.Items.Shields.ShieldEnchantments.Enchantments;
+using Core.Domain.Items.Shields.Enchantments;
 using Moq;
 using NUnit.Framework;
 
@@ -21,11 +21,10 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments
             // Act
             TestDelegate constructor = () =>
             {
-                var mockEnchantment = new Mock<ShieldEnchantment>(MockBehavior.Loose, name, webAddress);
+                var mockEnchantment = new Mock<ShieldEnchantment>(MockBehavior.Loose, name, webAddress) { CallBase = true };
                 var enchantment = mockEnchantment.Object;
             };
 
-            // Assert
             // Assert
             var exception = Assert.Throws<TargetInvocationException>(constructor);
             Assert.That(exception.InnerException is ArgumentNullException);
@@ -42,11 +41,10 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments
             // Act
             TestDelegate constructor = () =>
             {
-                var mockEnchantment = new Mock<ShieldEnchantment>(MockBehavior.Loose, name, webAddress);
+                var mockEnchantment = new Mock<ShieldEnchantment>(MockBehavior.Loose, name, webAddress) { CallBase = true };
                 var enchantment = mockEnchantment.Object;
             };
 
-            // Assert
             // Assert
             var exception = Assert.Throws<TargetInvocationException>(constructor);
             Assert.That(exception.InnerException is ArgumentNullException);
@@ -63,13 +61,31 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments
             // Act
             TestDelegate constructor = () =>
             {
-                var mockEnchantment = new Mock<ShieldEnchantment>(MockBehavior.Loose, name, webAddress);
+                var mockEnchantment = new Mock<ShieldEnchantment>(MockBehavior.Loose, name, webAddress) { CallBase = true };
                 var enchantment = mockEnchantment.Object;
             };
 
             // Assert
             var exception = Assert.Throws<TargetInvocationException>(constructor);
             Assert.That(exception.InnerException is ArgumentException);
+        }
+        #endregion
+
+        #region Properties
+        [Test(Description = "Ensures that a fresh instance of ShieldEnchantment has sensible defaults.")]
+        public void Default()
+        {
+            // Arrange
+            string enchantmentName = "my enchantment";
+            string enchantmentWebAddress = "https://example.com";
+            ShieldEnchantment enchantment = new Mock<ShieldEnchantment>(MockBehavior.Loose, enchantmentName, enchantmentWebAddress) { CallBase = true }.Object;
+
+            // Act
+            var name = enchantment.Name;
+
+            //Assert
+            Assert.AreEqual(enchantmentName, name.Text);
+            Assert.AreEqual(enchantmentWebAddress, name.WebAddress);
         }
         #endregion
     }

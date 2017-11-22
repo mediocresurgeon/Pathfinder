@@ -31,13 +31,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Architect()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -55,13 +57,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Baker()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -79,13 +83,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Barrister()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -103,13 +109,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Brewer()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -127,13 +135,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Butcher()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -151,13 +161,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Clerk()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -175,13 +187,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Cook()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -199,13 +213,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Courtesan()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -223,13 +239,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Driver()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -247,13 +265,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Engineer()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -271,13 +291,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Farmer()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -295,13 +317,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Fisherman()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -319,13 +343,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Gambler()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -343,13 +369,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Gardener()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -367,13 +395,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Herbalist()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -391,13 +421,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Innkeeper()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -415,13 +447,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Librarian()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -439,13 +473,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Merchant()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -463,13 +499,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Midwife()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -487,13 +525,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Miller()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -511,13 +551,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Miner()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -535,13 +577,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Porter()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -559,13 +603,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Sailor()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -583,13 +629,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Scribe()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -607,13 +655,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Shepherd()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -631,13 +681,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_StableMaster()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -655,13 +707,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Soldier()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -679,13 +733,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Tanner()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -703,13 +759,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Trapper()
         {
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var professions = new ProfessionSkillSection(mockCharacter.Object);
 
@@ -727,13 +785,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Default_Woodcutter()
 		{
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
 			var professions = new ProfessionSkillSection(mockCharacter.Object);
 

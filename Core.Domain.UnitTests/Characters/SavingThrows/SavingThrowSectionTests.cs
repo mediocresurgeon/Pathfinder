@@ -29,9 +29,9 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void Default()
         {
             // Arrange
-            IAbilityScore dexterity = new Mock<IAbilityScore>().Object;
-            IAbilityScore constitution = new Mock<IAbilityScore>().Object;
-            IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var dexterity = Mock.Of<IAbilityScore>();
+            var constitution = Mock.Of<IAbilityScore>();
+            var wisdom = Mock.Of<IAbilityScore>();
 
             var mockAbilityScoreSection = new Mock<IAbilityScoreSection>();
             mockAbilityScoreSection.Setup(abs => abs.Dexterity)

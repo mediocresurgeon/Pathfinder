@@ -30,7 +30,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void SpellLikeAbility_Property_RoundTrip()
         {
             // Arrange
-            ISpellLikeAbility sla = new Mock<ISpellLikeAbility>().Object;
+            ISpellLikeAbility sla = Mock.Of<ISpellLikeAbility>();
             SpellLikeAbilityRegisteredEventArgs eventArgs = new SpellLikeAbilityRegisteredEventArgs(sla);
 
             // Act

@@ -2,6 +2,7 @@
 using Core.Domain.Characters;
 using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
 
+
 namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 {
     public enum HeavyShieldMaterial
@@ -18,7 +19,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     {
         #region Constructor
         public HeavyShield(SizeCategory size, HeavyShieldMaterial material)
-            : base(armorBonus: 2,
+            : base(armorClassBonus:           2,
                    materialInchesOfThickness: InchesOfThicknessScaledBySize(size, GetMediumInchesOfThicknessForMaterial(material)),
                    materialHitPointsPerInch:  GetHitPointsPerInchOfThicknessForMaterial(material),
                    materialHardness:          GetHardnessForMaterial(material))
@@ -152,14 +153,140 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <summary>
         /// Adds a magical enhancement bonus to this shield.
         /// </summary>
-        /// <exception cref = "System.ArgumentOutOfRangeException" > Thrown when bonus is zero, or greater than five.</exception>
-        /// <exception cref = "System.InvalidOperationException" > Thrown when attempting to apply an enchantment twice.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Thrown when bonus is zero, or greater than five.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when attempting to apply an enchantment twice.</exception>
         public HeavyShield EnchantWithEnhancementBonus(byte bonus)
         {
             if (!this.IsMasterwork)
                 throw new InvalidOperationException("Only masterwork items can be enchanted.");
             this.MasterworkIsToggleable = false;
             this.Enchantments.EnchantWith(new EnhancementBonus(bonus));
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Animated.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithAnimated()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new Animated());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Arrow Catching.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithArrowCatching()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new ArrowCatching());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Arrow Deflection.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithArrowDeflection()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new ArrowDeflection());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Blinding.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithBlinding()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new Blinding());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Fortification.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithFortification(FortificationType protectionLevel)
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new Fortification(protectionLevel));
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Ghost Touch.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithGhostTouch()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new GhostTouch());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Reflecting.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithReflecting()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new Reflecting());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Undead Controlling.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithUndeadControlling()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new UndeadControlling());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Wild.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithWild()
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new Wild());
             return this;
         }
         #endregion

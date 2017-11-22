@@ -29,7 +29,7 @@ namespace Core.Domain.UnitTests.Characters.Initiatives
         public void Default()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
             Initiative init = new Initiative(abilityScore);
 
             // Assert

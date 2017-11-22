@@ -34,7 +34,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverDefenses
         public void Default()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             CombatManeuverDefense cmd = new CombatManeuverDefense(character);
 
             // Arrange

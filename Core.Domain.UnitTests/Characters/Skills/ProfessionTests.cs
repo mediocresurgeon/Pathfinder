@@ -31,13 +31,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Constructor_NullCraftType_Throws()
 		{
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+			var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-            mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+            mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
 			string professionType = null;
 
@@ -53,13 +55,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
 		public void Default()
 		{
 			// Arrange
-			IAbilityScore wisdom = new Mock<IAbilityScore>().Object;
+            var wisdom = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Wisdom).Returns(wisdom);
+			mockAbilityScores.Setup(abs => abs.Wisdom)
+                             .Returns(wisdom);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
 			string professionType = "Superhero";
 

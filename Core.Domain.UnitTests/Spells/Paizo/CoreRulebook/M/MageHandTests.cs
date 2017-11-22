@@ -43,7 +43,7 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
 
 
         [Test]
-        public void AntimagicField_WizardVersion()
+        public void MageHand_WizardVersion()
         {
             // Act
             var spell = MageHand.WizardVersion;

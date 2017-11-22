@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Domain.Characters;
+using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
 using Core.Domain.Items.Shields.Paizo.CoreRulebook;
 using Core.Domain.Spells;
 using NUnit.Framework;
@@ -33,7 +34,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void Small_Steel_Masterwork()
         {
             // Arrange
-            HeavyShield shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Steel) {
+            HeavyShield shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Steel)
+            {
                 IsMasterwork = true
             };
 
@@ -71,7 +73,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void Medium_Steel_Masterwork()
         {
             // Arrange
-            HeavyShield shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Steel) {
+            HeavyShield shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Steel)
+            {
                 IsMasterwork = true
             };
 
@@ -109,7 +112,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void Large_Steel_Masterwork()
         {
             // Arrange
-            HeavyShield shield = new HeavyShield(SizeCategory.Large, HeavyShieldMaterial.Steel) {
+            HeavyShield shield = new HeavyShield(SizeCategory.Large, HeavyShieldMaterial.Steel)
+            {
                 IsMasterwork = true
             };
 
@@ -148,7 +152,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void Small_Wood_Masterwork()
         {
             // Arrange
-            HeavyShield shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Wood) {
+            HeavyShield shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -186,7 +191,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void Medium_Wood_Masterwork()
         {
             // Arrange
-            HeavyShield shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            HeavyShield shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -435,7 +441,7 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             TestDelegate enchant = () => shield.EnchantWithEnhancementBonus(1);
 
             // Assert
-            Assert.Throws<InvalidOperationException>(enchant, 
+            Assert.Throws<InvalidOperationException>(enchant,
                                                      "Only shields of Masterwork quality may be enchanted.");
         }
 
@@ -444,7 +450,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void EnchantWith_EnhancementBonus_0_Throws()
         {
             // Arrange
-            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -461,7 +468,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void EnchantWith_EnhancementBonus_6_Throws()
         {
             // Arrange
-            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -478,7 +486,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void EnchantWith_EnhancementBonus_1()
         {
             // Arrange
-            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -502,7 +511,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void EnchantWith_EnhancementBonus_2()
         {
             // Arrange
-            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -526,7 +536,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void EnchantWith_EnhancementBonus_3()
         {
             // Arrange
-            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -550,7 +561,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void EnchantWith_EnhancementBonus_4()
         {
             // Arrange
-            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -574,7 +586,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         public void EnchantWith_EnhancementBonus_5()
         {
             // Arrange
-            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood) {
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
                 IsMasterwork = true
             };
 
@@ -591,6 +604,517 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             Assert.Contains(School.Abjuration, shield.GetSchools());
             Assert.Throws<InvalidOperationException>(() => shield.IsMasterwork = false,
                                                      "It should not be possible to remove Masterwork quality from an enchanted item.");
+        }
+        #endregion
+
+        #region Enchantment - Animated
+        [Test(Description = "Ensures that Animated cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_Animated_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithAnimated();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Animated until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Animated has the correct configuration.")]
+        public void EnchantWith_Animated_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithAnimated();
+
+            // Assert
+            Assert.AreEqual(9157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Animated Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(12, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Transmutation, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Arrow Catching
+        [Test(Description = "Ensures that Arrow Catching cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_ArrowCatching_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithArrowCatching();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Arrow Catching until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Arrow Catching has the correct configuration.")]
+        public void EnchantWith_ArrowCatching_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithArrowCatching();
+
+            // Assert
+            Assert.AreEqual(4157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Arrow Catching Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(8, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Arrow Deflection
+        [Test(Description = "Ensures that Arrow Deflection cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_ArrowDeflection_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithArrowDeflection();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Arrow Deflection until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Arrow Deflection has the correct configuration.")]
+        public void EnchantWith_ArrowDeflection_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithArrowDeflection();
+
+            // Assert
+            Assert.AreEqual(9157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Arrow Deflection Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(5, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Blinding
+        [Test(Description = "Ensures that Blinding cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_Blinding_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithBlinding();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Blinding until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Blinding has the correct configuration.")]
+        public void EnchantWith_Blinding_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithBlinding();
+
+            // Assert
+            Assert.AreEqual(4157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Blinding Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(7, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Evocation, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Light Fortification
+        [Test(Description = "Ensures that Light Fortification cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_LightFortification_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithFortification(FortificationType.Light);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Light Fortification until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that Light Fortification cannot be added to a shield which has a previous Fortification enchantment.")]
+        public void EnchantWith_LightFortification_AlreadyFortified()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithEnhancementBonus(1)
+                                               .EnchantWithFortification(FortificationType.Medium)
+                                               .EnchantWithFortification(FortificationType.Light);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Light Fortification if Medium Fortification has already been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Light Fortification has the correct configuration.")]
+        public void EnchantWith_LightFortification_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithFortification(FortificationType.Light);
+
+            // Assert
+            Assert.AreEqual(4157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Light Fortification Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(13, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Medium Fortification
+        [Test(Description = "Ensures that Medium Fortification cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_MediumFortification_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithFortification(FortificationType.Medium);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Medium Fortification until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that Medium Fortification cannot be added to a shield which has a previous Fortification enchantment.")]
+        public void EnchantWith_MediumFortification_AlreadyFortified()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithEnhancementBonus(1)
+                                               .EnchantWithFortification(FortificationType.Heavy)
+                                               .EnchantWithFortification(FortificationType.Medium);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Medium Fortification if Heavy Fortification has already been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Medium Fortification has the correct configuration.")]
+        public void EnchantWith_MediumFortification_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithFortification(FortificationType.Medium);
+
+            // Assert
+            Assert.AreEqual(16157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Medium Fortification Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(13, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Heavy Fortification
+        [Test(Description = "Ensures that Heavy Fortification cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_HeavyFortification_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithFortification(FortificationType.Heavy);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Heavy Fortification until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that Heavy Fortification cannot be added to a shield which has a previous Fortification enchantment.")]
+        public void EnchantWith_HeavyFortification_AlreadyFortified()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithEnhancementBonus(1)
+                                               .EnchantWithFortification(FortificationType.Light)
+                                               .EnchantWithFortification(FortificationType.Heavy);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Heavy Fortification if Light Fortification has already been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Heavy Fortification has the correct configuration.")]
+        public void EnchantWith_HeavyFortification_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithFortification(FortificationType.Heavy);
+
+            // Assert
+            Assert.AreEqual(36157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Heavy Fortification Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(13, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Ghost Touch
+        [Test(Description = "Ensures that Ghost Touch cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_GhostTouch_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithGhostTouch();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with GhostTouch until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Ghost Touch has the correct configuration.")]
+        public void EnchantWith_GhostTouch_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithGhostTouch();
+
+            // Assert
+            Assert.AreEqual(16157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Ghost Touch Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(15, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Transmutation, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Reflecting
+        [Test(Description = "Ensures that Reflecting cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_Reflecting_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithReflecting();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Reflecting until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Reflecting has the correct configuration.")]
+        public void EnchantWith_Reflecting_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithReflecting();
+
+            // Assert
+            Assert.AreEqual(36157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Reflecting Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(14, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Undead Controlling
+        [Test(Description = "Ensures that Reflecting cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_UndeadControlling_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithUndeadControlling();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Undead Controlling until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Undead Controlling has the correct configuration.")]
+        public void EnchantWith_UndeadControlling_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithUndeadControlling();
+
+            // Assert
+            Assert.AreEqual(50_157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Undead Controlling Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(13, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Necromancy, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Wild
+        [Test(Description = "Ensures that Ghost Touch cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_Wild_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithWild();
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Wild until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Wild has the correct configuration.")]
+        public void EnchantWith_Wild_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithWild();
+
+            // Assert
+            Assert.AreEqual(16157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Wild Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(9, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Transmutation, shield.GetSchools());
         }
         #endregion
     }

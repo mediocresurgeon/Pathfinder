@@ -18,7 +18,7 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         {
             // Arrange
             ICharacter character = null;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             // Act
             TestDelegate constructor = () => new SavingThrow(character, abilityScore);
@@ -32,7 +32,7 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void Constructor_NullIAbilityScore_Throws()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             IAbilityScore abilityScore = null;
 
             // Act
@@ -48,8 +48,8 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void Default()
         {
             // Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var character = Mock.Of<ICharacter>();
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             // Act
             SavingThrow savingThrow = new SavingThrow(character, abilityScore);
@@ -69,14 +69,15 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void GetLevelBonus_Good_Level1()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level)
                          .Returns(1);
 
-            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore);
-            savingThrow.IsGood = true;
+            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore) {
+                IsGood = true
+            };
 
             // Act
             var result = savingThrow.GetLevelBonus();
@@ -91,14 +92,15 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void GetLevelBonus_Bad_Level1()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level)
                          .Returns(1);
 
-            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore);
-            savingThrow.IsGood = false;
+            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore) {
+                IsGood = false
+            };
 
             // Act
             var result = savingThrow.GetLevelBonus();
@@ -113,14 +115,15 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void GetLevelBonus_Good_Level2()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level)
                          .Returns(2);
 
-            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore);
-            savingThrow.IsGood = true;
+            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore) {
+                IsGood = true
+            };
 
             // Act
             var result = savingThrow.GetLevelBonus();
@@ -135,14 +138,15 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void GetLevelBonus_Bad_Level2()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level)
                          .Returns(2);
 
-            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore);
-            savingThrow.IsGood = false;
+            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore) {
+                IsGood = false
+            };
 
             // Act
             var result = savingThrow.GetLevelBonus();
@@ -157,14 +161,15 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void GetLevelBonus_Good_Level3()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level)
                          .Returns(3);
 
-            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore);
-            savingThrow.IsGood = true;
+            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore) {
+                IsGood = true
+            };
 
             // Act
             var result = savingThrow.GetLevelBonus();
@@ -179,14 +184,15 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
         public void GetLevelBonus_Bad_Level3()
         {
             // Arrange
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var abilityScore = Mock.Of<IAbilityScore>();
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.Level)
                          .Returns(3);
 
-            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore);
-            savingThrow.IsGood = false;
+            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, abilityScore) {
+                IsGood = false
+            };
 
             // Act
             var result = savingThrow.GetLevelBonus();
@@ -210,8 +216,9 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
 			mockCharacter.Setup(c => c.Level)
 						 .Returns(3);
 
-            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, mockAbilityScore.Object);
-			savingThrow.IsGood = false;
+            SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, mockAbilityScore.Object) {
+                IsGood = false
+            };
             savingThrow.LuckBonuses.Add(5);
             savingThrow.ResistanceBonuses.Add(7);
             savingThrow.UntypedBonuses.Add(11);

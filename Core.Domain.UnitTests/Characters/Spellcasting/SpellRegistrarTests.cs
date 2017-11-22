@@ -33,9 +33,9 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			ISpell spell = null;
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var abilityScore = Mock.Of<IAbilityScore>();
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			// Act
@@ -51,10 +51,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void Register1_NullIAbilityScore_Throws()
 		{
 			// Arrange
-			ISpell spell = new Mock<ISpell>().Object;
+			var spell = Mock.Of<ISpell>();
 			IAbilityScore abilityScore = null;
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			// Act
@@ -71,15 +71,18 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			var mockSpell = new Mock<ISpell>();
-			mockSpell.Setup(s => s.Level).Returns(7);
+			mockSpell.Setup(s => s.Level)
+                     .Returns(7);
 			ISpell spell = mockSpell.Object;
 
 			var mockAbilityScore = new Mock<IAbilityScore>();
-			mockAbilityScore.Setup(ab => ab.GetBonus()).Returns(4);
+			mockAbilityScore.Setup(ab => ab.GetBonus())
+                            .Returns(4);
 			IAbilityScore abilityScore = mockAbilityScore.Object;
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Level).Returns(19);
+			mockCharacter.Setup(c => c.Level)
+                         .Returns(19);
 			ICharacter character = mockCharacter.Object;
 
 			SpellRegistrar spellReg = new SpellRegistrar(character);
@@ -98,9 +101,9 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			// Arrange
 			Func<byte> casterLevel = () => 10;
 			ISpell spell = null;
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var abilityScore = Mock.Of<IAbilityScore>();
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			// Act
@@ -117,10 +120,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			Func<byte> casterLevel = () => 10;
-			ISpell spell = new Mock<ISpell>().Object;
+			var spell = Mock.Of<ISpell>();
 			IAbilityScore abilityScore = null;
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			// Act
@@ -139,15 +142,18 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			Func<byte> casterLevel = () => 9;
 
 			var mockSpell = new Mock<ISpell>();
-			mockSpell.Setup(s => s.Level).Returns(7);
+			mockSpell.Setup(s => s.Level)
+                     .Returns(7);
 			ISpell spell = mockSpell.Object;
 
 			var mockAbilityScore = new Mock<IAbilityScore>();
-			mockAbilityScore.Setup(ab => ab.GetBonus()).Returns(4);
+			mockAbilityScore.Setup(ab => ab.GetBonus())
+                            .Returns(4);
 			IAbilityScore abilityScore = mockAbilityScore.Object;
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.Level).Returns(19);
+			mockCharacter.Setup(c => c.Level)
+                         .Returns(19);
 			ICharacter character = mockCharacter.Object;
 
 			SpellRegistrar spellReg = new SpellRegistrar(character);
@@ -166,10 +172,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void GetSpellLikeAbilities_Register1_RoundTrip()
 		{
 			// Arrange
-			ISpell spell = new Mock<ISpell>().Object;
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var spell = Mock.Of<ISpell>();
+			var abilityScore = Mock.Of<IAbilityScore>();
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
             ICastableSpell castable = spellReg.Register(spell, abilityScore);
@@ -188,10 +194,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			Func<byte> casterLevel = () => 10;
-			ISpell spell = new Mock<ISpell>().Object;
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var spell = Mock.Of<ISpell>();
+			var abilityScore = Mock.Of<IAbilityScore>();
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			ICastableSpell castable = spellReg.Register(spell, abilityScore, casterLevel);
@@ -210,10 +216,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void OnRegistered_NullHandler_Throws()
         {
             // Arrange
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var spell = Mock.Of<ISpell>();
+            var abilityScore = Mock.Of<IAbilityScore>();
 
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             SpellRegistrar spellReg = new SpellRegistrar(character);
 
             // Act
@@ -229,10 +235,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		public void Register1_TriggersEvent()
 		{
 			// Arrange
-			ISpell spell = new Mock<ISpell>().Object;
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var spell = Mock.Of<ISpell>();
+			var abilityScore = Mock.Of<IAbilityScore>();
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			bool wasCalled = false; // This tracks whether the event was fired.
@@ -252,10 +258,10 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
 			Func<byte> casterLevel = () => 10;
-			ISpell spell = new Mock<ISpell>().Object;
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var spell = Mock.Of<ISpell>();
+			var abilityScore = Mock.Of<IAbilityScore>();
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			bool wasCalled = false; // This tracks whether the event was fired.

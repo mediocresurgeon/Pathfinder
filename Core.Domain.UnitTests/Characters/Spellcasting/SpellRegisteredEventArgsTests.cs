@@ -30,7 +30,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         public void Spell_RoundTrip()
         {
 			// Arrange
-            ICastableSpell castableSpell = new Mock<ICastableSpell>().Object;
+            var castableSpell = Mock.Of<ICastableSpell>();
             SpellRegisteredEventArgs eventArgs = new SpellRegisteredEventArgs(castableSpell);
 
             // Act

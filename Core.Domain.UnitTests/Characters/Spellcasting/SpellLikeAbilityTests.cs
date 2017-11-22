@@ -19,7 +19,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             // Arrange
             byte usesPerDay = 1;
 			ISpell spell = null;
-			IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+			var abilityScore = Mock.Of<IAbilityScore>();
 			Func<byte> casterLevel = () => 1;
 
 			// Act
@@ -36,7 +36,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		{
 			// Arrange
             byte usesPerDay = 1;
-			ISpell spell = new Mock<ISpell>().Object;
+			var spell = Mock.Of<ISpell>();
 			IAbilityScore abilityScore = null;
 			Func<byte> casterLevel = () => 1;
 
@@ -54,8 +54,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         {
             // Arrange
             byte usesPerDay = 1;
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var spell = Mock.Of<ISpell>();
+            var abilityScore = Mock.Of<IAbilityScore>();
             Func<byte> casterLevel = null;
 
             // Act
@@ -73,8 +73,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         {
             // Arrange
             byte usesPerDay = 55;
-            ISpell spell = new Mock<ISpell>().Object;
-            IAbilityScore abilityScore = new Mock<IAbilityScore>().Object;
+            var spell = Mock.Of<ISpell>();
+            var abilityScore = Mock.Of<IAbilityScore>();
             Func<byte> casterLevel = () => 1;
 
             SpellLikeAbility sla = new SpellLikeAbility(usesPerDay, spell, abilityScore, casterLevel);

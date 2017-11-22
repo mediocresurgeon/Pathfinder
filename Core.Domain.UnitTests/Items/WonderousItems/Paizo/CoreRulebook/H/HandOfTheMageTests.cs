@@ -54,7 +54,7 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
             // Arrange
             bool appliedCorrectly = false; // We'll check on this later
 
-            IAbilityScore charisma = new Mock<IAbilityScore>().Object;
+            var charisma = Mock.Of<IAbilityScore>();
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(ab => ab.Charisma)

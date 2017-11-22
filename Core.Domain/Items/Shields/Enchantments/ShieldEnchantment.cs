@@ -3,9 +3,9 @@ using Core.Domain.Characters;
 using Core.Domain.Spells;
 
 
-namespace Core.Domain.Items.Shields.ShieldEnchantments.Enchantments
+namespace Core.Domain.Items.Shields.Enchantments
 {
-    internal abstract class ShieldEnchantment : IApplicable
+    internal abstract class ShieldEnchantment : IShieldEnchantment
     {
         #region Backing variables
         private readonly INameFragment _name;

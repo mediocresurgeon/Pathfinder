@@ -29,7 +29,7 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
 		public void Default()
 		{
 			// Arrange
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
             var bab = new BaseAttackBonus(character);
 
             // Assert

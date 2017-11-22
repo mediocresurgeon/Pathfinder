@@ -31,13 +31,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Arcana()
         {
             // Arrange
-            var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-            mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+            mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+            mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -55,13 +57,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Dungeoneering()
         {
             // Arrange
-            var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -79,13 +83,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Engineering()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -103,13 +109,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Geography()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -127,13 +135,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_History()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -151,13 +161,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Local()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -175,13 +187,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Nature()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -199,13 +213,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Nobility()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -223,13 +239,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Planes()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 
@@ -247,13 +265,15 @@ namespace Core.Domain.UnitTests.Characters.Skills
         public void Default_Religion()
         {
 			// Arrange
-			var intelligence = new Mock<IAbilityScore>().Object;
+            var intelligence = Mock.Of<IAbilityScore>();
 
 			var mockAbilityScores = new Mock<IAbilityScoreSection>();
-			mockAbilityScores.Setup(abs => abs.Intelligence).Returns(intelligence);
+			mockAbilityScores.Setup(abs => abs.Intelligence)
+                             .Returns(intelligence);
 
 			var mockCharacter = new Mock<ICharacter>();
-			mockCharacter.Setup(c => c.AbilityScores).Returns(mockAbilityScores.Object);
+			mockCharacter.Setup(c => c.AbilityScores)
+                         .Returns(mockAbilityScores.Object);
 
             var knowledges = new KnowledgeSkillSection(mockCharacter.Object);
 

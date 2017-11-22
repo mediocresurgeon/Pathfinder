@@ -4,7 +4,7 @@ using Core.Domain.Characters.ModifierTrackers;
 
 namespace Core.Domain.Items.Shields
 {
-    internal sealed class ShieldBonusAggregator
+    internal sealed class ShieldBonusAggregator : IShieldBonusAggregator
     {
         #region Constructor
         internal ShieldBonusAggregator(byte baseShieldBonus)
@@ -14,14 +14,14 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Properties
-        internal byte BaseBonus { get; }
+        public byte BaseBonus { get; }
 
 
-        internal IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
+        public IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
         #endregion
 
         #region Methods
-        internal byte GetTotal()
+        public byte GetTotal()
         {
             byte runningTotal = this.BaseBonus;
             runningTotal += this.EnhancementBonuses.GetTotal();

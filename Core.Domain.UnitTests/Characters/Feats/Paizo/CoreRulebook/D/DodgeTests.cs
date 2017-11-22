@@ -43,15 +43,11 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.D
         [Test(Description = "Ensures that applying Dodge to a character results in the character's AC dodge bonus increasing by one.")]
         public void ApplyTo_RaisesAcDodgeByOne()
         {
-            bool featAppliedCorrectly = false; // We'll check on this later
-
-            var mockDodgeTracker = new Mock<IModifierTracker>();
-            mockDodgeTracker.Setup(t => t.Add(It.Is<byte>(input => 1 == input)))
-                            .Callback(() => featAppliedCorrectly = true);
+            var dodgeTracker = Mock.Of<IModifierTracker>();
 
             var mockArmorClass = new Mock<IArmorClass>();
             mockArmorClass.Setup(ac => ac.DodgeBonuses)
-                          .Returns(mockDodgeTracker.Object);
+                          .Returns(dodgeTracker);
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.ArmorClass)
@@ -63,8 +59,9 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.D
             feat.ApplyTo(mockCharacter.Object);
 
             // Assert
-            Assert.IsTrue(featAppliedCorrectly,
-                         "Dodge bonus did not correctly add a +1 bonus to the character's armor class's dodge bonus tracker.");
+            Mock.Get(dodgeTracker)
+                .Verify(dt => dt.Add(It.Is<byte>(input => 1 == input)),
+                        "Dodge bonus did not correctly add a +1 bonus to the character's armor class's dodge bonus tracker.");
         }
         #endregion
     }

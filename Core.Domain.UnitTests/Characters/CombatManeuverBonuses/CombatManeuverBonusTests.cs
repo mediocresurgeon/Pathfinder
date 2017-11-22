@@ -71,7 +71,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
         public void Default()
         {
             // Arrange
-            IAbilityScore strength = new Mock<IAbilityScore>().Object;
+            var strength = Mock.Of<IAbilityScore>();
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)
@@ -96,7 +96,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
         public void KeyAbilityScore_NullAssignment_Throws()
         {
             // Arrange
-            IAbilityScore strength = new Mock<IAbilityScore>().Object;
+            var strength = Mock.Of<IAbilityScore>();
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)
@@ -135,7 +135,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)
-                             .Returns(new Mock<IAbilityScore>().Object);
+                             .Returns(Mock.Of<IAbilityScore>());
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.AbilityScores)
@@ -172,7 +172,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)
-                             .Returns(new Mock<IAbilityScore>().Object);
+                             .Returns(Mock.Of<IAbilityScore>());
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.AbilityScores)
@@ -209,7 +209,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)
-                             .Returns(new Mock<IAbilityScore>().Object);
+                             .Returns(Mock.Of<IAbilityScore>());
 
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.AbilityScores)
@@ -233,7 +233,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
         public void GetSizeModifier_Small_Penalty1()
         {
             // Arrange
-            IAbilityScore strength = new Mock<IAbilityScore>().Object;
+            var strength = Mock.Of<IAbilityScore>();
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)
@@ -260,7 +260,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
         public void GetSizeModifier_Medium_Zero()
         {
             // Arrange
-            IAbilityScore strength = new Mock<IAbilityScore>().Object;
+            var strength = Mock.Of<IAbilityScore>();
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)
@@ -287,7 +287,7 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
         public void GetSizeModifier_Large_Plus1()
         {
             // Arrange
-            IAbilityScore strength = new Mock<IAbilityScore>().Object;
+            var strength = Mock.Of<IAbilityScore>();
 
             var mockAbilityScores = new Mock<IAbilityScoreSection>();
             mockAbilityScores.Setup(abs => abs.Strength)

@@ -31,7 +31,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.S
             // Arrange
             Func<byte> untypedBonusCalc = null; // we'll test this later
 
-            ICharacter character = new Mock<ICharacter>().Object;
+            var character = Mock.Of<ICharacter>();
 
 			var mockSkill = new Mock<ISkill>();
             mockSkill.Setup(s => s.Ranks)
@@ -56,7 +56,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.S
 			// Arrange
 			Func<byte> untypedBonusCalc = null; // we'll test this later
 
-			ICharacter character = new Mock<ICharacter>().Object;
+			var character = Mock.Of<ICharacter>();
 
 			var mockSkill = new Mock<ISkill>();
 			mockSkill.Setup(s => s.Ranks)
