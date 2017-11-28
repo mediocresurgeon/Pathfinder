@@ -1036,6 +1036,170 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         }
         #endregion
 
+        #region Enchantment - Spell Resistance 13
+        [Test(Description = "Ensures that Spell Resistance (13) cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_SpellResistance13_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithSpellResistance(SpellResistanceMagnitude.SR13);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Spell Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Spell Resistance (13) has the correct configuration.")]
+        public void EnchantWith_SpellResistance13_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithSpellResistance(SpellResistanceMagnitude.SR13);
+
+            // Assert
+            Assert.AreEqual(9157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Spell Resistance (13) Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(15, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Spell Resistance 15
+        [Test(Description = "Ensures that Spell Resistance (15) cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_SpellResistance15_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithSpellResistance(SpellResistanceMagnitude.SR15);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Spell Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Spell Resistance (13) has the correct configuration.")]
+        public void EnchantWith_SpellResistance15_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithSpellResistance(SpellResistanceMagnitude.SR15);
+
+            // Assert
+            Assert.AreEqual(16157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Spell Resistance (15) Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(15, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Spell Resistance 17
+        [Test(Description = "Ensures that Spell Resistance (17) cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_SpellResistance17_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithSpellResistance(SpellResistanceMagnitude.SR17);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Spell Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Spell Resistance (17) has the correct configuration.")]
+        public void EnchantWith_SpellResistance17_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithSpellResistance(SpellResistanceMagnitude.SR17);
+
+            // Assert
+            Assert.AreEqual(25157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Spell Resistance (17) Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(15, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Spell Resistance 19
+        [Test(Description = "Ensures that Spell Resistance (19) cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_SpellResistance19_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithSpellResistance(SpellResistanceMagnitude.SR19);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Spell Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Spell Resistance (19) has the correct configuration.")]
+        public void EnchantWith_SpellResistance19_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithSpellResistance(SpellResistanceMagnitude.SR19);
+
+            // Assert
+            Assert.AreEqual(36157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Spell Resistance (19) Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(15, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
         #region Enchantment - Undead Controlling
         [Test(Description = "Ensures that Reflecting cannot be added to a shield with no previous enchantments.")]
         public void EnchantWith_UndeadControlling_NoEnhancementBonus()

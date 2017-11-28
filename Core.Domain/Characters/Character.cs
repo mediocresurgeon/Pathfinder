@@ -8,11 +8,12 @@ using Core.Domain.Characters.CombatManeuverDefenses;
 using Core.Domain.Characters.Equipment;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
+using Core.Domain.Characters.ModifierTrackers;
 using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.SavingThrows;
 using Core.Domain.Characters.Skills;
 using Core.Domain.Characters.Spellcasting;
-
+using Core.Domain.Characters.SpellResistances;
 
 namespace Core.Domain.Characters
 {
@@ -89,6 +90,8 @@ namespace Core.Domain.Characters
         public IArmorClass ArmorClass { get; }
 
         public IAttackBonusSection AttackBonuses { get; }
+
+        public IModifierTracker SpellResistance { get; } = new SpellResistanceTracker();
 
         public ICombatManeuverBonus CombatManeuverBonus { get; }
 

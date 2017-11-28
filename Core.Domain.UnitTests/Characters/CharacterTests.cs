@@ -9,6 +9,7 @@ using Core.Domain.Characters.Equipment;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
 using Core.Domain.Characters.Skills;
+using Core.Domain.Characters.SpellResistances;
 using Moq;
 using NUnit.Framework;
 
@@ -91,6 +92,7 @@ namespace Core.Domain.UnitTests.Characters
             // Assert
             Assert.IsInstanceOf<Initiative>(character.Initiative);
             Assert.IsInstanceOf<ArmorClass>(character.ArmorClass);
+            Assert.IsInstanceOf<SpellResistanceTracker>(character.SpellResistance);
             Assert.IsInstanceOf<AttackBonusSection>(character.AttackBonuses);
             Assert.IsInstanceOf<CombatManeuverBonus>(character.CombatManeuverBonus);
             Assert.IsInstanceOf<CombatManeuverDefense>(character.CombatManeuverDefense);

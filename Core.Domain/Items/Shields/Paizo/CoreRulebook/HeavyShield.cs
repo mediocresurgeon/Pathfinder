@@ -250,6 +250,21 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
 
         /// <summary>
+        /// Enchants this shield with Spell Resistance.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the spellResistance argument is a nonstandard value of SpellResistanceMagnitude.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithSpellResistance(SpellResistanceMagnitude spellResistance)
+        {
+            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new SpellResistance(spellResistance));
+            return this;
+        }
+
+
+        /// <summary>
         /// Enchants this shield with Reflecting.
         /// </summary>
         /// <returns>This shield.</returns>

@@ -6,6 +6,7 @@ using Core.Domain.Characters.CombatManeuverDefenses;
 using Core.Domain.Characters.Equipment;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
+using Core.Domain.Characters.ModifierTrackers;
 using Core.Domain.Characters.Movements;
 using Core.Domain.Characters.SavingThrows;
 using Core.Domain.Characters.Skills;
@@ -45,6 +46,8 @@ namespace Core.Domain.Characters
         ISpellLikeAbilitySection SpellLikeAbilities { get; }
 
         IArmorClass ArmorClass { get; }
+
+        IModifierTracker SpellResistance { get; }
 
         IAttackBonusSection AttackBonuses { get; }
 
