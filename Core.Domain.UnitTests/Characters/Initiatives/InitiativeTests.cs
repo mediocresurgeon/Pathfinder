@@ -48,9 +48,9 @@ namespace Core.Domain.UnitTests.Characters.Initiatives
             mockAbilityScore.Setup(abs => abs.GetModifier()).Returns(1);
 
             Initiative init = new Initiative(mockAbilityScore.Object);
-            init.LuckBonuses.Add(2);
-            init.UntypedBonuses.Add(3);
-            init.Penalties.Add(5);
+            init.LuckBonuses.Add(() => 2);
+            init.UntypedBonuses.Add(() => 3);
+            init.Penalties.Add(() => 5);
 
             // Act
             var result = init.GetTotal();

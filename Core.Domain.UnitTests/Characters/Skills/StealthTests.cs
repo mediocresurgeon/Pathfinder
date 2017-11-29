@@ -29,6 +29,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			Stealth stealthSkill = new Stealth(mockCharacter.Object);
 
 			// Assert
+            Assert.IsTrue(stealthSkill.ArmorCheckPenaltyApplies);
 			Assert.AreEqual(4, stealthSkill.SizeBonuses.GetTotal(),
                            "Small characters have a +4 size bonus on Stealth checks.");
 			Assert.AreEqual(0, stealthSkill.Penalties.GetTotal());
@@ -54,6 +55,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			Stealth stealthSkill = new Stealth(mockCharacter.Object);
 
 			// Assert
+            Assert.IsTrue(stealthSkill.ArmorCheckPenaltyApplies);
 			Assert.AreEqual(0, stealthSkill.SizeBonuses.GetTotal());
 			Assert.AreEqual(0, stealthSkill.Penalties.GetTotal());
 		}
@@ -78,6 +80,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			Stealth stealthSkill = new Stealth(mockCharacter.Object);
 
 			// Assert
+            Assert.IsTrue(stealthSkill.ArmorCheckPenaltyApplies);
 			Assert.AreEqual(0, stealthSkill.SizeBonuses.GetTotal());
 			Assert.AreEqual(4, stealthSkill.Penalties.GetTotal(),
                            "Large characters have a -4 penalty on Stealth checks.");

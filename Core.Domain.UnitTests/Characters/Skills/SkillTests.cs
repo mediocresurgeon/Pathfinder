@@ -203,12 +203,12 @@ namespace Core.Domain.UnitTests.Characters.Skills
                 IsClassSkill = true,
                 Ranks        = 1
             };
-            skill.CompetenceBonuses.Add(2);
-            skill.LuckBonuses.Add(4);
-            skill.RacialBonuses.Add(6);
-            skill.SizeBonuses.Add(7);
-            skill.UntypedBonuses.Add(8);
-            skill.Penalties.Add(9);
+            skill.CompetenceBonuses.Add(() => 2);
+            skill.LuckBonuses.Add(() => 4);
+            skill.RacialBonuses.Add(() => 6);
+            skill.SizeBonuses.Add(() => 7);
+            skill.UntypedBonuses.Add(() => 8);
+            skill.Penalties.Add(() => 9);
 
 			// Act
 			var result = skill.GetTotal();

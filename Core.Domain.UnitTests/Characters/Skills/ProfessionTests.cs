@@ -73,6 +73,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			// Assert
 			Assert.AreSame(wisdom, profession.KeyAbilityScore);
 			Assert.AreEqual("Profession (Superhero)", profession.ToString());
+            Assert.IsFalse(profession.ArmorCheckPenaltyApplies);
 			Assert.IsFalse(profession.CanBeUsedUntrained);
 		}
     }

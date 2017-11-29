@@ -449,16 +449,16 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverDefenses
                          .Returns(SizeCategory.Large);
 
             CombatManeuverDefense cmd = new CombatManeuverDefense(mockCharacter.Object);
-            cmd.CircumstanceBonuses.Add(2);
-            cmd.DeflectionBonuses.Add(2);
-            cmd.DodgeBonuses.Add(2);
-            cmd.InsightBonuses.Add(2);
-            cmd.LuckBonuses.Add(2);
-            cmd.MoraleBonuses.Add(2);
-            cmd.ProfaneBonuses.Add(2);
-            cmd.SacredBonuses.Add(2);
-            cmd.UntypedBonuses.Add(2);
-            cmd.Penalties.Add(10);
+            cmd.CircumstanceBonuses.Add(() => 2);
+            cmd.DeflectionBonuses.Add(() => 2);
+            cmd.DodgeBonuses.Add(() => 2);
+            cmd.InsightBonuses.Add(() => 2);
+            cmd.LuckBonuses.Add(() => 2);
+            cmd.MoraleBonuses.Add(() => 2);
+            cmd.ProfaneBonuses.Add(() => 2);
+            cmd.SacredBonuses.Add(() => 2);
+            cmd.UntypedBonuses.Add(() => 2);
+            cmd.Penalties.Add(() => 10);
 
             // Act
             var result = cmd.GetTotal();

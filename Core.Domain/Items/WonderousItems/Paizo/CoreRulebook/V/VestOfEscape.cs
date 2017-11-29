@@ -68,8 +68,8 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            character.Skills?.DisableDevice?.CompetenceBonuses?.Add(4);
-            character.Skills?.EscapeArtist?.CompetenceBonuses?.Add(6);
+            character.Skills?.DisableDevice?.CompetenceBonuses?.Add(() => 4);
+            character.Skills?.EscapeArtist?.CompetenceBonuses?.Add(() => 6);
         }
         #endregion
     }

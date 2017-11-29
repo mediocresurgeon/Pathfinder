@@ -207,7 +207,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 			// Arrange
 			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
-            abilityScore.EnhancementBonuses.Add(6);
+            abilityScore.EnhancementBonuses.Add(() => 6);
 
 			// Act
 			byte? total = abilityScore.GetTotal();
@@ -230,7 +230,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 			// Arrange
 			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
-            abilityScore.InherentBonuses.Add(6);
+            abilityScore.InherentBonuses.Add(() => 6);
 
 			// Act
 			byte? total = abilityScore.GetTotal();
@@ -253,7 +253,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 			// Arrange
 			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
-            abilityScore.MoraleBonuses.Add(6);
+            abilityScore.MoraleBonuses.Add(() => 6);
 
 			// Act
 			byte? total = abilityScore.GetTotal();
@@ -276,7 +276,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 			// Arrange
 			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 10;
-            abilityScore.Penalties.Add(6);
+            abilityScore.Penalties.Add(() => 6);
 
 			// Act
 			byte? total = abilityScore.GetTotal();
@@ -299,7 +299,7 @@ namespace Core.Domain.UnitTests.Characters.AbilityScores
 			// Arrange
 			AbilityScore abilityScore = new AbilityScore();
 			abilityScore.BaseScore = 1;
-			abilityScore.Penalties.Add(6);
+			abilityScore.Penalties.Add(() => 6);
 
 			// Act
 			byte? total = abilityScore.GetTotal();

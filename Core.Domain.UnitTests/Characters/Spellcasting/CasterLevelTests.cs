@@ -44,7 +44,7 @@ namespace Core.Domain.UnitTests.Characters.Spellcasting
             // Arrange
             Func<byte> baseCasterLevel = () => 1;
             CasterLevel cl = new CasterLevel(baseCasterLevel);
-            cl.UntypedBonuses.Add(2);
+            cl.UntypedBonuses.Add(() => 2);
 
             // Act
             byte total = cl.GetTotal();

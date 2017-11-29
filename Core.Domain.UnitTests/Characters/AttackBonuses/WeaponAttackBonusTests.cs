@@ -270,9 +270,9 @@ namespace Core.Domain.UnitTests.Characters.AttackBonuses
                          .Returns(mockAttackBonusSection.Object);
 
             WeaponAttackBonus wab = new WeaponAttackBonus(mockCharacter.Object, mockAbilityScore.Object, universalAttackBonus);
-            wab.EnhancementBonuses.Add(3);
-            wab.UntypedBonuses.Add(4);
-            wab.Penalties.Add(5);
+            wab.EnhancementBonuses.Add(() => 3);
+            wab.UntypedBonuses.Add(() => 4);
+            wab.Penalties.Add(() => 5);
 
             // Act
             var total = wab.GetTotal();

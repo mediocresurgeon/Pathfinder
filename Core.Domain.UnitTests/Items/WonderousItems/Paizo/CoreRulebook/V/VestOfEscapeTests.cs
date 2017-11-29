@@ -51,23 +51,11 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.V
         public void ApplyTo_DisableDevice()
         {
             // Arrange
-            bool appliedToSkillCorrectly = false; // we'll check on this later
-
-            var mockBonusTracker = new Mock<IModifierTracker>();
-            mockBonusTracker.Setup(bt => bt.Add(It.Is<byte>(input => 4 == input)))
-                            .Callback(() => appliedToSkillCorrectly = true);
-
-            var mockSkill = new Mock<ISkill>();
-            mockSkill.Setup(s => s.CompetenceBonuses)
-                     .Returns(mockBonusTracker.Object);
-
-            var mockSkillSection = new Mock<ISkillSection>();
-            mockSkillSection.Setup(ss => ss.DisableDevice)
-                            .Returns(mockSkill.Object);
-
+            var bonusTracker = Mock.Of<IModifierTracker>();
+ 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Skills)
-                         .Returns(mockSkillSection.Object);
+            mockCharacter.Setup(c => c.Skills.DisableDevice.CompetenceBonuses)
+                         .Returns(bonusTracker);
 
             VestOfEscape item = new VestOfEscape();
 
@@ -75,8 +63,9 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.V
             item.ApplyTo(mockCharacter.Object);
 
             // Assert
-            Assert.IsTrue(appliedToSkillCorrectly,
-                         "Vest of Escape did not apply its bonus to Disable Device correctly.");
+            Mock.Get(bonusTracker)
+                .Verify(bt => bt.Add(It.Is<Func<byte>>(calc => 4 == calc())),
+                        "Vest of Escape did not apply its bonus to Disable Device correctly.");
         }
 
 
@@ -84,23 +73,11 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.V
         public void ApplyTo_EscapeArtist()
         {
             // Arrange
-            bool appliedToSkillCorrectly = false; // we'll check on this later
-
-            var mockBonusTracker = new Mock<IModifierTracker>();
-            mockBonusTracker.Setup(bt => bt.Add(It.Is<byte>(input => 6 == input)))
-                            .Callback(() => appliedToSkillCorrectly = true);
-
-            var mockSkill = new Mock<ISkill>();
-            mockSkill.Setup(s => s.CompetenceBonuses)
-                     .Returns(mockBonusTracker.Object);
-
-            var mockSkillSection = new Mock<ISkillSection>();
-            mockSkillSection.Setup(ss => ss.EscapeArtist)
-                            .Returns(mockSkill.Object);
+            var bonusTracker = Mock.Of<IModifierTracker>();
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.Skills)
-                         .Returns(mockSkillSection.Object);
+            mockCharacter.Setup(c => c.Skills.EscapeArtist.CompetenceBonuses)
+                         .Returns(bonusTracker);
 
             VestOfEscape item = new VestOfEscape();
 
@@ -108,8 +85,9 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.V
             item.ApplyTo(mockCharacter.Object);
 
             // Assert
-            Assert.IsTrue(appliedToSkillCorrectly,
-                         "Vest of Escape did not apply its bonus to Escape Artist correctly.");
+            Mock.Get(bonusTracker)
+                .Verify(bt => bt.Add(It.Is<Func<byte>>(calc => 6 == calc())),
+                        "Vest of Escape did not apply its bonus to Escape Artist correctly.");
         }
         #endregion
     }

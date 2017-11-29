@@ -63,7 +63,7 @@ namespace Core.Domain.UnitTests.Items.Shields
             float thickness = 0;
             byte hpPerInch = 0;
             ShieldHitPointAggregator aggregator = new ShieldHitPointAggregator(thickness, hpPerInch);
-            aggregator.EnhancementBonuses.Add(10);
+            aggregator.EnhancementBonuses.Add(() => 10);
 
             // Act
             ushort hp = aggregator.GetTotal();
@@ -81,7 +81,7 @@ namespace Core.Domain.UnitTests.Items.Shields
             float thickness = 2f;
             byte hpPerInch = 3;
             ShieldHitPointAggregator aggregator = new ShieldHitPointAggregator(thickness, hpPerInch);
-            aggregator.EnhancementBonuses.Add(10);
+            aggregator.EnhancementBonuses.Add(() => 10);
 
             // Act
             ushort hp = aggregator.GetTotal();

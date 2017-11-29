@@ -28,16 +28,6 @@ namespace Core.Domain.Characters.ModifierTrackers
 
 
 		/// <summary>
-		/// Adds a static modifier.
-		/// </summary>
-		/// <param name="amount">The magnitude of the modifier.</param>
-		public virtual void Add(byte amount)
-		{
-            this.Add(() => amount);
-		}
-
-
-		/// <summary>
 		/// Adds a dynamic modifier.
 		/// </summary>
 		/// <param name="calculation">The calculation which determines a modifier.</param>

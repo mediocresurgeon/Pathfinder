@@ -36,6 +36,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
 
             // Act & Assert
+            Assert.IsTrue(flySkill.ArmorCheckPenaltyApplies);
             Assert.IsFalse(flySkill.IsClassSkill);
 
             flySkill.IsClassSkill = true;
@@ -72,6 +73,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
             var flySkill = new Core.Domain.Characters.Skills.Fly(mockCharacter.Object);
 
             // Act & Assert
+            Assert.IsTrue(flySkill.ArmorCheckPenaltyApplies);
             Assert.IsTrue(flySkill.IsClassSkill);
 
             flySkill.IsClassSkill = false;

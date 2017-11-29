@@ -67,6 +67,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			// Assert
 			Assert.AreSame(intelligence, knowledge.KeyAbilityScore);
 			Assert.AreEqual("Knowledge (Chemistry)", knowledge.ToString());
+            Assert.IsFalse(knowledge.ArmorCheckPenaltyApplies);
 			Assert.IsFalse(knowledge.CanBeUsedUntrained);
 		}
     }

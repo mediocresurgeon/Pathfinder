@@ -53,5 +53,7 @@
         ISkill Swim { get; }
 
         ISkill UseMagicDevice { get; }
+
+        ISkill[] GetAllSkills();
     }
 }

@@ -28,9 +28,9 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
 		{
 			// Arrange
 			GreatestModifierTracker tracker = new Mock<GreatestModifierTracker> { CallBase = true }.Object;
-            tracker.Add(2);
-			tracker.Add(5);
-            tracker.Add(3);
+            tracker.Add(() => 2);
+			tracker.Add(() => 5);
+            tracker.Add(() => 3);
 
 			// Act
 			byte total = tracker.GetTotal();

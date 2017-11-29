@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Domain.Characters;
+using Core.Domain.Characters.Skills;
 using Core.Domain.Spells;
 
 
@@ -268,6 +269,10 @@ namespace Core.Domain.Items.Shields
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
             character.ArmorClass?.ShieldBonuses?.Add(() => this.GetShieldBonus());
+            foreach (var skill in character.Skills?.GetAllSkills() ?? Enumerable.Empty<ISkill>())
+            {
+                skill.Penalties?.Add(() => skill.ArmorCheckPenaltyApplies ? this.GetArmorCheckPenalty() : (byte)0);
+            }
             this.Enchantments.ApplyTo(character);
         }
 

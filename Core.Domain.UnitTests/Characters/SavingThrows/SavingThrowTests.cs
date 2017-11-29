@@ -219,10 +219,10 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
             SavingThrow savingThrow = new SavingThrow(mockCharacter.Object, mockAbilityScore.Object) {
                 IsGood = false
             };
-            savingThrow.LuckBonuses.Add(5);
-            savingThrow.ResistanceBonuses.Add(7);
-            savingThrow.UntypedBonuses.Add(11);
-            savingThrow.Penalties.Add(13);
+            savingThrow.LuckBonuses.Add(() => 5);
+            savingThrow.ResistanceBonuses.Add(() => 7);
+            savingThrow.UntypedBonuses.Add(() => 11);
+            savingThrow.Penalties.Add(() => 13);
 
             // Act
             var total = savingThrow.GetTotal();

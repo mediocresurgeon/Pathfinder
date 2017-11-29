@@ -29,7 +29,7 @@ namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            character.ArmorClass.DodgeBonuses.Add(1);
+            character.ArmorClass.DodgeBonuses.Add(() => 1);
         }
         #endregion
     }

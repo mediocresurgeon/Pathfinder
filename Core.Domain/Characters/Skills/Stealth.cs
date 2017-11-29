@@ -13,6 +13,7 @@
 		internal Stealth(ICharacter character)
             : base(character, character?.AbilityScores?.Dexterity, "Stealth")
         {
+            this.ArmorCheckPenaltyApplies = true;
 			#region Size bonus
 			this.SizeBonuses.Add(() =>
 			{

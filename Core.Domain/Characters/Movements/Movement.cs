@@ -23,19 +23,10 @@ namespace Core.Domain.Characters.Movements
         /// Provides protected access to the EnhancementBonusTracker object.
         /// </summary>
         /// <value>The enhancement bonus tracker.</value>
-        protected virtual IModifierTracker EnhancementBonusTracker { get; } = new EnhancementBonusTracker();
+        public virtual IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Adds an enhancement bonus (in squares) to this movement speed.
-        /// </summary>
-        /// <param name="squares">The magnitude of the bonus (in squares).</param>
-        public virtual void AddEnhancementBonus(byte squares)
-        {
-            this.EnhancementBonusTracker.Add(squares);
-        }
-
         /// <summary>
         /// Calculates the total distance of movement allowed (in squares).
         /// A null value indicates that this movement mode does not apply
@@ -46,7 +37,7 @@ namespace Core.Domain.Characters.Movements
             if (!this.BaseSpeed.HasValue)
                 return null;
             byte runningTotal = this.BaseSpeed.Value;
-            runningTotal += this.EnhancementBonusTracker.GetTotal();
+            runningTotal += this.EnhancementBonuses.GetTotal();
             return runningTotal;
         }
         #endregion

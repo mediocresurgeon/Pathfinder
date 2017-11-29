@@ -63,6 +63,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			// Assert
 			Assert.AreSame(charisma, perform.KeyAbilityScore);
 			Assert.AreEqual("Perform (Trash Talk)", perform.ToString());
+            Assert.IsFalse(perform.ArmorCheckPenaltyApplies);
 			Assert.IsTrue(perform.CanBeUsedUntrained);
 		}
     }

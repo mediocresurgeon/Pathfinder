@@ -41,6 +41,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 
             // Assert
             Assert.AreEqual(0, total);
+            Assert.IsTrue(climb.ArmorCheckPenaltyApplies);
         }
 
 
@@ -75,6 +76,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 
 			// Assert
 			Assert.AreEqual(8, total);
+            Assert.IsTrue(climb.ArmorCheckPenaltyApplies);
 		}
     }
 }

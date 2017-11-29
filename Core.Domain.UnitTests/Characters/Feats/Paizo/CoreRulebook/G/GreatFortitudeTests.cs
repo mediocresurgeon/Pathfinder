@@ -44,23 +44,11 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.G
         public void ApplyTo_RaisesFortitudeByTwo()
         {
             // Arrange
-            bool featApppliedCorrectly = false; // We'll check on this later.
-
-            var mockUntypedBonusTracker = new Mock<IModifierTracker>();
-            mockUntypedBonusTracker.Setup(ubt => ubt.Add(It.Is<byte>(val => 2 == val)))
-                                   .Callback(() => featApppliedCorrectly = true);
-            
-            var mockFortitude = new Mock<ISavingThrow>();
-            mockFortitude.Setup(fort => fort.UntypedBonuses)
-                         .Returns(mockUntypedBonusTracker.Object);
-
-            var mockSavingThrowSection = new Mock<ISavingThrowSection>();
-            mockSavingThrowSection.Setup(sts => sts.Fortitude)
-                                  .Returns(mockFortitude.Object);
+            var bonusTracker = Mock.Of<IModifierTracker>();
 
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.SavingThrows)
-                         .Returns(mockSavingThrowSection.Object);
+            mockCharacter.Setup(c => c.SavingThrows.Fortitude.UntypedBonuses)
+                         .Returns(bonusTracker);
             
             GreatFortitude feat = new GreatFortitude();
 
@@ -68,8 +56,9 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.G
             feat.ApplyTo(mockCharacter.Object);
 
             // Assert
-            Assert.IsTrue(featApppliedCorrectly,
-                         "Great Fortitude did not correctly apply a +2 untyped bonus to the character's Fortitude saving throw.");
+            Mock.Get(bonusTracker)
+                .Verify(bt => bt.Add(It.Is<Func<byte>>(calc => 2 == calc())),
+                        "Great Fortitude did not correctly apply a +2 untyped bonus to the character's Fortitude saving throw.");
         }
         #endregion
     }

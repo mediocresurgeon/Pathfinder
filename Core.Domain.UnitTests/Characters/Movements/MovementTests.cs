@@ -47,7 +47,7 @@ namespace Core.Domain.UnitTests.Characters.Movements
 			// Arrange
 			var movement = new Mock<Movement> { CallBase = true }.Object;
 			movement.BaseSpeed = 6;
-            movement.AddEnhancementBonus(2);
+            movement.EnhancementBonuses.Add(() => 2);
 
 			// Act
 			var total = movement.GetTotal();

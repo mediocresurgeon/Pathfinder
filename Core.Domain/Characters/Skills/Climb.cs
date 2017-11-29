@@ -13,6 +13,7 @@
 		internal Climb(ICharacter character)
             : base(character, character?.AbilityScores?.Strength, "Climb")
         {
+            this.ArmorCheckPenaltyApplies = true;
             // If the character has a climb speed, it gets a +8 racial bonus to climb.
             this.RacialBonuses.Add(() => this.Character.MovementModes.Climb.BaseSpeed.HasValue ? (byte)8 : (byte)0);
         }

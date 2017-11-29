@@ -13,6 +13,7 @@
 		internal Swim(ICharacter character)
             : base(character, character?.AbilityScores?.Strength, "Swim")
         {
+            this.ArmorCheckPenaltyApplies = true;
 			// If the character has a swim speed, it gets a +8 racial bonus to swim.
             this.RacialBonuses.Add(() => this.Character.MovementModes.Swim.BaseSpeed.HasValue ? (byte)8 : (byte)0);
         }

@@ -28,9 +28,9 @@ namespace Core.Domain.UnitTests.Characters.ModifierTrackers
 		{
 			// Arrange
 			SumModifierTracker tracker = new Mock<SumModifierTracker> { CallBase = true }.Object;
-            tracker.Add(1);
-            tracker.Add(2);
-            tracker.Add(3);
+            tracker.Add(() => 1);
+            tracker.Add(() => 2);
+            tracker.Add(() => 3);
 
 			// Act
 			byte total = tracker.GetTotal();

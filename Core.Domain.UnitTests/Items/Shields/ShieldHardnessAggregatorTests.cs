@@ -28,7 +28,7 @@ namespace Core.Domain.UnitTests.Items.Shields
             // Arrange
             byte baseHardness = 20;
             ShieldHardnessAggregator aggregator = new ShieldHardnessAggregator(baseHardness);
-            aggregator.EnhancementBonuses.Add(10);
+            aggregator.EnhancementBonuses.Add(() => 10);
 
             // Act
             byte total = aggregator.GetTotal();

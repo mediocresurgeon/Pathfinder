@@ -340,9 +340,9 @@ namespace Core.Domain.UnitTests.Characters.CombatManeuverBonuses
                          .Returns(SizeCategory.Large);
 
             CombatManeuverBonus cmb = new CombatManeuverBonus(mockCharacter.Object);
-            cmb.EnhancementBonuses.Add(3);
-            cmb.UntypedBonuses.Add(4);
-            cmb.Penalties.Add(5);
+            cmb.EnhancementBonuses.Add(() => 3);
+            cmb.UntypedBonuses.Add(() => 4);
+            cmb.Penalties.Add(() => 5);
 
             // Act
             var result = cmb.GetTotal();

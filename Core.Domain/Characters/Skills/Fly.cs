@@ -16,6 +16,7 @@ namespace Core.Domain.Characters.Skills
         internal Fly(ICharacter character)
             : base(character, character?.AbilityScores?.Dexterity, "Fly")
         {
+            this.ArmorCheckPenaltyApplies = true;
             #region Untyped maneuverability bonus
             this.UntypedBonuses.Add(() =>
             {

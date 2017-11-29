@@ -55,7 +55,7 @@ namespace Core.Domain.Characters.Spellcasting
         /// <param name="bonus">The bonus to add.</param>
 		public void AddDifficultyClassBonus(byte bonus)
 		{
-			this.DcBonusesTracker.Add(bonus);
+			this.DcBonusesTracker.Add(() => bonus);
 		}
 
 

@@ -191,9 +191,9 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
 						 .Returns(SizeCategory.Medium);
 
 			ArmorClass ac = new ArmorClass(mockCharacter.Object);
-            ac.MaxKeyAbilityScore.Add(5);
-            ac.MaxKeyAbilityScore.Add(1);
-            ac.MaxKeyAbilityScore.Add(3);
+            ac.MaxKeyAbilityScore.Add(() => 5);
+            ac.MaxKeyAbilityScore.Add(() => 1);
+            ac.MaxKeyAbilityScore.Add(() => 3);
 
 			// Act
 			var maxDex = ac.MaxKeyAbilityScore.GetTotal();
@@ -224,21 +224,21 @@ namespace Core.Domain.UnitTests.Characters.ArmorClasses
 						 .Returns(SizeCategory.Small);
 
 			ArmorClass ac = new ArmorClass(mockCharacter.Object);
-            ac.ArmorBonuses.Add(3);
-            ac.CircumstanceBonuses.Add(4);
-            ac.DeflectionBonuses.Add(5);
-            ac.DodgeBonuses.Add(6);
-            ac.InsightBonuses.Add(7);
-            ac.LuckBonuses.Add(8);
-            ac.MoraleBonuses.Add(9);
-            ac.NaturalArmorBonuses.Add(10);
-            ac.NaturalArmorEnhancementBonuses.Add(11);
-            ac.ProfaneBonuses.Add(12);
-            ac.SacredBonuses.Add(13);
-            ac.ShieldBonuses.Add(14);
-            ac.UntypedBonuses.Add(15);
-            ac.Penalties.Add(16);
-            ac.MaxKeyAbilityScore.Add(2);
+            ac.ArmorBonuses.Add(() => 3);
+            ac.CircumstanceBonuses.Add(() => 4);
+            ac.DeflectionBonuses.Add(() => 5);
+            ac.DodgeBonuses.Add(() => 6);
+            ac.InsightBonuses.Add(() => 7);
+            ac.LuckBonuses.Add(() => 8);
+            ac.MoraleBonuses.Add(() => 9);
+            ac.NaturalArmorBonuses.Add(() => 10);
+            ac.NaturalArmorEnhancementBonuses.Add(() => 11);
+            ac.ProfaneBonuses.Add(() => 12);
+            ac.SacredBonuses.Add(() => 13);
+            ac.ShieldBonuses.Add(() => 14);
+            ac.UntypedBonuses.Add(() => 15);
+            ac.Penalties.Add(() => 16);
+            ac.MaxKeyAbilityScore.Add(() => 2);
 
             // Act
             var result = ac.GetTotal();

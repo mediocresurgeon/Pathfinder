@@ -73,6 +73,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
             // Assert
             Assert.AreSame(intelligence, craft.KeyAbilityScore);
             Assert.AreEqual("Craft (Robot)", craft.ToString());
+            Assert.IsFalse(craft.ArmorCheckPenaltyApplies);
             Assert.IsTrue(craft.CanBeUsedUntrained);
         }
     }

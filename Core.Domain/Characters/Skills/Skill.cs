@@ -71,6 +71,14 @@ namespace Core.Domain.Characters.Skills
 
 
         /// <summary>
+        /// Gets or sets a value indicating whether an <see cref="T:Core.Domain.Characters.Skills.Skill"/> armor check
+        /// penalty applies to this skill.
+        /// </summary>
+        /// <value><c>true</c> if armor check penalty applies; otherwise, <c>false</c>.</value>
+        public virtual bool ArmorCheckPenaltyApplies { get; set; }
+
+
+        /// <summary>
         /// Flags whether or not this skill can be used untrained.
         /// </summary>
         public virtual bool CanBeUsedUntrained { get; set; } = true;

@@ -39,6 +39,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			var total = swim.RacialBonuses.GetTotal();
 
 			// Assert
+            Assert.IsTrue(swim.ArmorCheckPenaltyApplies);
 			Assert.AreEqual(0, total);
 		}
 
@@ -73,6 +74,7 @@ namespace Core.Domain.UnitTests.Characters.Skills
 			var total = swim.RacialBonuses.GetTotal();
 
 			// Assert
+            Assert.IsTrue(swim.ArmorCheckPenaltyApplies);
 			Assert.AreEqual(8, total);
 		}
     }

@@ -8,6 +8,8 @@ namespace Core.Domain.Characters.Skills
     {
         IAbilityScore KeyAbilityScore { get; set; }
 
+        bool ArmorCheckPenaltyApplies { get; set; }
+
         bool CanBeUsedUntrained { get; set; }
 
         bool IsClassSkill { get; set; }

@@ -45,13 +45,9 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.D
         {
             var dodgeTracker = Mock.Of<IModifierTracker>();
 
-            var mockArmorClass = new Mock<IArmorClass>();
-            mockArmorClass.Setup(ac => ac.DodgeBonuses)
-                          .Returns(dodgeTracker);
-
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.ArmorClass)
-                         .Returns(mockArmorClass.Object);
+            mockCharacter.Setup(c => c.ArmorClass.DodgeBonuses)
+                         .Returns(dodgeTracker);
 
             Dodge feat = new Dodge();
 
@@ -60,7 +56,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.D
 
             // Assert
             Mock.Get(dodgeTracker)
-                .Verify(dt => dt.Add(It.Is<byte>(input => 1 == input)),
+                .Verify(dt => dt.Add(It.Is<Func<byte>>(calc => 1 == calc())),
                         "Dodge bonus did not correctly add a +1 bonus to the character's armor class's dodge bonus tracker.");
         }
         #endregion

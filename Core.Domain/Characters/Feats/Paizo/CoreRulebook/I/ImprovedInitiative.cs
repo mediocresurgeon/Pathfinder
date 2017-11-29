@@ -27,7 +27,7 @@ namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            character.Initiative.UntypedBonuses.Add(4);
+            character.Initiative.UntypedBonuses.Add(() => 4);
         }
     }
 }
