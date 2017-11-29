@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Core.Domain.Characters;
 using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
 
@@ -49,7 +50,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => this.StandardArmorCheckPenaltyCalculation(baseArmorCheckPenalty);
-                    this.MundaneMarketPrice = () => DragonhideShield.GetBaseMarketValue(MarketValueScaledBySize(size, woodPrice));
+                    this.MundaneMarketPrice = () => DragonhideShield.GetBaseMarketValue(MarketValueScaledBySize(size, woodPrice), this.Enchantments);
                     this.Weight = WeightScaledBySize(size, woodWeight);
                     this.MundaneName = () => new INameFragment[] {
                         new NameFragment("Dragonhide", DragonhideShield.WebAddress),
@@ -166,13 +167,28 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
 
         /// <summary>
+        /// Enchants this shield with Acid Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new AcidResistance(protectionLevel));
+            return this;
+        }
+
+
+        /// <summary>
         /// Enchants this shield with Animated.
         /// </summary>
         /// <returns>This shield.</returns>
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithAnimated()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new Animated());
             return this;
@@ -186,7 +202,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithArrowCatching()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new ArrowCatching());
             return this;
@@ -200,7 +216,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithArrowDeflection()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new ArrowDeflection());
             return this;
@@ -214,9 +230,54 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithBlinding()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new Blinding());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Cold Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new ColdResistance(protectionLevel));
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Electricity Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new ElectricityResistance(protectionLevel));
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Fire Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new FireResistance(protectionLevel));
             return this;
         }
 
@@ -228,7 +289,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithFortification(FortificationType protectionLevel)
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new Fortification(protectionLevel));
             return this;
@@ -242,9 +303,24 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithGhostTouch()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new GhostTouch());
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Sonic Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        public HeavyShield EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
+                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
+            this.Enchantments.EnchantWith(new SonicResistance(protectionLevel));
             return this;
         }
 
@@ -257,7 +333,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithSpellResistance(SpellResistanceMagnitude spellResistance)
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new SpellResistance(spellResistance));
             return this;
@@ -271,7 +347,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithReflecting()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new Reflecting());
             return this;
@@ -285,7 +361,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithUndeadControlling()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new UndeadControlling());
             return this;
@@ -299,7 +375,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         public HeavyShield EnchantWithWild()
         {
-            if (!this.Enchantments.GetCasterLevel().HasValue) // If there is a caster level, we know the shield has already been enchanted
+            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
                 throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new Wild());
             return this;

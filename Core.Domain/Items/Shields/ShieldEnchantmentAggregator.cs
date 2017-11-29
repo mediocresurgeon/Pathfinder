@@ -60,6 +60,15 @@ namespace Core.Domain.Items.Shields
 
 
         /// <summary>
+        /// Returns a copy of the collection of enchantments being tracked by this aggregator.
+        /// </summary>
+        public IShieldEnchantment[] GetEnchantments()
+        {
+            return this.Enchantments.ToArray();
+        }
+
+
+        /// <summary>
         /// Gets the total market value from enchantments.
         /// </summary>
         /// <returns>The enchantment market value.</returns>

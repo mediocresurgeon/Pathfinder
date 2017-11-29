@@ -62,5 +62,6 @@
     <Folder Include="Items\Shields\Enchantments\Paizo\" />
     <Folder Include="Items\Shields\Enchantments\Paizo\CoreRulebook\" />
     <Folder Include="Spells\Paizo\CoreRulebook\S\" />
+    <Folder Include="Characters\EnergyResistances\" />
   </ItemGroup>
 </Project>

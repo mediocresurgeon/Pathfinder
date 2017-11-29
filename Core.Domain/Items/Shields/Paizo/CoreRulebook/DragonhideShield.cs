@@ -1,4 +1,8 @@
-﻿namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
+﻿using System.Linq;
+using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
+
+
+namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 {
     /// <summary>
     /// Contains functions which adjust the stats of a shield when the shield is made of Dragonhide.
@@ -20,13 +24,17 @@
         /// </summary>
         /// <returns>The market value.</returns>
         /// <param name="basePrice">The base cost of the item (including adjustments for size).</param>
-        public static double GetBaseMarketValue(double basePrice)
+        public static double GetBaseMarketValue(double basePrice, IShieldEnchantmentAggregator enchantments)
         {
-            
-            double runningTotal = basePrice;
-            runningTotal += 150;             // cost of masterwork
-            runningTotal *= 2;               // double the price
-            return runningTotal;
+            double physicalCost = 2 * (basePrice + 150); // twice the masterwork cost
+
+            // Dragonhide reduces the cost of energy resistance enchantments by 25%
+            double energyResistanceEnchantmentDiscount = 0; // keep track of total discounts
+            foreach(var enchantment in enchantments.GetEnchantments().Where(e => e is EnergyResistance))
+            {
+                energyResistanceEnchantmentDiscount += 0.25 * enchantment.Cost;
+            }
+            return physicalCost - energyResistanceEnchantmentDiscount;
         }
     }
 }

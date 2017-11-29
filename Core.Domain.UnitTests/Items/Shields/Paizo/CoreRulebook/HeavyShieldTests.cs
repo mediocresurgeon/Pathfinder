@@ -369,6 +369,57 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         }
         #endregion
 
+        #region Dragonhide - Energy Resistance 10
+        [Test(Description = "Ensures that Dragonhide properly reduces the enchantment cost of Energy Resistance 10 by 25%.")]
+        public void Dragonhide_AcidResistance10_ReducedCost()
+        {
+            // Arrange
+            HeavyShield shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Dragonhide);
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithAcidResistance(EnergyResistanceMagnitude.Regular);
+
+            // Act
+            var price = shield.GetMarketPrice();
+
+            // Assert
+            Assert.AreEqual(14_814, price, "[(7 heavy shield + 150 masterwork) * (2 dragonhide)] + (1000 enhancement bonus) + [(18000 energy resistance) * (75% dragonhide discount)]");
+        }
+        #endregion
+
+        #region Dragonhide - Energy Resistance 20
+        [Test(Description = "Ensures that Dragonhide properly reduces the enchantment cost of Energy Resistance 20 by 25%.")]
+        public void Dragonhide_ColdResistance20_ReducedCost()
+        {
+            // Arrange
+            HeavyShield shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Dragonhide);
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithColdResistance(EnergyResistanceMagnitude.Improved);
+
+            // Act
+            var price = shield.GetMarketPrice();
+
+            // Assert
+            Assert.AreEqual(32_814, price, "[(7 heavy shield + 150 masterwork) * (2 dragonhide)] + (1000 enhancement bonus) + [(42000 energy resistance) * (75% dragonhide discount)]");
+        }
+        #endregion
+
+        #region Dragonhide - Energy Resistance 30
+        [Test(Description = "Ensures that Dragonhide properly reduces the enchantment cost of Energy Resistance 30 by 25%.")]
+        public void Dragonhide_FireResistance30_ReducedCost()
+        {
+            // Arrange
+            HeavyShield shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Dragonhide);
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithFireResistance(EnergyResistanceMagnitude.Greater);
+
+            // Act
+            var price = shield.GetMarketPrice();
+
+            // Assert
+            Assert.AreEqual(50_814, price, "[(7 heavy shield + 150 masterwork) * (2 dragonhide)] + (1000 enhancement bonus) + [(66000 energy resistance) * (75% dragonhide discount)]");
+        }
+        #endregion
+
         #region Mithral, basic
         [Test(Description = "Ensures sensible defaults for a small-size mithral heavy shield.")]
         public void Small_Mithral_Default()
@@ -607,6 +658,91 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
         }
         #endregion
 
+        #region Enchantment - Acid Resistance
+        [Test(Description = "Ensures that Acid Resistance cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_AcidResistance_Regular_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithAcidResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Acid Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Acid Resistance 10 has the correct configuration.")]
+        public void EnchantWith_AcidResistance_Regular_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithAcidResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.AreEqual(19157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Acid Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(3, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Acid Resistance 20 has the correct configuration.")]
+        public void EnchantWith_AcidResistance_Improved_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithAcidResistance(EnergyResistanceMagnitude.Improved);
+
+            // Assert
+            Assert.AreEqual(43157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Improved Acid Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(7, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Acid Resistance 30 has the correct configuration.")]
+        public void EnchantWith_AcidResistance_Greater_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithAcidResistance(EnergyResistanceMagnitude.Greater);
+
+            // Assert
+            Assert.AreEqual(67157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Greater Acid Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(11, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
         #region Enchantment - Animated
         [Test(Description = "Ensures that Animated cannot be added to a shield with no previous enchantments.")]
         public void EnchantWith_Animated_NoEnhancementBonus()
@@ -768,6 +904,261 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             Assert.AreEqual(7, shield.CasterLevel.Value);
             Assert.AreEqual(1, shield.GetSchools().Length);
             Assert.Contains(School.Evocation, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Cold Resistance
+        [Test(Description = "Ensures that Cold Resistance cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_ColdResistance_Regular_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithColdResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Cold Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Cold Resistance 10 has the correct configuration.")]
+        public void EnchantWith_ColdResistance_Regular_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithColdResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.AreEqual(19157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Cold Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(3, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Cold Resistance 20 has the correct configuration.")]
+        public void EnchantWith_ColdResistance_Improved_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithColdResistance(EnergyResistanceMagnitude.Improved);
+
+            // Assert
+            Assert.AreEqual(43157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Improved Cold Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(7, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Cold Resistance 30 has the correct configuration.")]
+        public void EnchantWith_ColdResistance_Greater_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithColdResistance(EnergyResistanceMagnitude.Greater);
+
+            // Assert
+            Assert.AreEqual(67157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Greater Cold Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(11, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Electricity Resistance
+        [Test(Description = "Ensures that Electricity Resistance cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_ElectricityResistance_Regular_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithElectricityResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Electricity Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Electricity Resistance 10 has the correct configuration.")]
+        public void EnchantWith_ElectricityResistance_Regular_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithElectricityResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.AreEqual(19157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Electricity Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(3, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Electricity Resistance 20 has the correct configuration.")]
+        public void EnchantWith_ElectricityResistance_Improved_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithElectricityResistance(EnergyResistanceMagnitude.Improved);
+
+            // Assert
+            Assert.AreEqual(43157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Improved Electricity Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(7, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Electricity Resistance 30 has the correct configuration.")]
+        public void EnchantWith_ElectricityResistance_Greater_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithElectricityResistance(EnergyResistanceMagnitude.Greater);
+
+            // Assert
+            Assert.AreEqual(67157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Greater Electricity Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(11, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Fire Resistance
+        [Test(Description = "Ensures that Fire Resistance cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_FireResistance_Regular_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithFireResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Fire Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Fire Resistance 10 has the correct configuration.")]
+        public void EnchantWith_FireResistance_Regular_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithFireResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.AreEqual(19157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Fire Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(3, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Fire Resistance 20 has the correct configuration.")]
+        public void EnchantWith_FireResistance_Improved_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithFireResistance(EnergyResistanceMagnitude.Improved);
+
+            // Assert
+            Assert.AreEqual(43157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Improved Fire Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(7, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Fire Resistance 30 has the correct configuration.")]
+        public void EnchantWith_FireResistance_Greater_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithFireResistance(EnergyResistanceMagnitude.Greater);
+
+            // Assert
+            Assert.AreEqual(67157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Greater Fire Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(11, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
         }
         #endregion
 
@@ -1031,6 +1422,91 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             Assert.AreEqual(36157, shield.GetMarketPrice());
             Assert.AreEqual("+1 Reflecting Heavy Wooden Shield", shield.ToString());
             Assert.AreEqual(14, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+        #endregion
+
+        #region Enchantment - Sonic Resistance
+        [Test(Description = "Ensures that Sonic Resistance cannot be added to a shield with no previous enchantments.")]
+        public void EnchantWith_SonicResistance_Regular_NoEnhancementBonus()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            TestDelegate enchant = () => shield.EnchantWithSonicResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(enchant,
+                                                     "Shields cannot be enchanted with Sonic Resistance until an enhancement bonus has been applied.");
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Sonic Resistance 10 has the correct configuration.")]
+        public void EnchantWith_SonicResistance_Regular_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithSonicResistance(EnergyResistanceMagnitude.Regular);
+
+            // Assert
+            Assert.AreEqual(19157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Sonic Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(3, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Sonic Resistance 20 has the correct configuration.")]
+        public void EnchantWith_SonicResistance_Improved_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithSonicResistance(EnergyResistanceMagnitude.Improved);
+
+            // Assert
+            Assert.AreEqual(43157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Improved Sonic Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(7, shield.CasterLevel.Value);
+            Assert.AreEqual(1, shield.GetSchools().Length);
+            Assert.Contains(School.Abjuration, shield.GetSchools());
+        }
+
+
+        [Test(Description = "Ensures that a shield enchanted with Sonic Resistance 30 has the correct configuration.")]
+        public void EnchantWith_SonicResistance_Greater_HappyPath()
+        {
+            // Arrange
+            var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood)
+            {
+                IsMasterwork = true
+            };
+
+            // Act
+            shield.EnchantWithEnhancementBonus(1)
+                  .EnchantWithSonicResistance(EnergyResistanceMagnitude.Greater);
+
+            // Assert
+            Assert.AreEqual(67157, shield.GetMarketPrice());
+            Assert.AreEqual("+1 Greater Sonic Resistance Heavy Wooden Shield", shield.ToString());
+            Assert.AreEqual(11, shield.CasterLevel.Value);
             Assert.AreEqual(1, shield.GetSchools().Length);
             Assert.Contains(School.Abjuration, shield.GetSchools());
         }

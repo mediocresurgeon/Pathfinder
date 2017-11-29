@@ -9,6 +9,8 @@ namespace Core.Domain.Items.Shields
     {
         void EnchantWith<T>(T enchantment) where T : IShieldEnchantment;
 
+        IShieldEnchantment[] GetEnchantments();
+
         double GetEnchantmentMarketValue();
 
         School[] GetSchools();

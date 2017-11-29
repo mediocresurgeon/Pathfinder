@@ -5,6 +5,7 @@ using Core.Domain.Characters.ArmorClasses;
 using Core.Domain.Characters.AttackBonuses;
 using Core.Domain.Characters.CombatManeuverBonuses;
 using Core.Domain.Characters.CombatManeuverDefenses;
+using Core.Domain.Characters.EnergyResistances;
 using Core.Domain.Characters.Equipment;
 using Core.Domain.Characters.Feats;
 using Core.Domain.Characters.Initiatives;
@@ -93,6 +94,7 @@ namespace Core.Domain.UnitTests.Characters
             Assert.IsInstanceOf<Initiative>(character.Initiative);
             Assert.IsInstanceOf<ArmorClass>(character.ArmorClass);
             Assert.IsInstanceOf<SpellResistanceTracker>(character.SpellResistance);
+            Assert.IsInstanceOf<EnergyResistanceSection>(character.EnergyResistances);
             Assert.IsInstanceOf<AttackBonusSection>(character.AttackBonuses);
             Assert.IsInstanceOf<CombatManeuverBonus>(character.CombatManeuverBonus);
             Assert.IsInstanceOf<CombatManeuverDefense>(character.CombatManeuverDefense);
