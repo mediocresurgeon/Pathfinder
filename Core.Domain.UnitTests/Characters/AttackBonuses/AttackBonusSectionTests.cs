@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.AttackBonuses
 {
     [TestFixture]
+    [Parallelizable]
     public class AttackBonusSectionTests
     {
         [Test(Description = "Ensures that AttackBonusSection cannot be instanciated with a null ICharacter reference.")]

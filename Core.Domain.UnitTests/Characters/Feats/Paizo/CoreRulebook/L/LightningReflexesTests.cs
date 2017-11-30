@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.L
 {
     [TestFixture]
+    [Parallelizable]
     public class LightningReflexesTests
     {
         #region Properties

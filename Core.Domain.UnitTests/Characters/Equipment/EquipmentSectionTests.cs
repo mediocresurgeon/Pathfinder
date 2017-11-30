@@ -9,6 +9,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Equipment
 {
     [TestFixture]
+    [Parallelizable]
     public class EquipmentSectionTests
     {
         #region Constructor

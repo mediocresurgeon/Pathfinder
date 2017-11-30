@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.S
 {
     [TestFixture]
+    [Parallelizable]
     public class SpellTurningTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]

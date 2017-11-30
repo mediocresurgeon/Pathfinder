@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items
 {
     [TestFixture]
+    [Parallelizable]
     public class ItemTests
     {
         [Test(Description = "Ensures that the aura strength of an item with no caster level is calculated correctly.")]

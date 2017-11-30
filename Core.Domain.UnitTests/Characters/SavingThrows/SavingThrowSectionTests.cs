@@ -9,6 +9,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.SavingThrows
 {
     [TestFixture]
+    [Parallelizable]
     public class SavingThrowSectionTests
     {
         [Test(Description = "Ensures a SavingThrowSection cannot be created with a null ICharacter reference.")]

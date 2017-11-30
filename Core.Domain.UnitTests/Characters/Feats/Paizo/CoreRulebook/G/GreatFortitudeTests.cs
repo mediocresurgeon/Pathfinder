@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.G
 {
     [TestFixture]
+    [Parallelizable]
     public class GreatFortitudeTests
     {
         #region Properties

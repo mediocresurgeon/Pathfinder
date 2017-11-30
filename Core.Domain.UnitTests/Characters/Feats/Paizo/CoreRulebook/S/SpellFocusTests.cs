@@ -9,6 +9,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook
 {
     [TestFixture]
+    [Parallelizable]
     public class SpellFocusTests
     {
         [Test(Description = "Ensures the name of the feat includes the school the feat applies to.")]

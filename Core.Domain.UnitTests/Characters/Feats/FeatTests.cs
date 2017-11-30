@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Feats
 {
     [TestFixture]
+    [Parallelizable]
     public class FeatTests
     {
         [Test(Description = "Ensures that arguments passed into the constructor can be retrieved by properties later.")]

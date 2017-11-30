@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.ArmorClasses
 {
     [TestFixture]
+    [Parallelizable]
     public class ArmorClassTests
     {
         #region Constructor

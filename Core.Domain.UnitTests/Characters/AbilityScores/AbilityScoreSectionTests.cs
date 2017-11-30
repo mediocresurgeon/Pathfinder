@@ -5,6 +5,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.AbilityScores
 {
     [TestFixture]
+    [Parallelizable]
     public class AbilityScoreSectionTests
     {
         [Test(Description = "Ensures sensible defaults for a default AbilityScoreSection.")]

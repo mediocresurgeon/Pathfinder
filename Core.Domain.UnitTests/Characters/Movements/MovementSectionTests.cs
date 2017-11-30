@@ -5,6 +5,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Movements
 {
     [TestFixture]
+    [Parallelizable]
     public class MovementSectionTests
     {
         [Test(Description = "Ensures sensible defaults for MovementSection.")]

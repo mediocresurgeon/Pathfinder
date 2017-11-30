@@ -18,6 +18,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters
 {
     [TestFixture]
+    [Parallelizable]
     public class CharacterTests
     {
         #region ICharacter tests

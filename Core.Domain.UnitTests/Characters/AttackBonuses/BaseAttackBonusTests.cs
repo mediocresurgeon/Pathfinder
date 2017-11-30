@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.AttackBonuses
 {
     [TestFixture]
+    [Parallelizable]
     public class BaseAttackBonusTests
     {
         #region Constructor

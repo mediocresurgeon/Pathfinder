@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Shields
 {
     [TestFixture]
+    [Parallelizable]
     public class ShieldBonusAggregatorTests
     {
         [Test(Description = "Ensures sensible defaults for a fresh instance of ShieldBonusAggregator.")]

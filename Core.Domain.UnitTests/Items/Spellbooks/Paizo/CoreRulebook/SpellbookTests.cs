@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Spellbooks.Paizo.CoreRulebook
 {
     [TestFixture]
+    [Parallelizable]
     public class SpellbookTests
     {
         #region Properties

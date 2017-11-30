@@ -5,6 +5,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Movements
 {
     [TestFixture]
+    [Parallelizable]
     public class FlyTests
     {
         [Test(Description = "Ensures sensible default values for Movements.Fly.")]

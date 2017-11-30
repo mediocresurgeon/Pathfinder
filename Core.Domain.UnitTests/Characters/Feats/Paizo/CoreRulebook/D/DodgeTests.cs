@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.D
 {
     [TestFixture]
+    [Parallelizable]
     public class DodgeTests
     {
         #region Constructor

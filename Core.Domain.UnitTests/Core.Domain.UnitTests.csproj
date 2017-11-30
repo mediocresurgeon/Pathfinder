@@ -10,9 +10,9 @@
     <ProjectReference Include="..\Core.Domain\Core.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.8.1" />
-    <PackageReference Include="NUnitLite" Version="3.8.1" />
-    <PackageReference Include="Moq" Version="4.7.142" />
+    <PackageReference Include="NUnit" Version="3.9.0" />
+    <PackageReference Include="NUnitLite" Version="3.9.0" />
+    <PackageReference Include="Moq" Version="4.7.145" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Spells\" />

@@ -12,6 +12,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
 {
     [TestFixture]
+    [Parallelizable]
     public class ReflectingTests
     {
         [Test(Description = "Ensures that a fresh instance of Reflecting has sensible defaults.")]

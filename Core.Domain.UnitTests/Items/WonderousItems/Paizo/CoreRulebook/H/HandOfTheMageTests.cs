@@ -11,6 +11,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
 {
     [TestFixture]
+    [Parallelizable]
     public class HandOfTheMageTests
     {
         #region Properties

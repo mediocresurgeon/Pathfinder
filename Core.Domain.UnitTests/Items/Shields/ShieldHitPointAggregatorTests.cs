@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Shields
 {
     [TestFixture]
+    [Parallelizable]
     public class ShieldHitPointAggregatorTests
     {
         [Test(Description = "Ensures that ShieldHitPointAggregator will reject negative thicknesses.")]

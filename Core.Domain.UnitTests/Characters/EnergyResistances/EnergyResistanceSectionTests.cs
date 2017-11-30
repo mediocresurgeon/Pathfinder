@@ -5,6 +5,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.EnergyResistances
 {
     [TestFixture]
+    [Parallelizable]
     public class EnergyResistanceSectionTests
     {
         [Test(Description = "Ensures that a fresh instance of EnergyResistanceSection has correct defaults.")]

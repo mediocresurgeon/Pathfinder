@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Shields.Enchantments
 {
     [TestFixture]
+    [Parallelizable]
     public class ShieldEnchantmentTests
     {
         #region Constructor

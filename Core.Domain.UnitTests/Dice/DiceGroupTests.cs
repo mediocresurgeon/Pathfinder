@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Dice
 {
     [TestFixture]
+    [Parallelizable]
     public class DiceGroupTests
     {
         // Used for Roll() tests.

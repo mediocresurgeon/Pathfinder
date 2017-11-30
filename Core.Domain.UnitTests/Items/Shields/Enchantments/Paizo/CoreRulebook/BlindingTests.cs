@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
 {
     [TestFixture]
+    [Parallelizable]
     public class BlindingTests
     {
         [Test(Description = "Ensures that a fresh instance of Arrow Deflection has sensible defaults.")]

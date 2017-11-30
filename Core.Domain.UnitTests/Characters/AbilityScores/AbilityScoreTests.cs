@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.AbilityScores
 {
     [TestFixture]
+    [Parallelizable]
     public class AbilityScoreTests
     {
 		[Test(Description = "Setting a BaseScore property to a number should allow it to be retrieved later.")]

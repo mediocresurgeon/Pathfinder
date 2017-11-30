@@ -13,6 +13,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.S
 {
     [TestFixture]
+    [Parallelizable]
     public class StoneOfGoodLuckTests
     {
         [Test(Description = "Ensures sensible defaults for a fresh instance of Stone of Good Luck.")]

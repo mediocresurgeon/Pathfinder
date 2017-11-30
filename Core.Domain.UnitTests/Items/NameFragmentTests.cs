@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items
 {
     [TestFixture]
+    [Parallelizable]
     public class NameFragmentTests
     {
         #region Constructor

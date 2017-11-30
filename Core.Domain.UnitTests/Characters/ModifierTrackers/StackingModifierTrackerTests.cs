@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.ModifierTrackers
 {
     [TestFixture]
+    [Parallelizable]
     public class StackingModifierTrackerTests
     {
         [Test(Description = "Tests the default calculation for an empty StackingBonusTracker.")]

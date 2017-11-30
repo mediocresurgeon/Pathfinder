@@ -11,6 +11,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.V
 {
     [TestFixture]
+    [Parallelizable]
     public class VestOfEscapeTests
     {
         [Test(Description = "Ensures a fresh instance of Vest of Escape has sensible defaults.")]

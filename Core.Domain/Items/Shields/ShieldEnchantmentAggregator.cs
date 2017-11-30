@@ -72,7 +72,7 @@ namespace Core.Domain.Items.Shields
         /// Gets the total market value from enchantments.
         /// </summary>
         /// <returns>The enchantment market value.</returns>
-        public double GetEnchantmentMarketValue()
+        public double GetMarketPrice()
         {
             if (!this.Enchantments.Any())
                 return 0;

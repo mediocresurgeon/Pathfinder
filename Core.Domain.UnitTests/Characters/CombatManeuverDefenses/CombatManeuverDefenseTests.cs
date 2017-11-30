@@ -12,6 +12,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.CombatManeuverDefenses
 {
     [TestFixture]
+    [Parallelizable]
     public class CombatManeuverDefenseTests
     {
         #region Constructor

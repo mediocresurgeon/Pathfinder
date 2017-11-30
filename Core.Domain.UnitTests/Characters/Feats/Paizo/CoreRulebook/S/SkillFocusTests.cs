@@ -9,6 +9,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.S
 {
     [TestFixture]
+    [Parallelizable]
     public class SkillFocusTests
     {
         [Test(Description = "Ensures SKillFocus cannot be created with a null instance of ISkill.")]

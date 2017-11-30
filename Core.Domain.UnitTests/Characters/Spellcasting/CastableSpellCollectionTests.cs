@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.SpellRegistries
 {
     [TestFixture]
+    [Parallelizable]
     public class CastableSpellCollectionTests
     {
         #region Add()

@@ -11,6 +11,7 @@ namespace Core.Domain.UnitTests.Characters.SavingThrows
 {
     #region Constructor
     [TestFixture]
+    [Parallelizable]
     public class SavingThrowTests
     {
         [Test(Description = "Ensures that a Saving Throw cannot be created without an instance of ICharacter.")]

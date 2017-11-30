@@ -8,6 +8,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Skills
 {
     [TestFixture]
+    [Parallelizable]
     public class StealthTests
     {
         [Test(Description = "Ensures that small characters recieve a size bonus and no penalty to Stealth.")]

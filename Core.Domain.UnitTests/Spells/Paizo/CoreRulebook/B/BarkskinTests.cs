@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 {
     [TestFixture]
+    [Parallelizable]
     public class BarkskinTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]

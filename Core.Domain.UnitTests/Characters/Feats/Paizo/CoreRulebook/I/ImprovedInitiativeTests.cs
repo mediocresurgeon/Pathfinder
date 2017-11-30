@@ -9,6 +9,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.I
 {
 	[TestFixture]
+    [Parallelizable]
 	public class ImprovedInitiativeTests
 	{
 		#region Properties

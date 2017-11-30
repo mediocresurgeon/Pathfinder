@@ -9,6 +9,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Initiatives
 {
     [TestFixture]
+    [Parallelizable]
     public class InitiativeTests
     {
         [Test(Description = "Ensures that Initiative cannot be created without an instance of IAbilityScore.")]

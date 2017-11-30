@@ -11,6 +11,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
 {
     [TestFixture]
+    [Parallelizable]
     public class SpellResistanceTests
     {
         [Test(Description = "Ensures that Spell Resistance will not accept nonstandard enum values.")]

@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Skills
 {
     [TestFixture]
+    [Parallelizable]
     public class SkillTests
     {
         [Test(Description = "Ensures that Skill has sensible defaults.")]

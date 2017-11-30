@@ -7,6 +7,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Spellcasting
 {
     [TestFixture]
+    [Parallelizable]
     public class CasterLevelTests
     {
         #region Constructor

@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Movements
 {
     [TestFixture]
+    [Parallelizable]
     public class MovementTests
     {
         [Test(Description = "Ensures that by default, movements do not have base values or totals.")]

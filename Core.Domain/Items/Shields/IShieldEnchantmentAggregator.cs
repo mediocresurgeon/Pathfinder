@@ -11,7 +11,7 @@ namespace Core.Domain.Items.Shields
 
         IShieldEnchantment[] GetEnchantments();
 
-        double GetEnchantmentMarketValue();
+        double GetMarketPrice();
 
         School[] GetSchools();
 

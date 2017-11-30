@@ -9,6 +9,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.Skills
 {
     [TestFixture]
+    [Parallelizable]
     public class KnowledgeSkillSectionTest
     {
         #region Constructor

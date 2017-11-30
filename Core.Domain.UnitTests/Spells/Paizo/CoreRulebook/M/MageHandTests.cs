@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
 {
     [TestFixture]
+    [Parallelizable]
     public class MageHandTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]

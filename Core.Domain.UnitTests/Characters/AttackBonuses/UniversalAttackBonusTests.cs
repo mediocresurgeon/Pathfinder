@@ -6,6 +6,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Characters.AttackBonuses
 {
     [TestFixture]
+    [Parallelizable]
     public class UniversalAttackBonusTests
     {
         [Test(Description = "Ensures UniversalAttackBonus is created with sensible defaults.")]

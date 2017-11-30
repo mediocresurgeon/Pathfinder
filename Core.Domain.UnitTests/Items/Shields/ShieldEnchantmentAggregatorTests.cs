@@ -10,6 +10,7 @@ using NUnit.Framework;
 namespace Core.Domain.UnitTests.Items.Shields
 {
     [TestFixture]
+    [Parallelizable]
     public class ShieldEnchantmentAggregatorTests
     {
         #region Constructor
@@ -76,7 +77,7 @@ namespace Core.Domain.UnitTests.Items.Shields
             // Assert
             Assert.AreEqual(15, aggregator.GetCasterLevel(),
                            "The caster level of a shield is equal to the greatest caster level among its enchantments.");
-            Assert.AreEqual(25_000, aggregator.GetEnchantmentMarketValue(),
+            Assert.AreEqual(25_000, aggregator.GetMarketPrice(),
                            "The market value of a shield's enchantments are equal to 1000 times its effective enhancement bonus, plus flat enchantment costs.");
             Assert.AreEqual(1, aggregator.GetSchools().Length,
                            "A shield enchanted with only an enhancement bonus should only have a single school.");
@@ -101,7 +102,7 @@ namespace Core.Domain.UnitTests.Items.Shields
             // Assert
             Assert.AreEqual(12, aggregator.GetCasterLevel(),
                            "The caster level of a shield is equal to the greatest caster level among its enchantments.");
-            Assert.AreEqual(9_000, aggregator.GetEnchantmentMarketValue(),
+            Assert.AreEqual(9_000, aggregator.GetMarketPrice(),
                            "The market value of a shield's enchantments are equal to 1000 times its effective enhancement bonus, plus flat enchantment costs.");
             Assert.AreEqual(1, aggregator.GetSchools().Length,
                             "A shield enchanted with something other than an enhancement bonus should ignore the enhancement bonus's school (Abjuration).");
