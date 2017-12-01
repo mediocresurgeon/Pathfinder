@@ -23,8 +23,8 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.S
             StoneOfGoodLuck luckstone = new StoneOfGoodLuck();
 
             // Assert
-            Assert.AreEqual(0, luckstone.Weight);
-            Assert.AreEqual(5, luckstone.CasterLevel.Value);
+            Assert.AreEqual(0, luckstone.GetWeight());
+            Assert.AreEqual(5, luckstone.GetCasterLevel().Value);
             Assert.AreEqual(8, luckstone.GetHardness());
             Assert.AreEqual(15, luckstone.GetHitPoints());
             Assert.AreEqual(20000, luckstone.GetMarketPrice());

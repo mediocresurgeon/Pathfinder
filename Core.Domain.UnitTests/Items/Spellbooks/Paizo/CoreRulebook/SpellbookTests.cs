@@ -19,8 +19,8 @@ namespace Core.Domain.UnitTests.Items.Spellbooks.Paizo.CoreRulebook
             var spellbook = new Spellbook();
 
             // Assert
-            Assert.AreEqual(3, spellbook.Weight);
-            Assert.IsFalse(spellbook.CasterLevel.HasValue);
+            Assert.AreEqual(3, spellbook.GetWeight());
+            Assert.IsFalse(spellbook.GetCasterLevel().HasValue);
             Assert.IsEmpty(spellbook.GetSchools());
             Assert.AreEqual(2, spellbook.GetHardness());
             Assert.AreEqual(1, spellbook.GetHitPoints());

@@ -15,12 +15,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns((byte?)null);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.None, auraStrength);
@@ -32,12 +32,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(0);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.None, auraStrength);
@@ -49,12 +49,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(1);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.Faint, auraStrength);
@@ -66,12 +66,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(5);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.Faint, auraStrength);
@@ -83,12 +83,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(6);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.Moderate, auraStrength);
@@ -100,12 +100,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(11);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.Moderate, auraStrength);
@@ -117,12 +117,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(12);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.Strong, auraStrength);
@@ -134,12 +134,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(20);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.Strong, auraStrength);
@@ -151,12 +151,12 @@ namespace Core.Domain.UnitTests.Items
         {
             // Arrange
             var mockItem = new Mock<Item>() { CallBase = true };
-            mockItem.Setup(i => i.CasterLevel)
+            mockItem.Setup(i => i.GetCasterLevel())
                     .Returns(21);
             var item = mockItem.Object;
 
             // Act
-            var auraStrength = item.AuraStrength;
+            var auraStrength = item.GetAuraStrength();
 
             // Assert
             Assert.AreEqual(MagicalAuraStrength.Overwhelming, auraStrength);

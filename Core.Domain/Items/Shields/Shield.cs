@@ -146,6 +146,13 @@ namespace Core.Domain.Items.Shields
         /// </summary>
         /// <value>The mundane market price.</value>
         protected internal abstract Func<double> MundaneMarketPrice { get; }
+
+
+        /// <summary>
+        /// The weight of the item (in pounds), taking into account adjustments for item materials and size.
+        /// </summary>
+        /// <value>The weight.</value>
+        protected internal abstract Func<double> Weight { get; }
         #endregion
 
         #region Internal
@@ -209,6 +216,8 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Public
+        public override double GetWeight() => this.Weight();
+
         /// <summary>
         /// Returns the armor check penalty of this Shield, which may be applied to certain skills.
         /// </summary>
@@ -220,7 +229,7 @@ namespace Core.Domain.Items.Shields
         /// Returns the caster level of this Shield.
         /// </summary>
         /// <value>The caster level.</value>
-        public override byte? CasterLevel => this.Enchantments.GetCasterLevel();
+        public override byte? GetCasterLevel() => this.Enchantments.GetCasterLevel();
 
 
         /// <summary>

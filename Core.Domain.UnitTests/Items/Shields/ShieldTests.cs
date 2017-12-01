@@ -262,7 +262,7 @@ namespace Core.Domain.UnitTests.Items.Shields
                                              { CallBase = true }.Object;
 
             // Act
-            var result = shield.CasterLevel;
+            var result = shield.GetCasterLevel();
 
             // Assert
             mockEnchantments.Verify(agg => agg.GetCasterLevel(),

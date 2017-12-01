@@ -23,10 +23,10 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         #endregion
 
         #region Properties
-        public override double Weight => 2;
+        public override double GetWeight() => 2;
 
 
-        public override byte? CasterLevel => 2;
+        public override byte? GetCasterLevel() => 2;
         #endregion
 
         #region Methods

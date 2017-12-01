@@ -19,9 +19,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Steel);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsFalse(shield.IsMasterwork);
-            Assert.AreEqual(7.5, shield.Weight);
+            Assert.AreEqual(7.5, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(10, shield.GetHitPoints());
             Assert.AreEqual(20, shield.GetMarketPrice());
@@ -40,9 +40,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             };
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(7.5, shield.Weight);
+            Assert.AreEqual(7.5, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(10, shield.GetHitPoints());
             Assert.AreEqual(170, shield.GetMarketPrice());
@@ -58,9 +58,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Steel);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsFalse(shield.IsMasterwork);
-            Assert.AreEqual(15, shield.Weight);
+            Assert.AreEqual(15, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(20, shield.GetHitPoints());
             Assert.AreEqual(20, shield.GetMarketPrice());
@@ -79,9 +79,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             };
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(15, shield.Weight);
+            Assert.AreEqual(15, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(20, shield.GetHitPoints());
             Assert.AreEqual(170, shield.GetMarketPrice());
@@ -97,9 +97,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Large, HeavyShieldMaterial.Steel);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsFalse(shield.IsMasterwork);
-            Assert.AreEqual(30, shield.Weight);
+            Assert.AreEqual(30, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(40, shield.GetHitPoints());
             Assert.AreEqual(40, shield.GetMarketPrice());
@@ -118,9 +118,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             };
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(30, shield.Weight);
+            Assert.AreEqual(30, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(40, shield.GetHitPoints());
             Assert.AreEqual(190, shield.GetMarketPrice());
@@ -137,9 +137,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Wood);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsFalse(shield.IsMasterwork);
-            Assert.AreEqual(5, shield.Weight);
+            Assert.AreEqual(5, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(7, shield.GetHitPoints());
             Assert.AreEqual(7, shield.GetMarketPrice());
@@ -158,9 +158,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             };
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(5, shield.Weight);
+            Assert.AreEqual(5, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(7, shield.GetHitPoints());
             Assert.AreEqual(157, shield.GetMarketPrice());
@@ -176,9 +176,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Wood);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsFalse(shield.IsMasterwork);
-            Assert.AreEqual(10, shield.Weight);
+            Assert.AreEqual(10, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(15, shield.GetHitPoints());
             Assert.AreEqual(7, shield.GetMarketPrice());
@@ -197,9 +197,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             };
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(10, shield.Weight);
+            Assert.AreEqual(10, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(15, shield.GetHitPoints());
             Assert.AreEqual(157, shield.GetMarketPrice());
@@ -215,9 +215,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Large, HeavyShieldMaterial.Wood);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsFalse(shield.IsMasterwork);
-            Assert.AreEqual(20, shield.Weight);
+            Assert.AreEqual(20, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(30, shield.GetHitPoints());
             Assert.AreEqual(14, shield.GetMarketPrice());
@@ -236,9 +236,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             };
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(20, shield.Weight);
+            Assert.AreEqual(20, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(30, shield.GetHitPoints());
             Assert.AreEqual(164, shield.GetMarketPrice());
@@ -255,9 +255,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Darkwood);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(2.5, shield.Weight);
+            Assert.AreEqual(2.5, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(7, shield.GetHitPoints());
             Assert.AreEqual(207, shield.GetMarketPrice());
@@ -275,9 +275,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Darkwood);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(5, shield.Weight);
+            Assert.AreEqual(5, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(15, shield.GetHitPoints());
             Assert.AreEqual(257, shield.GetMarketPrice());
@@ -295,9 +295,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Large, HeavyShieldMaterial.Darkwood);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(10, shield.Weight);
+            Assert.AreEqual(10, shield.GetWeight());
             Assert.AreEqual(5, shield.GetHardness());
             Assert.AreEqual(30, shield.GetHitPoints());
             Assert.AreEqual(364, shield.GetMarketPrice());
@@ -316,9 +316,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Dragonhide);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(5, shield.Weight);
+            Assert.AreEqual(5, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(7, shield.GetHitPoints());
             Assert.AreEqual(314, shield.GetMarketPrice());
@@ -336,9 +336,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Dragonhide);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(10, shield.Weight);
+            Assert.AreEqual(10, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(15, shield.GetHitPoints());
             Assert.AreEqual(314, shield.GetMarketPrice());
@@ -356,9 +356,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Large, HeavyShieldMaterial.Dragonhide);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(20, shield.Weight);
+            Assert.AreEqual(20, shield.GetWeight());
             Assert.AreEqual(10, shield.GetHardness());
             Assert.AreEqual(30, shield.GetHitPoints());
             Assert.AreEqual(328, shield.GetMarketPrice());
@@ -428,9 +428,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Small, HeavyShieldMaterial.Mithral);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(3.75, shield.Weight);
+            Assert.AreEqual(3.75, shield.GetWeight());
             Assert.AreEqual(15, shield.GetHardness());
             Assert.AreEqual(10, shield.GetHitPoints());
             Assert.AreEqual(1020, shield.GetMarketPrice());
@@ -448,9 +448,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Medium, HeavyShieldMaterial.Mithral);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(7.5, shield.Weight);
+            Assert.AreEqual(7.5, shield.GetWeight());
             Assert.AreEqual(15, shield.GetHardness());
             Assert.AreEqual(20, shield.GetHitPoints());
             Assert.AreEqual(1020, shield.GetMarketPrice());
@@ -468,9 +468,9 @@ namespace Core.Domain.UnitTests.Items.Shields.Paizo.CoreRulebook
             var shield = new HeavyShield(SizeCategory.Large, HeavyShieldMaterial.Mithral);
 
             // Assert
-            Assert.IsNull(shield.CasterLevel);
+            Assert.IsNull(shield.GetCasterLevel());
             Assert.IsTrue(shield.IsMasterwork);
-            Assert.AreEqual(15, shield.Weight);
+            Assert.AreEqual(15, shield.GetWeight());
             Assert.AreEqual(15, shield.GetHardness());
             Assert.AreEqual(40, shield.GetHitPoints());
             Assert.AreEqual(1040, shield.GetMarketPrice());

@@ -60,13 +60,13 @@ namespace Core.Domain.Items.Spellbooks.Paizo.CoreRulebook
         /// <summary>
         /// The weight of this spellbook (in pounds).
         /// </summary>
-        public override double Weight => 3;
+        public override double GetWeight() => 3;
 
 
         /// <summary>
         /// The caster level of this spellbook.
         /// </summary>
-        public override byte? CasterLevel => null;
+        public override byte? GetCasterLevel() => null;
         #endregion
 
         #region Public methods

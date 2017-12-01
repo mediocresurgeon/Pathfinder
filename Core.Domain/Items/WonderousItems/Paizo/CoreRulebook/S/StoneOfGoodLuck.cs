@@ -25,9 +25,9 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         #endregion
 
         #region Properties
-        public override double Weight => 0;
+        public override double GetWeight() => 0;
 
-        public override byte? CasterLevel => 5;
+        public override byte? GetCasterLevel() => 5;
         #endregion
 
         #region Methods

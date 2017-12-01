@@ -15,19 +15,16 @@ namespace Core.Domain.Items
         }
 
         #region Virtual members
-        public virtual MagicalAuraStrength AuraStrength
+        public virtual MagicalAuraStrength GetAuraStrength()
         {
-            get
+            if (!this.GetCasterLevel().HasValue || 0 == this.GetCasterLevel().Value)
+                return MagicalAuraStrength.None;
+            switch (this.GetCasterLevel().Value)
             {
-                if (!this.CasterLevel.HasValue || 0 == this.CasterLevel.Value)
-                    return MagicalAuraStrength.None;
-                switch (this.CasterLevel.Value)
-                {
-                    case byte cl when (cl <= 5):  return MagicalAuraStrength.Faint;
-                    case byte cl when (cl <= 11): return MagicalAuraStrength.Moderate;
-                    case byte cl when (cl <= 20): return MagicalAuraStrength.Strong;
-                    default:                      return MagicalAuraStrength.Overwhelming;
-                }
+                case byte cl when (cl <= 5): return MagicalAuraStrength.Faint;
+                case byte cl when (cl <= 11): return MagicalAuraStrength.Moderate;
+                case byte cl when (cl <= 20): return MagicalAuraStrength.Strong;
+                default: return MagicalAuraStrength.Overwhelming;
             }
         }
 
@@ -39,16 +36,16 @@ namespace Core.Domain.Items
 
         protected virtual sbyte? GetSavingThrow()
         {
-            if (!this.CasterLevel.HasValue)
+            if (!this.GetCasterLevel().HasValue)
                 return null;
-            return Convert.ToSByte(2 + (this.CasterLevel.Value / 2));
+            return Convert.ToSByte(2 + (this.GetCasterLevel().Value / 2));
         }
         #endregion
 
         #region Abstract members
-        public abstract double Weight { get; }
+        public abstract double GetWeight();
 
-        public abstract byte? CasterLevel { get; }
+        public abstract byte? GetCasterLevel();
 
         public abstract INameFragment[] GetName();
 

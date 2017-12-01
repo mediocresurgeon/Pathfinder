@@ -21,8 +21,8 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.V
             VestOfEscape item = new VestOfEscape();
 
             // Assert
-            Assert.AreEqual(0, item.Weight);
-            Assert.AreEqual(4, item.CasterLevel);
+            Assert.AreEqual(0, item.GetWeight());
+            Assert.AreEqual(4, item.GetCasterLevel());
             Assert.AreEqual(0, item.GetHardness());
             Assert.AreEqual(1, item.GetHitPoints());
             Assert.AreEqual(5200, item.GetMarketPrice());

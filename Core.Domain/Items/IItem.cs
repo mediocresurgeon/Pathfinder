@@ -9,15 +9,15 @@ namespace Core.Domain.Items
 
         double GetMarketPrice();
 
-        double Weight { get; }
+        double GetWeight();
 
         byte GetHardness();
 
         ushort GetHitPoints();
 
-        byte? CasterLevel { get; }
+        byte? GetCasterLevel();
 
-        MagicalAuraStrength AuraStrength { get; }
+        MagicalAuraStrength GetAuraStrength();
 
         School[] GetSchools();
 

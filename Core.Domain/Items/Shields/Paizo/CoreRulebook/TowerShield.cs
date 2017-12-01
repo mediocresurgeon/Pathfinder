@@ -44,8 +44,8 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => DarkwoodShield.GetArmorCheckPenalty(BASE_ARMOR_CHECK_PENALTY);
-                    this.MundaneMarketPrice = () => DarkwoodShield.GetBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.Weight);
-                    this.Weight = DarkwoodShield.GetWeight(WeightScaledBySize(size, WOOD_WEIGHT));
+                    this.MundaneMarketPrice = () => DarkwoodShield.GetBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.GetWeight());
+                    this.Weight = () => DarkwoodShield.GetWeight(WeightScaledBySize(size, WOOD_WEIGHT));
                     this.MundaneName = () => new INameFragment[] {
                         new NameFragment("Darkwood", DarkwoodShield.WebAddress),
                         standardShieldName
@@ -56,7 +56,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => this.StandardArmorCheckPenaltyCalculation(BASE_ARMOR_CHECK_PENALTY);
                     this.MundaneMarketPrice = () => DragonhideShield.GetBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.Enchantments);
-                    this.Weight = WeightScaledBySize(size, WOOD_WEIGHT);
+                    this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
                     this.MundaneName = () => new INameFragment[] {
                         new NameFragment("Dragonhide", DragonhideShield.WebAddress),
                         standardShieldName
@@ -65,7 +65,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                 case TowerShieldMaterial.Wood:
                     this.ArmorCheckPenalty = () => this.StandardArmorCheckPenaltyCalculation(BASE_ARMOR_CHECK_PENALTY);
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, WOOD_PRICE));
-                    this.Weight = WeightScaledBySize(size, WOOD_WEIGHT);
+                    this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
                     this.MundaneName = () => new INameFragment[] {
                         standardShieldName
                     };
@@ -110,11 +110,11 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         protected internal override Func<INameFragment[]> MundaneName { get; }
 
         protected internal override Func<double> MundaneMarketPrice { get; }
+
+        protected internal override Func<double> Weight { get; }
         #endregion
 
         #region Public
-        public override double Weight { get; }
-
         public byte MaximumDexterityBonus { get; } = 2;
         #endregion
 

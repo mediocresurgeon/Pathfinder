@@ -22,8 +22,8 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
             HandOfTheMage item = new HandOfTheMage();
 
             // Assert
-            Assert.AreEqual(2, item.Weight);
-            Assert.AreEqual(2, item.CasterLevel);
+            Assert.AreEqual(2, item.GetWeight());
+            Assert.AreEqual(2, item.GetCasterLevel());
             Assert.AreEqual(2, item.GetHardness());
             Assert.AreEqual(5, item.GetHitPoints());
             Assert.AreEqual(900, item.GetMarketPrice());
