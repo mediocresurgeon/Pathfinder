@@ -8,94 +8,97 @@ using Core.Domain.Spells;
 namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 {
     /// <summary>
-    /// +2 Heavy Steel Shield which can use bite attacks 3/day.
+    /// +1 Heavy Steel Shield which acts as a spiked shield.
+    /// Can fire spines as ranged weapon 3/day.
     /// </summary>
-    public sealed class LionsShield : Item, IHeavyShield
+    public sealed class SpinedShield : Item, IHeavyShield
     {
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Paizo.CoreRulebook.LionsShield"/> class.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Paizo.CoreRulebook.SpinedShield"/> class.
         /// </summary>
-        public LionsShield()
+        public SpinedShield()
             : base()
         {
-            // Intentionally blank
+            // Intentionally blank.
         }
         #endregion
 
         #region Properties
         /// <summary>
-        /// Lion's Shield is masterwork.
+        /// Spined Shield is masterwork.
         /// </summary>
         public bool IsMasterwork => true;
         #endregion
 
         #region Methods
         /// <summary>
-        /// Lion's Shield has an armor check penalty of 1.
+        /// Spined Shield has an armor check penalty of 1.
         /// </summary>
         public byte GetArmorCheckPenalty() => 1;
 
 
-
         /// <summary>
-        /// Lion's Shield has caster level 10.
+        /// Spined Shield has a caster level of 6.
         /// </summary>
-        public override byte? GetCasterLevel() => 10;
+        public override byte? GetCasterLevel() => 6;
 
 
         /// <summary>
-        /// Lion's Shield has hardness 14.
+        /// Spined Shield has hardness 12.
         /// </summary>
-        public override byte GetHardness() => 14;
+        public override byte GetHardness() => 12;
 
 
         /// <summary>
-        /// Lion's Shield has 40 hit point.
+        /// Spined Shield has 30 hit points.
         /// </summary>
-        public override ushort GetHitPoints() => 40;
+        /// <returns>The hit points.</returns>
+        public override ushort GetHitPoints() => 30;
 
 
         /// <summary>
-        /// Lion's Shield has a market price of 9170gp.
+        /// Spined Shield has a market price of 5580gp.
         /// </summary>
-        public override double GetMarketPrice() => 9170;
+        /// <returns>The market price.</returns>
+        public override double GetMarketPrice() => 5580;
 
 
         /// <summary>
-        /// Returns this shield's name and URL.
+        /// Returns the name of this shield.
         /// </summary>
         public override INameFragment[] GetName()
         {
             return new INameFragment[] {
-                new NameFragment(text:       "Lion's Shield",
-                                 webAddress: "http://www.d20pfsrd.com/magic-items/magic-armor/specific-magic-shields/lion-s-shield/")
-            };
+                new NameFragment(
+                    text:       "Spined Shield",
+                    webAddress: "http://www.d20pfsrd.com/magic-items/magic-armor/specific-magic-shields/spined-shield/"
+            )};
         }
 
 
         /// <summary>
-        /// Lion's Shield has a Conjuration aura.
+        /// Spined Shield has an Evocation aura.
         /// </summary>
-        public override School[] GetSchools() => new School[] { School.Conjuration };
+        public override School[] GetSchools() => new School[] { School.Evocation };
 
 
         /// <summary>
-        /// Lion's Shield has a shield bonus of +4.
+        /// Spined Shield gives a +3 shield bonus to AC.
         /// </summary>
-        public byte GetShieldBonus() => 4;
+        public byte GetShieldBonus() => 3;
 
 
         /// <summary>
-        /// Lion's Shield weighs 15lbs.
+        /// Spined Shield weighs 15lbs.
         /// </summary>
         public override double GetWeight() => 15;
 
 
         /// <summary>
-        /// Applies Lion's Shield's effects to a character.
+        /// Applies Spined Shield's effects to an ICharacter.
         /// </summary>
-        /// <param name="character">The character who has equipped Lion's Shield.</param>
+        /// <param name="character">The character to apply effects to.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         public void ApplyTo(ICharacter character)
         {
