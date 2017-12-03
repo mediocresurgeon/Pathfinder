@@ -9,12 +9,21 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     /// </summary>
     internal static class DragonhideShield
     {
+        /// <summary>
+        /// Dragonhide has a hardness of 10.
+        /// </summary>
         public static byte Hardness { get; } = 10;
 
 
+        /// <summary>
+        /// Dragonhide has 10 hit points per inch of thickness.
+        /// </summary>
         public static byte HitPointsPerInch { get; } = 10;
 
 
+        /// <summary>
+        /// The URL of Dragonhide.
+        /// </summary>
         public static string WebAddress { get; } = "http://www.d20pfsrd.com/equipment/special-materials#TOC-Darkwood";
 
 
@@ -23,7 +32,8 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// The cost is: base cost, plus masterwork cost, multiplied by two.
         /// </summary>
         /// <returns>The market value.</returns>
-        /// <param name="basePrice">The base cost of the item (including adjustments for size).</param>
+        /// <param name="basePrice">The base cost of the shield (including adjustments for size).</param>
+        /// <param name="enchantments">The enchantments placed on the shield.</param>
         public static double GetBaseMarketValue(double basePrice, IShieldEnchantmentAggregator enchantments)
         {
             double physicalCost = 2 * (basePrice + 150); // twice the masterwork cost

@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Domain.Characters;
+using Core.Domain.Characters.AbilityScores;
 using Core.Domain.Spells;
 using Core.Domain.Spells.Paizo.CoreRulebook;
 
@@ -7,7 +8,7 @@ using Core.Domain.Spells.Paizo.CoreRulebook;
 namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
 {
     /// <summary>
-    /// A mummified elf hand which hangs by a golden chain around one's neck.
+    /// A neck item which lets the equipped character cast Mage Hand at will.
     /// </summary>
     public sealed class HandOfTheMage : Item, INeckSlot
     {
@@ -22,32 +23,40 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         }
         #endregion
 
-        #region Properties
+        #region Methods
+        /// <summary>
+        /// Hand of the Mage weighs 2lbs.
+        /// </summary>
         public override double GetWeight() => 2;
 
 
+        /// <summary>
+        /// Hand of the Mage has caster level 2.
+        /// </summary>
         public override byte? GetCasterLevel() => 2;
-        #endregion
-
-        #region Methods
-        public override byte GetHardness()
-        {
-            return 2;
-        }
 
 
-        public override ushort GetHitPoints()
-        {
-            return 5;
-        }
+        /// <summary>
+        /// Hand of the Mage has hardness 2.
+        /// </summary>
+        public override byte GetHardness() => 2;
 
 
-        public override double GetMarketPrice()
-        {
-            return 900;
-        }
+        /// <summary>
+        /// Hand of the Mage has 5 hit points.
+        /// </summary>
+        public override ushort GetHitPoints() => 5;
 
 
+        /// <summary>
+        /// The market price of Hand of the Mage is 900gp.
+        /// </summary>
+        public override double GetMarketPrice() => 900;
+
+
+        /// <summary>
+        /// Returns the name of this item.
+        /// </summary>
         public override INameFragment[] GetName()
         {
             return new INameFragment[] {
@@ -58,17 +67,26 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         }
 
 
+        /// <summary>
+        /// Hand of the Mage has a Transmutation aura.
+        /// </summary>
         public override School[] GetSchools()
         {
             return new School[] { School.Transmutation };
         }
 
 
+        /// <summary>
+        /// Applies the effects of Hand of the Mage to an ICharacter.
+        /// </summary>
+        /// <param name="character">The character to apply effects to.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         public void ApplyTo(ICharacter character)
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            character.SpellLikeAbilities?.Registrar?.Register(0, MageHand.SorcererVersion, character.AbilityScores.Charisma);
+            IAbilityScore handOfTheMageCastingStat = new AbilityScore { BaseScore = 10 };
+            character.SpellLikeAbilities?.Registrar?.Register(0, MageHand.SorcererVersion, handOfTheMageCastingStat);
         }
         #endregion
     }

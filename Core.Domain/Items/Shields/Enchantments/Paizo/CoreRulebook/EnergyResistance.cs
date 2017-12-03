@@ -43,6 +43,7 @@ namespace Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook
         /// </summary>
         /// <param name="element">The kind of element which is to be resisted.</param>
         /// <param name="protectionLevel">The level of protection afforded by this enchantment.</param>
+        /// <param name="energyResistanceExpression">The expression tree which specifies which of an ICharacter's energy resistance should be updated.</param>
         /// <exception cref="System.ArgumentException">Thrown when element argument is empty or whitespace.</exception>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when given a nonstandard enum argument.</exception>

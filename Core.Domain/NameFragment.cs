@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Core.Domain.Items
+namespace Core.Domain
 {
     internal struct NameFragment : INameFragment, IEquatable<NameFragment>
     {

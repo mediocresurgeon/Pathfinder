@@ -6,10 +6,28 @@ using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
 
 namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 {
+    /// <summary>
+    /// The materials a tower shield can be made from.
+    /// </summary>
     public enum TowerShieldMaterial
     {
+        /// <summary>
+        /// A lightweight wood.
+        /// Always masterwork.
+        /// Reduces armor check penalty by 2.
+        /// </summary>
         Darkwood,
+
+        /// <summary>
+        /// Made from the hide of a dragon.
+        /// Always masterwork.
+        /// Decreases the cost energy resistance enchantments.
+        /// </summary>
         Dragonhide,
+
+        /// <summary>
+        /// The default material.
+        /// </summary>
         Wood,
     }
 
@@ -105,16 +123,35 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         #region Properties
 
         #region Protected
+        /// <summary>
+        /// The logic which determines the magnitude of the shield's armor check penalty.
+        /// </summary>
         protected internal override Func<byte> ArmorCheckPenalty { get; }
 
+
+        /// <summary>
+        /// The logic which determines name of the shield, not including modifications of the shield's name due to enchantments.
+        /// </summary>
         protected internal override Func<INameFragment[]> MundaneName { get; }
 
+
+        /// <summary>
+        /// The logic which determines the market price of the shield's physical cost,
+        /// including such factors as material, size, and whether or not the shield is masterwork.
+        /// </summary>
         protected internal override Func<double> MundaneMarketPrice { get; }
 
+
+        /// <summary>
+        /// The logic which determines the weight of the shield.
+        /// </summary>
         protected internal override Func<double> Weight { get; }
         #endregion
 
         #region Public
+        /// <summary>
+        /// Returns the maximum decterity bonus granted to an ICharacter's armor class while this shield is equipped.
+        /// </summary>
         public byte MaximumDexterityBonus { get; } = 2;
         #endregion
 

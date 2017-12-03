@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Domain.Spells.Paizo.CoreRulebook
+﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// Positive energy heals the living and damages undead.
@@ -10,7 +8,7 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Spells.CureLightWounds"/> class.
         /// </summary>
-        /// <param name="level">The spell's level.</param>
+        /// <param name="spellLevel">The spell's level.</param>
 		private CureLightWounds(byte spellLevel)
             : base(name:       "Cure Light Wounds",
                    webAddress: "http://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds",
@@ -19,60 +17,64 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
 			// Intentionally blank
 		}
 
-		public override Descriptor[] Descriptors => new Descriptor[0];
 
-		public override School School => School.Conjuration;
+        /// <summary>
+        /// Cure Light Wounds allows a saving throw.
+        /// </summary>
+        public override bool AllowsSavingThrow => true;
 
-		public override Subschool[] Subschools => new[] { Subschool.Healing };
 
-		public override bool AllowsSavingThrow => true;
+        /// <summary>
+        /// Cure Light Wounds is a conjuration spell.
+        /// </summary>
+        public override School School => School.Conjuration;
+
+
+        /// <summary>
+        /// Cure Light Wounds does not have descriptors.
+        /// </summary>
+		public override Descriptor[] GetDescriptors() => new Descriptor[0];
+
+
+        /// <summary>
+        /// Cure Light Wounds belongs to the Healing subschool.
+        /// </summary>
+		public override Subschool[] GetSubschools() => new[] { Subschool.Healing };
+
 
         /// <summary>
         /// Returns a Bard version of Cure Light Wounds.
         /// </summary>
-		public static CureLightWounds BardVersion
-		{
-			get { return new CureLightWounds(1); }
-		}
+        public static CureLightWounds BardVersion => new CureLightWounds(1);
+
 
 		/// <summary>
 		/// Returns a Cleric version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds ClericVersion
-        {
-            get { return new CureLightWounds(1); }
-        }
+        public static CureLightWounds ClericVersion => new CureLightWounds(1);
+
 
 		/// <summary>
 		/// Returns a Druid version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds DruidVersion
-		{
-			get { return new CureLightWounds(1); }
-		}
+        public static CureLightWounds DruidVersion => new CureLightWounds(1);
+
 
 		/// <summary>
 		/// Returns a Paladin version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds PaladinVersion
-		{
-			get { return new CureLightWounds(1); }
-		}
+        public static CureLightWounds PaladinVersion => new CureLightWounds(1);
+
 
 		/// <summary>
 		/// Returns a Ranger version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds RangerVersion
-		{
-			get { return new CureLightWounds(2); }
-		}
+        public static CureLightWounds RangerVersion => new CureLightWounds(2);
+
 
 		/// <summary>
 		/// Returns a Healing Domain version of Cure Light Wounds.
 		/// </summary>
-		public static CureLightWounds HealingDomainVersion
-		{
-			get { return new CureLightWounds(1); }
-		}
+        public static CureLightWounds HealingDomainVersion => new CureLightWounds(1);
     }
 }

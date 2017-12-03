@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-
-namespace Core.Domain.Spells
+﻿namespace Core.Domain.Spells
 {
     /// <summary>
     /// An arcane or divine spell.
@@ -11,8 +6,6 @@ namespace Core.Domain.Spells
     public abstract class Spell : ISpell
     {
         #region Backing variables
-        private readonly Uri _uri;
-        private readonly string _name;
         private readonly byte _level;
         #endregion
 
@@ -23,38 +16,20 @@ namespace Core.Domain.Spells
         /// <param name="name">The name of the spell.</param>
         /// <param name="webAddress">The URL of the spell.</param>
         /// <param name="spellLevel">The spell's level.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when a parameter is null.</exception>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         /// <exception cref="System.ArgumentException">Thrown when url is not a valid web address.</exception>
         protected Spell(string name,
                         string webAddress,
                         byte   spellLevel)
         {
-            _name = name ?? throw new ArgumentNullException($"{ nameof(name) } argument cannot be null.");
-            if (null == webAddress)
-                throw new ArgumentNullException($"{ nameof(webAddress) } argument cannot be null.");
-            if (!Uri.TryCreate(webAddress, UriKind.Absolute, out _uri)
-                || (_uri.Scheme != "https"
-                    && _uri.Scheme != "http"))
-                throw new ArgumentException($"{ nameof(webAddress) } argument is not a well-formed Url.");
+            this.Name = new NameFragment(name, webAddress);
             _level = spellLevel;
         }
         #endregion
 
-        #region Properties
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <value>The name.</value>
-        public virtual string Name => _name;
+        private INameFragment Name { get; }
 
-
-        /// <summary>
-        /// Returns the web address of this Spell.
-        /// </summary>
-        /// <value>The source.</value>
-        public virtual Uri Source => _uri;
-
-
+        #region Virtual members
         /// <summary>
         /// Gets the level.
         /// </summary>
@@ -63,31 +38,36 @@ namespace Core.Domain.Spells
 
 
         /// <summary>
-        /// Gets the descriptors.
+        /// Gets the name.
         /// </summary>
-        /// <value>The descriptors.</value>
-        public abstract Descriptor[] Descriptors { get; }
+        /// <value>The name.</value>
+        public virtual INameFragment GetName() => this.Name;
+        #endregion
+
+        #region Abstract members
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:Core.Domain.Spells.Spell"/> allows a saving throw.
+        /// </summary>
+        /// <value><c>true</c> if allows saving throw; otherwise, <c>false</c>.</value>
+        public abstract bool AllowsSavingThrow { get; }
 
 
         /// <summary>
-        /// Gets the school.
+        /// Returns this spell's school of magic.
         /// </summary>
-        /// <value>The school.</value>
         public abstract School School { get; }
 
 
         /// <summary>
-        /// Gets the subschools.
+        /// Returns this spell's descriptors.
         /// </summary>
-        /// <value>The subschools.</value>
-        public abstract Subschool[] Subschools { get; }
+        public abstract Descriptor[] GetDescriptors();
 
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="T:Core.Domain.Spells.Spell"/> allows a saving throw.
+        /// Returns this spell's subschools.
         /// </summary>
-        /// <value><c>true</c> if it allows a saving throw; otherwise, <c>false</c>.</value>
-        public abstract bool AllowsSavingThrow { get; }
+        public abstract Subschool[] GetSubschools();
         #endregion
     }
 }

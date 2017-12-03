@@ -3,10 +3,19 @@
 
 namespace Core.Domain.Characters.Spellcasting
 {
+    /// <summary>
+    /// A collection of spells.
+    /// </summary>
     public interface ISpellCollection
     {
+        /// <summary>
+        /// Adds a spell to this collection.
+        /// </summary>
         void Add(ISpell spell);
 
-        ISpell[] GetSpellsByLevel(byte level);
+        /// <summary>
+        /// Returns all spells in this collection.
+        /// </summary>
+        ISpell[] GetAllSpells();
     }
 }

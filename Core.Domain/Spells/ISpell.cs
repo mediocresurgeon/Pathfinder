@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace Core.Domain.Spells
+﻿namespace Core.Domain.Spells
 {
     /// <summary>
     /// Represents an arcane or divine spell.
@@ -11,12 +8,7 @@ namespace Core.Domain.Spells
         /// <summary>
         /// The name of the ISpell.
         /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// The web address of the ISpell.
-        /// </summary>
-        Uri Source { get; }
+        INameFragment GetName();
 
         /// <summary>
         /// The level of the ISpell.
@@ -32,7 +24,7 @@ namespace Core.Domain.Spells
         /// <summary>
         /// The Descriptors of the ISpell.
         /// </summary>
-        Descriptor[] Descriptors { get; }
+        Descriptor[] GetDescriptors();
 
         /// <summary>
         /// The School of the ISpell.
@@ -42,6 +34,6 @@ namespace Core.Domain.Spells
         /// <summary>
         /// The Subschools of the ISpell.
         /// </summary>
-        Subschool[] Subschools { get; }
+        Subschool[] GetSubschools();
     }
 }

@@ -28,21 +28,25 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         }
 		#endregion
 
-		#region GetAll()
+		#region GetAllSpells()
 		[Test(Description = "Ensures that spells Add()ed can be retrieved using GetAll().")]
         public void Add_GetSpellsByLevel_RoundTrip()
         {
             // Arrange
             var mockSpell0 = new Mock<ISpell>();
-            mockSpell0.Setup(s => s.Level).Returns(0);
+            mockSpell0.Setup(s => s.Level)
+                      .Returns(0);
             var mockCastable0 = new Mock<ICastableSpell>();
-            mockCastable0.Setup(c => c.Spell).Returns(mockSpell0.Object);
+            mockCastable0.Setup(c => c.Spell)
+                         .Returns(mockSpell0.Object);
             var castable0 = mockCastable0.Object;
 
 			var mockSpell1 = new Mock<ISpell>();
-			mockSpell1.Setup(s => s.Level).Returns(1);
+			mockSpell1.Setup(s => s.Level)
+                      .Returns(1);
 			var mockCastable1 = new Mock<ICastableSpell>();
-			mockCastable1.Setup(c => c.Spell).Returns(mockSpell1.Object);
+			mockCastable1.Setup(c => c.Spell)
+                         .Returns(mockSpell1.Object);
             var castable1 = mockCastable1.Object;
 
             CastableSpellCollection spellCollection = new CastableSpellCollection();
@@ -50,7 +54,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             spellCollection.Add(castable1);
 
             // Act
-            var result = spellCollection.GetAll();
+            var result = spellCollection.GetAllSpells();
 
             // Assert
             Assert.AreEqual(2, result.Length,

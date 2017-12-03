@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Domain.Spells.Paizo.CoreRulebook
+﻿namespace Core.Domain.Spells.Paizo.CoreRulebook
 {
     /// <summary>
     /// An invisibile barrier which prevents the function of magic within its confines.
@@ -10,7 +8,7 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Spells.AntimagicField"/> class.
         /// </summary>
-        /// <param name="level">Level.</param>
+        /// <param name="spellLevel">The level of this spell.</param>
         private AntimagicField(byte spellLevel)
             : base(name:       "Antimagic Field",
                    webAddress: "http://www.d20pfsrd.com/magic/all-spells/a/antimagic-field",
@@ -19,52 +17,58 @@ namespace Core.Domain.Spells.Paizo.CoreRulebook
 			// Intentionally blank
 		}
 
-		public override Descriptor[] Descriptors => new Descriptor[0];
 
-		public override School School => School.Abjuration;
+        /// <summary>
+        /// Antimagic Field does not allow saving throws.
+        /// </summary>
+        public override bool AllowsSavingThrow => false;
 
-		public override Subschool[] Subschools => new Subschool[0];
 
-		public override bool AllowsSavingThrow => false;
+        /// <summary>
+        /// Antimagic Field is an Abjuration spell.
+        /// </summary>
+        public override School School => School.Abjuration;
+
+
+        /// <summary>
+        /// Antimagic Field has no descriptors.
+        /// </summary>
+		public override Descriptor[] GetDescriptors() => new Descriptor[0];
+
+
+        /// <summary>
+        /// Antimagic Field has no subschools.
+        /// </summary>
+		public override Subschool[] GetSubschools() => new Subschool[0];
+
 
 		/// <summary>
 		/// Returns a Cleric version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField ClericVersion
-		{
-			get { return new AntimagicField(8); }
-		}
+        public static AntimagicField ClericVersion => new AntimagicField(8);
+
 
 		/// <summary>
 		/// Returns a Sorcerer version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField SorcererVersion
-		{
-			get { return new AntimagicField(6); }
-		}
+        public static AntimagicField SorcererVersion => new AntimagicField(6);
+
 
 		/// <summary>
 		/// Returns a Wizard version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField WizardVersion
-		{
-			get { return new AntimagicField(6); }
-		}
+        public static AntimagicField WizardVersion => new AntimagicField(6);
+
 
 		/// <summary>
 		/// Returns a Magic Domain version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField MagicDomainVersion
-		{
-			get { return new AntimagicField(6); }
-		}
+        public static AntimagicField MagicDomainVersion => new AntimagicField(6);
+
 
 		/// <summary>
 		/// Returns a Protection Domain version of Antimagic Field.
 		/// </summary>
-		public static AntimagicField ProtectionDomainVersion
-		{
-			get { return new AntimagicField(6); }
-		}
+        public static AntimagicField ProtectionDomainVersion => new AntimagicField(6);
     }
 }

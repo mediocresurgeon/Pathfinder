@@ -9,10 +9,6 @@ namespace Core.Domain.Characters.Spellcasting
     /// </summary>
     internal sealed class CastableSpellCollection : ICastableSpellCollection
     {
-        #region Backing variables
-        private readonly List<ICastableSpell> _spells;
-		#endregion
-
 		#region Constructor
 		/// <summary>
 		/// Initializes a new instance of the
@@ -20,8 +16,12 @@ namespace Core.Domain.Characters.Spellcasting
 		/// </summary>
 		internal CastableSpellCollection()
         {
-            _spells = new List<ICastableSpell>();
+            // Intentionally blank
         }
+        #endregion
+
+        #region Properties
+        private List<ICastableSpell> Spells { get; } = new List<ICastableSpell>();
         #endregion
 
         #region Methods
@@ -34,17 +34,17 @@ namespace Core.Domain.Characters.Spellcasting
         {
             if (null == spell)
                 throw new ArgumentNullException($"{ nameof(spell) } argument cannot be null.");
-            _spells.Add(spell);
+            this.Spells.Add(spell);
         }
 
 
         /// <summary>
-        /// Returns the subset of spells which have a matching level.
+        /// Returns the spells in this collection.
         /// </summary>
         /// <returns>The spells.</returns>
-        public ICastableSpell[] GetAll()
+        public ICastableSpell[] GetAllSpells()
         {
-            return _spells.ToArray();
+            return this.Spells.ToArray();
         }
         #endregion
     }

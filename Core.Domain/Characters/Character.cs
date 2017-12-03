@@ -75,32 +75,74 @@ namespace Core.Domain.Characters
         /// </summary>
         public SizeCategory Size { get; set; } = SizeCategory.Medium;
 
+        /// <summary>
+        /// Returns this Character's movement data.
+        /// </summary>
         public IMovementSection MovementModes { get; } = new MovementSection(); 
 
+        /// <summary>
+        /// Returns this Character's ability scores.
+        /// </summary>
         public IAbilityScoreSection AbilityScores { get; } = new AbilityScoreSection();
 
+        /// <summary>
+        /// Returns this Character's initiative.
+        /// </summary>
         public IInitiative Initiative { get; }
 
+        /// <summary>
+        /// Returns this Character's saving throws.
+        /// </summary>
         public ISavingThrowSection SavingThrows { get; }
 
+        /// <summary>
+        /// Returns this Character's skills.
+        /// </summary>
         public ISkillSection Skills { get; }
 
+        /// <summary>
+        /// Returns this Character's spells.
+        /// </summary>
         public ISpellSection Spells { get; }
 
+        /// <summary>
+        /// Returns this Character's spell-like abilities.
+        /// </summary>
         public ISpellLikeAbilitySection SpellLikeAbilities { get; }
 
+        /// <summary>
+        /// Returns this Character's armor class.
+        /// </summary>
         public IArmorClass ArmorClass { get; }
 
+        /// <summary>
+        /// Returns this Character's spell resistance.
+        /// </summary>
         public IModifierTracker SpellResistance { get; } = new SpellResistanceTracker();
 
+        /// <summary>
+        /// Returns this Character's energy resistances.
+        /// </summary>
         public IEnergyResistanceSection EnergyResistances { get; } = new EnergyResistanceSection();
 
+        /// <summary>
+        /// Returns this Character's global attack bonuses.
+        /// </summary>
         public IAttackBonusSection AttackBonuses { get; }
 
+        /// <summary>
+        /// Returns this Character's CMB.
+        /// </summary>
         public ICombatManeuverBonus CombatManeuverBonus { get; }
 
+        /// <summary>
+        /// Returns this Character's CMD.
+        /// </summary>
         public ICombatManeuverDefense CombatManeuverDefense { get; }
 
+        /// <summary>
+        /// Returns this Character's equipment.
+        /// </summary>
         public IEquipmentSection Equipment { get; }
         #endregion
 

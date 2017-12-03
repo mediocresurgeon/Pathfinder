@@ -23,6 +23,7 @@ namespace Core.Domain.Characters.Skills
 		/// </summary>
 		/// <param name="character">The character to whom this skill belongs.</param>
 		/// <param name="keyAbilityScore">The ability score associated with this skill.</param>
+        /// <param name="name">The name of the skill.</param>
 		/// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		internal Skill(ICharacter character, IAbilityScore keyAbilityScore, string name)
         {

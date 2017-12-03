@@ -11,6 +11,7 @@ namespace Core.Domain.Characters.Skills
 		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.Skills.Craft"/> class.
 		/// </summary>
 		/// <param name="character">The character to whom this skill belongs.</param>
+        /// <param name="craftType">The type of craft represented by the instance of this skill.</param>
 		/// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		internal Craft(ICharacter character, string craftType)
             : base(

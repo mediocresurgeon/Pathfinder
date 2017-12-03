@@ -17,9 +17,12 @@ namespace Core.Domain.UnitTests.Characters.Feats
             string webAddress = "http://google.com/";
             var feat = new Mock<Feat>(MockBehavior.Loose, name, webAddress) { CallBase = true }.Object;
 
+            // Act
+            var featName = feat.Name;
+
             // Assert
-            Assert.AreEqual(name, feat.Name);
-            Assert.AreEqual(webAddress, feat.Source.ToString());
+            Assert.AreEqual(name, featName.Text);
+            Assert.AreEqual(webAddress, featName.WebAddress);
         }
     }
 }

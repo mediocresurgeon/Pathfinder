@@ -20,7 +20,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.I
             ImprovedInitiative feat = new ImprovedInitiative();
 
 			// Assert
-			Assert.AreEqual("Improved Initiative", feat.Name);
+            Assert.AreEqual("Improved Initiative", feat.Name.Text);
 		}
 		#endregion
 

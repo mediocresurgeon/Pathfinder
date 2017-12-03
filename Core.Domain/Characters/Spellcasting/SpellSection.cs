@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Domain.Items;
 
 
 namespace Core.Domain.Characters.Spellcasting
@@ -22,8 +21,6 @@ namespace Core.Domain.Characters.Spellcasting
 
         #region Properties
         public ISpellRegistrar Registrar { get; }
-
-        public ISpellbook Spellbook { get; set; }
 
         public ICastableSpellCollection Prepared { get; } = new CastableSpellCollection();
 

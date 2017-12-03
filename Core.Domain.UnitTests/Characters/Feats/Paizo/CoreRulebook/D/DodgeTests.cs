@@ -1,6 +1,5 @@
 ﻿using System;
 using Core.Domain.Characters;
-using Core.Domain.Characters.ArmorClasses;
 using Core.Domain.Characters.Feats.Paizo.CoreRulebook;
 using Core.Domain.Characters.ModifierTrackers;
 using Moq;
@@ -21,7 +20,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.D
             Dodge feat = new Dodge();
 
             // Assert
-            Assert.AreEqual("Dodge", feat.Name);
+            Assert.AreEqual("Dodge", feat.Name.Text);
         }
         #endregion
 

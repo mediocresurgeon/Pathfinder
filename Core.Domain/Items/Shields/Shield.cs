@@ -10,6 +10,10 @@ using Core.Domain.Spells;
 
 namespace Core.Domain.Items.Shields
 {
+    /// <summary>
+    /// A piece of personal armor held in the hand or mounted on the wrist or forearm.
+    /// Typically, equipping a shield grants a shield bonus to armor class.
+    /// </summary>
     public abstract class Shield : Item, IShieldSlot
     {
         #region Backing variables
@@ -216,6 +220,10 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Public
+        /// <summary>
+        /// Returns the weight of this shield (in pounds).
+        /// </summary>
+        /// <returns>The weight (in pounds).</returns>
         public override double GetWeight() => this.Weight();
 
         /// <summary>

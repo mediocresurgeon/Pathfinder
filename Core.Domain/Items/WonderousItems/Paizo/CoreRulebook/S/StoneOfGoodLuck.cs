@@ -8,7 +8,9 @@ using Core.Domain.Spells;
 namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
 {
     /// <summary>
-    /// A small bit of agate which grants a luck bonus to saving throws, ability checks and skill checks.
+    /// A slotless item which grants a +1 luck bonus to skills,
+    /// saving throws,
+    /// and ability checks (such as initiative).
     /// </summary>
     public sealed class StoneOfGoodLuck : Item, IStowable
     {
@@ -24,31 +26,40 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         }
         #endregion
 
-        #region Properties
+        #region Methods
+        /// <summary>
+        /// Stone of Good Luck has negligible weight.
+        /// </summary>
         public override double GetWeight() => 0;
 
+
+        /// <summary>
+        /// Stone of Good Luck has caster level 5.
+        /// </summary>
         public override byte? GetCasterLevel() => 5;
-        #endregion
-
-        #region Methods
-        public override byte GetHardness()
-        {
-            return 8;
-        }
 
 
-        public override ushort GetHitPoints()
-        {
-            return 15;
-        }
+        /// <summary>
+        /// Stone of Good Luck has hardness 8.
+        /// </summary>
+        public override byte GetHardness() => 8;
 
 
-        public override double GetMarketPrice()
-        {
-            return 20_000;
-        }
+        /// <summary>
+        /// Stone of Good Luck has 15 hit points.
+        /// </summary>
+        public override ushort GetHitPoints() => 15;
 
 
+        /// <summary>
+        /// Stone of Good Luck has a market price of 20,000gp.
+        /// </summary>
+        public override double GetMarketPrice() => 20_000;
+
+
+        /// <summary>
+        /// Returns the name of this item.
+        /// </summary>
         public override INameFragment[] GetName()
         {
             return new INameFragment[]
@@ -61,6 +72,9 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         }
 
 
+        /// <summary>
+        /// Stone of Good Luck has an Evocation aura.
+        /// </summary>
         public override School[] GetSchools()
         {
             return new School[] { School.Evocation };

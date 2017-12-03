@@ -35,7 +35,6 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             SpellSection spells = new SpellSection(character);
 
             // Assert
-            Assert.IsNull(spells.Spellbook);
             Assert.IsInstanceOf<SpellRegistrar>(spells.Registrar);
             Assert.IsInstanceOf<CastableSpellCollection>(spells.Known);
             Assert.IsInstanceOf<CastableSpellCollection>(spells.Prepared);

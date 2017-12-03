@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Core.Domain.Characters;
 using Core.Domain.Characters.Spellcasting;
 using Core.Domain.Spells;
@@ -84,14 +85,9 @@ namespace Core.Domain.Items.Spellbooks.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Gets the spells inside this spellbook which match the level.
+        /// Returns all spells in this spellbook.
         /// </summary>
-        /// <returns>A collection of spells of the specified level.</returns>
-        /// <param name="level">The level of the spell to filter by.</param>
-        public virtual ISpell[] GetSpellsByLevel(byte level)
-        {
-            return this.Spells.GetSpellsByLevel(level);
-        }
+        public virtual ISpell[] GetAllSpells() => this.Spells.GetAllSpells();
 
 
         /// <summary>
@@ -101,16 +97,18 @@ namespace Core.Domain.Items.Spellbooks.Paizo.CoreRulebook
         public override double GetMarketPrice()
         {
             double runningTotal = this.MarketPriceWhenEmpty;
-            // Assume that we only have to deal with levels 0-9
-            for (byte i = 0; i < 10; i++)
+            foreach(var spellsByLevel in this.Spells.GetAllSpells().GroupBy(s => s.Level))
             {
-                int numberofSpells = this.GetSpellsByLevel(i).Length;
-                double priceOfEachSpell = this.GetMarketPriceOfSpell(i);
-                runningTotal += numberofSpells * priceOfEachSpell;
+                double priceOfEachSpell = this.GetMarketPriceOfSpell(spellsByLevel.First().Level);
+                runningTotal += priceOfEachSpell * spellsByLevel.Count();
             }
             return runningTotal;
         }
 
+
+        /// <summary>
+        /// Returns the name of this spellbook.
+        /// </summary>
         public override INameFragment[] GetName()
         {
             return new INameFragment[]
@@ -122,21 +120,29 @@ namespace Core.Domain.Items.Spellbooks.Paizo.CoreRulebook
             };
         }
 
-        public override byte GetHardness()
-        {
-            return 2;
-        }
 
-        public override ushort GetHitPoints()
-        {
-            return 1;
-        }
+        /// <summary>
+        /// Returns the hardness of this spellbook.
+        /// </summary>
+        public override byte GetHardness() => 2;
 
-        public override School[] GetSchools()
-        {
-            return new School[0];
-        }
 
+        /// <summary>
+        /// Returns the hit points of this spellbook.
+        /// </summary>
+        public override ushort GetHitPoints() => 1;
+
+
+        /// <summary>
+        /// Returns the magical auras belonging to this spellbook.
+        /// </summary>
+        public override School[] GetSchools() => new School[0];
+
+
+        /// <summary>
+        /// Applies any effects of this spellbook to an ICharacter.
+        /// </summary>
+        /// <param name="character">The character to apply effects to.</param>
         public virtual void ApplyTo(ICharacter character)
         {
             // Intentionally blank.

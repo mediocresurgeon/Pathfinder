@@ -43,36 +43,39 @@ namespace Core.Domain.UnitTests.Items.Spellbooks.Paizo.CoreRulebook
         }
         #endregion
 
-        #region GetSpellsByLevel()
-        [Test(Description = "Ensures that Spellbook.getSpellsByLevel(byte) returns the correct subset of spells.")]
+        #region GetAllSpells()
+        [Test(Description = "Ensures that Spellbook.GetAllSpells() returns all of the spells that were added.")]
         public void GetSpellsByLevel()
         {
             // Arrange
             var spellbook = new Spellbook();
 
             var mockLevel0 = new Mock<ISpell>();
-            mockLevel0.Setup(s => s.Level).Returns(0);
+            mockLevel0.Setup(s => s.Level)
+                      .Returns(0);
             var level0 = mockLevel0.Object;
             spellbook.Add(level0);
 
             var mockLevel1 = new Mock<ISpell>();
-            mockLevel1.Setup(s => s.Level).Returns(1);
+            mockLevel1.Setup(s => s.Level)
+                      .Returns(1);
             var level1 = mockLevel1.Object;
             spellbook.Add(level1);
 
             var mockLevel2 = new Mock<ISpell>();
-            mockLevel2.Setup(s => s.Level).Returns(2);
+            mockLevel2.Setup(s => s.Level)
+                      .Returns(2);
             var level2 = mockLevel2.Object;
             spellbook.Add(level2);
 
             // Act
-            var level1s = spellbook.GetSpellsByLevel(1);
+            var result = spellbook.GetAllSpells();
 
             // Assert
-            Assert.AreEqual(1, level1s.Length,
-                            "Incorrect number of spells returned.");
-            Assert.Contains(level1, level1s,
-                            "Result did not contain the expected spell.");
+            Assert.AreEqual(3, result.Length);
+            Assert.Contains(level0, result);
+            Assert.Contains(level1, result);
+            Assert.Contains(level2, result);
         }
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace Core.Domain.Characters.Skills
 {
     /// <summary>
@@ -11,6 +12,7 @@ namespace Core.Domain.Characters.Skills
 		/// Initializes a new instance of the <see cref="T:Core.Domain.Characters.Skills.Knowledge"/> class.
 		/// </summary>
 		/// <param name="character">The character to whom this skill belongs.</param>
+        /// <param name="knowledgeType">The type of knowldge represented by the instance of this skill.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
 		internal Knowledge(ICharacter character, string knowledgeType)
             : base(

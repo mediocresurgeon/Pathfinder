@@ -1,15 +1,13 @@
-﻿using System;
-
-
-namespace Core.Domain.Characters.Feats
+﻿namespace Core.Domain.Characters.Feats
 {
+    /// <summary>
+    /// A specialized training which grants an ICharacter new or improved abilities.
+    /// </summary>
     public abstract class Feat
     {
         #region Backing variables
-        private readonly string _name;
-        private readonly Uri _uri;
+        private readonly INameFragment _name;
         #endregion
-
 
         #region Constructor
         /// <summary>
@@ -17,34 +15,20 @@ namespace Core.Domain.Characters.Feats
         /// </summary>
         /// <param name="name">The name of the feat.</param>
         /// <param name="webAddress">The URL of the feat.  Must be http or https.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         /// <exception cref="System.ArgumentException">Thrown when webAddress is not a well-formed http or https url.</exception>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         protected Feat(string name, string webAddress)
         {
-            _name = name ?? throw new ArgumentNullException();
-            if (null == webAddress)
-                throw new ArgumentNullException($"{ nameof(webAddress) } argument cannot be null.");
-            if (!Uri.TryCreate(webAddress, UriKind.Absolute, out _uri)
-                || (_uri.Scheme != "https"
-                    && _uri.Scheme != "http"))
-                throw new ArgumentException($"{ nameof(webAddress) } argument is not a well-formed Url.");
+            _name = new NameFragment(name, webAddress);
         }
         #endregion
-
 
         #region Properties
         /// <summary>
         /// Returns the name of this feat.
         /// </summary>
-        public virtual string Name => _name;
-
-
-        /// <summary>
-        /// Returns the URL of this feat.
-        /// </summary>
-        public virtual Uri Source => _uri;
+        public virtual INameFragment Name => _name;
         #endregion
-
 
         #region Methods
         /// <summary>

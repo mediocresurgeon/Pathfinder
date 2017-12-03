@@ -8,8 +8,14 @@ namespace Core.Domain.Items
     /// </summary>
     public interface IShieldSlot : IItem, IApplicable, IArmorCheckPenalty
     {
+        /// <summary>
+        /// Returns whether or not this shield is masterwork.
+        /// </summary>
         bool IsMasterwork { get; }
 
+        /// <summary>
+        /// Returns the shield bonus to armor class an ICharacter gets when this shield is equipped.
+        /// </summary>
         byte GetShieldBonus();
     }
 }

@@ -28,21 +28,25 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         }
 		#endregion
 
-		#region GetAll()
+		#region GetAllSpells()
 		[Test(Description = "Ensures that spells Add()ed can be retrieved using GetAll().")]
 		public void Add_GetAll_RoundTrip()
         {
 			// Arrange
 			var mockSpell0 = new Mock<ISpell>();
-			mockSpell0.Setup(s => s.Level).Returns(0);
+			mockSpell0.Setup(s => s.Level)
+                      .Returns(0);
             var mockSla0 = new Mock<ISpellLikeAbility>();
-			mockSla0.Setup(c => c.Spell).Returns(mockSpell0.Object);
+			mockSla0.Setup(c => c.Spell)
+                    .Returns(mockSpell0.Object);
 			var sla0 = mockSla0.Object;
 
 			var mockSpell1 = new Mock<ISpell>();
-			mockSpell1.Setup(s => s.Level).Returns(1);
+			mockSpell1.Setup(s => s.Level)
+                      .Returns(1);
 			var mockSla1 = new Mock<ISpellLikeAbility>();
-			mockSla1.Setup(c => c.Spell).Returns(mockSpell1.Object);
+			mockSla1.Setup(c => c.Spell)
+                    .Returns(mockSpell1.Object);
 			var sla1 = mockSla1.Object;
 
             SpellLikeAbilityCollection slaCollections = new SpellLikeAbilityCollection();
@@ -50,7 +54,7 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			slaCollections.Add(sla1);
 
 			// Act
-            var result = slaCollections.GetAll();
+            var result = slaCollections.GetAllSpells();
 
 			// Assert
 			Assert.AreEqual(2, result.Length,

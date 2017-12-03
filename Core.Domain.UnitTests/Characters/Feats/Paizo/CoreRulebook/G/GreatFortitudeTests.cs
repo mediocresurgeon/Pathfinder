@@ -2,7 +2,6 @@
 using Core.Domain.Characters;
 using Core.Domain.Characters.Feats.Paizo.CoreRulebook;
 using Core.Domain.Characters.ModifierTrackers;
-using Core.Domain.Characters.SavingThrows;
 using Moq;
 using NUnit.Framework;
 
@@ -21,7 +20,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook.G
             GreatFortitude feat = new GreatFortitude();
 
             // Assert
-            Assert.AreEqual("Great Fortitude", feat.Name);
+            Assert.AreEqual("Great Fortitude", feat.Name.Text);
         }
         #endregion
 
