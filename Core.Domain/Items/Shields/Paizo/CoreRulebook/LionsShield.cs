@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Core.Domain.Characters;
+using Core.Domain.Characters.Skills;
 using Core.Domain.Spells;
 
 
@@ -21,15 +23,16 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         }
         #endregion
 
-
+        #region Properties
         /// <summary>
         /// Lion's Shield is masterwork.
         /// </summary>
         public bool IsMasterwork => true;
+        #endregion
 
-
+        #region Methods
         /// <summary>
-        /// Lion's SHield has an armor check penalty of 1.
+        /// Lion's Shield has an armor check penalty of 1.
         /// </summary>
         public byte GetArmorCheckPenalty() => 1;
 
@@ -42,7 +45,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Lion's Shield has hardness 14..
+        /// Lion's Shield has hardness 14.
         /// </summary>
         public override byte GetHardness() => 14;
 
@@ -60,7 +63,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Returns Lion's Shield's name and URL.
+        /// Returns this shield's name and URL.
         /// </summary>
         public override INameFragment[] GetName()
         {
@@ -74,10 +77,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <summary>
         /// Lion's Shield has a Conjuration aura.
         /// </summary>
-        public override School[] GetSchools()
-        {
-            return new School[] { School.Conjuration };
-        }
+        public override School[] GetSchools() => new School[] { School.Conjuration };
 
 
         /// <summary>
@@ -101,6 +101,12 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument may not be null.");
+            character.ArmorClass?.ShieldBonuses?.Add(() => this.GetShieldBonus());
+            foreach (var skill in character.Skills?.GetAllSkills() ?? Enumerable.Empty<ISkill>())
+            {
+                skill.Penalties?.Add(() => skill.ArmorCheckPenaltyApplies ? this.GetArmorCheckPenalty() : (byte)0);
+            }
         }
+        #endregion
     }
 }

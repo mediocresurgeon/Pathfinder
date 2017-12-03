@@ -25,8 +25,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Reflecting", enchantment.Name.Text);
             Assert.AreEqual(5, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(14, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
         #region ApplyTo

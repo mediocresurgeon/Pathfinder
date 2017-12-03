@@ -49,38 +49,26 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <summary>
         /// Absorbing Shield has an armor check penalty of 1.
         /// </summary>
-        public byte GetArmorCheckPenalty()
-        {
-            return 1;
-        }
+        public byte GetArmorCheckPenalty() => 1;
 
 
         /// <summary>
         /// Absorbing Shield has hardness 12.
         /// </summary>
-        public override byte GetHardness()
-        {
-            return 12;
-        }
+        public override byte GetHardness() => 12;
 
 
         /// <summary>
         /// Absorbing Shield has 30 hit points.
         /// </summary>
-        public override ushort GetHitPoints()
-        {
-            return 30;
-        }
+        public override ushort GetHitPoints() => 30;
 
 
         /// <summary>
         /// Absorbing Shield has a market price of 50,170gp.
         /// </summary>
         /// <returns>The market price.</returns>
-        public override double GetMarketPrice()
-        {
-            return 50_170;
-        }
+        public override double GetMarketPrice() => 50_170;
 
 
         /// <summary>
@@ -98,19 +86,13 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <summary>
         /// Absorbing Shield has a Transmutation aura.
         /// </summary>
-        public override School[] GetSchools()
-        {
-            return new School[] { School.Transmutation };
-        }
+        public override School[] GetSchools() => new School[] { School.Transmutation };
 
 
         /// <summary>
         /// Absorbing Shield confers a +3 shield bonus to AC.
         /// </summary>
-        public byte GetShieldBonus()
-        {
-            return 3;
-        }
+        public byte GetShieldBonus() => 3;
 
 
         /// <summary>

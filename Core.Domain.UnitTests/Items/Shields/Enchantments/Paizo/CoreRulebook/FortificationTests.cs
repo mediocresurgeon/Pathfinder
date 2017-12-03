@@ -19,8 +19,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Light Fortification", enchantment.Name.Text);
             Assert.AreEqual(1, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(13, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 
@@ -34,8 +34,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Medium Fortification", enchantment.Name.Text);
             Assert.AreEqual(3, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(13, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 
@@ -49,8 +49,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Heavy Fortification", enchantment.Name.Text);
             Assert.AreEqual(5, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(13, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
     }
 }

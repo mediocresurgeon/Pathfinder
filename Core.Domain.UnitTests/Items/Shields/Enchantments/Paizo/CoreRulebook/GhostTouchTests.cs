@@ -19,8 +19,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Ghost Touch", enchantment.Name.Text);
             Assert.AreEqual(3, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(15, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Transmutation, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Transmutation == s));
         }
     }
 }

@@ -292,9 +292,8 @@ namespace Core.Domain.UnitTests.Items.Shields
             // Assert
             mockEnchantments.Verify(agg => agg.GetSchools(),
                                     "Calling Shield.GetSchools() should call Shield.Enchantments.GetSchools() at least once to view their results.");
-            Assert.AreEqual(2, result.Length);
-            Assert.Contains(School.Divination, result);
-            Assert.Contains(School.Necromancy, result);
+            Assert.That(result,
+                        Is.EquivalentTo(new School[] { School.Divination, School.Necromancy }));
         }
         #endregion
 
@@ -441,9 +440,9 @@ namespace Core.Domain.UnitTests.Items.Shields
                                  "Calling Shield.GetName() should call Shield.MundaneName at least once.");
             mockEnchantments.Verify(agg => agg.GetNames(),
                                     "Calling Shield.GetName() should call Shield.Enchantments.GetNames() at least once.");
-            Assert.AreEqual(1, result.Length);
-            Assert.AreEqual("shield name", result[0].Text);
-            Assert.AreEqual("http://shieldUrl.com", result[0].WebAddress);
+            Assert.That(result,
+                        Has.Exactly(1).Matches<INameFragment>(nf => "shield name" == nf.Text
+                                                              && "http://shieldUrl.com" == nf.WebAddress));
             Assert.AreEqual("shield name", shield.ToString());
         }
 
@@ -483,9 +482,9 @@ namespace Core.Domain.UnitTests.Items.Shields
                                  "Calling Shield.GetName() should call Shield.MundaneName at least once.");
             mockEnchantments.Verify(agg => agg.GetNames(),
                                     "Calling Shield.GetName() should call Shield.Enchantments.GetNames() at least once.");
-            Assert.AreEqual(1, result.Length);
-            Assert.AreEqual("Masterwork shield name", result[0].Text);
-            Assert.AreEqual("http://shieldUrl.com", result[0].WebAddress);
+            Assert.That(result,
+                        Has.Exactly(1).Matches<INameFragment>(nf => "Masterwork shield name" == nf.Text
+                                                              && "http://shieldUrl.com" == nf.WebAddress));
             Assert.AreEqual("Masterwork shield name", shield.ToString());
         }
 
@@ -689,7 +688,6 @@ namespace Core.Domain.UnitTests.Items.Shields
             mockEnchantments.Verify(agg => agg.GetNames(),
                                     "Calling Shield.GetName() should call Shield.Enchantments.GetNames() at least once.");
             Assert.AreEqual(3, result.Length);
-
             Assert.AreEqual("+1", result[0].Text);
             Assert.AreEqual("http://enhancementBonusUrl.com", result[0].WebAddress);
             Assert.AreEqual("material", result[1].Text);
@@ -755,7 +753,6 @@ namespace Core.Domain.UnitTests.Items.Shields
             mockEnchantments.Verify(agg => agg.GetNames(),
                                     "Calling Shield.GetName() should call Shield.Enchantments.GetNames() at least once.");
             Assert.AreEqual(4, result.Length);
-
             Assert.AreEqual("+1", result[0].Text);
             Assert.AreEqual("http://enhancementBonusUrl.com", result[0].WebAddress);
             Assert.AreEqual("enchantment", result[1].Text);

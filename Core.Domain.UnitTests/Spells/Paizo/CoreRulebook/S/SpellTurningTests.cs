@@ -15,11 +15,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.S
             // Act
             var spell = SpellTurning.SorcererVersion;
             // Assert
-            Assert.AreEqual("Spell Turning", spell.Name);
+            Assert.AreEqual("Spell Turning", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
             Assert.AreEqual(School.Abjuration, spell.School);
-            Assert.IsEmpty(spell.Subschools);
-            Assert.IsEmpty(spell.Descriptors);
+            Assert.IsEmpty(spell.GetSubschools());
+            Assert.IsEmpty(spell.GetDescriptors());
         }
 
 

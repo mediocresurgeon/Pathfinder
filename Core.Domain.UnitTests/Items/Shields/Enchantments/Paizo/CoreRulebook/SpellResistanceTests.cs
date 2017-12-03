@@ -53,8 +53,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Spell Resistance (13)", enchantment.Name.Text);
             Assert.AreEqual(2, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(15, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 
@@ -90,8 +90,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Spell Resistance (15)", enchantment.Name.Text);
             Assert.AreEqual(3, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(15, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 
@@ -127,8 +127,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Spell Resistance (17)", enchantment.Name.Text);
             Assert.AreEqual(4, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(15, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 
@@ -164,8 +164,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Spell Resistance (19)", enchantment.Name.Text);
             Assert.AreEqual(5, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(15, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Abjuration, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 

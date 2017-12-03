@@ -15,11 +15,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
             // Act
             var spell = MageHand.BardVersion;
             // Assert
-            Assert.AreEqual("Mage Hand", spell.Name);
+            Assert.AreEqual("Mage Hand", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
             Assert.AreEqual(School.Transmutation, spell.School);
-            Assert.IsEmpty(spell.Subschools);
-            Assert.IsEmpty(spell.Descriptors);
+            Assert.IsEmpty(spell.GetSubschools());
+            Assert.IsEmpty(spell.GetDescriptors());
         }
 
 

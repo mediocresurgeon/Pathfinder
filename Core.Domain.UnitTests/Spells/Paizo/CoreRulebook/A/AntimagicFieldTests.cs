@@ -15,11 +15,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 			// Act
 			var spell = AntimagicField.ClericVersion;
 			// Assert
-			Assert.AreEqual("Antimagic Field", spell.Name);
+            Assert.AreEqual("Antimagic Field", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Abjuration, spell.School);
-            Assert.IsEmpty(spell.Subschools);
-            Assert.IsEmpty(spell.Descriptors);
+            Assert.IsEmpty(spell.GetSubschools());
+            Assert.IsEmpty(spell.GetDescriptors());
 		}
 
 

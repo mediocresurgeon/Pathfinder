@@ -15,11 +15,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
             // Act
             var spell = Barkskin.DruidVersion;
 			// Assert
-			Assert.AreEqual("Barkskin", spell.Name);
+            Assert.AreEqual("Barkskin", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
             Assert.AreEqual(School.Transmutation, spell.School);
-            Assert.IsEmpty(spell.Subschools);
-            Assert.IsEmpty(spell.Descriptors);
+            Assert.IsEmpty(spell.GetSubschools());
+            Assert.IsEmpty(spell.GetDescriptors());
         }
 
 

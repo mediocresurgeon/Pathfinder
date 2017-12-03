@@ -59,8 +59,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(1, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(3, enchantment.CasterLevel);
             Assert.AreEqual(0, enchantment.Cost);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, enchantment.GetSchools()[0]);
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
             Assert.AreEqual("+1", enchantment.Name.Text);
         }
 
@@ -123,8 +123,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(2, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(6, enchantment.CasterLevel);
             Assert.AreEqual(0, enchantment.Cost);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, enchantment.GetSchools()[0]);
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
             Assert.AreEqual("+2", enchantment.Name.Text);
         }
 
@@ -187,8 +187,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(3, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(9, enchantment.CasterLevel);
             Assert.AreEqual(0, enchantment.Cost);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, enchantment.GetSchools()[0]);
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
             Assert.AreEqual("+3", enchantment.Name.Text);
         }
 
@@ -251,8 +251,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(4, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(12, enchantment.CasterLevel);
             Assert.AreEqual(0, enchantment.Cost);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, enchantment.GetSchools()[0]);
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
             Assert.AreEqual("+4", enchantment.Name.Text);
         }
 
@@ -315,8 +315,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(5, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(15, enchantment.CasterLevel);
             Assert.AreEqual(0, enchantment.Cost);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, enchantment.GetSchools()[0]);
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
             Assert.AreEqual("+5", enchantment.Name.Text);
         }
 

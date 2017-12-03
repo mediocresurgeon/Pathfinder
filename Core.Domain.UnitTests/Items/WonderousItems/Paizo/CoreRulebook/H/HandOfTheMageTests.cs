@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.Spellcasting;
 using Core.Domain.Items.WonderousItems.Paizo.CoreRulebook;
 using Core.Domain.Spells;
 using Core.Domain.Spells.Paizo.CoreRulebook;
@@ -32,7 +33,6 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
         }
         #endregion
 
-
         #region ApplyTo()
         [Test(Description = "Ensures that HandOfTheMage cannot be applied to a null character.")]
         public void ApplyTo_NullICharacter_Throws()
@@ -52,23 +52,11 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
         [Test(Description = "Ensures that HandOfTheMage cannot be applied to a null character.")]
         public void ApplyTo()
         {
-            // Arrange
-            bool appliedCorrectly = false; // We'll check on this later
-
-            var charisma = Mock.Of<IAbilityScore>();
-
-            var mockAbilityScores = new Mock<IAbilityScoreSection>();
-            mockAbilityScores.Setup(ab => ab.Charisma)
-                             .Returns(charisma);
-
+            // Assert
+            var slaReg = Mock.Of<ISpellLikeAbilityRegistrar>();
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.AbilityScores)
-                         .Returns(mockAbilityScores.Object);
-            mockCharacter.Setup(c => c.SpellLikeAbilities.Registrar.Register(
-                            It.Is<byte>(input => 0 == input),                  // 0 time per day means it is at-will
-                            It.Is<MageHand>(input => true),                    // spell should be of type MageHand
-                            It.Is<IAbilityScore>(input => charisma == input))) // Spell should be tied to charisma ability score
-                         .Callback(() => appliedCorrectly = true);
+            mockCharacter.Setup(c => c.SpellLikeAbilities.Registrar)
+                         .Returns(slaReg);
 
             HandOfTheMage item = new HandOfTheMage();
 
@@ -76,7 +64,11 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
             item.ApplyTo(mockCharacter.Object);
 
             // Assert
-            Assert.IsTrue(appliedCorrectly);
+            Mock.Get(slaReg)
+                .Verify(r => r.Register(It.Is<byte>(usesPerDay => 0 == usesPerDay),
+                                        It.Is<ISpell>(spell => spell is MageHand && 0 == spell.Level),
+                                        It.Is<IAbilityScore>(abs => 10 == abs.BaseScore)),
+                        "Mage Hand should register a level 0 Mage Hand as a spell-like ability allowing unlimited uses per day with a casting stat of 10.");
         }
         #endregion
     }

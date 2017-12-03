@@ -19,8 +19,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Undead Controlling", enchantment.Name.Text);
             Assert.AreEqual(49_000, enchantment.Cost);
             Assert.AreEqual(13, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Necromancy, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Necromancy == s));
         }
     }
 }

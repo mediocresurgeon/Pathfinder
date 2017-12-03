@@ -140,8 +140,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(0, energyResistance.SpecialAbilityBonus);
             Assert.AreEqual(18_000, energyResistance.Cost);
             Assert.AreEqual(3, energyResistance.CasterLevel);
-            Assert.AreEqual(1, energyResistance.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, energyResistance.GetSchools()[0]);
+            Assert.That(energyResistance.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 
@@ -183,8 +183,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(0, energyResistance.SpecialAbilityBonus);
             Assert.AreEqual(42_000, energyResistance.Cost);
             Assert.AreEqual(7, energyResistance.CasterLevel);
-            Assert.AreEqual(1, energyResistance.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, energyResistance.GetSchools()[0]);
+            Assert.That(energyResistance.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 
@@ -226,8 +226,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual(0, energyResistance.SpecialAbilityBonus);
             Assert.AreEqual(66_000, energyResistance.Cost);
             Assert.AreEqual(11, energyResistance.CasterLevel);
-            Assert.AreEqual(1, energyResistance.GetSchools().Length);
-            Assert.AreEqual(School.Abjuration, energyResistance.GetSchools()[0]);
+            Assert.That(energyResistance.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Abjuration == s));
         }
 
 

@@ -15,11 +15,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
 			// Act
             var spell = CureLightWounds.BardVersion;
 			// Assert
-			Assert.AreEqual("Cure Light Wounds", spell.Name);
+            Assert.AreEqual("Cure Light Wounds", spell.GetName().Text);
             Assert.IsTrue(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Conjuration, spell.School);
-            Assert.That(spell.Subschools, Has.Exactly(1).Matches<Subschool>(s => Subschool.Healing == s));
-            Assert.IsEmpty(spell.Descriptors);
+            Assert.That(spell.GetSubschools(), Has.Exactly(1).Matches<Subschool>(s => Subschool.Healing == s));
+            Assert.IsEmpty(spell.GetDescriptors());
 		}
 
 

@@ -22,7 +22,7 @@ namespace Core.Domain.UnitTests.Characters.Feats.Paizo.CoreRulebook
             var result = feat.Name;
 
             // Assert
-            Assert.AreEqual("Spell Focus (Enchantment)", result);
+            Assert.AreEqual("Spell Focus (Enchantment)", result.Text);
         }
 
         [Test(Description = "Ensures that applying this feat to a character calls the AddDifficultyClassBonus(1) method of all matching registered spells and spell-like abilities.")]

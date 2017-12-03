@@ -1148,99 +1148,101 @@ namespace Core.Domain.UnitTests.Characters.Skills
             var allSkills = skills.GetAllSkills();
 
             // Assert
-            Assert.AreEqual(92, allSkills.Length);
-            Assert.Contains(skills.Acrobatics, allSkills);
-            Assert.Contains(skills.Appraise, allSkills);
-            Assert.Contains(skills.Bluff, allSkills);
-            Assert.Contains(skills.Climb, allSkills);
-            Assert.Contains(skills.Diplomacy, allSkills);
-            Assert.Contains(skills.DisableDevice, allSkills);
-            Assert.Contains(skills.Disguise, allSkills);
-            Assert.Contains(skills.EscapeArtist, allSkills);
-            Assert.Contains(skills.Fly, allSkills);
-            Assert.Contains(skills.HandleAnimal, allSkills);
-            Assert.Contains(skills.Heal, allSkills);
-            Assert.Contains(skills.Intimidate, allSkills);
-            Assert.Contains(skills.Linguistics, allSkills);
-            Assert.Contains(skills.Perception, allSkills);
-            Assert.Contains(skills.Ride, allSkills);
-            Assert.Contains(skills.SenseMotive, allSkills);
-            Assert.Contains(skills.SleightOfHand, allSkills);
-            Assert.Contains(skills.Spellcraft, allSkills);
-            Assert.Contains(skills.Stealth, allSkills);
-            Assert.Contains(skills.Survival, allSkills);
-            Assert.Contains(skills.Swim, allSkills);
-            Assert.Contains(skills.UseMagicDevice, allSkills);
-            Assert.Contains(skills.Craft.Alchemy, allSkills);
-            Assert.Contains(skills.Craft.Armor, allSkills);
-            Assert.Contains(skills.Craft.Baskets, allSkills);
-            Assert.Contains(skills.Craft.Books, allSkills);
-            Assert.Contains(skills.Craft.Bows, allSkills);
-            Assert.Contains(skills.Craft.Calligraphy, allSkills);
-            Assert.Contains(skills.Craft.Carpentry, allSkills);
-            Assert.Contains(skills.Craft.Cloth, allSkills);
-            Assert.Contains(skills.Craft.Clothing, allSkills);
-            Assert.Contains(skills.Craft.Glass, allSkills);
-            Assert.Contains(skills.Craft.Jewelry, allSkills);
-            Assert.Contains(skills.Craft.Leather, allSkills);
-            Assert.Contains(skills.Craft.Locks, allSkills);
-            Assert.Contains(skills.Craft.Paintings, allSkills);
-            Assert.Contains(skills.Craft.Pottery, allSkills);
-            Assert.Contains(skills.Craft.Sculptures, allSkills);
-            Assert.Contains(skills.Craft.Ships, allSkills);
-            Assert.Contains(skills.Craft.Shoes, allSkills);
-            Assert.Contains(skills.Craft.Stonemasonry, allSkills);
-            Assert.Contains(skills.Craft.Traps, allSkills);
-            Assert.Contains(skills.Craft.Weapons, allSkills);
-            Assert.Contains(skills.Knowledge.Arcana, allSkills);
-            Assert.Contains(skills.Knowledge.Dungeoneering, allSkills);
-            Assert.Contains(skills.Knowledge.Engineering, allSkills);
-            Assert.Contains(skills.Knowledge.Geography, allSkills);
-            Assert.Contains(skills.Knowledge.History, allSkills);
-            Assert.Contains(skills.Knowledge.Local, allSkills);
-            Assert.Contains(skills.Knowledge.Nature, allSkills);
-            Assert.Contains(skills.Knowledge.Nobility, allSkills);
-            Assert.Contains(skills.Knowledge.Planes, allSkills);
-            Assert.Contains(skills.Knowledge.Religion, allSkills);
-            Assert.Contains(skills.Perform.Act, allSkills);
-            Assert.Contains(skills.Perform.Comedy, allSkills);
-            Assert.Contains(skills.Perform.Dance, allSkills);
-            Assert.Contains(skills.Perform.KeyboardInstruments, allSkills);
-            Assert.Contains(skills.Perform.Oratory, allSkills);
-            Assert.Contains(skills.Perform.PercussionInstruments, allSkills);
-            Assert.Contains(skills.Perform.Sing, allSkills);
-            Assert.Contains(skills.Perform.StringInstruments, allSkills);
-            Assert.Contains(skills.Perform.WindInstruments, allSkills);
-            Assert.Contains(skills.Profession.Architect, allSkills);
-            Assert.Contains(skills.Profession.Baker, allSkills);
-            Assert.Contains(skills.Profession.Barrister, allSkills);
-            Assert.Contains(skills.Profession.Brewer, allSkills);
-            Assert.Contains(skills.Profession.Butcher, allSkills);
-            Assert.Contains(skills.Profession.Clerk, allSkills);
-            Assert.Contains(skills.Profession.Cook, allSkills);
-            Assert.Contains(skills.Profession.Courtesan, allSkills);
-            Assert.Contains(skills.Profession.Driver, allSkills);
-            Assert.Contains(skills.Profession.Engineer, allSkills);
-            Assert.Contains(skills.Profession.Farmer, allSkills);
-            Assert.Contains(skills.Profession.Fisherman, allSkills);
-            Assert.Contains(skills.Profession.Gambler, allSkills);
-            Assert.Contains(skills.Profession.Gardener, allSkills);
-            Assert.Contains(skills.Profession.Herbalist, allSkills);
-            Assert.Contains(skills.Profession.Innkeeper, allSkills);
-            Assert.Contains(skills.Profession.Librarian, allSkills);
-            Assert.Contains(skills.Profession.Merchant, allSkills);
-            Assert.Contains(skills.Profession.Midwife, allSkills);
-            Assert.Contains(skills.Profession.Miller, allSkills);
-            Assert.Contains(skills.Profession.Miner, allSkills);
-            Assert.Contains(skills.Profession.Porter, allSkills);
-            Assert.Contains(skills.Profession.Sailor, allSkills);
-            Assert.Contains(skills.Profession.Scribe, allSkills);
-            Assert.Contains(skills.Profession.Shepherd, allSkills);
-            Assert.Contains(skills.Profession.Soldier, allSkills);
-            Assert.Contains(skills.Profession.StableMaster, allSkills);
-            Assert.Contains(skills.Profession.Tanner, allSkills);
-            Assert.Contains(skills.Profession.Trapper, allSkills);
-            Assert.Contains(skills.Profession.Woodcutter, allSkills);
+            Assert.That(allSkills,
+                        Is.EquivalentTo(new ISkill[] {
+                            skills.Acrobatics,
+                            skills.Appraise,
+                            skills.Bluff,
+                            skills.Climb,
+                            skills.Diplomacy,
+                            skills.DisableDevice,
+                            skills.Disguise,
+                            skills.EscapeArtist,
+                            skills.Fly,
+                            skills.HandleAnimal,
+                            skills.Heal,
+                            skills.Intimidate,
+                            skills.Linguistics,
+                            skills.Perception,
+                            skills.Ride,
+                            skills.SenseMotive,
+                            skills.SleightOfHand,
+                            skills.Spellcraft,
+                            skills.Stealth,
+                            skills.Survival,
+                            skills.Swim,
+                            skills.UseMagicDevice,
+                            skills.Craft.Alchemy,
+                            skills.Craft.Armor,
+                            skills.Craft.Baskets,
+                            skills.Craft.Books,
+                            skills.Craft.Bows,
+                            skills.Craft.Calligraphy,
+                            skills.Craft.Carpentry,
+                            skills.Craft.Cloth,
+                            skills.Craft.Clothing,
+                            skills.Craft.Glass,
+                            skills.Craft.Jewelry,
+                            skills.Craft.Leather,
+                            skills.Craft.Locks,
+                            skills.Craft.Paintings,
+                            skills.Craft.Pottery,
+                            skills.Craft.Sculptures,
+                            skills.Craft.Ships,
+                            skills.Craft.Shoes,
+                            skills.Craft.Stonemasonry,
+                            skills.Craft.Traps,
+                            skills.Craft.Weapons,
+                            skills.Knowledge.Arcana,
+                            skills.Knowledge.Dungeoneering,
+                            skills.Knowledge.Engineering,
+                            skills.Knowledge.Geography,
+                            skills.Knowledge.History,
+                            skills.Knowledge.Local,
+                            skills.Knowledge.Nature,
+                            skills.Knowledge.Nobility,
+                            skills.Knowledge.Planes,
+                            skills.Knowledge.Religion,
+                            skills.Perform.Act,
+                            skills.Perform.Comedy,
+                            skills.Perform.Dance,
+                            skills.Perform.KeyboardInstruments,
+                            skills.Perform.Oratory,
+                            skills.Perform.PercussionInstruments,
+                            skills.Perform.Sing,
+                            skills.Perform.StringInstruments,
+                            skills.Perform.WindInstruments,
+                            skills.Profession.Architect,
+                            skills.Profession.Baker,
+                            skills.Profession.Barrister,
+                            skills.Profession.Brewer,
+                            skills.Profession.Butcher,
+                            skills.Profession.Clerk,
+                            skills.Profession.Cook,
+                            skills.Profession.Courtesan,
+                            skills.Profession.Driver,
+                            skills.Profession.Engineer,
+                            skills.Profession.Farmer,
+                            skills.Profession.Fisherman,
+                            skills.Profession.Gambler,
+                            skills.Profession.Gardener,
+                            skills.Profession.Herbalist,
+                            skills.Profession.Innkeeper,
+                            skills.Profession.Librarian,
+                            skills.Profession.Merchant,
+                            skills.Profession.Midwife,
+                            skills.Profession.Miller,
+                            skills.Profession.Miner,
+                            skills.Profession.Porter,
+                            skills.Profession.Sailor,
+                            skills.Profession.Scribe,
+                            skills.Profession.Shepherd,
+                            skills.Profession.Soldier,
+                            skills.Profession.StableMaster,
+                            skills.Profession.Tanner,
+                            skills.Profession.Trapper,
+                            skills.Profession.Woodcutter,
+                        }));
         }
         #endregion
     }

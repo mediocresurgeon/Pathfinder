@@ -185,8 +185,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var result = spellReg.GetSpells();
 
 			// Assert
-			Assert.AreEqual(1, result.Length);
-			Assert.Contains(castable, result);
+            Assert.That(result,
+                        Has.Exactly(1).Matches<ICastableSpell>(sp => castable == sp));
 		}
 
 
@@ -207,8 +207,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var result = spellReg.GetSpells();
 
 			// Assert
-			Assert.AreEqual(1, result.Length);
-			Assert.Contains(castable, result);
+            Assert.That(result,
+                        Has.Exactly(1).Matches<ICastableSpell>(sp => castable == sp));
 		}
         #endregion
 

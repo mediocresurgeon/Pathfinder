@@ -19,8 +19,8 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
             Assert.AreEqual("Animated", enchantment.Name.Text);
             Assert.AreEqual(2, enchantment.SpecialAbilityBonus);
             Assert.AreEqual(12, enchantment.CasterLevel);
-            Assert.AreEqual(1, enchantment.GetSchools().Length);
-            Assert.Contains(School.Transmutation, enchantment.GetSchools());
+            Assert.That(enchantment.GetSchools(),
+                        Has.Exactly(1).Matches<School>(s => School.Transmutation == s));
         }
     }
 }

@@ -233,8 +233,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
             var result = slaReg.GetSpellLikeAbilities();
 
             // Assert
-            Assert.AreEqual(1, result.Length);
-            Assert.Contains(sla, result);
+            Assert.That(result,
+                        Has.Exactly(1).Matches<ISpellLikeAbility>(rSla => sla == rSla));
         }
 
 
@@ -256,8 +256,8 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			var result = slaReg.GetSpellLikeAbilities();
 
 			// Assert
-			Assert.AreEqual(1, result.Length);
-			Assert.Contains(sla, result);
+            Assert.That(result,
+                        Has.Exactly(1).Matches<ISpellLikeAbility>(rSla => sla == rSla));
 		}
 		#endregion
 
