@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Domain.Characters;
 using Core.Domain.Characters.AbilityScores;
+using Core.Domain.Characters.Spellcasting;
 using Core.Domain.Spells;
 using Core.Domain.Spells.Paizo.CoreRulebook;
 
@@ -85,8 +86,14 @@ namespace Core.Domain.Items.WonderousItems.Paizo.CoreRulebook
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            IAbilityScore handOfTheMageCastingStat = new AbilityScore { BaseScore = 10 };
-            character.SpellLikeAbilities?.Registrar?.Register(0, MageHand.SorcererVersion, handOfTheMageCastingStat);
+            // Do not register the spell-like ability--we don't want feats applying to it.
+            var spell = MageHand.SorcererVersion;
+            IAbilityScore handOfTheMageCastingStat = new AbilityScore { BaseScore = Convert.ToByte(10 + spell.Level) };
+            ISpellLikeAbility mageHandSpellLikeAbility = new SpellLikeAbility(usesPerDay:      0,
+                                                                              spell:           spell,
+                                                                              keyAbilityScore: handOfTheMageCastingStat,
+                                                                              baseCasterLevel: () => this.GetCasterLevel().Value);
+            character.SpellLikeAbilities?.Known?.Add(mageHandSpellLikeAbility);
         }
         #endregion
     }

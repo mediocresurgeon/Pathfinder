@@ -3,7 +3,7 @@ using Core.Domain.Spells.Paizo.CoreRulebook;
 using NUnit.Framework;
 
 
-namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook
+namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
 {
     [TestFixture]
     [Parallelizable]

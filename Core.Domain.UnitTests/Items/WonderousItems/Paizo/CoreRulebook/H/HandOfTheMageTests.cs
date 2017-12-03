@@ -53,10 +53,10 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
         public void ApplyTo()
         {
             // Assert
-            var slaReg = Mock.Of<ISpellLikeAbilityRegistrar>();
+            var slaKnown = Mock.Of<ISpellLikeAbilityCollection>();
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.SpellLikeAbilities.Registrar)
-                         .Returns(slaReg);
+            mockCharacter.Setup(c => c.SpellLikeAbilities.Known)
+                         .Returns(slaKnown);
 
             HandOfTheMage item = new HandOfTheMage();
 
@@ -64,11 +64,12 @@ namespace Core.Domain.UnitTests.Items.WonderousItems.Paizo.CoreRulebook.H
             item.ApplyTo(mockCharacter.Object);
 
             // Assert
-            Mock.Get(slaReg)
-                .Verify(r => r.Register(It.Is<byte>(usesPerDay => 0 == usesPerDay),
-                                        It.Is<ISpell>(spell => spell is MageHand && 0 == spell.Level),
-                                        It.Is<IAbilityScore>(abs => 10 == abs.BaseScore)),
-                        "Mage Hand should register a level 0 Mage Hand as a spell-like ability allowing unlimited uses per day with a casting stat of 10.");
+            Mock.Get(slaKnown)
+                .Verify(r => r.Add(It.Is<ISpellLikeAbility>(sla => sla.Spell is MageHand
+                                                            && 0 == sla.UsesPerDay
+                                                            && 2 == sla.CasterLevel.GetTotal()
+                                                            && 0 == sla.Spell.Level)),
+                        "Hand of the Mage should add a level 0 Mage Hand as a spell-like ability known allowing unlimited uses per day with a casting stat of 10.");
         }
         #endregion
     }

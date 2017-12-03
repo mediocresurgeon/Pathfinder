@@ -48,21 +48,21 @@ namespace Core.Domain.UnitTests.Items.Shields.Enchantments.Paizo.CoreRulebook
         public void ApplyTo_Character_SpellLikeAbility()
         {
             // Arrange
-            var slaReg = Mock.Of<ISpellLikeAbilityRegistrar>();
+            var slaKnown = Mock.Of<ISpellLikeAbilityCollection>();
             var mockCharacter = new Mock<ICharacter>();
-            mockCharacter.Setup(c => c.SpellLikeAbilities.Registrar)
-                         .Returns(slaReg);
+            mockCharacter.Setup(c => c.SpellLikeAbilities.Known)
+                         .Returns(slaKnown);
             var enchantment = new Reflecting();
 
             // Act
             enchantment.ApplyTo(mockCharacter.Object);
 
             // Assert
-            Mock.Get(slaReg)
-                .Verify(r => r.Register(It.Is<byte>(uses => 1 == uses),
-                                        It.IsAny<SpellTurning>(),
-                                        It.Is<IAbilityScore>(ab => 17 == ab.GetTotal()),
-                                        It.Is<Func<byte>>(casterLevelCalc => 14 == casterLevelCalc())),
+            Mock.Get(slaKnown)
+                .Verify(r => r.Add(It.Is<ISpellLikeAbility>(sla => sla.Spell is SpellTurning
+                                                            && 1  == sla.UsesPerDay
+                                                            && 14 == sla.CasterLevel.GetTotal()
+                                                            && 7  == sla.Spell.Level)),
                         "Applying a Reflecting shield enchantment to a character should let the character cast Spell Turnng once per day at caster level 14 using an ability score of 17.");
         }
         #endregion

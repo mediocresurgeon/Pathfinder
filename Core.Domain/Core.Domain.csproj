@@ -60,5 +60,6 @@
     <Folder Include="Spells\Paizo\CoreRulebook\S\" />
     <Folder Include="Characters\SpellResistances\" />
     <Folder Include="Characters\EnergyResistances\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\F\" />
   </ItemGroup>
 </Project>
