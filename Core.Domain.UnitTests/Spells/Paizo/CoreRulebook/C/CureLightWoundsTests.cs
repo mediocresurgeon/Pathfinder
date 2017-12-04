@@ -10,11 +10,12 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.C
     public class CureLightWoundsTests
     {
 		[Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-		public void CureLightWounds_GenericProperties()
+		public void GenericProperties()
 		{
 			// Act
             var spell = CureLightWounds.BardVersion;
-			// Assert
+			
+            // Assert
             Assert.AreEqual("Cure Light Wounds", spell.GetName().Text);
             Assert.IsTrue(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Conjuration, spell.School);
@@ -24,61 +25,67 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.C
 
 
         [Test]
-		public void CureLightWounds_BardVersion()
+		public void BardVersion()
 		{
 			// Act
 			var spell = CureLightWounds.BardVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(1, spell.Level);
 		}
 
 
         [Test]
-        public void CureLightWounds_ClericVersion()
+        public void ClericVersion()
         {
             // Act
             var spell = CureLightWounds.ClericVersion;
+
             // Assert
             Assert.AreEqual(1, spell.Level);
         }
 
 
         [Test]
-		public void CureLightWounds_DruidVersion()
+		public void DruidVersion()
 		{
 			// Act
             var spell = CureLightWounds.DruidVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(1, spell.Level);
 		}
 
 
         [Test]
-		public void CureLightWounds_PaladinVersion()
+		public void PaladinVersion()
 		{
 			// Act
             var spell = CureLightWounds.PaladinVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(1, spell.Level);
 		}
 
 
         [Test]
-		public void CureLightWounds_RangerVersion()
+		public void RangerVersion()
 		{
 			// Act
             var spell = CureLightWounds.RangerVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(2, spell.Level);
 		}
 
 
         [Test]
-		public void CureLightWounds_HealingDomainVersion()
+		public void HealingDomainVersion()
 		{
 			// Act
             var spell = CureLightWounds.HealingDomainVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(1, spell.Level);
 		}
     }

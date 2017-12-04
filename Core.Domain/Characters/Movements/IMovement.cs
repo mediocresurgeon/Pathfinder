@@ -19,6 +19,11 @@ namespace Core.Domain.Characters.Movements
         IModifierTracker EnhancementBonuses { get; }
 
         /// <summary>
+        /// Returns the penalties to this movement speed (in squares).
+        /// </summary>
+        IModifierTracker Penalties { get; }
+
+        /// <summary>
         /// Returns the total movement speed (in squares).
         /// </summary>
         byte? GetTotal();

@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <StartupObject>Core.Domain.UnitTests.TestRunner</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,8 +9,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.9.0" />
-    <PackageReference Include="NUnitLite" Version="3.9.0" />
     <PackageReference Include="Moq" Version="4.7.145" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Spells\" />
@@ -58,11 +57,17 @@
     <Folder Include="Items\Shields\" />
     <Folder Include="Items\Shields\Paizo\" />
     <Folder Include="Items\Shields\Paizo\CoreRulebook\" />
-    <Folder Include="Items\Shields\Enchantments\" />
-    <Folder Include="Items\Shields\Enchantments\Paizo\" />
-    <Folder Include="Items\Shields\Enchantments\Paizo\CoreRulebook\" />
     <Folder Include="Spells\Paizo\CoreRulebook\S\" />
     <Folder Include="Characters\EnergyResistances\" />
     <Folder Include="Spells\Paizo\CoreRulebook\F\" />
+    <Folder Include="Items\Aggregators\" />
+    <Folder Include="Items\Armor\" />
+    <Folder Include="Items\Enchantments\" />
+    <Folder Include="Items\Materials\" />
+    <Folder Include="Items\Enchantments\Paizo\" />
+    <Folder Include="Items\Enchantments\Paizo\CoreRulebook\" />
+    <Folder Include="Items\Armor\Paizo\" />
+    <Folder Include="Items\Armor\Paizo\CoreRulebook\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\E\" />
   </ItemGroup>
 </Project>

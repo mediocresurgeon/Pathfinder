@@ -49,6 +49,7 @@ namespace Core.Domain.UnitTests.Characters.Movements
 			var movement = new Mock<Movement> { CallBase = true }.Object;
 			movement.BaseSpeed = 6;
             movement.EnhancementBonuses.Add(() => 2);
+            movement.Penalties.Add(() => 1);
 
 			// Act
 			var total = movement.GetTotal();
@@ -57,7 +58,7 @@ namespace Core.Domain.UnitTests.Characters.Movements
 			Assert.IsTrue(movement.BaseSpeed.HasValue);
 			Assert.AreEqual(6, movement.BaseSpeed.Value);
 			Assert.IsTrue(total.HasValue);
-			Assert.AreEqual(8, total.Value);
+			Assert.AreEqual(7, total.Value);
 		}
     }
 }

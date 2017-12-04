@@ -29,5 +29,10 @@
         /// Returns the ICharacter's physical ability to swim.
         /// </summary>
         IMovement Swim { get; }
+
+        /// <summary>
+        /// Returns all movement modes.
+        /// </summary>
+        IMovement[] GetAll();
     }
 }

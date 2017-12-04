@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Domain.Characters;
 using Core.Domain.Characters.Skills;
-using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
+using Core.Domain.Items.Aggregators;
+using Core.Domain.Items.Enchantments;
+using Core.Domain.Items.Enchantments.Paizo.CoreRulebook;
 using Core.Domain.Spells;
 
 
@@ -18,10 +20,10 @@ namespace Core.Domain.Items.Shields
     {
         #region Backing variables
         private bool _isMasterwork = false;
-        private readonly IShieldBonusAggregator _armorClass;
-        private readonly IShieldEnchantmentAggregator _enchantments;
-        private readonly IShieldHardnessAggregator _hardness;
-        private readonly IShieldHitPointAggregator _hitPoints;
+        private readonly IArmorClassAggregator _armorClass;
+        private readonly IHardnessAggregator _hardness;
+        private readonly IHitPointsAggregator _hitPoints;
+        private readonly IEnchantmentAggregator<IShieldEnchantment, Shield> _enchantments;
         #endregion
 
         #region Constructor
@@ -33,9 +35,9 @@ namespace Core.Domain.Items.Shields
         /// <param name="materialHitPointsPerInch">The hitpoints-per-inch of the material this shield is made from.</param>
         /// <param name="materialHardness">The hardness of the material this shield is made from.</param>
         internal Shield(byte armorClassBonus, float materialInchesOfThickness, byte materialHitPointsPerInch, byte materialHardness)
-            : this(shieldBonus:  new ShieldBonusAggregator(armorClassBonus),
-                   hardness:     new ShieldHardnessAggregator(materialHardness),
-                   hitPoints:    new ShieldHitPointAggregator(materialInchesOfThickness, materialHitPointsPerInch),
+            : this(shieldBonus:  new ArmorClassAggregator(armorClassBonus),
+                   hardness:     new HardnessAggregator(materialHardness),
+                   hitPoints:    new HitPointsAggregator(() => Convert.ToUInt16(Math.Floor(materialInchesOfThickness * materialHitPointsPerInch))),
                    enchantments: null)
         {
             // Intentionally blank
@@ -45,15 +47,15 @@ namespace Core.Domain.Items.Shields
         /// Dependency injection constructor (used for testing).
         /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Shield"/> class.
         /// </summary>
-        /// <param name="enchantments">If this is null, this will assign a new instance of ShieldEnchantmentAggregator to the Enchantments property.</param>
         /// <param name="shieldBonus">Tied to the ArmorClass property; cannot be null.</param>
         /// <param name="hardness">Tied to the Hardness property; cannot be null.</param>
         /// <param name="hitPoints">Tied to the HitPoints property; cannot be null.</param>
+        /// <param name="enchantments">If this is null, this will assign a new instance of ShieldEnchantmentAggregator to the Enchantments property.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
-        internal Shield(IShieldBonusAggregator       shieldBonus,
-                        IShieldHardnessAggregator    hardness,
-                        IShieldHitPointAggregator    hitPoints,
-                        IShieldEnchantmentAggregator enchantments)
+        internal Shield(IArmorClassAggregator                              shieldBonus,
+                        IHardnessAggregator                                hardness,
+                        IHitPointsAggregator                               hitPoints,
+                        IEnchantmentAggregator<IShieldEnchantment, Shield> enchantments)
         {
             _armorClass = shieldBonus ?? throw new ArgumentNullException(nameof(shieldBonus), "Argument may not be null.");
             _hardness = hardness ?? throw new ArgumentNullException(nameof(hardness), "Argument cannot be null.");
@@ -68,6 +70,7 @@ namespace Core.Domain.Items.Shields
         /// <returns>The new weight.</returns>
         /// <param name="size">The shield's size.</param>
         /// <param name="mediumWeight">The medium-size weight for a shield of this type.</param>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
         protected static double WeightScaledBySize(SizeCategory size, double mediumWeight)
         {
             switch(size)
@@ -76,7 +79,7 @@ namespace Core.Domain.Items.Shields
                 case SizeCategory.Medium: return mediumWeight;
                 case SizeCategory.Large:  return mediumWeight * 2.0;
                 default:
-                    throw new NotImplementedException($"Unable to scale weight for { size }.");
+                    throw new InvalidEnumArgumentException(nameof(size), (int)size, size.GetType());
             }
         }
 
@@ -102,9 +105,9 @@ namespace Core.Domain.Items.Shields
 
 
         /// <summary>
-        /// Markets the size of the value scaled by.
+        /// Scales the market value of the shield by size.
         /// </summary>
-        /// <returns>The value scaled by size.</returns>
+        /// <returns>The value.</returns>
         /// <param name="size">Size.</param>
         /// <param name="mediumMarketValue">Medium market value.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
@@ -118,6 +121,34 @@ namespace Core.Domain.Items.Shields
                 default:
                     throw new InvalidEnumArgumentException(nameof(size), (int)size, size.GetType());
             }
+        }
+
+
+        /// <summary>
+        /// This function contains the standard logic for determining the armor check penalty of a shield.
+        /// It does not mutate the state of this shield.
+        /// By default, use this logic for calculating the armor check penalty of a Shield (Shield.GetArmorCheckPenalty).
+        /// </summary>
+        /// <returns>The armor check penalty.</returns>
+        /// <param name="baseArmorCheckPenalty">The armor check penalty of a standard, non-masterwork version of the shield.</param>
+        protected internal byte StandardArmorCheckPenaltyCalculation(byte baseArmorCheckPenalty)
+        {
+            if (!this.IsMasterwork)
+                return baseArmorCheckPenalty;
+            int masterworkArmorCheckPenalty = baseArmorCheckPenalty - 1;
+            return masterworkArmorCheckPenalty > 0 ? Convert.ToByte(masterworkArmorCheckPenalty) : (byte)0;
+        }
+
+
+        /// <summary>
+        /// A standard function for calculating the mundane market price of a shield.
+        /// Adds 150 to the sized price of the shield if the shield is masterwork.
+        /// </summary>
+        /// <returns>The market price calculation.</returns>
+        /// <param name="sizedBasePrice">The base price of the item (taking adjustments for size into account).</param>
+        protected internal double StandardMundaneMarketPriceCalculation(double sizedBasePrice)
+        {
+            return this.IsMasterwork ? sizedBasePrice + 150 : sizedBasePrice;
         }
         #endregion
 
@@ -160,13 +191,13 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Internal
-        internal virtual IShieldBonusAggregator ArmorClass { get => _armorClass; }
+        internal virtual IArmorClassAggregator ArmorClass { get => _armorClass; }
 
-        internal virtual IShieldHardnessAggregator Hardness { get => _hardness; }
+        internal virtual IHardnessAggregator Hardness { get => _hardness; }
 
-        internal virtual IShieldHitPointAggregator HitPoints { get => _hitPoints; }
+        internal virtual IHitPointsAggregator HitPoints { get => _hitPoints; }
 
-        internal virtual IShieldEnchantmentAggregator Enchantments { get => _enchantments; }
+        internal virtual IEnchantmentAggregator<IShieldEnchantment, Shield> Enchantments { get => _enchantments; }
         #endregion
 
         #region Public
@@ -190,36 +221,6 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Methods
-        #region Protected
-        /// <summary>
-        /// This function contains the standard logic for determining the armor check penalty of a shield.
-        /// It does not mutate the state of this shield.
-        /// By default, use this logic for calculating the armor check penalty of a Shield (Shield.GetArmorCheckPenalty).
-        /// </summary>
-        /// <returns>The armor check penalty.</returns>
-        /// <param name="baseArmorCheckPenalty">The armor check penalty of a standard, non-masterwork version of the shield.</param>
-        protected internal byte StandardArmorCheckPenaltyCalculation(byte baseArmorCheckPenalty)
-        {
-            if (!this.IsMasterwork)
-                return baseArmorCheckPenalty;
-            int masterworkArmorCheckPenalty = baseArmorCheckPenalty - 1;
-            return masterworkArmorCheckPenalty > 0 ? Convert.ToByte(masterworkArmorCheckPenalty) : (byte)0;
-        }
-
-
-        /// <summary>
-        /// A standard function for calculating the mundane market price of a shield.
-        /// Adds 150 to the sized price of the shield if the shield is masterwork.
-        /// </summary>
-        /// <returns>The market price calculation.</returns>
-        /// <param name="sizedBasePrice">The base price of the item (taking adjustments for size into account).</param>
-        protected internal double StandardMundaneMarketPriceCalculation(double sizedBasePrice)
-        {
-            return this.IsMasterwork ? sizedBasePrice + 150 : sizedBasePrice;
-        }
-        #endregion
-
-        #region Public
         /// <summary>
         /// Returns the weight of this shield (in pounds).
         /// </summary>
@@ -367,61 +368,7 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new AcidResistance(protectionLevel));
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Animated.
-        /// </summary>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        protected internal virtual void EnchantWithAnimated()
-        {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
-            this.Enchantments.EnchantWith(new Animated());
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Arrow Catching.
-        /// </summary>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        protected internal virtual void EnchantWithArrowCatching()
-        {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
-            this.Enchantments.EnchantWith(new ArrowCatching());
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Arrow Deflection.
-        /// </summary>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        protected internal virtual void EnchantWithArrowDeflection()
-        {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
-            this.Enchantments.EnchantWith(new ArrowDeflection());
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Blinding.
-        /// </summary>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        protected internal virtual void EnchantWithBlinding()
-        {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
-            this.Enchantments.EnchantWith(new Blinding());
         }
 
 
@@ -434,8 +381,6 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new ColdResistance(protectionLevel));
         }
 
@@ -449,8 +394,6 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new ElectricityResistance(protectionLevel));
         }
 
@@ -464,36 +407,7 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new FireResistance(protectionLevel));
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Fortification.
-        /// </summary>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        protected internal virtual void EnchantWithFortification(FortificationType protectionLevel)
-        {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
-            this.Enchantments.EnchantWith(new Fortification(protectionLevel));
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Ghost Touch.
-        /// </summary>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        protected internal virtual void EnchantWithGhostTouch()
-        {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
-            this.Enchantments.EnchantWith(new GhostTouch());
         }
 
 
@@ -506,9 +420,74 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new SonicResistance(protectionLevel));
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Animated.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        protected internal virtual void EnchantWithAnimated()
+        {
+            this.Enchantments.EnchantWith(new Animated());
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Arrow Catching.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        protected internal virtual void EnchantWithArrowCatching()
+        {
+            this.Enchantments.EnchantWith(new ArrowCatching());
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Arrow Deflection.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        protected internal virtual void EnchantWithArrowDeflection()
+        {
+            this.Enchantments.EnchantWith(new ArrowDeflection());
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Blinding.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        protected internal virtual void EnchantWithBlinding()
+        {
+            this.Enchantments.EnchantWith(new Blinding());
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Fortification.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        protected internal virtual void EnchantWithFortification(FortificationType protectionLevel)
+        {
+            this.Enchantments.EnchantWith(new Fortification(protectionLevel));
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Ghost Touch.
+        /// </summary>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        protected internal virtual void EnchantWithGhostTouch()
+        {
+            this.Enchantments.EnchantWith(new GhostTouch());
         }
 
 
@@ -520,8 +499,6 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithSpellResistance(SpellResistanceMagnitude spellResistance)
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new SpellResistance(spellResistance));
         }
 
@@ -533,8 +510,6 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithReflecting()
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new Reflecting());
         }
 
@@ -546,8 +521,6 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithUndeadControlling()
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new UndeadControlling());
         }
 
@@ -559,11 +532,8 @@ namespace Core.Domain.Items.Shields
         /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         protected internal virtual void EnchantWithWild()
         {
-            if (!this.Enchantments.GetEnchantments().Any(e => e is EnhancementBonus))
-                throw new InvalidOperationException("A magical enhancement bonus is required before other enchantments can be applied.");
             this.Enchantments.EnchantWith(new Wild());
         }
-        #endregion
         #endregion
     }
 }

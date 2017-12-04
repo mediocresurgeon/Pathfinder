@@ -54,12 +54,20 @@
     <Folder Include="Items\Shields\" />
     <Folder Include="Items\Shields\Paizo\" />
     <Folder Include="Items\Shields\Paizo\CoreRulebook\" />
-    <Folder Include="Items\Shields\Enchantments\" />
-    <Folder Include="Items\Shields\Enchantments\Paizo\" />
-    <Folder Include="Items\Shields\Enchantments\Paizo\CoreRulebook\" />
     <Folder Include="Spells\Paizo\CoreRulebook\S\" />
     <Folder Include="Characters\SpellResistances\" />
     <Folder Include="Characters\EnergyResistances\" />
     <Folder Include="Spells\Paizo\CoreRulebook\F\" />
+    <Folder Include="Items\Armor\" />
+    <Folder Include="Items\Aggregators\" />
+    <Folder Include="Items\Armor\Paizo\" />
+    <Folder Include="Items\Armor\Paizo\CoreRulebook\" />
+    <Folder Include="Items\Materials\" />
+    <Folder Include="Items\Materials\Paizo\" />
+    <Folder Include="Items\Materials\Paizo\CoreRulebook\" />
+    <Folder Include="Items\Enchantments\" />
+    <Folder Include="Items\Enchantments\Paizo\" />
+    <Folder Include="Items\Enchantments\Paizo\CoreRulebook\" />
+    <Folder Include="Spells\Paizo\CoreRulebook\E\" />
   </ItemGroup>
 </Project>

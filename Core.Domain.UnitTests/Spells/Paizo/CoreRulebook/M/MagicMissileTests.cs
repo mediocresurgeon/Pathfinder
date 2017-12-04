@@ -10,11 +10,12 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
     public class MagicMissileTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-        public void MagicMissile_GenericProperties()
+        public void GenericProperties()
         {
 			// Act
             var spell = MagicMissile.SorcererVersion;
-			// Assert
+			
+            // Assert
             Assert.AreEqual("Magic Missile", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Evocation, spell.School);
@@ -24,21 +25,23 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
 
 
 		[Test]
-		public void MagicMissile_SorcererVersion()
+		public void SorcererVersion()
 		{
 			// Act
 			var spell = MagicMissile.SorcererVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(1, spell.Level);
 		}
 
 
 		[Test]
-		public void MagicMissile_WizardVersion()
+		public void WizardVersion()
 		{
 			// Act
             var spell = MagicMissile.WizardVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(1, spell.Level);
 		}
     }

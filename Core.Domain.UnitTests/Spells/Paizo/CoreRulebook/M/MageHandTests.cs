@@ -10,10 +10,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
     public class MageHandTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-        public void MageHand_GenericProperties()
+        public void GenericProperties()
         {
             // Act
             var spell = MageHand.BardVersion;
+
             // Assert
             Assert.AreEqual("Mage Hand", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
@@ -24,30 +25,33 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.M
 
 
         [Test]
-        public void MageHand_BardVersion()
+        public void BardVersion()
         {
             // Act
             var spell = MageHand.BardVersion;
+
             // Assert
             Assert.AreEqual(0, spell.Level);
         }
 
 
         [Test]
-        public void MageHand_SorcererVersion()
+        public void SorcererVersion()
         {
             // Act
             var spell = MageHand.SorcererVersion;
+
             // Assert
             Assert.AreEqual(0, spell.Level);
         }
 
 
         [Test]
-        public void MageHand_WizardVersion()
+        public void WizardVersion()
         {
             // Act
             var spell = MageHand.WizardVersion;
+
             // Assert
             Assert.AreEqual(0, spell.Level);
         }

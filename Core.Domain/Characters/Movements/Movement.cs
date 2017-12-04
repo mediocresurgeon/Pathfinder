@@ -19,11 +19,11 @@ namespace Core.Domain.Characters.Movements
         /// <value>The base speed (in squares).</value>
         public virtual byte? BaseSpeed { get; set; }
 
-        /// <summary>
-        /// Provides protected access to the EnhancementBonusTracker object.
-        /// </summary>
-        /// <value>The enhancement bonus tracker.</value>
+
         public virtual IModifierTracker EnhancementBonuses { get; } = new EnhancementBonusTracker();
+
+
+        public virtual IModifierTracker Penalties { get; } = new PenaltyTracker();
         #endregion
 
         #region Methods
@@ -38,6 +38,7 @@ namespace Core.Domain.Characters.Movements
                 return null;
             byte runningTotal = this.BaseSpeed.Value;
             runningTotal += this.EnhancementBonuses.GetTotal();
+            runningTotal -= this.Penalties.GetTotal();
             return runningTotal;
         }
         #endregion

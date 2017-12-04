@@ -10,11 +10,12 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.A
     public class AntimagicFieldTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-		public void AntimagicField_GenericProperties()
+		public void GenericProperties()
 		{
 			// Act
 			var spell = AntimagicField.ClericVersion;
-			// Assert
+			
+            // Assert
             Assert.AreEqual("Antimagic Field", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
 			Assert.AreEqual(School.Abjuration, spell.School);
@@ -24,51 +25,56 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.A
 
 
         [Test]
-        public void AntimagicField_ClericVersion()
+        public void ClericVersion()
         {
 			// Act
 			var spell = AntimagicField.ClericVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(8, spell.Level);
         }
 
 
 		[Test]
-		public void AntimagicField_SorcererVersion()
+		public void SorcererVersion()
 		{
 			// Act
             var spell = AntimagicField.SorcererVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(6, spell.Level);
 		}
 
 
 		[Test]
-		public void AntimagicField_WizardVersion()
+		public void WizardVersion()
 		{
 			// Act
             var spell = AntimagicField.WizardVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(6, spell.Level);
 		}
 
 
 		[Test]
-		public void AntimagicField_MagicDomainVersion()
+		public void MagicDomainVersion()
 		{
 			// Act
             var spell = AntimagicField.MagicDomainVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(6, spell.Level);
 		}
 
 
 		[Test]
-		public void AntimagicField_ProtectionDomainVersion()
+		public void ProtectionDomainVersion()
 		{
 			// Act
             var spell = AntimagicField.ProtectionDomainVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(6, spell.Level);
 		}
     }

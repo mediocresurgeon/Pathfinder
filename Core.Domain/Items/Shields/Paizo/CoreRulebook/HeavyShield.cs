@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using Core.Domain.Characters;
-using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
+using Core.Domain.Items.Enchantments.Paizo.CoreRulebook;
+using Core.Domain.Items.Materials.Paizo.CoreRulebook;
 
 
 namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
@@ -17,13 +18,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// Reduces armor check penalty by 2.
         /// </summary>
         Darkwood,
-
-        /// <summary>
-        /// Made from the hide of a dragon.
-        /// Always masterwork.
-        /// Decreases the cost energy resistance enchantments.
-        /// </summary>
-        Dragonhide,
 
         /// <summary>
         /// A lightweight metal which is harder than steel.
@@ -52,6 +46,38 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     public sealed class HeavyShield : Shield
     {
         #region Constructor
+        private const byte ARMOR_BONUS = 2;
+        private const byte BASE_ARMOR_CHECK_PENALTY = 2;
+        private const double WOOD_WEIGHT = 10;
+        private const double WOOD_PRICE = 7;
+        private static INameFragment StandardShieldName { get; } = new NameFragment("Heavy Shield", "http://www.d20pfsrd.com/equipment/Armor/shield-heavy-wooden-or-steel");
+
+
+        /// <summary>
+        /// Use this constructor when the shield is to be made from Dragonhide.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Paizo.CoreRulebook.HeavyShield"/> class.
+        /// </summary>
+        /// <param name="size">The size of character this shield is intended to be used by.</param>
+        /// <param name="color">The color of dragonhide this shield is crafted from.</param>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
+        public HeavyShield(SizeCategory size, DragonhideColor color)
+            : base(armorClassBonus:           ARMOR_BONUS,
+                   materialInchesOfThickness: InchesOfThicknessScaledBySize(size, 3f / 2f),
+                   materialHitPointsPerInch:  Dragonhide.HitPointsPerInch,
+                   materialHardness:          Dragonhide.Hardness)
+        {
+            this.IsMasterwork = true;
+            this.MasterworkIsToggleable = false;
+            this.ArmorCheckPenalty = () => this.StandardArmorCheckPenaltyCalculation(BASE_ARMOR_CHECK_PENALTY);
+            this.MundaneMarketPrice = () => Dragonhide.GetShieldBaseMarketPrice(MarketValueScaledBySize(size, WOOD_PRICE), this.Enchantments, color);
+            this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
+            this.MundaneName = () => new INameFragment[] {
+                new NameFragment($"{ color } Dragonhide", Dragonhide.WebAddress),
+                StandardShieldName
+            };
+        }
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Paizo.CoreRulebook.HeavyShield"/> class.
         /// </summary>
@@ -59,52 +85,36 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <param name="material">The dominant material the shield is crafted from.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
         public HeavyShield(SizeCategory size, HeavyShieldMaterial material)
-            : base(armorClassBonus:           2,
+            : base(armorClassBonus:           ARMOR_BONUS,
                    materialInchesOfThickness: InchesOfThicknessScaledBySize(size, GetMediumInchesOfThicknessForMaterial(material)),
                    materialHitPointsPerInch:  GetHitPointsPerInchOfThicknessForMaterial(material),
                    materialHardness:          GetHardnessForMaterial(material))
         {
-            const byte BASE_ARMOR_CHECK_PENALTY = 2;
             const double STEEL_WEIGHT = 15;
             const double STEEL_PRICE = 20;
-            const double WOOD_WEIGHT = 10;
-            const double WOOD_PRICE = 7;
-
-            INameFragment standardShieldName = new NameFragment("Heavy Shield", "http://www.d20pfsrd.com/equipment/Armor/shield-heavy-wooden-or-steel");
 
             switch (material)
             {
                 case HeavyShieldMaterial.Darkwood:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
-                    this.ArmorCheckPenalty = () => DarkwoodShield.GetArmorCheckPenalty(BASE_ARMOR_CHECK_PENALTY);
-                    this.MundaneMarketPrice = () => DarkwoodShield.GetBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.GetWeight());
-                    this.Weight = () => DarkwoodShield.GetWeight(WeightScaledBySize(size, WOOD_WEIGHT));
+                    this.ArmorCheckPenalty = () => Darkwood.GetShieldArmorCheckPenalty(BASE_ARMOR_CHECK_PENALTY);
+                    this.MundaneMarketPrice = () => Darkwood.GetShieldBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.GetWeight());
+                    this.Weight = () => Darkwood.GetWeight(WeightScaledBySize(size, WOOD_WEIGHT));
                     this.MundaneName = () => new INameFragment[] {
-                        new NameFragment("Darkwood", DarkwoodShield.WebAddress),
-                        standardShieldName
-                    };
-                    break;
-                case HeavyShieldMaterial.Dragonhide:
-                    this.IsMasterwork = true;
-                    this.MasterworkIsToggleable = false;
-                    this.ArmorCheckPenalty = () => this.StandardArmorCheckPenaltyCalculation(BASE_ARMOR_CHECK_PENALTY);
-                    this.MundaneMarketPrice = () => DragonhideShield.GetBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.Enchantments);
-                    this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
-                    this.MundaneName = () => new INameFragment[] {
-                        new NameFragment("Dragonhide", DragonhideShield.WebAddress),
-                        standardShieldName
+                        new NameFragment("Darkwood", Darkwood.WebAddress),
+                        StandardShieldName
                     };
                     break;
                 case HeavyShieldMaterial.Mithral:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
-                    this.ArmorCheckPenalty = () => MithralShield.GetArmorCheckPenalty(BASE_ARMOR_CHECK_PENALTY);
-                    this.MundaneMarketPrice = () => MithralShield.GetBaseMarketValue(MarketValueScaledBySize(size, STEEL_PRICE));
-                    this.Weight = () => MithralShield.GetWeight(WeightScaledBySize(size, STEEL_WEIGHT));
+                    this.ArmorCheckPenalty = () => Mithral.GetArmorCheckPenalty(BASE_ARMOR_CHECK_PENALTY);
+                    this.MundaneMarketPrice = () => Mithral.GetShieldBaseMarketValue(MarketValueScaledBySize(size, STEEL_PRICE));
+                    this.Weight = () => Mithral.GetWeight(WeightScaledBySize(size, STEEL_WEIGHT));
                     this.MundaneName = () => new INameFragment[] {
-                        new NameFragment("Mithral", MithralShield.WebAddress),
-                        standardShieldName
+                        new NameFragment("Mithral", Mithral.WebAddress),
+                        StandardShieldName
                     };
                     break;
                 case HeavyShieldMaterial.Steel:
@@ -112,7 +122,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, STEEL_PRICE));
                     this.Weight = () => WeightScaledBySize(size, STEEL_WEIGHT);
                     this.MundaneName = () => new INameFragment[] {
-                        new NameFragment("Heavy Steel Shield", standardShieldName.WebAddress),
+                        new NameFragment("Heavy Steel Shield", StandardShieldName.WebAddress),
                     };
                     break;
                 case HeavyShieldMaterial.Wood:
@@ -120,7 +130,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, WOOD_PRICE));
                     this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
                     this.MundaneName = () => new INameFragment[] {
-                        new NameFragment("Heavy Wooden Shield", standardShieldName.WebAddress),
+                        new NameFragment("Heavy Wooden Shield", StandardShieldName.WebAddress),
                     };
                     break;
                 default:
@@ -133,11 +143,10 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         {
             switch (material)
             {
-                case HeavyShieldMaterial.Darkwood:   return DarkwoodShield.HitPointsPerInch;
-                case HeavyShieldMaterial.Dragonhide: return DragonhideShield.HitPointsPerInch;
-                case HeavyShieldMaterial.Mithral:    return MithralShield.HitPointsPerInch;
-                case HeavyShieldMaterial.Wood:       return 10;
-                case HeavyShieldMaterial.Steel:      return 30;
+                case HeavyShieldMaterial.Darkwood: return Darkwood.HitPointsPerInch;
+                case HeavyShieldMaterial.Mithral:  return  Mithral.HitPointsPerInch;
+                case HeavyShieldMaterial.Wood:     return     Wood.HitPointsPerInch;
+                case HeavyShieldMaterial.Steel:    return    Steel.HitPointsPerInch;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -148,11 +157,10 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         {
             switch (material)
             {
-                case HeavyShieldMaterial.Darkwood:   return DarkwoodShield.Hardness;
-                case HeavyShieldMaterial.Dragonhide: return DragonhideShield.Hardness;
-                case HeavyShieldMaterial.Mithral:    return MithralShield.Hardness;
-                case HeavyShieldMaterial.Wood:       return 5;
-                case HeavyShieldMaterial.Steel:      return 10;
+                case HeavyShieldMaterial.Darkwood: return Darkwood.Hardness;
+                case HeavyShieldMaterial.Mithral:  return  Mithral.Hardness;
+                case HeavyShieldMaterial.Wood:     return     Wood.Hardness;
+                case HeavyShieldMaterial.Steel:    return    Steel.Hardness;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -166,11 +174,10 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
             switch (material)
             {
-                case HeavyShieldMaterial.Darkwood:   return woodThickness;
-                case HeavyShieldMaterial.Dragonhide: return woodThickness;
-                case HeavyShieldMaterial.Wood:       return woodThickness;
-                case HeavyShieldMaterial.Mithral:    return metalThickness;
-                case HeavyShieldMaterial.Steel:      return metalThickness;
+                case HeavyShieldMaterial.Darkwood: return woodThickness;
+                case HeavyShieldMaterial.Wood:     return woodThickness;
+                case HeavyShieldMaterial.Mithral:  return metalThickness;
+                case HeavyShieldMaterial.Steel:    return metalThickness;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -228,6 +235,62 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
 
         /// <summary>
+        /// Enchants this shield with Cold Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public HeavyShield EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithColdResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Electricity Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public HeavyShield EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithElectricityResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Fire Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public HeavyShield EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithFireResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Sonic Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public HeavyShield EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithSonicResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
         /// Enchants this shield with Animated.
         /// </summary>
         /// <returns>This shield.</returns>
@@ -276,48 +339,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Enchants this shield with Cold Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public HeavyShield EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithColdResistance(protectionLevel);
-            return this;
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Electricity Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public HeavyShield EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithElectricityResistance(protectionLevel);
-            return this;
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Fire Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public HeavyShield EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithFireResistance(protectionLevel);
-            return this;
-        }
-
-
-        /// <summary>
         /// Enchants this shield with Fortification.
         /// </summary>
         /// <returns>This shield.</returns>
@@ -338,20 +359,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         new public HeavyShield EnchantWithGhostTouch()
         {
             base.EnchantWithGhostTouch();
-            return this;
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Sonic Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public HeavyShield EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithSonicResistance(protectionLevel);
             return this;
         }
 

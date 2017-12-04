@@ -30,6 +30,8 @@ namespace Core.Domain.UnitTests.Characters.Movements
             Assert.IsInstanceOf<Movement>(speeds.Land);
 			Assert.IsTrue(speeds.Land.BaseSpeed.HasValue);
 			Assert.AreEqual(6, speeds.Land.BaseSpeed.Value);
+
+            Assert.That(speeds.GetAll(), Is.EquivalentTo(new IMovement[] { speeds.Burrow, speeds.Climb, speeds.Fly, speeds.Land, speeds.Swim })); 
         }
     }
 }

@@ -2,13 +2,13 @@
 using Core.Domain.Characters;
 using Core.Domain.Characters.ModifierTrackers;
 using Core.Domain.Characters.Skills;
-using Core.Domain.Items;
 using Core.Domain.Items.Shields;
-using Core.Domain.Items.Shields.Enchantments;
-using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
+using Core.Domain.Items.Enchantments;
+using Core.Domain.Items.Enchantments.Paizo.CoreRulebook;
 using Core.Domain.Spells;
 using Moq;
 using NUnit.Framework;
+using Core.Domain.Items.Aggregators;
 
 
 namespace Core.Domain.UnitTests.Items.Shields
@@ -27,10 +27,10 @@ namespace Core.Domain.UnitTests.Items.Shields
             // Assert
             Assert.IsFalse(shield.IsMasterwork);
             Assert.IsTrue(shield.MasterworkIsToggleable);
-            Assert.IsInstanceOf<ShieldBonusAggregator>(shield.ArmorClass);
+            Assert.IsInstanceOf<ArmorClassAggregator>(shield.ArmorClass);
             Assert.IsInstanceOf<ShieldEnchantmentAggregator>(shield.Enchantments);
-            Assert.IsInstanceOf<ShieldHardnessAggregator>(shield.Hardness);
-            Assert.IsInstanceOf<ShieldHitPointAggregator>(shield.HitPoints);
+            Assert.IsInstanceOf<HardnessAggregator>(shield.Hardness);
+            Assert.IsInstanceOf<HitPointsAggregator>(shield.HitPoints);
         }
 
 
@@ -38,10 +38,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void InjectionConstructor_TypicalCase()
         {
             // Arrange
-            var shieldAgg = Mock.Of<IShieldBonusAggregator>();
-            var hardnessAgg = Mock.Of<IShieldHardnessAggregator>();
-            var hitPointAgg = Mock.Of<IShieldHitPointAggregator>();
-            var enchantmentAgg = Mock.Of<IShieldEnchantmentAggregator>();
+            var shieldAgg = Mock.Of<IArmorClassAggregator>();
+            var hardnessAgg = Mock.Of<IHardnessAggregator>();
+            var hitPointAgg = Mock.Of<IHitPointsAggregator>();
+            var enchantmentAgg = Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
 
             // Act
             Shield shield = new Mock<Shield>(MockBehavior.Loose, shieldAgg, hardnessAgg, hitPointAgg, enchantmentAgg) { CallBase = true }.Object;
@@ -60,10 +60,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
 
             // Act
@@ -78,10 +78,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             shield.MasterworkIsToggleable = false;
 
@@ -98,10 +98,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             shield.MasterworkIsToggleable = false;
 
@@ -119,10 +119,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             // By default, a shield is not masterwork
 
@@ -140,10 +140,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             shield.IsMasterwork = true;
 
@@ -161,10 +161,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             shield.IsMasterwork = true;
 
@@ -183,10 +183,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             // By default, a shield is not masterwork
 
@@ -204,10 +204,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             shield.IsMasterwork = true;
 
@@ -227,10 +227,10 @@ namespace Core.Domain.UnitTests.Items.Shields
             // Arrange
             Func<byte> armorCheckPenaltyCalculation = () => 5;
             var  mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                               Mock.Of<IShieldBonusAggregator>(),
-                                               Mock.Of<IShieldHardnessAggregator>(),
-                                               Mock.Of<IShieldHitPointAggregator>(),
-                                               Mock.Of<IShieldEnchantmentAggregator>())
+                                               Mock.Of<IArmorClassAggregator>(),
+                                               Mock.Of<IHardnessAggregator>(),
+                                               Mock.Of<IHitPointsAggregator>(),
+                                               Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                                { CallBase = true };
             mockShield.Setup(s => s.ArmorCheckPenalty)
                       .Returns(armorCheckPenaltyCalculation);
@@ -251,13 +251,13 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void CasterLevel_Calls_EnchantmentsGetCasterLevel()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(agg => agg.GetCasterLevel())
                             .Returns(20);
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
                                              mockEnchantments.Object)
                                              { CallBase = true }.Object;
 
@@ -276,13 +276,13 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void GetSchools_Calls_EnchantmentsGetSchools()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(agg => agg.GetSchools())
                             .Returns(new School[] { School.Divination, School.Necromancy });
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
                                              mockEnchantments.Object)
                                              { CallBase = true }.Object;
 
@@ -302,14 +302,14 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void GetHardness_CallsHardnessGetTotal()
         {
             // Arrange
-            var mockHardness = new Mock<IShieldHardnessAggregator>();
+            var mockHardness = new Mock<IHardnessAggregator>();
             mockHardness.Setup(agg => agg.GetTotal())
                             .Returns(17);
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
+                                             Mock.Of<IArmorClassAggregator>(),
                                              mockHardness.Object,
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
 
             // Act
@@ -327,14 +327,14 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void GetHitPoints_CallsHitPointsGetTotal()
         {
             // Arrange
-            var mockHitPoints = new Mock<IShieldHitPointAggregator>();
+            var mockHitPoints = new Mock<IHitPointsAggregator>();
             mockHitPoints.Setup(agg => agg.GetTotal())
                          .Returns(17);
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
                                              mockHitPoints.Object,
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
 
             // Act
@@ -353,13 +353,13 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Func<double> mundanePrice = () => 997;
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(agg => agg.GetMarketPrice())
                             .Returns(991);
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneMarketPrice)
@@ -385,14 +385,14 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void GetShieldBonus_CallsArmorClassGetTotal()
         {
             // Arrange
-            var mockShieldBonus = new Mock<IShieldBonusAggregator>();
+            var mockShieldBonus = new Mock<IArmorClassAggregator>();
             mockShieldBonus.Setup(agg => agg.GetTotal())
                            .Returns(7);
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
                                              mockShieldBonus.Object,
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
 
             // Act
@@ -417,14 +417,14 @@ namespace Core.Domain.UnitTests.Items.Shields
                             .Returns("http://shieldUrl.com");
             Func<INameFragment[]> nameBuilder = () => new INameFragment[] { mockNameFragment.Object };
 
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetNames())
                             .Returns((null, new INameFragment[0]));
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneName)
@@ -458,14 +458,14 @@ namespace Core.Domain.UnitTests.Items.Shields
                             .Returns("http://shieldUrl.com");
             Func<INameFragment[]> nameBuilder = () => new INameFragment[] { mockNameFragment.Object };
 
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetNames())
                             .Returns((null, new INameFragment[0]));
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneName)
@@ -506,14 +506,14 @@ namespace Core.Domain.UnitTests.Items.Shields
 
             Func<INameFragment[]> nameBuilder = () => new INameFragment[] { mockMaterialName.Object, mockShieldName.Object };
 
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetNames())
                             .Returns((null, new INameFragment[0]));
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneName)
@@ -555,14 +555,14 @@ namespace Core.Domain.UnitTests.Items.Shields
 
             Func<INameFragment[]> nameBuilder = () => new INameFragment[] { mockMaterialName.Object, mockShieldName.Object };
 
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetNames())
                             .Returns((null, new INameFragment[0]));
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneName)
@@ -605,14 +605,14 @@ namespace Core.Domain.UnitTests.Items.Shields
 
             Func<INameFragment[]> nameBuilder = () => new INameFragment[] { mockMaterialName.Object, mockShieldName.Object };
 
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetNames())
                             .Returns((null, new INameFragment[0]));
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneName)
@@ -662,14 +662,14 @@ namespace Core.Domain.UnitTests.Items.Shields
             mockEnhancementBonusName.Setup(nf => nf.WebAddress)
                                     .Returns("http://enhancementBonusUrl.com");
 
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetNames())
                             .Returns((mockEnhancementBonusName.Object, new INameFragment[0]));
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneName)
@@ -727,14 +727,14 @@ namespace Core.Domain.UnitTests.Items.Shields
             mockEnchantmentName.Setup(nf => nf.WebAddress)
                                .Returns("http://enchantmentUrl.com");
 
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetNames())
                             .Returns((mockEnhancementBonusName.Object, new INameFragment[] { mockEnchantmentName.Object }));
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
                                               mockEnchantments.Object)
                                               { CallBase = true };
             mockShield.Setup(s => s.MundaneName)
@@ -771,10 +771,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             Shield shield = new Mock<Shield>(MockBehavior.Loose,
-                                             Mock.Of<IShieldBonusAggregator>(),
-                                             Mock.Of<IShieldHardnessAggregator>(),
-                                             Mock.Of<IShieldHitPointAggregator>(),
-                                             Mock.Of<IShieldEnchantmentAggregator>())
+                                             Mock.Of<IArmorClassAggregator>(),
+                                             Mock.Of<IHardnessAggregator>(),
+                                             Mock.Of<IHitPointsAggregator>(),
+                                             Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                              { CallBase = true }.Object;
             ICharacter character = null;
 
@@ -796,10 +796,10 @@ namespace Core.Domain.UnitTests.Items.Shields
                          .Returns(shieldBonus);
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
-                                              Mock.Of<IShieldEnchantmentAggregator>())
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
+                                              Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                               { CallBase = true };
             mockShield.Setup(s => s.GetShieldBonus())
                       .Returns(10);
@@ -840,10 +840,10 @@ namespace Core.Domain.UnitTests.Items.Shields
                          .Returns(new ISkill[] { mockUnaffectedSkill.Object, mockAffectedSkill.Object });
 
             var mockShield = new Mock<Shield>(MockBehavior.Loose,
-                                              Mock.Of<IShieldBonusAggregator>(),
-                                              Mock.Of<IShieldHardnessAggregator>(),
-                                              Mock.Of<IShieldHitPointAggregator>(),
-                                              Mock.Of<IShieldEnchantmentAggregator>())
+                                              Mock.Of<IArmorClassAggregator>(),
+                                              Mock.Of<IHardnessAggregator>(),
+                                              Mock.Of<IHitPointsAggregator>(),
+                                              Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                               { CallBase = true };
             mockShield.Setup(s => s.GetArmorCheckPenalty())
                       .Returns(5);
@@ -867,11 +867,11 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
 
-            var enchantmentAggregator = Mock.Of<IShieldEnchantmentAggregator>();
+            var enchantmentAggregator = Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           enchantmentAggregator)
                                           { CallBase = true }.Object;
             var character = Mock.Of<ICharacter>();
@@ -892,10 +892,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          Mock.Of<IShieldEnchantmentAggregator>())
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                           { CallBase = true }.Object;
 
             // Act
@@ -910,10 +910,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          Mock.Of<IShieldEnchantmentAggregator>())
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
 
@@ -929,10 +929,10 @@ namespace Core.Domain.UnitTests.Items.Shields
         {
             // Arrange
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          Mock.Of<IShieldEnchantmentAggregator>())
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>())
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
 
@@ -947,11 +947,11 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void EnchantWith_EnhancementBonus_1()
         {
             // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
+            var enchantments = Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           enchantments)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -973,11 +973,11 @@ namespace Core.Domain.UnitTests.Items.Shields
         public void EnchantWith_EnhancementBonus_5()
         {
             // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
+            var enchantments = Mock.Of<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           enchantments)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -996,38 +996,17 @@ namespace Core.Domain.UnitTests.Items.Shields
         #endregion
 
         #region Enchantment - Acid Resistance
-        [Test(Description = "Ensures that Acid Resistance cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_AcidResistance_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithAcidResistance(EnergyResistanceMagnitude.Regular);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Acid Resistance.")]
-        public void EnchantWith_AcidResistance_HappyPath()
+        public void EnchantWith_AcidResistance()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1036,223 +1015,22 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithAcidResistance(EnergyResistanceMagnitude.Regular);
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is AcidResistance)));
-        }
-        #endregion
-
-        #region Enchantment - Animated
-        [Test(Description = "Ensures that Animated cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_Animated_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithAnimated();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
-        [Test(Description = "Ensures correct behavior for a shield enchanted with Animated.")]
-        public void EnchantWith_Animated_HappyPath()
-        {
-            // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
-            mockEnchantments.Setup(e => e.GetEnchantments())
-                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          mockEnchantments.Object)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            shield.EnchantWithAnimated();
-
-            // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is Animated)));
-        }
-        #endregion
-
-        #region Enchantment - Arrow Catching
-        [Test(Description = "Ensures that Arrow Catching cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_ArrowCatching_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithAnimated();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
-        [Test(Description = "Ensures correct behavior for a shield enchanted with Arrow Catching.")]
-        public void EnchantWith_ArrowCatching_HappyPath()
-        {
-            // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
-            mockEnchantments.Setup(e => e.GetEnchantments())
-                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          mockEnchantments.Object)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            shield.EnchantWithArrowCatching();
-
-            // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is ArrowCatching)));
-        }
-        #endregion
-
-        #region Enchantment - Arrow Deflection
-        [Test(Description = "Ensures that Arrow Deflection cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_ArrowDeflection_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithArrowDeflection();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
-        [Test(Description = "Ensures correct behavior for a shield enchanted with Arrow Deflection.")]
-        public void EnchantWith_ArrowDeflection_HappyPath()
-        {
-            // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
-            mockEnchantments.Setup(e => e.GetEnchantments())
-                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          mockEnchantments.Object)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            shield.EnchantWithArrowDeflection();
-
-            // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is ArrowDeflection)));
-        }
-        #endregion
-
-        #region Enchantment - Blinding
-        [Test(Description = "Ensures that Blinding cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_Blinding_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithBlinding();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
-        [Test(Description = "Ensures correct behavior for a shield enchanted with Blinding.")]
-        public void EnchantWith_Blinding_HappyPath()
-        {
-            // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
-            mockEnchantments.Setup(e => e.GetEnchantments())
-                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          mockEnchantments.Object)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            shield.EnchantWithBlinding();
-
-            // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is Blinding)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<AcidResistance>()));
         }
         #endregion
 
         #region Enchantment - Cold Resistance
-        [Test(Description = "Ensures that Cold Resistance cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_ColdResistance_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithColdResistance(EnergyResistanceMagnitude.Regular);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Cold Resistance.")]
-        public void EnchantWith_ColdResistance_HappyPath()
+        public void EnchantWith_ColdResistance()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1261,43 +1039,22 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithColdResistance(EnergyResistanceMagnitude.Regular);
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is ColdResistance)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<ColdResistance>()));
         }
         #endregion
 
         #region Enchantment - Electricity Resistance
-        [Test(Description = "Ensures that Electricity Resistance cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_ElectricityResistance_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithElectricityResistance(EnergyResistanceMagnitude.Regular);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Electricity Resistance.")]
-        public void EnchantWith_ElectricityResistance_HappyPath()
+        public void EnchantWith_ElectricityResistance()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1306,43 +1063,22 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithElectricityResistance(EnergyResistanceMagnitude.Regular);
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is ElectricityResistance)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<ElectricityResistance>()));
         }
         #endregion
 
         #region Enchantment - Fire Resistance
-        [Test(Description = "Ensures that Fire Resistance cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_FireResistance_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithFireResistance(EnergyResistanceMagnitude.Regular);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Fire Resistance.")]
-        public void EnchantWith_FireResistance_HappyPath()
+        public void EnchantWith_FireResistance()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1351,133 +1087,22 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithFireResistance(EnergyResistanceMagnitude.Regular);
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is FireResistance)));
-        }
-        #endregion
-
-        #region Enchantment - Fortification
-        [Test(Description = "Ensures that Fortification cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_Fortification_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithFortification(FortificationType.Light);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
-        [Test(Description = "Ensures correct behavior for a shield enchanted with Fortification.")]
-        public void EnchantWith_Fortification_HappyPath()
-        {
-            // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
-            mockEnchantments.Setup(e => e.GetEnchantments())
-                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          mockEnchantments.Object)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            shield.EnchantWithFortification(FortificationType.Light);
-
-            // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is Fortification)));
-        }
-        #endregion
-
-        #region Enchantment - Ghost Touch
-        [Test(Description = "Ensures that Ghost Touch cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_GhostTouch_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithGhostTouch();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
-        [Test(Description = "Ensures correct behavior for a shield enchanted with Ghost Touch.")]
-        public void EnchantWith_GhostTouch_HappyPath()
-        {
-            // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
-            mockEnchantments.Setup(e => e.GetEnchantments())
-                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          mockEnchantments.Object)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            shield.EnchantWithGhostTouch();
-
-            // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is GhostTouch)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<FireResistance>()));
         }
         #endregion
 
         #region Enchantment - Sonic Resistance
-        [Test(Description = "Ensures that Sonic Resistance cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_SonicResistance_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithSonicResistance(EnergyResistanceMagnitude.Regular);
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Sonic Resistance.")]
-        public void EnchantWith_SonicResistance_HappyPath()
+        public void EnchantWith_SonicResistance()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1486,43 +1111,166 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithSonicResistance(EnergyResistanceMagnitude.Regular);
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is SonicResistance)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<SonicResistance>()));
         }
         #endregion
 
-        #region Enchantment - Spell Resistance
-        [Test(Description = "Ensures that SpellResistance cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_SpellResistance_NoEnhancement_Throws()
+        #region Enchantment - Animated
+        [Test(Description = "Ensures correct behavior for a shield enchanted with Animated.")]
+        public void EnchantWith_Animated()
         {
             // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
+            mockEnchantments.Setup(e => e.GetEnchantments())
+                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
 
             // Act
-            TestDelegate enchant = () => shield.EnchantWithSpellResistance(SpellResistanceMagnitude.SR13);
+            shield.EnchantWithAnimated();
 
             // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<Animated>()));
         }
+        #endregion
 
-
-        [Test(Description = "Ensures correct behavior for a shield enchanted with Spell Resistance.")]
-        public void EnchantWith_SpellResistance_HappyPath()
+        #region Enchantment - Arrow Catching
+        [Test(Description = "Ensures correct behavior for a shield enchanted with Arrow Catching.")]
+        public void EnchantWith_ArrowCatching()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          mockEnchantments.Object)
+                                          { CallBase = true }.Object;
+            shield.IsMasterwork = true;
+
+            // Act
+            shield.EnchantWithArrowCatching();
+
+            // Assert
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<ArrowCatching>()));
+        }
+        #endregion
+
+        #region Enchantment - Arrow Deflection
+        [Test(Description = "Ensures correct behavior for a shield enchanted with Arrow Deflection.")]
+        public void EnchantWith_ArrowDeflection()
+        {
+            // Arrange
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
+            mockEnchantments.Setup(e => e.GetEnchantments())
+                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
+            var shield = new Mock<Shield>(MockBehavior.Loose,
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          mockEnchantments.Object)
+                                          { CallBase = true }.Object;
+            shield.IsMasterwork = true;
+
+            // Act
+            shield.EnchantWithArrowDeflection();
+
+            // Assert
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<ArrowDeflection>()));
+        }
+        #endregion
+
+        #region Enchantment - Blinding
+        [Test(Description = "Ensures correct behavior for a shield enchanted with Blinding.")]
+        public void EnchantWith_Blinding()
+        {
+            // Arrange
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
+            mockEnchantments.Setup(e => e.GetEnchantments())
+                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
+            var shield = new Mock<Shield>(MockBehavior.Loose,
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          mockEnchantments.Object)
+                                          { CallBase = true }.Object;
+            shield.IsMasterwork = true;
+
+            // Act
+            shield.EnchantWithBlinding();
+
+            // Assert
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<Blinding>()));
+        }
+        #endregion
+
+        #region Enchantment - Fortification
+        [Test(Description = "Ensures correct behavior for a shield enchanted with Fortification.")]
+        public void EnchantWith_Fortification()
+        {
+            // Arrange
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
+            mockEnchantments.Setup(e => e.GetEnchantments())
+                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
+            var shield = new Mock<Shield>(MockBehavior.Loose,
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          mockEnchantments.Object)
+                                          { CallBase = true }.Object;
+            shield.IsMasterwork = true;
+
+            // Act
+            shield.EnchantWithFortification(FortificationType.Light);
+
+            // Assert
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<Fortification>()));
+        }
+        #endregion
+
+        #region Enchantment - Ghost Touch
+        [Test(Description = "Ensures correct behavior for a shield enchanted with Ghost Touch.")]
+        public void EnchantWith_GhostTouch()
+        {
+            // Arrange
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
+            mockEnchantments.Setup(e => e.GetEnchantments())
+                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
+            var shield = new Mock<Shield>(MockBehavior.Loose,
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
+                                          mockEnchantments.Object)
+                                          { CallBase = true }.Object;
+            shield.IsMasterwork = true;
+
+            // Act
+            shield.EnchantWithGhostTouch();
+
+            // Assert
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<GhostTouch>()));
+        }
+        #endregion
+
+        #region Enchantment - Spell Resistance
+        [Test(Description = "Ensures correct behavior for a shield enchanted with Spell Resistance.")]
+        public void EnchantWith_SpellResistance()
+        {
+            // Arrange
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
+            mockEnchantments.Setup(e => e.GetEnchantments())
+                            .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
+            var shield = new Mock<Shield>(MockBehavior.Loose,
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1531,43 +1279,22 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithSpellResistance(SpellResistanceMagnitude.SR13);
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is SpellResistance)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<SpellResistance>()));
         }
         #endregion
 
         #region Enchantment - Reflecting
-        [Test(Description = "Ensures that Reflecting cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_Reflecting_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithReflecting();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Reflecting.")]
-        public void EnchantWith_Reflecting_HappyPath()
+        public void EnchantWith_Reflecting()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1576,43 +1303,22 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithReflecting();
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is Reflecting)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<Reflecting>()));
         }
         #endregion
 
         #region Enchantment - Undead Controlling
-        [Test(Description = "Ensures that Undead Controlling cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_UndeadControlling_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithUndeadControlling();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Undead Controlling.")]
-        public void EnchantWith_UndeadControlling_HappyPath()
+        public void EnchantWith_UndeadControlling()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1621,43 +1327,22 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithUndeadControlling();
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is UndeadControlling)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<UndeadControlling>()));
         }
         #endregion
 
         #region Enchantment - Wild
-        [Test(Description = "Ensures that Wild cannot be added to a shield lacking an enhancement bonus.")]
-        public void EnchantWith_Wild_NoEnhancement_Throws()
-        {
-            // Arrange
-            var enchantments = Mock.Of<IShieldEnchantmentAggregator>();
-            var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
-                                          enchantments)
-                                          { CallBase = true }.Object;
-            shield.IsMasterwork = true;
-
-            // Act
-            TestDelegate enchant = () => shield.EnchantWithWild();
-
-            // Assert
-            Assert.Throws<InvalidOperationException>(enchant);
-        }
-
-
         [Test(Description = "Ensures correct behavior for a shield enchanted with Wild.")]
-        public void EnchantWith_Wild_HappyPath()
+        public void EnchantWith_Wild()
         {
             // Arrange
-            var mockEnchantments = new Mock<IShieldEnchantmentAggregator>();
+            var mockEnchantments = new Mock<IEnchantmentAggregator<IShieldEnchantment, Shield>>();
             mockEnchantments.Setup(e => e.GetEnchantments())
                             .Returns(new IShieldEnchantment[] { new EnhancementBonus(1) });
             var shield = new Mock<Shield>(MockBehavior.Loose,
-                                          Mock.Of<IShieldBonusAggregator>(),
-                                          Mock.Of<IShieldHardnessAggregator>(),
-                                          Mock.Of<IShieldHitPointAggregator>(),
+                                          Mock.Of<IArmorClassAggregator>(),
+                                          Mock.Of<IHardnessAggregator>(),
+                                          Mock.Of<IHitPointsAggregator>(),
                                           mockEnchantments.Object)
                                           { CallBase = true }.Object;
             shield.IsMasterwork = true;
@@ -1666,7 +1351,7 @@ namespace Core.Domain.UnitTests.Items.Shields
             shield.EnchantWithWild();
 
             // Assert
-            mockEnchantments.Verify(e => e.EnchantWith(It.Is<IShieldEnchantment>(ench => ench is Wild)));
+            mockEnchantments.Verify(e => e.EnchantWith(It.IsAny<Wild>()));
         }
         #endregion
     }

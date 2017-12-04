@@ -43,7 +43,7 @@
 
 
 		/// <summary>
-		/// Returns a Sorcerer version of Dancing Lights.
+		/// Returns a Bard version of Dancing Lights.
 		/// </summary>
         public static DancingLights BardVersion => new DancingLights(0);
 

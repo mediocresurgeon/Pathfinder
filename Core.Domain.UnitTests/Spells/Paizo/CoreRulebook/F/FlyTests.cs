@@ -10,10 +10,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.F
     public class FlyTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-        public void Fly_GenericProperties()
+        public void GenericProperties()
         {
             // Act
             var spell = Fly.WizardVersion;
+
             // Assert
             Assert.AreEqual("Fly", spell.GetName().Text);
             Assert.IsTrue(spell.AllowsSavingThrow);
@@ -24,40 +25,44 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.F
 
 
         [Test]
-        public void Fly_SorcererVersion()
+        public void SorcererVersion()
         {
             // Act
             var spell = Fly.SorcererVersion;
+
             // Assert
             Assert.AreEqual(3, spell.Level);
         }
 
 
         [Test]
-        public void Fly_WizardVersion()
+        public void WizardVersion()
         {
             // Act
             var spell = Fly.WizardVersion;
+
             // Assert
             Assert.AreEqual(3, spell.Level);
         }
 
 
         [Test]
-        public void Fly_TravelSubdomainVersion()
+        public void TravelSubdomainVersion()
         {
             // Act
             var spell = Fly.TravelDomainVersion;
+
             // Assert
             Assert.AreEqual(3, spell.Level);
         }
 
 
         [Test]
-        public void Fly_VoidDomainVersion()
+        public void VoidDomainVersion()
         {
             // Act
             var spell = Fly.VoidDomainVersion;
+
             // Assert
             Assert.AreEqual(3, spell.Level);
         }

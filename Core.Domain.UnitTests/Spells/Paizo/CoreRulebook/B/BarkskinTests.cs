@@ -10,11 +10,12 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.B
     public class BarkskinTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-        public void Barkskin_GenericProperties()
+        public void GenericProperties()
         {
             // Act
             var spell = Barkskin.DruidVersion;
-			// Assert
+			
+            // Assert
             Assert.AreEqual("Barkskin", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
             Assert.AreEqual(School.Transmutation, spell.School);
@@ -24,41 +25,45 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.B
 
 
         [Test]
-		public void Barkskin_DruidVersion()
+		public void DruidVersion()
 		{
 			// Act
 			var spell = Barkskin.DruidVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(2, spell.Level);
 		}
 
 
 		[Test]
-		public void Barkskin_RangerVersion()
+		public void RangerVersion()
 		{
 			// Act
             var spell = Barkskin.RangerVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(2, spell.Level);
 		}
 
 
 		[Test]
-		public void Barkskin_DefenseSubdomainVersion()
+		public void DefenseSubdomainVersion()
 		{
 			// Act
             var spell = Barkskin.DefenseSubdomainVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(2, spell.Level);
 		}
 
 
 		[Test]
-		public void Barkskin_PlantDomainVersion()
+		public void PlantDomainVersion()
 		{
 			// Act
             var spell = Barkskin.PlantDomainVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(2, spell.Level);
 		}
     }

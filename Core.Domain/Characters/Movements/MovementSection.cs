@@ -16,5 +16,7 @@
         public IMovement Land { get; } = new Movement { BaseSpeed = 6 };
 
         public IMovement Swim { get; } = new Movement();
+
+        public IMovement[] GetAll() => new IMovement[] { this.Burrow, this.Climb, this.Fly, this.Land, this.Swim };
     }
 }

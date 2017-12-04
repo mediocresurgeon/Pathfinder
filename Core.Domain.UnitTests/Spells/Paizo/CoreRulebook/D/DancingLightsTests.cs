@@ -10,11 +10,12 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.D
 	public class DancingLightsTests
 	{
 		[Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-		public void DancingLights_GenericProperties()
+		public void GenericProperties()
 		{
 			// Act
             var spell = DancingLights.BardVersion;
-			// Assert
+			
+            // Assert
             Assert.AreEqual("Dancing Lights", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
             Assert.AreEqual(School.Evocation, spell.School);
@@ -24,31 +25,34 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.D
 
 
 		[Test]
-		public void DancingLights_BardVersion()
+		public void BardVersion()
 		{
 			// Act
 			var spell = DancingLights.BardVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(0, spell.Level);
 		}
 
 
 		[Test]
-		public void DancingLights_SorcererVersion()
+		public void SorcererVersion()
 		{
 			// Act
             var spell = DancingLights.SorcererVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(0, spell.Level);
 		}
 
 
 		[Test]
-		public void DancingLights_WizardVersion()
+		public void WizardVersion()
 		{
 			// Act
             var spell = DancingLights.WizardVersion;
-			// Assert
+			
+            // Assert
 			Assert.AreEqual(0, spell.Level);
 		}
 	}

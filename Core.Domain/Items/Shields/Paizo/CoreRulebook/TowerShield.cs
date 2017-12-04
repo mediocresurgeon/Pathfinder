@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using Core.Domain.Characters;
-using Core.Domain.Items.Shields.Enchantments.Paizo.CoreRulebook;
+using Core.Domain.Items.Enchantments.Paizo.CoreRulebook;
+using Core.Domain.Items.Materials.Paizo.CoreRulebook;
 
 
 namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
@@ -19,13 +20,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         Darkwood,
 
         /// <summary>
-        /// Made from the hide of a dragon.
-        /// Always masterwork.
-        /// Decreases the cost energy resistance enchantments.
-        /// </summary>
-        Dragonhide,
-
-        /// <summary>
         /// The default material.
         /// </summary>
         Wood,
@@ -38,6 +32,38 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     public sealed class TowerShield : Shield, ITowerShield
     {
         #region Constructor
+        private const byte ARMOR_BONUS = 4;
+        private const byte BASE_ARMOR_CHECK_PENALTY = 10;
+        private const byte INCHES_OF_THICKNESS = 2;
+        private const double WOOD_WEIGHT = 45;
+        private const double WOOD_PRICE = 30;
+        private static INameFragment StandardShieldName { get; } = new NameFragment("Tower Shield", "http://www.d20pfsrd.com/equipment/armor/shield-tower/");
+
+
+        /// <summary>
+        /// Use this constructor when the shield is to be made from Dragonhide.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Paizo.CoreRulebook.TowerShield"/> class.
+        /// </summary>
+        /// <param name="size">The size of character this shield is intended to be used by.</param>
+        /// <param name="color">The dominant material the shield is crafted from.</param>
+        public TowerShield(SizeCategory size, DragonhideColor color)
+            : base(armorClassBonus:           ARMOR_BONUS,
+                   materialInchesOfThickness: InchesOfThicknessScaledBySize(size, INCHES_OF_THICKNESS),
+                   materialHitPointsPerInch:  Dragonhide.HitPointsPerInch,
+                   materialHardness:          Dragonhide.Hardness)
+        {
+            this.IsMasterwork = true;
+            this.MasterworkIsToggleable = false;
+            this.ArmorCheckPenalty = () => this.StandardArmorCheckPenaltyCalculation(BASE_ARMOR_CHECK_PENALTY);
+            this.MundaneMarketPrice = () => Dragonhide.GetShieldBaseMarketPrice(MarketValueScaledBySize(size, WOOD_PRICE), this.Enchantments, color);
+            this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
+            this.MundaneName = () => new INameFragment[] {
+                new NameFragment($"{ color } Dragonhide", Dragonhide.WebAddress),
+                StandardShieldName
+            };
+        }
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Shields.Paizo.CoreRulebook.TowerShield"/> class.
         /// </summary>
@@ -45,39 +71,22 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// <param name="material">The dominant material the shield is crafted from.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
         public TowerShield(SizeCategory size, TowerShieldMaterial material)
-            : base(armorClassBonus:           4,
-                   materialInchesOfThickness: InchesOfThicknessScaledBySize(size, 2),
+            : base(armorClassBonus:           ARMOR_BONUS,
+                   materialInchesOfThickness: InchesOfThicknessScaledBySize(size, INCHES_OF_THICKNESS),
                    materialHitPointsPerInch:  GetHitPointsPerInchOfThicknessForMaterial(material),
                    materialHardness:          GetHardnessForMaterial(material))
         {
-            const byte BASE_ARMOR_CHECK_PENALTY = 10;
-            const double WOOD_WEIGHT = 45;
-            const double WOOD_PRICE = 30;
-
-            INameFragment standardShieldName = new NameFragment("Tower Shield", "http://www.d20pfsrd.com/equipment/armor/shield-tower/");
-
             switch (material)
             {
                 case TowerShieldMaterial.Darkwood:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
-                    this.ArmorCheckPenalty = () => DarkwoodShield.GetArmorCheckPenalty(BASE_ARMOR_CHECK_PENALTY);
-                    this.MundaneMarketPrice = () => DarkwoodShield.GetBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.GetWeight());
-                    this.Weight = () => DarkwoodShield.GetWeight(WeightScaledBySize(size, WOOD_WEIGHT));
+                    this.ArmorCheckPenalty = () => Darkwood.GetShieldArmorCheckPenalty(BASE_ARMOR_CHECK_PENALTY);
+                    this.MundaneMarketPrice = () => Darkwood.GetShieldBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.GetWeight());
+                    this.Weight = () => Darkwood.GetWeight(WeightScaledBySize(size, WOOD_WEIGHT));
                     this.MundaneName = () => new INameFragment[] {
-                        new NameFragment("Darkwood", DarkwoodShield.WebAddress),
-                        standardShieldName
-                    };
-                    break;
-                case TowerShieldMaterial.Dragonhide:
-                    this.IsMasterwork = true;
-                    this.MasterworkIsToggleable = false;
-                    this.ArmorCheckPenalty = () => this.StandardArmorCheckPenaltyCalculation(BASE_ARMOR_CHECK_PENALTY);
-                    this.MundaneMarketPrice = () => DragonhideShield.GetBaseMarketValue(MarketValueScaledBySize(size, WOOD_PRICE), this.Enchantments);
-                    this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
-                    this.MundaneName = () => new INameFragment[] {
-                        new NameFragment("Dragonhide", DragonhideShield.WebAddress),
-                        standardShieldName
+                        new NameFragment("Darkwood", Darkwood.WebAddress),
+                        StandardShieldName
                     };
                     break;
                 case TowerShieldMaterial.Wood:
@@ -85,7 +94,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, WOOD_PRICE));
                     this.Weight = () => WeightScaledBySize(size, WOOD_WEIGHT);
                     this.MundaneName = () => new INameFragment[] {
-                        standardShieldName
+                        StandardShieldName
                     };
                     break;
                 default:
@@ -98,9 +107,8 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         {
             switch (material)
             {
-                case TowerShieldMaterial.Darkwood:   return DarkwoodShield.Hardness;
-                case TowerShieldMaterial.Dragonhide: return DragonhideShield.Hardness;
-                case TowerShieldMaterial.Wood:       return 5;
+                case TowerShieldMaterial.Darkwood: return Darkwood.Hardness;
+                case TowerShieldMaterial.Wood:     return     Wood.Hardness;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -111,9 +119,8 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         {
             switch (material)
             {
-                case TowerShieldMaterial.Darkwood:   return DarkwoodShield.HitPointsPerInch;
-                case TowerShieldMaterial.Dragonhide: return DragonhideShield.HitPointsPerInch;
-                case TowerShieldMaterial.Wood:       return 10;
+                case TowerShieldMaterial.Darkwood: return Darkwood.HitPointsPerInch;
+                case TowerShieldMaterial.Wood:     return     Wood.HitPointsPerInch;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -167,7 +174,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         {
             base.ApplyTo(character);
             character.ArmorClass?.MaxKeyAbilityScore?.Add(() => this.MaximumDexterityBonus);
-            // TODO: Penalize melee attacks by -2.
+            character.AttackBonuses?.GenericMeleeAttackBonus?.Penalties?.Add(() => 2);
         }
 
         #region Enchantments
@@ -193,6 +200,62 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         new public TowerShield EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithAcidResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Cold Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public TowerShield EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithColdResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Electricity Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public TowerShield EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithElectricityResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Fire Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public TowerShield EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithFireResistance(protectionLevel);
+            return this;
+        }
+
+
+        /// <summary>
+        /// Enchants this shield with Sonic Resistance.
+        /// </summary>
+        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
+        /// <returns>This shield.</returns>
+        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
+        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public TowerShield EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        {
+            base.EnchantWithSonicResistance(protectionLevel);
             return this;
         }
 
@@ -246,48 +309,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Enchants this shield with Cold Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public TowerShield EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithColdResistance(protectionLevel);
-            return this;
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Electricity Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public TowerShield EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithElectricityResistance(protectionLevel);
-            return this;
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Fire Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public TowerShield EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithFireResistance(protectionLevel);
-            return this;
-        }
-
-
-        /// <summary>
         /// Enchants this shield with Fortification.
         /// </summary>
         /// <returns>This shield.</returns>
@@ -308,20 +329,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         new public TowerShield EnchantWithGhostTouch()
         {
             base.EnchantWithGhostTouch();
-            return this;
-        }
-
-
-        /// <summary>
-        /// Enchants this shield with Sonic Resistance.
-        /// </summary>
-        /// <param name="protectionLevel">The level of protection bestowed by this shield's enchantment.</param>
-        /// <returns>This shield.</returns>
-        /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
-        /// <exception cref="System.InvalidOperationException">Thrown when this shield does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public TowerShield EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
-        {
-            base.EnchantWithSonicResistance(protectionLevel);
             return this;
         }
 

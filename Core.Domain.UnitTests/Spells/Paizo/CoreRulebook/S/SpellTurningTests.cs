@@ -10,10 +10,11 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.S
     public class SpellTurningTests
     {
         [Test(Description = "Ensures correct property values which are not characterclass-specific.")]
-        public void SpellTurning_GenericProperties()
+        public void GenericProperties()
         {
             // Act
             var spell = SpellTurning.SorcererVersion;
+
             // Assert
             Assert.AreEqual("Spell Turning", spell.GetName().Text);
             Assert.IsFalse(spell.AllowsSavingThrow);
@@ -24,40 +25,44 @@ namespace Core.Domain.UnitTests.Spells.Paizo.CoreRulebook.S
 
 
         [Test]
-        public void SpellTurning_LuckDomainVersion()
+        public void LuckDomainVersion()
         {
             // Act
             var spell = SpellTurning.LuckDomainVersion;
+
             // Assert
             Assert.AreEqual(7, spell.Level);
         }
 
 
         [Test]
-        public void SpellTurning_MagicDomainVersion()
+        public void MagicDomainVersion()
         {
             // Act
             var spell = SpellTurning.MagicDomainVersion;
+
             // Assert
             Assert.AreEqual(7, spell.Level);
         }
 
 
         [Test]
-        public void SpellTurning_SorcererVersion()
+        public void SorcererVersion()
         {
             // Act
             var spell = SpellTurning.SorcererVersion;
+
             // Assert
             Assert.AreEqual(7, spell.Level);
         }
 
 
         [Test]
-        public void SpellTurning_WizardVersion()
+        public void WizardVersion()
         {
             // Act
             var spell = SpellTurning.WizardVersion;
+
             // Assert
             Assert.AreEqual(7, spell.Level);
         }
