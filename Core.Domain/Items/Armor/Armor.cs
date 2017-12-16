@@ -455,6 +455,17 @@ namespace Core.Domain.Items.Armor
 
 
         /// <summary>
+        /// Enchants this armor with Invulnerability.
+        /// </summary>
+        /// <param name="miracleWasUsed">Indicates whether the Miracle spell was used to create the enchantment.</param>
+        /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        protected internal virtual void EnchantWithInvulnerability(bool miracleWasUsed)
+        {
+            this.Enchantments.EnchantWith(new Invulnerability(miracleWasUsed));
+        }
+
+
+        /// <summary>
         /// Enchants this armor with Shadow.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>

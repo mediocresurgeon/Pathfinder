@@ -69,5 +69,6 @@
     <Folder Include="Items\Armor\Paizo\" />
     <Folder Include="Items\Armor\Paizo\CoreRulebook\" />
     <Folder Include="Spells\Paizo\CoreRulebook\E\" />
+    <Folder Include="Characters\DamageReduction\" />
   </ItemGroup>
 </Project>

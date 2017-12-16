@@ -213,6 +213,18 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 
 
         /// <summary>
+        /// Enchants this armor with Invulnerability.
+        /// </summary>
+        /// <param name="miracleWasUsed">Indicates whether the Miracle spell was used to create the enchantment.</param>
+        /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
+        new public LeatherArmor EnchantWithInvulnerability(bool miracleWasUsed)
+        {
+            base.EnchantWithInvulnerability(miracleWasUsed);
+            return this;
+        }
+
+
+        /// <summary>
         /// Enchants this armor with Shadow.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>

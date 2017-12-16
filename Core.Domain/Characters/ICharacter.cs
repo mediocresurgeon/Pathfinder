@@ -3,6 +3,7 @@ using Core.Domain.Characters.ArmorClasses;
 using Core.Domain.Characters.AttackBonuses;
 using Core.Domain.Characters.CombatManeuverBonuses;
 using Core.Domain.Characters.CombatManeuverDefenses;
+using Core.Domain.Characters.DamageReduction;
 using Core.Domain.Characters.EnergyResistances;
 using Core.Domain.Characters.Equipment;
 using Core.Domain.Characters.Feats;
@@ -76,6 +77,11 @@ namespace Core.Domain.Characters
         /// Returns this ICharacter's spell resistance.
         /// </summary>
         IModifierTracker SpellResistance { get; }
+
+        /// <summary>
+        /// Returns this ICharacter's damage reductions.
+        /// </summary>
+        IDamageReductionTracker DamageReduction { get; }
 
         /// <summary>
         /// Returns this ICharacter's energy resistances.

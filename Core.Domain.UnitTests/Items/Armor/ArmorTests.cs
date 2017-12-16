@@ -912,6 +912,35 @@ namespace Core.Domain.UnitTests.Items.Armor
         }
         #endregion
 
+        #region Enchantment - Invulnerability
+        [Test(Description = "Ensures that Armor.EnchantWithInvulnerability has correct logic.")]
+        public void EnchantWith_Invulnerability()
+        {
+            // Arrange
+            var armorClassAgg = Mock.Of<IArmorClassAggregator>();
+            var hardnessAgg = Mock.Of<IHardnessAggregator>();
+            var hitPointsAgg = Mock.Of<IHitPointsAggregator>();
+            var mockEnchantmentAgg = new Mock<IEnchantmentAggregator<IArmorEnchantment, Core.Domain.Items.Armor.Armor>>();
+            mockEnchantmentAgg.Setup(e => e.GetEnchantments())
+                              .Returns(new IArmorEnchantment[] { new EnhancementBonus(3) });
+            var armor = new Mock<Core.Domain.Items.Armor.Armor>(
+                            MockBehavior.Loose,
+                            armorClassAgg,
+                            hardnessAgg,
+                            hitPointsAgg,
+                            mockEnchantmentAgg.Object)
+                            { CallBase = true }.Object;
+            armor.IsMasterwork = true;
+
+            // Act
+            armor.EnchantWithInvulnerability(false);
+
+            // Assert
+            mockEnchantmentAgg.Verify(agg => agg.EnchantWith(It.IsAny<Invulnerability>()),
+                                      "Armor was not successfully enchanted with Invulnerability.");
+        }
+        #endregion
+
         #region Enchantment - Shadow
         [Test(Description = "Ensures that Armor.EnchantWithShadow has correct logic.")]
         public void EnchantWith_Shadow()
