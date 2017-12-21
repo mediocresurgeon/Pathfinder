@@ -146,6 +146,13 @@ namespace Core.Domain.Items.Armor
         /// Should be between 0 (no penalty) and 1 (movement is completely impossible).
         /// </summary>
         protected internal abstract float SpeedPenalty { get; }
+
+
+        /// <summary>
+        /// The maximum dexterity bonus allowed by this armor.
+        /// If there is no maximum dexterity bonus, this should be Byte.MaxValue.
+        /// </summary>
+        protected internal abstract Func<byte> MaximumDexterityBonus { get; }
         #endregion
 
         #region Internal
@@ -241,10 +248,17 @@ namespace Core.Domain.Items.Armor
 
 
         /// <summary>
-        /// Returns the armor check penalty of this Shield, which may be applied to certain skills.
+        /// Returns the armor check penalty of this Armor, which may be applied to certain skills.
         /// </summary>
         /// <returns>The armor check penalty.</returns>
         public virtual byte GetArmorCheckPenalty() => this.ArmorCheckPenalty();
+
+
+        /// <summary>
+        /// Returns the maximum dexterity bonus of this Armor,
+        /// which may impose an upper limit to a character's armor class from Dexterity.
+        /// </summary>
+        public virtual byte GetMaximumDexterityBonus() => this.MaximumDexterityBonus();
 
 
         /// <summary>
@@ -276,6 +290,7 @@ namespace Core.Domain.Items.Armor
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
             character.ArmorClass?.ArmorBonuses?.Add(() => this.GetArmorBonus());
+            character.ArmorClass?.MaxKeyAbilityScore?.Add(() => this.GetMaximumDexterityBonus());
             foreach (var skill in character.Skills?.GetAllSkills() ?? Enumerable.Empty<ISkill>())
             {
                 skill.Penalties?.Add(() => skill.ArmorCheckPenaltyApplies ? this.GetArmorCheckPenalty() : (byte)0);

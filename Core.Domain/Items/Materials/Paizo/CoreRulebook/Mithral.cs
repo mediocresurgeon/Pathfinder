@@ -43,7 +43,18 @@ namespace Core.Domain.Items.Materials.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Making aarmor or shields from Mithral reduces its armor check penalty by three (to a minimum of zero).
+        /// Mithral armor has its maximum dexterity bonus increased by 2.
+        /// </summary>
+        /// <param name="baseMaxDexBonus">The base maximum dexterity bonus of the armor.</param>
+        public static byte GetArmorMaximumDexterityBonus(byte baseMaxDexBonus)
+        {
+            int maxDexBonus = baseMaxDexBonus + 2;
+            return (maxDexBonus > Byte.MaxValue) ? Byte.MaxValue : Convert.ToByte(maxDexBonus);
+        }
+
+
+        /// <summary>
+        /// Making armor or shields from Mithral reduces its armor check penalty by three (to a minimum of zero).
         /// This does not stack with Masterwork.
         /// </summary>
         /// <returns>The armor check penalty.</returns>
@@ -52,6 +63,36 @@ namespace Core.Domain.Items.Materials.Paizo.CoreRulebook
         {
             int subtotal = baseArmorCheckPenalty - 3;
             return subtotal > 0 ? Convert.ToByte(subtotal) : (byte)0;
+        }
+
+
+        /// <summary>
+        /// Light armor made of mithral costs +1000gp (including the cost of masterwork).
+        /// </summary>
+        /// <param name="basePrice">The base price for the armor, including adjustments for size.</param>
+        public static double GetLightArmorBaseMarketPrice(double basePrice)
+        {
+            return basePrice + 1_000;
+        }
+
+
+        /// <summary>
+        /// Medium armor made of mithral costs +4000gp (including the cost of masterwork).
+        /// </summary>
+        /// <param name="basePrice">The base price for the armor, including adjustments for size.</param>
+        public static double GetMediumArmorBaseMarketPrice(double basePrice)
+        {
+            return basePrice + 4_000;
+        }
+
+
+        /// <summary>
+        /// Heavy armor made of mithral costs +9000gp (including the cost of masterwork).
+        /// </summary>
+        /// <param name="basePrice">The base price for the armor, including adjustments for size.</param>
+        public static double GetHeavyArmorBaseMarketPrice(double basePrice)
+        {
+            return basePrice + 9_000;
         }
     }
 }

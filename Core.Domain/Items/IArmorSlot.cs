@@ -6,7 +6,7 @@ namespace Core.Domain.Items
     /// <summary>
     /// An item which occupies a character's armor slot when equipped.
     /// </summary>
-    public interface IArmorSlot : IItem, IApplicable, IArmorCheckPenalty
+    public interface IArmorSlot : IItem, IApplicable, IArmorCheckPenalty, IMaximumDexterityBonus
     {
         /// <summary>
         /// Returns whether or not this armor is masterwork.

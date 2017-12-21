@@ -3,7 +3,7 @@
     /// <summary>
     /// A Heavy Shield.
     /// </summary>
-    public interface IHeavyShield : IItem, IShieldSlot
+    public interface IHeavyShield : IShieldSlot
     {
         // Intentionally blank
     }

@@ -13,16 +13,16 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     public enum TowerShieldMaterial
     {
         /// <summary>
+        /// A default material.
+        /// </summary>
+        Wood,
+
+        /// <summary>
         /// A lightweight wood.
         /// Always masterwork.
         /// Reduces armor check penalty by 2.
         /// </summary>
         Darkwood,
-
-        /// <summary>
-        /// The default material.
-        /// </summary>
-        Wood,
     }
 
 
@@ -155,16 +155,15 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         protected internal override Func<double> Weight { get; }
         #endregion
 
+        #endregion
+
         #region Public
         /// <summary>
-        /// Returns the maximum decterity bonus granted to an ICharacter's armor class while this shield is equipped.
+        /// Returns the mx dex bonus of this tower shield.
         /// </summary>
-        public byte MaximumDexterityBonus { get; } = 2;
-        #endregion
+        public byte GetMaximumDexterityBonus() => 2;
 
-        #endregion
 
-        #region Public
         /// <summary>
         /// Applies this shield's effects to a character.
         /// </summary>
@@ -173,7 +172,7 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         public override void ApplyTo(ICharacter character)
         {
             base.ApplyTo(character);
-            character.ArmorClass?.MaxKeyAbilityScore?.Add(() => this.MaximumDexterityBonus);
+            character.ArmorClass?.MaxKeyAbilityScore?.Add(() => this.GetMaximumDexterityBonus());
             character.AttackBonuses?.GenericMeleeAttackBonus?.Penalties?.Add(() => 2);
         }
 

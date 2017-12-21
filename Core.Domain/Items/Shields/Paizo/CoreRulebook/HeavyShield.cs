@@ -13,6 +13,18 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
     public enum HeavyShieldMaterial
     {
         /// <summary>
+        /// A default material.
+        /// Less expensive than Steel.
+        /// </summary>
+        Wood,
+
+        /// <summary>
+        /// A default material.
+        /// More durable than Wood.
+        /// </summary>
+        Steel,
+
+        /// <summary>
         /// A lightweight wood.
         /// Always masterwork.
         /// Reduces armor check penalty by 2.
@@ -25,18 +37,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// Reduces armor check penalty by 3.
         /// </summary>
         Mithral,
-
-        /// <summary>
-        /// A default material.
-        /// Less expensive than Steel.
-        /// </summary>
-        Wood,
-
-        /// <summary>
-        /// A default material.
-        /// More durable than Wood.
-        /// </summary>
-        Steel,
     }
 
 

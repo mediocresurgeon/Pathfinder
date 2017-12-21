@@ -8,9 +8,14 @@ namespace Core.Domain.Items.Materials.Paizo.CoreRulebook
     /// </summary>
     internal static class Darkwood
     {
+        /// <summary>
+        /// Darkwood has hardness 5.
+        /// </summary>
         public static byte Hardness { get; } = 5;
 
-
+        /// <summary>
+        /// Darkwood has 10 hit points per inch of thickness.
+        /// </summary>
         public static byte HitPointsPerInch { get; } = 10;
 
 

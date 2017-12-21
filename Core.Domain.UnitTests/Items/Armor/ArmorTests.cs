@@ -421,6 +421,8 @@ namespace Core.Domain.UnitTests.Items.Armor
 
             var armorBonus = Mock.Of<IModifierTracker>();
 
+            var maxDexBonus = Mock.Of<IModifierTracker>();
+
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.MovementModes)
                          .Returns(mockMovementModes.Object);
@@ -428,6 +430,8 @@ namespace Core.Domain.UnitTests.Items.Armor
                          .Returns(mockSkillSection.Object);
             mockCharacter.Setup(c => c.ArmorClass.ArmorBonuses)
                          .Returns(armorBonus);
+            mockCharacter.Setup(c => c.ArmorClass.MaxKeyAbilityScore)
+                         .Returns(maxDexBonus);
             var character = mockCharacter.Object;
 
             var armorClassAgg = Mock.Of<IArmorClassAggregator>();
@@ -441,12 +445,15 @@ namespace Core.Domain.UnitTests.Items.Armor
                                 hitPointsAgg,
                                 enchantmentAgg)
                                 { CallBase = true };
-            mockArmor.Setup(a => a.GetArmorCheckPenalty())
-                     .Returns(2);
-            mockArmor.Setup(a => a.SpeedPenalty)
-                     .Returns(.25f);
             mockArmor.Setup(a => a.GetArmorBonus())
                      .Returns(5);
+            mockArmor.Setup(a => a.GetArmorCheckPenalty())
+                     .Returns(2);
+            mockArmor.Setup(a => a.GetMaximumDexterityBonus())
+                     .Returns(10);
+            mockArmor.Setup(a => a.SpeedPenalty)
+                     .Returns(.25f);
+            
             var armor = mockArmor.Object;
 
             // Act
@@ -465,6 +472,9 @@ namespace Core.Domain.UnitTests.Items.Armor
             Mock.Get(unaffectedSkillPenalty)
                 .Verify(s => s.Add(It.Is<Func<byte>>(calc => 0 == calc())),
                         "Armor should not penalize skills which aren't subject to armor check penalties.");
+            Mock.Get(maxDexBonus)
+                .Verify(mdb => mdb.Add(It.Is<Func<byte>>(calc => 10 == calc())),
+                        "Armor should add its maximum dexterity bonus to a character's ArmorClass.MaxKeyAbilityScore.");
             Mock.Get(armorBonus)
                 .Verify(ab => ab.Add(It.Is<Func<byte>>(calc => 5 == calc())),
                         "Armor should add its armor bonus to the character's ArmorClass.ArmorBonus.");
