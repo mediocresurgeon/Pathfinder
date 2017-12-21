@@ -8,9 +8,9 @@ using Core.Domain.Items.Materials.Paizo.CoreRulebook;
 namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 {
     /// <summary>
-    /// The materials a chain shirt can be made from.
+    /// The materials a breastplate can be made from.
     /// </summary>
-    public enum ChainShirtMaterial
+    public enum BreastplateMaterial
     {
         /// <summary>
         /// A default material.
@@ -34,60 +34,64 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 
 
     /// <summary>
-    /// Light armor with a +4 AC bonus, a -2 armor check penalty, and a +4 max dex bonus.
+    /// Medium armor with a +6 AC bonus, a -4 armor check penalty, and a +3 max dex bonus.
     /// </summary>
-    public sealed class ChainShirt : Armor, IChainShirt
+    public sealed class Breastplate : Armor, IBreastplate
     {
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.ChainShirt"/> class.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.Breastplate"/> class.
         /// </summary>
         /// <param name="size">The size of the character intended to wear the armor.</param>
-        /// <param name="material">The material the chain shirt is made from.</param>
+        /// <param name="material">The material the breastplate is made from.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        public ChainShirt(SizeCategory size, ChainShirtMaterial material)
-            : base(4, GetHardnessForMaterial(material))
+        public Breastplate(SizeCategory size, BreastplateMaterial material)
+            : base(6, GetHardnessForMaterial(material))
         {
-            const byte ARMOR_CHECK_PENALTY = 2;
-            const byte MAX_DEX_BONUS = 4;
-            const double WEIGHT = 25;
-            const double PRICE = 100;
-            NameFragment standardName = new NameFragment("Chain Shirt", "http://www.d20pfsrd.com/equipment/armor/chain-shirt/");
+            const byte ARMOR_CHECK_PENALTY = 4;
+            const byte MAX_DEX_BONUS = 3;
+            const double WEIGHT = 30;
+            const double PRICE = 200;
+            const float SPEED_PENALTY = 0.25f;
+            NameFragment standardName = new NameFragment("Breastplate", "http://www.d20pfsrd.com/equipment/Armor/breastplate");
 
             switch (material) {
-                case ChainShirtMaterial.Adamantine:
+                case BreastplateMaterial.Adamantine:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
                     this.MaximumDexterityBonus = () => MAX_DEX_BONUS;
-                    this.MundaneMarketPrice = () => Adamantine.GetLightArmorBaseMarketPrice(MarketValueScaledBySize(size, PRICE));
+                    this.MundaneMarketPrice = () => Adamantine.GetMediumArmorBaseMarketPrice(MarketValueScaledBySize(size, PRICE));
                     this.Weight = () => WeightScaledBySize(size, WEIGHT);
                     this.MundaneName = () => new INameFragment[] {
                         new NameFragment("Adamantine", Adamantine.WebAddress),
                         standardName
                     };
-                    var (drMag, drBypass) = Adamantine.GetLightArmorDamageReduction();
+                    this.SpeedPenalty = SPEED_PENALTY;
+                    var (drMag, drBypass) = Adamantine.GetMediumArmorDamageReduction();
                     this.ApplyDamageReduction = (character) => character.DamageReduction?.Add(drMag, drBypass);
                     break;
-                case ChainShirtMaterial.Mithral:
+                case BreastplateMaterial.Mithral:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => Mithral.GetArmorCheckPenalty(ARMOR_CHECK_PENALTY);
                     this.MaximumDexterityBonus = () => Mithral.GetArmorMaximumDexterityBonus(MAX_DEX_BONUS);
-                    this.MundaneMarketPrice = () => Mithral.GetLightArmorBaseMarketPrice(MarketValueScaledBySize(size, PRICE));
+                    this.MundaneMarketPrice = () => Mithral.GetMediumArmorBaseMarketPrice(MarketValueScaledBySize(size, PRICE));
                     this.Weight = () => Mithral.GetWeight(WeightScaledBySize(size, WEIGHT));
                     this.MundaneName = () => new INameFragment[] {
                         new NameFragment("Mithral", Mithral.WebAddress),
                         standardName
                     };
+                    this.SpeedPenalty = 0;
                     this.ApplyDamageReduction = (character) => { };
                     break;
-                case ChainShirtMaterial.Steel:
+                case BreastplateMaterial.Steel:
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
                     this.MaximumDexterityBonus = () => MAX_DEX_BONUS;
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, PRICE));
                     this.Weight = () => WeightScaledBySize(size, WEIGHT);
                     this.MundaneName = () => new INameFragment[] { standardName };
+                    this.SpeedPenalty = SPEED_PENALTY;
                     this.ApplyDamageReduction = (character) => { };
                     break;
                 default:
@@ -95,12 +99,12 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
             }
         }
 
-        private static byte GetHardnessForMaterial(ChainShirtMaterial material)
+        private static byte GetHardnessForMaterial(BreastplateMaterial material)
         {
             switch (material) {
-                case ChainShirtMaterial.Adamantine: return Adamantine.Hardness;
-                case ChainShirtMaterial.Mithral:       return Mithral.Hardness;
-                case ChainShirtMaterial.Steel:           return Steel.Hardness;
+                case BreastplateMaterial.Adamantine: return Adamantine.Hardness;
+                case BreastplateMaterial.Mithral:       return Mithral.Hardness;
+                case BreastplateMaterial.Steel:           return Steel.Hardness;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -150,7 +154,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// The magnitude of the speed penalty applied by this armor.
         /// Should be between 0 (no penalty) and 1 (movement is completely impossible).
         /// </summary>
-        protected internal override float SpeedPenalty { get; } = 0;
+        protected internal override float SpeedPenalty { get; }
         #endregion
 
         #region Methods
@@ -172,7 +176,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.ArgumentOutOfRangeException">Thrown when bonus is zero, or greater than five.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when attempting to apply an enchantment twice.</exception>
-        new public ChainShirt EnchantWithEnhancementBonus(byte bonus)
+        new public Breastplate EnchantWithEnhancementBonus(byte bonus)
         {
             base.EnchantWithEnhancementBonus(bonus);
             return this;
@@ -185,7 +189,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Breastplate EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithAcidResistance(protectionLevel);
             return this;
@@ -198,7 +202,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Breastplate EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithColdResistance(protectionLevel);
             return this;
@@ -211,7 +215,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Breastplate EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithElectricityResistance(protectionLevel);
             return this;
@@ -224,7 +228,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Breastplate EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithFireResistance(protectionLevel);
             return this;
@@ -237,7 +241,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Breastplate EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSonicResistance(protectionLevel);
             return this;
@@ -248,7 +252,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Etherealness.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithEtherealness()
+        new public Breastplate EnchantWithEtherealness()
         {
             base.EnchantWithEtherealness();
             return this;
@@ -261,7 +265,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithFortification(FortificationType protectionLevel)
+        new public Breastplate EnchantWithFortification(FortificationType protectionLevel)
         {
             base.EnchantWithFortification(protectionLevel);
             return this;
@@ -272,7 +276,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Ghost Touch.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithGhostTouch()
+        new public Breastplate EnchantWithGhostTouch()
         {
             base.EnchantWithGhostTouch();
             return this;
@@ -283,7 +287,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Glamered.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithGlamered()
+        new public Breastplate EnchantWithGlamered()
         {
             base.EnchantWithGlamered();
             return this;
@@ -295,7 +299,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <param name="miracleWasUsed">Indicates whether the Miracle spell was used to create the enchantment.</param>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithInvulnerability(bool miracleWasUsed)
+        new public Breastplate EnchantWithInvulnerability(bool miracleWasUsed)
         {
             base.EnchantWithInvulnerability(miracleWasUsed);
             return this;
@@ -307,7 +311,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public ChainShirt EnchantWithShadow(ShadowStrength strength)
+        new public Breastplate EnchantWithShadow(ShadowStrength strength)
         {
             base.EnchantWithShadow(strength);
             return this;
@@ -319,7 +323,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public ChainShirt EnchantWithSlick(SlickStrength slickness)
+        new public Breastplate EnchantWithSlick(SlickStrength slickness)
         {
             base.EnchantWithSlick(slickness);
             return this;
@@ -332,7 +336,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
+        new public Breastplate EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSpellResistance(protectionLevel);
             return this;
@@ -343,7 +347,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Undead Controlling.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithUndeadControlling()
+        new public Breastplate EnchantWithUndeadControlling()
         {
             base.EnchantWithUndeadControlling();
             return this;
@@ -354,7 +358,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Wild.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ChainShirt EnchantWithWild()
+        new public Breastplate EnchantWithWild()
         {
             base.EnchantWithWild();
             return this;
