@@ -55,7 +55,6 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
         public void Steel_Large()
         {
             // Arrange
-            // Arrange
             var armor = new Breastplate(SizeCategory.Large, BreastplateMaterial.Steel);
 
             // Assert
