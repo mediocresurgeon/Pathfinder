@@ -19,7 +19,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
 
             // Assert
             Assert.IsFalse(armor.IsMasterwork);
-            Assert.AreEqual(2, armor.ArmorCheckPenalty());
+            Assert.AreEqual(0, armor.ArmorCheckPenalty());
             Assert.AreEqual(6, armor.MaximumDexterityBonus());
             Assert.AreEqual(0, armor.SpeedPenalty);
             Assert.AreEqual(7.5, armor.GetWeight());
@@ -37,7 +37,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
 
             // Assert
             Assert.IsFalse(armor.IsMasterwork);
-            Assert.AreEqual(2, armor.ArmorCheckPenalty());
+            Assert.AreEqual(0, armor.ArmorCheckPenalty());
             Assert.AreEqual(6, armor.MaximumDexterityBonus());
             Assert.AreEqual(0, armor.SpeedPenalty);
             Assert.AreEqual(15, armor.GetWeight());
@@ -55,7 +55,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
 
             // Assert
             Assert.IsFalse(armor.IsMasterwork);
-            Assert.AreEqual(2, armor.ArmorCheckPenalty());
+            Assert.AreEqual(0, armor.ArmorCheckPenalty());
             Assert.AreEqual(6, armor.MaximumDexterityBonus());
             Assert.AreEqual(0, armor.SpeedPenalty);
             Assert.AreEqual(30, armor.GetWeight());
@@ -74,7 +74,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             };
 
             // Assert
-            Assert.AreEqual(1, armor.ArmorCheckPenalty());
+            Assert.AreEqual(0, armor.ArmorCheckPenalty());
             Assert.AreEqual(160, armor.MundaneMarketPrice());
             Assert.AreEqual("Masterwork Leather Armor", armor.ToString());
         }
@@ -90,7 +90,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(1, armor.ArmorCheckPenalty());
+            Assert.AreEqual(0, armor.ArmorCheckPenalty());
             Assert.AreEqual(6, armor.MaximumDexterityBonus());
             Assert.AreEqual(0, armor.SpeedPenalty);
             Assert.AreEqual(7.5, armor.GetWeight());
@@ -109,7 +109,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(1, armor.ArmorCheckPenalty());
+            Assert.AreEqual(0, armor.ArmorCheckPenalty());
             Assert.AreEqual(6, armor.MaximumDexterityBonus());
             Assert.AreEqual(0, armor.SpeedPenalty);
             Assert.AreEqual(15, armor.GetWeight());
@@ -128,7 +128,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(1, armor.ArmorCheckPenalty());
+            Assert.AreEqual(0, armor.ArmorCheckPenalty());
             Assert.AreEqual(6, armor.MaximumDexterityBonus());
             Assert.AreEqual(0, armor.SpeedPenalty);
             Assert.AreEqual(30, armor.GetWeight());

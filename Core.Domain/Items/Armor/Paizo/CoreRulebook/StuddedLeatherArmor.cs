@@ -9,22 +9,22 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Light armor with a +2 AC bonus, a -2 armor check penalty, and a +6 max dex bonus.
     /// </summary>
-    public sealed class LeatherArmor : Armor, ILeatherArmor
+    public sealed class StuddedLeatherArmor : Armor, IStuddedLeatherArmor
     {
         #region Constructor
-        private const byte BASE_ARMOR_BONUS = 2;
-        private const byte ARMOR_CHECK_PENALTY = 0;
-        private const byte MAX_DEX_BONUS = 6;
-        private const double WEIGHT = 15;
-        private const double PRICE = 10;
-        private static NameFragment StandardName { get; } = new NameFragment("Leather Armor", "http://www.d20pfsrd.com/equipment/armor/leather/");
+        private const byte BASE_ARMOR_BONUS = 3;
+        private const byte ARMOR_CHECK_PENALTY = 1;
+        private const byte MAX_DEX_BONUS = 5;
+        private const double WEIGHT = 20;
+        private const double PRICE = 25;
+        private static NameFragment StandardName { get; } = new NameFragment("Studded Leather Armor", "http://www.d20pfsrd.com/equipment/armor/leather/");
 
         /// <summary>
-        /// Use this constructor for leather armor made of default materials.
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.LeatherArmor"/> class.
+        /// Use this constructor for studded leather armor made of default materials.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.StuddedLeatherArmor"/> class.
         /// </summary>
         /// <param name="size">The size of character this armor is designed for.</param>
-        public LeatherArmor(SizeCategory size)
+        public StuddedLeatherArmor(SizeCategory size)
             : base(baseArmorBonus:   BASE_ARMOR_BONUS,
                    materialHardness: Leather.Hardness)
         {
@@ -37,12 +37,12 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Use this constructor for leather armor made of dragonhide.
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.LeatherArmor"/> class.
+        /// Use this constructor for studded leather armor made of dragonhide.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.StuddedLeatherArmor"/> class.
         /// </summary>
         /// <param name="size">The size of character this armor is designed for.</param>
         /// <param name="color">The color of the dragonhide.</param>
-        public LeatherArmor(SizeCategory size, DragonhideColor color)
+        public StuddedLeatherArmor(SizeCategory size, DragonhideColor color)
             : base(baseArmorBonus:   BASE_ARMOR_BONUS,
                    materialHardness: Dragonhide.Hardness)
         {
@@ -103,7 +103,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.ArgumentOutOfRangeException">Thrown when bonus is zero, or greater than five.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when attempting to apply an enchantment twice.</exception>
-        new public LeatherArmor EnchantWithEnhancementBonus(byte bonus)
+        new public StuddedLeatherArmor EnchantWithEnhancementBonus(byte bonus)
         {
             base.EnchantWithEnhancementBonus(bonus);
             return this;
@@ -116,7 +116,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
+        new public StuddedLeatherArmor EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithAcidResistance(protectionLevel);
             return this;
@@ -129,7 +129,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        new public StuddedLeatherArmor EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithColdResistance(protectionLevel);
             return this;
@@ -142,7 +142,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        new public StuddedLeatherArmor EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithElectricityResistance(protectionLevel);
             return this;
@@ -155,7 +155,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        new public StuddedLeatherArmor EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithFireResistance(protectionLevel);
             return this;
@@ -168,7 +168,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        new public StuddedLeatherArmor EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSonicResistance(protectionLevel);
             return this;
@@ -179,7 +179,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Etherealness.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithEtherealness()
+        new public StuddedLeatherArmor EnchantWithEtherealness()
         {
             base.EnchantWithEtherealness();
             return this;
@@ -192,7 +192,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithFortification(FortificationType protectionLevel)
+        new public StuddedLeatherArmor EnchantWithFortification(FortificationType protectionLevel)
         {
             base.EnchantWithFortification(protectionLevel);
             return this;
@@ -203,7 +203,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Ghost Touch.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithGhostTouch()
+        new public StuddedLeatherArmor EnchantWithGhostTouch()
         {
             base.EnchantWithGhostTouch();
             return this;
@@ -214,7 +214,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Glamered.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithGlamered()
+        new public StuddedLeatherArmor EnchantWithGlamered()
         {
             base.EnchantWithGlamered();
             return this;
@@ -226,7 +226,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <param name="miracleWasUsed">Indicates whether the Miracle spell was used to create the enchantment.</param>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithInvulnerability(bool miracleWasUsed)
+        new public StuddedLeatherArmor EnchantWithInvulnerability(bool miracleWasUsed)
         {
             base.EnchantWithInvulnerability(miracleWasUsed);
             return this;
@@ -238,7 +238,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public LeatherArmor EnchantWithShadow(ShadowStrength strength)
+        new public StuddedLeatherArmor EnchantWithShadow(ShadowStrength strength)
         {
             base.EnchantWithShadow(strength);
             return this;
@@ -250,7 +250,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public LeatherArmor EnchantWithSlick(SlickStrength slickness)
+        new public StuddedLeatherArmor EnchantWithSlick(SlickStrength slickness)
         {
             base.EnchantWithSlick(slickness);
             return this;
@@ -263,7 +263,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
+        new public StuddedLeatherArmor EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSpellResistance(protectionLevel);
             return this;
@@ -274,7 +274,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Undead Controlling.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithUndeadControlling()
+        new public StuddedLeatherArmor EnchantWithUndeadControlling()
         {
             base.EnchantWithUndeadControlling();
             return this;
@@ -285,7 +285,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Wild.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public LeatherArmor EnchantWithWild()
+        new public StuddedLeatherArmor EnchantWithWild()
         {
             base.EnchantWithWild();
             return this;
