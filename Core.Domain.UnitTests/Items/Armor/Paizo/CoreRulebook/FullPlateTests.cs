@@ -79,7 +79,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsTrue(armor.MasterworkIsToggleable);
-            Assert.AreEqual(2, armor.ArmorCheckPenalty());
+            Assert.AreEqual(5, armor.ArmorCheckPenalty());
             Assert.AreEqual(1650, armor.GetMarketPrice());
             Assert.AreEqual("Masterwork Full Plate", armor.ToString());
         }
