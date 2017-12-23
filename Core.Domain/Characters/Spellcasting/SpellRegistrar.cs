@@ -12,10 +12,6 @@ namespace Core.Domain.Characters.Spellcasting
     /// </summary>
     internal sealed class SpellRegistrar : ISpellRegistrar
     {
-        #region Backing variables
-        private event OnSpellRegisteredEventHandler _eventHandler;
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Characters.SpellRegistrar"/> class.
@@ -29,6 +25,9 @@ namespace Core.Domain.Characters.Spellcasting
         #endregion
 
         #region Properties
+        public event EventHandler<SpellRegisteredEventArgs> OnRegistered;
+
+
         private ICharacter Character { get; }
 
 
@@ -71,20 +70,8 @@ namespace Core.Domain.Characters.Spellcasting
                 return existingSpell;
             ICastableSpell newSpell = new CastableSpell(spell, keyAbilityScore, baseCasterLevel);
             this.RegisteredSpells.Add(newSpell);
-            _eventHandler?.Invoke(this, new SpellRegisteredEventArgs(newSpell));
+            this.OnRegistered?.Invoke(this, new SpellRegisteredEventArgs(newSpell));
             return newSpell;
-        }
-
-
-        /// <summary>
-        /// Allows an event handler to be called whenever a new spell is registered.
-        /// </summary>
-        /// <param name="handler">The callback function.</param>
-        public void OnRegistered(OnSpellRegisteredEventHandler handler)
-        {
-            if (null == handler)
-                throw new ArgumentNullException(nameof(handler), "Argument cannot be null.");
-            _eventHandler += handler;
         }
 
 

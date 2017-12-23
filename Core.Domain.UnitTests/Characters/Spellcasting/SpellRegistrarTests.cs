@@ -212,25 +212,6 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 		}
         #endregion
 
-        #region OnRegistered()
-        [Test(Description = "Ensures that calling SpellRegistrar.OnRegistered() with a null argument throws an exception.")]
-        public void OnRegistered_NullHandler_Throws()
-        {
-            // Arrange
-            var spell = Mock.Of<ISpell>();
-            var abilityScore = Mock.Of<IAbilityScore>();
-
-            var character = Mock.Of<ICharacter>();
-            SpellRegistrar spellReg = new SpellRegistrar(character);
-
-            // Act
-            TestDelegate onReg = () => spellReg.OnRegistered(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(onReg);
-        }
-        #endregion
-
         #region OnSpellLikeAbilityRegistered()
         [Test(Description = "Ensures that calling the Register() method triggers the OnSpellRegistered event.")]
 		public void Register1_TriggersEvent()
@@ -243,8 +224,9 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			bool wasCalled = false; // This tracks whether the event was fired.
-			OnSpellRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-            spellReg.OnRegistered(handler);
+            spellReg.OnRegistered += (sender, e) => {
+                wasCalled = true;
+            };
 
 			// Act
 			spellReg.Register(spell, abilityScore);
@@ -266,8 +248,9 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			SpellRegistrar spellReg = new SpellRegistrar(character);
 
 			bool wasCalled = false; // This tracks whether the event was fired.
-			OnSpellRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-			spellReg.OnRegistered(handler);
+            spellReg.OnRegistered += (sender, e) => {
+                wasCalled = true;
+            };
 
 			// Act
 			spellReg.Register(spell, abilityScore, casterLevel);

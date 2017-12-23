@@ -34,9 +34,8 @@ namespace Core.Domain.Characters.Spellcasting
         ICastableSpell[] GetSpells();
 
         /// <summary>
-        /// Subscribes to the OnRegistered event, which is invoked whenever a new spell is registered.
+        /// The OnRegistered event is invoked whenever a new spell is registered.
         /// </summary>
-        /// <param name="handler">The event handler.</param>
-        void OnRegistered(OnSpellRegisteredEventHandler handler);
+        event EventHandler<SpellRegisteredEventArgs> OnRegistered;
     }
 }

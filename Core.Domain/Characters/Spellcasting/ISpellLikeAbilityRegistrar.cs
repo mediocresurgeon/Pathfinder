@@ -43,9 +43,8 @@ namespace Core.Domain.Characters.Spellcasting
 		ISpellLikeAbility[] GetSpellLikeAbilities();
 
         /// <summary>
-        /// Subscribes to the OnRegistered event, which is invoked whenever a new spell-like ability is registered.
+        /// The OnRegistered event, which is invoked whenever a new spell-like ability is registered.
         /// </summary>
-        /// <param name="handler">The event handler.</param>
-		void OnRegistered(OnSpellLikeAbilityRegisteredEventHandler handler);
+        event EventHandler<SpellLikeAbilityRegisteredEventArgs> OnRegistered;
 	}
 }

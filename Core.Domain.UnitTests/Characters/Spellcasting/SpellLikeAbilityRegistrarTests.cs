@@ -199,22 +199,6 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
         }
         #endregion
 
-        #region OnRegistered()
-        [Test(Description = "Ensures that SpellLikeAbilityRegistrar.OnRegistered() cannot be called with a null argument.")]
-        public void OnRegistered_NullHandler_Throws()
-        {
-            // Arrange
-            var character = Mock.Of<ICharacter>();
-            SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
-
-            // Act
-            TestDelegate onReg = () => slaReg.OnRegistered(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(onReg);
-        }
-        #endregion
-
         #region GetSpellLikeAbilities()
         [Test(Description = "Ensures that registered spell-like abilities can be retrieved later.")]
         public void GetSpellLikeAbilities_Register1_RoundTrip()
@@ -274,8 +258,9 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
 
             bool wasCalled = false; // This tracks whether the event was fired.
-            OnSpellLikeAbilityRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-            slaReg.OnRegistered(handler);
+            slaReg.OnRegistered += (sender, e) => {
+                wasCalled = true;
+            };
 
 			// Act
 			slaReg.Register(usesPerDay, spell, abilityScore);
@@ -298,8 +283,9 @@ namespace Core.Domain.UnitTests.Characters.SpellRegistries
 			SpellLikeAbilityRegistrar slaReg = new SpellLikeAbilityRegistrar(character);
 
 			bool wasCalled = false; // This tracks whether the event was fired.
-			OnSpellLikeAbilityRegisteredEventHandler handler = (sender, e) => wasCalled = true;
-			slaReg.OnRegistered(handler);
+            slaReg.OnRegistered += (sender, e) => {
+                wasCalled = true;
+            };
 
 			// Act
             slaReg.Register(usesPerDay, spell, abilityScore, casterLevel);

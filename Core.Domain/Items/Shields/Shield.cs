@@ -61,6 +61,16 @@ namespace Core.Domain.Items.Shields
             _hardness = hardness ?? throw new ArgumentNullException(nameof(hardness), "Argument cannot be null.");
             _hitPoints = hitPoints ?? throw new ArgumentNullException(nameof(hitPoints), "Argument cannot be null.");
             _enchantments = enchantments ?? new ShieldEnchantmentAggregator(this);
+            // Adds shields bonus to character's armor class.
+            this.OnApplied += (sender, e) => {
+                e.Character?.ArmorClass?.ShieldBonuses?.Add(this.GetShieldBonus);
+            };
+            // Adds armor check penalty to skills
+            this.OnApplied += (sender, e) => {
+                foreach (var skill in e.Character?.Skills?.GetAllSkills() ?? Enumerable.Empty<ISkill>()) {
+                    skill.Penalties?.Add(() => skill.ArmorCheckPenaltyApplies ? this.GetArmorCheckPenalty() : (byte)0);
+                }
+            };
         }
 
 
@@ -191,6 +201,11 @@ namespace Core.Domain.Items.Shields
         #endregion
 
         #region Internal
+        /// <summary>
+        /// A hook for allowing additional effects to be placed on a character when the effects of this shield are applied.
+        /// </summary>
+        internal event EventHandler<ApplyToCharacterEventArgs> OnApplied;
+
         internal virtual IArmorClassAggregator ArmorClass { get => _armorClass; }
 
         internal virtual IHardnessAggregator Hardness { get => _hardness; }
@@ -290,11 +305,7 @@ namespace Core.Domain.Items.Shields
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            character.ArmorClass?.ShieldBonuses?.Add(() => this.GetShieldBonus());
-            foreach (var skill in character.Skills?.GetAllSkills() ?? Enumerable.Empty<ISkill>())
-            {
-                skill.Penalties?.Add(() => skill.ArmorCheckPenaltyApplies ? this.GetArmorCheckPenalty() : (byte)0);
-            }
+            this.OnApplied?.Invoke(this, new ApplyToCharacterEventArgs(character));
             this.Enchantments.ApplyTo(character);
         }
 

@@ -60,6 +60,31 @@ namespace Core.Domain.Items.Armor
             _hardness = hardness ?? throw new ArgumentNullException(nameof(hardness), "Argument may not be null.");
             _hitPoints = hitPoints ?? throw new ArgumentNullException(nameof(hitPoints), "Argument may not be null.");
             _enchantments = enchantments ?? new ArmorEnchantmentAggregator(this);
+            // Applies armor bonus to armor class
+            this.OnApplied += (sender, e) => {
+                e.Character?.ArmorClass?.ArmorBonuses?.Add(this.GetArmorBonus);
+            };
+            // Applies dex cap to AC
+            this.OnApplied += (sender, e) => {
+                e.Character?.ArmorClass?.MaxKeyAbilityScore?.Add(this.GetMaximumDexterityBonus);
+            };
+            // Applies armor check penalty to skills
+            this.OnApplied += (sender, e) => {
+                foreach (var skill in e.Character?.Skills?.GetAllSkills() ?? Enumerable.Empty<ISkill>()) {
+                    skill.Penalties?.Add(() => skill.ArmorCheckPenaltyApplies ? this.GetArmorCheckPenalty() : (byte)0);
+                }
+            };
+            // Applies movement penalties to movement speeds
+            this.OnApplied += (sender, e) => {
+                foreach (IMovement movement in e.Character?.MovementModes?.GetAll() ?? Enumerable.Empty<IMovement>()) {
+                    movement.Penalties.Add(() => {
+                        if (!movement.BaseSpeed.HasValue)
+                            return 0;
+                        var finalSpeed = Math.Floor((1f - this.SpeedPenalty) * movement.BaseSpeed.Value);
+                        return Convert.ToByte(movement.BaseSpeed.Value - finalSpeed);
+                    });
+                }
+            };
         }
 
 
@@ -156,6 +181,11 @@ namespace Core.Domain.Items.Armor
         #endregion
 
         #region Internal
+        /// <summary>
+        /// A hook for allowing additional effects to be placed on a character when the effects of this armor are applied.
+        /// </summary>
+        internal event EventHandler<ApplyToCharacterEventArgs> OnApplied;
+
         internal virtual IArmorClassAggregator ArmorClass { get => _armorClass; }
 
         internal virtual IHardnessAggregator Hardness { get => _hardness; }
@@ -289,22 +319,8 @@ namespace Core.Domain.Items.Armor
         {
             if (null == character)
                 throw new ArgumentNullException(nameof(character), "Argument cannot be null.");
-            character.ArmorClass?.ArmorBonuses?.Add(() => this.GetArmorBonus());
-            character.ArmorClass?.MaxKeyAbilityScore?.Add(() => this.GetMaximumDexterityBonus());
-            foreach (var skill in character.Skills?.GetAllSkills() ?? Enumerable.Empty<ISkill>())
-            {
-                skill.Penalties?.Add(() => skill.ArmorCheckPenaltyApplies ? this.GetArmorCheckPenalty() : (byte)0);
-            }
+            this.OnApplied?.Invoke(this, new ApplyToCharacterEventArgs(character));
             this.Enchantments.ApplyTo(character);
-            foreach (IMovement movement in character.MovementModes?.GetAll() ?? Enumerable.Empty<IMovement>())
-            {
-                movement.Penalties.Add(() => {
-                    if (!movement.BaseSpeed.HasValue)
-                        return 0;
-                    var finalSpeed = Math.Floor((1f - this.SpeedPenalty) * movement.BaseSpeed.Value);
-                    return Convert.ToByte(movement.BaseSpeed.Value - finalSpeed);
-                });
-            }
         }
 
 

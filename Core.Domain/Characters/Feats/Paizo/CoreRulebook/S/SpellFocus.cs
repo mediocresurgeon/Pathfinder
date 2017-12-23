@@ -50,13 +50,13 @@ namespace Core.Domain.Characters.Feats.Paizo.CoreRulebook
 			}
 
             // Second, listen for the event that triggers when a spell is registered so they can be updated
-            character.Spells.Registrar.OnRegistered((sender, e) => {
+            character.Spells.Registrar.OnRegistered += (sender, e) => {
                 this.ApplyToSpell(e.Spell);
-            });
+            };
 			// Do the same thing for spell-like abilities
-            character.SpellLikeAbilities.Registrar.OnRegistered((sender, e) => {
+            character.SpellLikeAbilities.Registrar.OnRegistered += (sender, e) => {
                 this.ApplyToSpell(e.SpellLikeAbility);
-			});
+            };
         }
 		#endregion
 

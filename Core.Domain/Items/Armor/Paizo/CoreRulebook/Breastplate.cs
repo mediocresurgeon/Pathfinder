@@ -71,7 +71,9 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     };
                     this.SpeedPenalty = SPEED_PENALTY;
                     var (drMag, drBypass) = Adamantine.GetMediumArmorDamageReduction();
-                    this.ApplyDamageReduction = (character) => character.DamageReduction?.Add(drMag, drBypass);
+                    this.OnApplied += (sender, e) => {
+                        e.Character?.DamageReduction?.Add(drMag, drBypass);
+                    };
                     break;
                 case BreastplateMaterial.Mithral:
                     this.IsMasterwork = true;
@@ -85,7 +87,6 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                         StandardName
                     };
                     this.SpeedPenalty = 0;
-                    this.ApplyDamageReduction = (character) => { };
                     break;
                 case BreastplateMaterial.Steel:
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
@@ -94,7 +95,6 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     this.Weight = () => WeightScaledBySize(size, WEIGHT);
                     this.MundaneName = () => new INameFragment[] { StandardName };
                     this.SpeedPenalty = SPEED_PENALTY;
-                    this.ApplyDamageReduction = (character) => { };
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
@@ -121,7 +121,6 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                 StandardName
             };
             this.SpeedPenalty = SPEED_PENALTY;
-            this.ApplyDamageReduction = (character) => { };
             this.MundaneMarketPrice = () => Dragonhide.GetArmorBaseMarketPrice(MarketValueScaledBySize(size, PRICE), this.Enchantments, color);
             this.Weight = () => WeightScaledBySize(size, WEIGHT);
         }
@@ -140,12 +139,6 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         #endregion
 
         #region Properties
-        /// <summary>
-        /// Applies the effects of damage reduction to the character wearing this armor (if applicable).
-        /// </summary>
-        private Action<ICharacter> ApplyDamageReduction { get; }
-
-
         /// <summary>
         /// The armor check penalty of this Armor.
         /// </summary>
@@ -183,19 +176,6 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Should be between 0 (no penalty) and 1 (movement is completely impossible).
         /// </summary>
         protected internal override float SpeedPenalty { get; }
-        #endregion
-
-        #region Methods
-        /// <summary>
-        /// Applies this armor's effects to a character.
-        /// </summary>
-        /// <param name="character">The character which is receiving the effects of the armor.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
-        public override void ApplyTo(ICharacter character)
-        {
-            base.ApplyTo(character);
-            this.ApplyDamageReduction(character);
-        }
         #endregion
     
         #region Enchantments

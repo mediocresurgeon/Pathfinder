@@ -61,6 +61,14 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                 new NameFragment($"{ color } Dragonhide", Dragonhide.WebAddress),
                 StandardShieldName
             };
+            // Tower shields apply a maximum dexterity bonus to AC
+            this.OnApplied += (sender, e) => {
+                e.Character?.ArmorClass?.MaxKeyAbilityScore?.Add(this.GetMaximumDexterityBonus);
+            };
+            // Tower shields inflict a -2 penalty to melee attack rolls
+            this.OnApplied += (sender, e) => {
+                e.Character?.AttackBonuses?.GenericMeleeAttackBonus?.Penalties?.Add(() => 2);
+            };
         }
 
 
@@ -100,6 +108,14 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
+            // Tower shields apply a maximum dexterity bonus to AC
+            this.OnApplied += (sender, e) => {
+                e.Character?.ArmorClass?.MaxKeyAbilityScore?.Add(this.GetMaximumDexterityBonus);
+            };
+            // Tower shields inflict a -2 penalty to melee attack rolls
+            this.OnApplied += (sender, e) => {
+                e.Character?.AttackBonuses?.GenericMeleeAttackBonus?.Penalties?.Add(() => 2);
+            };
         }
 
 
@@ -163,18 +179,6 @@ namespace Core.Domain.Items.Shields.Paizo.CoreRulebook
         /// </summary>
         public byte GetMaximumDexterityBonus() => 2;
 
-
-        /// <summary>
-        /// Applies this shield's effects to a character.
-        /// </summary>
-        /// <param name="character">The character which is receiving the effects of the shield.</param>
-        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
-        public override void ApplyTo(ICharacter character)
-        {
-            base.ApplyTo(character);
-            character.ArmorClass?.MaxKeyAbilityScore?.Add(() => this.GetMaximumDexterityBonus());
-            character.AttackBonuses?.GenericMeleeAttackBonus?.Penalties?.Add(() => 2);
-        }
 
         #region Enchantments
         /// <summary>

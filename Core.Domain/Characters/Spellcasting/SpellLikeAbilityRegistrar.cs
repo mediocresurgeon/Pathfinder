@@ -12,10 +12,6 @@ namespace Core.Domain.Characters.Spellcasting
 	/// </summary>
 	internal sealed class SpellLikeAbilityRegistrar : ISpellLikeAbilityRegistrar
     {
-        #region Backing variables
-		private event OnSpellLikeAbilityRegisteredEventHandler _eventHandler;
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the
@@ -30,6 +26,8 @@ namespace Core.Domain.Characters.Spellcasting
         #endregion
 
         #region Properties
+        public event EventHandler<SpellLikeAbilityRegisteredEventArgs> OnRegistered;
+
         private ICharacter Character { get; }
 
         private List<ISpellLikeAbility> RegisteredSpells { get; } = new List<ISpellLikeAbility>();
@@ -71,20 +69,8 @@ namespace Core.Domain.Characters.Spellcasting
 				return existingSpell;
             ISpellLikeAbility newSpell = new SpellLikeAbility(usesPerDay, spell, keyAbilityScore, baseCasterLevel);
 			this.RegisteredSpells.Add(newSpell);
-			_eventHandler?.Invoke(this, new SpellLikeAbilityRegisteredEventArgs(newSpell));
+            this.OnRegistered?.Invoke(this, new SpellLikeAbilityRegisteredEventArgs(newSpell));
 			return newSpell;
-		}
-
-
-        /// <summary>
-        /// Allows an event handler to be called when a new spell-like ability is registered.
-        /// </summary>
-        /// <param name="handler">The callback function.</param>
-		public void OnRegistered(OnSpellLikeAbilityRegisteredEventHandler handler)
-		{
-            if (null == handler)
-                throw new ArgumentNullException(nameof(handler), "Argument cannot be null.");
-			_eventHandler += handler;
 		}
 
 
