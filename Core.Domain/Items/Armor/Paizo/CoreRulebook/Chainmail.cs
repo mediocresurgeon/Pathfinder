@@ -8,9 +8,9 @@ using Core.Domain.Items.Materials.Paizo.CoreRulebook;
 namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 {
     /// <summary>
-    /// The materials a suit of scale mail can be made from.
+    /// The materials a suit of chainmail can be made from.
     /// </summary>
-    public enum ScaleMailMaterial
+    public enum ChainmailMaterial
     {
         /// <summary>
         /// A default material.
@@ -34,29 +34,29 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 
 
     /// <summary>
-    /// Medium armor with a +5 AC bonus, a -4 armor check penalty, and a +3 max dex bonus.
+    /// Medium armor with a +6 AC bonus, a -5 armor check penalty, and a +2 max dex bonus.
     /// </summary>
-    public sealed class ScaleMail : Armor, IScaleMail
+    public sealed class Chainmail : Armor, IChainmail
     {
         #region Constructor
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.ScaleMail"/> class.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.Chainmail"/> class.
         /// </summary>
         /// <param name="size">The size of the character intended to wear the armor.</param>
         /// <param name="material">The material the chainmail is made from.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        public ScaleMail(SizeCategory size, ScaleMailMaterial material)
-            : base(5, GetHardnessForMaterial(material))
+        public Chainmail(SizeCategory size, ChainmailMaterial material)
+            : base(6, GetHardnessForMaterial(material))
         {
-            const byte ARMOR_CHECK_PENALTY = 4;
-            const byte MAX_DEX_BONUS = 3;
-            const double WEIGHT = 30;
-            const double PRICE = 50;
+            const byte ARMOR_CHECK_PENALTY = 5;
+            const byte MAX_DEX_BONUS = 2;
+            const double WEIGHT = 40;
+            const double PRICE = 150;
             const float SPEED_PENALTY = 0.25f;
-            NameFragment standardName = new NameFragment("Scale Mail", "http://www.d20pfsrd.com/equipment/Armor/scale-mail");
+            NameFragment standardName = new NameFragment("Chainmail", "http://www.d20pfsrd.com/equipment/armor/chainmail/");
 
             switch (material) {
-                case ScaleMailMaterial.Adamantine:
+                case ChainmailMaterial.Adamantine:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
@@ -71,7 +71,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     var (drMag, drBypass) = Adamantine.GetMediumArmorDamageReduction();
                     this.ApplyDamageReduction = (character) => character.DamageReduction?.Add(drMag, drBypass);
                     break;
-                case ScaleMailMaterial.Mithral:
+                case ChainmailMaterial.Mithral:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => Mithral.GetArmorCheckPenalty(ARMOR_CHECK_PENALTY);
@@ -85,7 +85,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     this.SpeedPenalty = 0;
                     this.ApplyDamageReduction = (character) => { };
                     break;
-                case ScaleMailMaterial.Steel:
+                case ChainmailMaterial.Steel:
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
                     this.MaximumDexterityBonus = () => MAX_DEX_BONUS;
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, PRICE));
@@ -99,12 +99,12 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
             }
         }
 
-        private static byte GetHardnessForMaterial(ScaleMailMaterial material)
+        private static byte GetHardnessForMaterial(ChainmailMaterial material)
         {
             switch (material) {
-                case ScaleMailMaterial.Adamantine: return Adamantine.Hardness;
-                case ScaleMailMaterial.Mithral:       return Mithral.Hardness;
-                case ScaleMailMaterial.Steel:           return Steel.Hardness;
+                case ChainmailMaterial.Adamantine: return Adamantine.Hardness;
+                case ChainmailMaterial.Mithral:       return Mithral.Hardness;
+                case ChainmailMaterial.Steel:           return Steel.Hardness;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -176,7 +176,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.ArgumentOutOfRangeException">Thrown when bonus is zero, or greater than five.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when attempting to apply an enchantment twice.</exception>
-        new public ScaleMail EnchantWithEnhancementBonus(byte bonus)
+        new public Chainmail EnchantWithEnhancementBonus(byte bonus)
         {
             base.EnchantWithEnhancementBonus(bonus);
             return this;
@@ -189,7 +189,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Chainmail EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithAcidResistance(protectionLevel);
             return this;
@@ -202,7 +202,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Chainmail EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithColdResistance(protectionLevel);
             return this;
@@ -215,7 +215,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Chainmail EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithElectricityResistance(protectionLevel);
             return this;
@@ -228,7 +228,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Chainmail EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithFireResistance(protectionLevel);
             return this;
@@ -241,7 +241,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        new public Chainmail EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSonicResistance(protectionLevel);
             return this;
@@ -252,7 +252,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Etherealness.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithEtherealness()
+        new public Chainmail EnchantWithEtherealness()
         {
             base.EnchantWithEtherealness();
             return this;
@@ -265,7 +265,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithFortification(FortificationType protectionLevel)
+        new public Chainmail EnchantWithFortification(FortificationType protectionLevel)
         {
             base.EnchantWithFortification(protectionLevel);
             return this;
@@ -276,7 +276,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Ghost Touch.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithGhostTouch()
+        new public Chainmail EnchantWithGhostTouch()
         {
             base.EnchantWithGhostTouch();
             return this;
@@ -287,7 +287,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Glamered.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithGlamered()
+        new public Chainmail EnchantWithGlamered()
         {
             base.EnchantWithGlamered();
             return this;
@@ -299,7 +299,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <param name="miracleWasUsed">Indicates whether the Miracle spell was used to create the enchantment.</param>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithInvulnerability(bool miracleWasUsed)
+        new public Chainmail EnchantWithInvulnerability(bool miracleWasUsed)
         {
             base.EnchantWithInvulnerability(miracleWasUsed);
             return this;
@@ -311,7 +311,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public ScaleMail EnchantWithShadow(ShadowStrength strength)
+        new public Chainmail EnchantWithShadow(ShadowStrength strength)
         {
             base.EnchantWithShadow(strength);
             return this;
@@ -323,7 +323,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public ScaleMail EnchantWithSlick(SlickStrength slickness)
+        new public Chainmail EnchantWithSlick(SlickStrength slickness)
         {
             base.EnchantWithSlick(slickness);
             return this;
@@ -336,7 +336,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
+        new public Chainmail EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSpellResistance(protectionLevel);
             return this;
@@ -347,7 +347,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Undead Controlling.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithUndeadControlling()
+        new public Chainmail EnchantWithUndeadControlling()
         {
             base.EnchantWithUndeadControlling();
             return this;
@@ -358,7 +358,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Wild.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public ScaleMail EnchantWithWild()
+        new public Chainmail EnchantWithWild()
         {
             base.EnchantWithWild();
             return this;

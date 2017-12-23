@@ -205,7 +205,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of large mithral breastplate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of large mithral scale mail.")]
         public void Mithral_Large()
         {
             // Arrange
