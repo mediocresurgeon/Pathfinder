@@ -65,7 +65,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of masterwork leather armor.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of masterwork hide armor.")]
         public void DefaultMaterial_Medium_Masterwork()
         {
             // Arrange
@@ -100,7 +100,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of medium-size dragonhide leather armor.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of medium-size dragonhide hide armor.")]
         public void Dragonhide_Medium()
         {
             // Arrange
