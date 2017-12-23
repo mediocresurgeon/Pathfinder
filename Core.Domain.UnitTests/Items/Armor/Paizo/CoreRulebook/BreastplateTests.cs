@@ -2,6 +2,7 @@
 using Core.Domain.Characters;
 using Core.Domain.Characters.DamageReduction;
 using Core.Domain.Items.Armor.Paizo.CoreRulebook;
+using Core.Domain.Items.Materials.Paizo.CoreRulebook;
 using Moq;
 using NUnit.Framework;
 
@@ -219,6 +220,64 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             Assert.AreEqual(30, armor.GetWeight());
             Assert.AreEqual(0, armor.SpeedPenalty);
             Assert.AreEqual("Mithral Breastplate", armor.ToString());
+        }
+        #endregion
+    
+        #region Dragonhide
+        [Test(Description = "Ensures sensible defaults for a fresh instance of small-size dragonhide breastplate.")]
+        public void Dragonhide_Small()
+        {
+            // Arrange
+            var armor = new Breastplate(SizeCategory.Small, DragonhideColor.Red);
+
+            // Assert
+            Assert.IsTrue(armor.IsMasterwork);
+            Assert.IsFalse(armor.MasterworkIsToggleable);
+            Assert.AreEqual(3, armor.ArmorCheckPenalty());
+            Assert.AreEqual(3, armor.MaximumDexterityBonus());
+            Assert.AreEqual(.25, armor.SpeedPenalty);
+            Assert.AreEqual(15, armor.GetWeight());
+            Assert.AreEqual(700, armor.MundaneMarketPrice());
+            Assert.AreEqual(Dragonhide.Hardness, armor.Hardness.MaterialHardness);
+            Assert.AreEqual("Red Dragonhide Breastplate", armor.ToString());
+        }
+
+
+        [Test(Description = "Ensures sensible defaults for a fresh instance of medium-size dragonhide breastplate.")]
+        public void Dragonhide_Medium()
+        {
+            // Arrange
+            var armor = new Breastplate(SizeCategory.Medium, DragonhideColor.Red);
+
+            // Assert
+            Assert.IsTrue(armor.IsMasterwork);
+            Assert.IsFalse(armor.MasterworkIsToggleable);
+            Assert.AreEqual(3, armor.ArmorCheckPenalty());
+            Assert.AreEqual(3, armor.MaximumDexterityBonus());
+            Assert.AreEqual(.25, armor.SpeedPenalty);
+            Assert.AreEqual(30, armor.GetWeight());
+            Assert.AreEqual(700, armor.MundaneMarketPrice());
+            Assert.AreEqual(Dragonhide.Hardness, armor.Hardness.MaterialHardness);
+            Assert.AreEqual("Red Dragonhide Breastplate", armor.ToString());
+        }
+
+
+        [Test(Description = "Ensures sensible defaults for a fresh instance of large-size dragonhide breastplate.")]
+        public void Dragonhide_Large()
+        {
+            // Arrange
+            var armor = new Breastplate(SizeCategory.Large, DragonhideColor.Red);
+
+            // Assert
+            Assert.IsTrue(armor.IsMasterwork);
+            Assert.IsFalse(armor.MasterworkIsToggleable);
+            Assert.AreEqual(3, armor.ArmorCheckPenalty());
+            Assert.AreEqual(3, armor.MaximumDexterityBonus());
+            Assert.AreEqual(.25, armor.SpeedPenalty);
+            Assert.AreEqual(60, armor.GetWeight());
+            Assert.AreEqual(1100, armor.MundaneMarketPrice());
+            Assert.AreEqual(Dragonhide.Hardness, armor.Hardness.MaterialHardness);
+            Assert.AreEqual("Red Dragonhide Breastplate", armor.ToString());
         }
         #endregion
     }

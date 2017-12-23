@@ -39,6 +39,15 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     public sealed class Breastplate : Armor, IBreastplate
     {
         #region Constructor
+        private const byte BASE_ARMOR_BONUS = 6;
+        private const byte ARMOR_CHECK_PENALTY = 4;
+        private const byte MAX_DEX_BONUS = 3;
+        private const double WEIGHT = 30;
+        private const double PRICE = 200;
+        private const float SPEED_PENALTY = 0.25f;
+        private NameFragment StandardName = new NameFragment("Breastplate", "http://www.d20pfsrd.com/equipment/Armor/breastplate");
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.Breastplate"/> class.
         /// </summary>
@@ -46,15 +55,8 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="material">The material the breastplate is made from.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
         public Breastplate(SizeCategory size, BreastplateMaterial material)
-            : base(6, GetHardnessForMaterial(material))
+            : base(BASE_ARMOR_BONUS, GetHardnessForMaterial(material))
         {
-            const byte ARMOR_CHECK_PENALTY = 4;
-            const byte MAX_DEX_BONUS = 3;
-            const double WEIGHT = 30;
-            const double PRICE = 200;
-            const float SPEED_PENALTY = 0.25f;
-            NameFragment standardName = new NameFragment("Breastplate", "http://www.d20pfsrd.com/equipment/Armor/breastplate");
-
             switch (material) {
                 case BreastplateMaterial.Adamantine:
                     this.IsMasterwork = true;
@@ -65,7 +67,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     this.Weight = () => WeightScaledBySize(size, WEIGHT);
                     this.MundaneName = () => new INameFragment[] {
                         new NameFragment("Adamantine", Adamantine.WebAddress),
-                        standardName
+                        StandardName
                     };
                     this.SpeedPenalty = SPEED_PENALTY;
                     var (drMag, drBypass) = Adamantine.GetMediumArmorDamageReduction();
@@ -80,7 +82,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     this.Weight = () => Mithral.GetWeight(WeightScaledBySize(size, WEIGHT));
                     this.MundaneName = () => new INameFragment[] {
                         new NameFragment("Mithral", Mithral.WebAddress),
-                        standardName
+                        StandardName
                     };
                     this.SpeedPenalty = 0;
                     this.ApplyDamageReduction = (character) => { };
@@ -90,7 +92,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     this.MaximumDexterityBonus = () => MAX_DEX_BONUS;
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, PRICE));
                     this.Weight = () => WeightScaledBySize(size, WEIGHT);
-                    this.MundaneName = () => new INameFragment[] { standardName };
+                    this.MundaneName = () => new INameFragment[] { StandardName };
                     this.SpeedPenalty = SPEED_PENALTY;
                     this.ApplyDamageReduction = (character) => { };
                     break;
@@ -98,6 +100,32 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
         }
+
+
+        /// <summary>
+        /// Use this constructor for breastplate made of dragonhide.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.Breastplate"/> class.
+        /// </summary>
+        /// <param name="size">The size of character this armor is designed for.</param>
+        /// <param name="color">The color of the dragonhide.</param>
+        public Breastplate(SizeCategory size, DragonhideColor color)
+            : base(baseArmorBonus:   BASE_ARMOR_BONUS,
+                   materialHardness: Dragonhide.Hardness)
+        {
+            this.IsMasterwork = true;
+            this.MasterworkIsToggleable = false;
+            this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
+            this.MaximumDexterityBonus = () => MAX_DEX_BONUS;
+            this.MundaneName = () => new INameFragment[] {
+                new NameFragment($"{ color } Dragonhide", Dragonhide.WebAddress),
+                StandardName
+            };
+            this.SpeedPenalty = SPEED_PENALTY;
+            this.ApplyDamageReduction = (character) => { };
+            this.MundaneMarketPrice = () => Dragonhide.GetArmorBaseMarketPrice(MarketValueScaledBySize(size, PRICE), this.Enchantments, color);
+            this.Weight = () => WeightScaledBySize(size, WEIGHT);
+        }
+
 
         private static byte GetHardnessForMaterial(BreastplateMaterial material)
         {
