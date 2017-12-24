@@ -35,6 +35,7 @@ namespace Core.Domain.UnitTests.Characters.Initiatives
 
             // Assert
             Assert.AreSame(abilityScore, init.KeyAbilityScore);
+            Assert.IsInstanceOf<CompetenceBonusTracker>(init.CompetenceBonuses);
             Assert.IsInstanceOf<LuckBonusTracker>(init.LuckBonuses);
             Assert.IsInstanceOf<UntypedBonusTracker>(init.UntypedBonuses);
             Assert.IsInstanceOf<PenaltyTracker>(init.Penalties);
@@ -49,16 +50,17 @@ namespace Core.Domain.UnitTests.Characters.Initiatives
             mockAbilityScore.Setup(abs => abs.GetModifier()).Returns(1);
 
             Initiative init = new Initiative(mockAbilityScore.Object);
-            init.LuckBonuses.Add(() => 2);
-            init.UntypedBonuses.Add(() => 3);
+            init.CompetenceBonuses.Add(() => 2);
+            init.LuckBonuses.Add(() => 3);
+            init.UntypedBonuses.Add(() => 4);
             init.Penalties.Add(() => 5);
 
             // Act
             var result = init.GetTotal();
 
 			// Assert
-            Assert.AreEqual(1, result,
-                            "1 = (1 ability) + (2 luck) + (3 untyped) - (5 penalty)");
+            Assert.AreEqual(5, result,
+                            "5 = (1 ability) + (2 competence) + (3 luck) + (4 untyped) - (5 penalty)");
 		}
     }
 }

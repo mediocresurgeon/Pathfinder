@@ -100,6 +100,8 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <summary>
         /// Applies the effects of Banded Mail of Luck to a character.
         /// </summary>
+        /// <param name="character">The chracter wearing the armor.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when an argument is null.</exception>
         public void ApplyTo(ICharacter character)
         {
             if (null == character)

@@ -15,6 +15,11 @@ namespace Core.Domain.Characters.Initiatives
         IAbilityScore KeyAbilityScore { get; set; }
 
         /// <summary>
+        /// Returns the competence bonuses to intiative.
+        /// </summary>
+        IModifierTracker CompetenceBonuses { get; }
+
+        /// <summary>
         /// Returns the luck bonuses to intiative.
         /// </summary>
         IModifierTracker LuckBonuses { get; }
