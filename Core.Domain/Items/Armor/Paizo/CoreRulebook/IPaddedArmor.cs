@@ -3,7 +3,7 @@
     /// <summary>
     /// Armor made from heavy, quilted cloth.
     /// </summary>
-    public interface IPaddedArmor : ILightArmor
+    public interface IPaddedArmor : IArmorSlot
     {
         // Intentionally blank
     }

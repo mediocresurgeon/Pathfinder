@@ -3,7 +3,7 @@
     /// <summary>
     /// Crude armor made of thick furs and pelts.
     /// </summary>
-    public interface IHideArmor : IMediumArmor
+    public interface IHideArmor : IArmorSlot
     {
         // Intentionally blank
     }

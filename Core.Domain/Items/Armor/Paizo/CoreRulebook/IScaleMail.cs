@@ -3,7 +3,7 @@
     /// <summary>
     /// Scale mail is made up of dozens of small overlapping metal plates, and includes gauntlets.
     /// </summary>
-    public interface IScaleMail : IMediumArmor
+    public interface IScaleMail : IArmorSlot
     {
         // Intentionally blank
     }

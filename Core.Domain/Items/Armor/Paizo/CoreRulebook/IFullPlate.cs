@@ -6,7 +6,7 @@
     /// a visored helmet,
     /// and a thick layer of padding that is worn underneath the armor.
     /// </summary>
-    public interface IFullPlate : IHeavyArmor
+    public interface IFullPlate : IArmorSlot
     {
         // Intentionally blank
     }

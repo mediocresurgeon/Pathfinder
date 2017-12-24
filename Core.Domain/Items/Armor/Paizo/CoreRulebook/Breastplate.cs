@@ -36,7 +36,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Medium armor with a +6 AC bonus, a -4 armor check penalty, and a +3 max dex bonus.
     /// </summary>
-    public sealed class Breastplate : Armor, IBreastplate
+    public sealed class Breastplate : Armor, IBreastplate, IMediumArmor
     {
         #region Constructor
         private const byte BASE_ARMOR_BONUS = 6;

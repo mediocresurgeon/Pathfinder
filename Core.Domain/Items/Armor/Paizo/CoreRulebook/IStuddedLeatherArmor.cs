@@ -3,7 +3,7 @@
     /// <summary>
     /// Armor made of leather and reinforced with small metal studs.
     /// </summary>
-    public interface IStuddedLeatherArmor : ILightArmor
+    public interface IStuddedLeatherArmor : IArmorSlot
     {
         // Intentionally blank
     }

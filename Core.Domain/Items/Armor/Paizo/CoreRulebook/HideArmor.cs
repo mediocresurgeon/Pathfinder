@@ -9,7 +9,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Medium armor with a +4 AC bonus, a -3 armor check penalty, and a +4 max dex bonus.
     /// </summary>
-    public sealed class HideArmor : Armor, IHideArmor
+    public sealed class HideArmor : Armor, IHideArmor, IMediumArmor
     {
         #region Constructor
         private const byte BASE_ARMOR_BONUS = 4;

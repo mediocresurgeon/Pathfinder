@@ -36,7 +36,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Heavy armor with a +7 AC bonus, a -7 armor check penalty, and a +0 max dex bonus.
     /// </summary>
-    public sealed class SplintMail : Armor, ISplintMail
+    public sealed class SplintMail : Armor, ISplintMail, IHeavyArmor
     {
         #region Constructor
         private const byte BASE_ARMOR_BONUS = 7;

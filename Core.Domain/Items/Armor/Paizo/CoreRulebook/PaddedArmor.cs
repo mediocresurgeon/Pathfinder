@@ -9,7 +9,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Armor made from heavy, quilted cloth.
     /// </summary>
-    public sealed class PaddedArmor : Armor, IPaddedArmor
+    public sealed class PaddedArmor : Armor, IPaddedArmor, ILightArmor
     {
         #region Constructor
         /// <summary>

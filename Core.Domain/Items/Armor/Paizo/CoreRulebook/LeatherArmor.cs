@@ -9,7 +9,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Light armor with a +2 AC bonus, a -2 armor check penalty, and a +6 max dex bonus.
     /// </summary>
-    public sealed class LeatherArmor : Armor, ILeatherArmor
+    public sealed class LeatherArmor : Armor, ILeatherArmor, ILightArmor
     {
         #region Constructor
         private const byte BASE_ARMOR_BONUS = 2;

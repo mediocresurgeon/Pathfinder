@@ -12,7 +12,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// +3 Banded Mail which allows an attack roll made against the wearer to be rerolled (1/week).
     /// </summary>
-    public sealed class BandedMailOfLuck : Item, IBandedMail
+    public sealed class BandedMailOfLuck : Item, IBandedMail, IHeavyArmor
     {
         #region Constructor
         /// <summary>

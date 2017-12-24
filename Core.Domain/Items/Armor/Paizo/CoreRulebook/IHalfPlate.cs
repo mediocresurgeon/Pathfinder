@@ -3,7 +3,7 @@
     /// <summary>
     /// Combining elements of full plate and chainmail, half-plate includes gauntlets and a helm.
     /// </summary>
-    public interface IHalfPlate : IHeavyArmor
+    public interface IHalfPlate : IArmorSlot
     {
         // Intentionally blank
     }

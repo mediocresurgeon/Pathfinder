@@ -36,7 +36,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Heavy armor with a +8 AC bonus, a -7 armor check penalty, and a +0 max dex bonus.
     /// </summary>
-    public sealed class HalfPlate : Armor, IHalfPlate
+    public sealed class HalfPlate : Armor, IHalfPlate, IHeavyArmor
     {
         #region Constructor
         private const byte BASE_ARMOR_BONUS = 8;

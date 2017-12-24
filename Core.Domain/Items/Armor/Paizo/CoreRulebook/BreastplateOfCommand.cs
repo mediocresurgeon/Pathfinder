@@ -12,7 +12,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// +2 Breastplate which gives a +2 competence bonus to all charisma checks.
     /// </summary>
-    public sealed class BreastplateOfCommand : Item, IBreastplate
+    public sealed class BreastplateOfCommand : Item, IBreastplate, IMediumArmor
     {
         #region Constructor
         /// <summary>

@@ -36,7 +36,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Medium armor with a +5 AC bonus, a -4 armor check penalty, and a +3 max dex bonus.
     /// </summary>
-    public sealed class ScaleMail : Armor, IScaleMail
+    public sealed class ScaleMail : Armor, IScaleMail, IMediumArmor
     {
         #region Constructor
         /// <summary>

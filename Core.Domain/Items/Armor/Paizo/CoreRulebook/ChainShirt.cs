@@ -36,7 +36,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
     /// <summary>
     /// Light armor with a +4 AC bonus, a -2 armor check penalty, and a +4 max dex bonus.
     /// </summary>
-    public sealed class ChainShirt : Armor, IChainShirt
+    public sealed class ChainShirt : Armor, IChainShirt, ILightArmor
     {
         #region Constructor
         /// <summary>

@@ -4,7 +4,7 @@
     /// Chainmail is made up of thousands of interlocking metal rings which covers the torso, legs, and arms.
     /// The suit includes gauntlets.
     /// </summary>
-    public interface IChainmail : IMediumArmor
+    public interface IChainmail : IArmorSlot
     {
         // Intentionally blank
     }
