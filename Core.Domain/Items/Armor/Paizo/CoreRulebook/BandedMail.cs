@@ -8,9 +8,9 @@ using Core.Domain.Items.Materials.Paizo.CoreRulebook;
 namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 {
     /// <summary>
-    /// The materials full plate can be made from.
+    /// The materials banded mail can be made from.
     /// </summary>
-    public enum FullPlateMaterial
+    public enum BandedMailMaterial
     {
         /// <summary>
         /// A default material.
@@ -34,30 +34,30 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 
 
     /// <summary>
-    /// Heavy armor with a +9 AC bonus, a -6 armor check penalty, and a +1 max dex bonus.
+    /// Heavy armor with a +7 AC bonus, a -6 armor check penalty, and a +1 max dex bonus.
     /// </summary>
-    public sealed class FullPlate : Armor, IFullPlate
+    public sealed class BandedMail : Armor, IBandedMail
     {
         #region Constructor
-        private const byte BASE_ARMOR_BONUS = 9;
+        private const byte BASE_ARMOR_BONUS = 7;
         private const byte ARMOR_CHECK_PENALTY = 6;
         private const byte MAX_DEX_BONUS = 1;
-        private const double WEIGHT = 50;
-        private const double PRICE = 1500;
-        private NameFragment StandardName = new NameFragment("Full Plate", "http://www.d20pfsrd.com/equipment/Armor/full-plate");
+        private const double WEIGHT = 35;
+        private const double PRICE = 250;
+        private NameFragment StandardName = new NameFragment("Banded Mail", "http://www.d20pfsrd.com/equipment/Armor/banded-mail");
 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.FullPlate"/> class.
         /// </summary>
         /// <param name="size">The size of the character intended to wear the armor.</param>
-        /// <param name="material">The material the full plate is made from.</param>
+        /// <param name="material">The material the banded mail is made from.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        public FullPlate(SizeCategory size, FullPlateMaterial material)
+        public BandedMail(SizeCategory size, BandedMailMaterial material)
             : base(BASE_ARMOR_BONUS, GetHardnessForMaterial(material))
         {
             switch (material) {
-                case FullPlateMaterial.Adamantine:
+                case BandedMailMaterial.Adamantine:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
@@ -73,7 +73,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                         e.Character?.DamageReduction?.Add(drMag, drBypass);
                     };
                     break;
-                case FullPlateMaterial.Mithral:
+                case BandedMailMaterial.Mithral:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => Mithral.GetArmorCheckPenalty(ARMOR_CHECK_PENALTY);
@@ -85,7 +85,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                         StandardName
                     };
                     break;
-                case FullPlateMaterial.Steel:
+                case BandedMailMaterial.Steel:
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
                     this.MaximumDexterityBonus = () => MAX_DEX_BONUS;
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, PRICE));
@@ -99,12 +99,12 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 
 
         /// <summary>
-        /// Use this constructor for full plate made of dragonhide.
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.FullPlate"/> class.
+        /// Use this constructor for banded mail made of dragonhide.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.BandedMail"/> class.
         /// </summary>
         /// <param name="size">The size of character this armor is designed for.</param>
         /// <param name="color">The color of the dragonhide.</param>
-        public FullPlate(SizeCategory size, DragonhideColor color)
+        public BandedMail(SizeCategory size, DragonhideColor color)
             : base(baseArmorBonus:   BASE_ARMOR_BONUS,
                    materialHardness: Dragonhide.Hardness)
         {
@@ -121,12 +121,12 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         }
 
 
-        private static byte GetHardnessForMaterial(FullPlateMaterial material)
+        private static byte GetHardnessForMaterial(BandedMailMaterial material)
         {
             switch (material) {
-                case FullPlateMaterial.Adamantine: return Adamantine.Hardness;
-                case FullPlateMaterial.Mithral:       return Mithral.Hardness;
-                case FullPlateMaterial.Steel:           return Steel.Hardness;
+                case BandedMailMaterial.Adamantine: return Adamantine.Hardness;
+                case BandedMailMaterial.Mithral:       return Mithral.Hardness;
+                case BandedMailMaterial.Steel:           return Steel.Hardness;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -179,7 +179,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.ArgumentOutOfRangeException">Thrown when bonus is zero, or greater than five.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when attempting to apply an enchantment twice.</exception>
-        new public FullPlate EnchantWithEnhancementBonus(byte bonus)
+        new public BandedMail EnchantWithEnhancementBonus(byte bonus)
         {
             base.EnchantWithEnhancementBonus(bonus);
             return this;
@@ -192,7 +192,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
+        new public BandedMail EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithAcidResistance(protectionLevel);
             return this;
@@ -205,7 +205,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        new public BandedMail EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithColdResistance(protectionLevel);
             return this;
@@ -218,7 +218,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        new public BandedMail EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithElectricityResistance(protectionLevel);
             return this;
@@ -231,7 +231,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        new public BandedMail EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithFireResistance(protectionLevel);
             return this;
@@ -244,7 +244,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        new public BandedMail EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSonicResistance(protectionLevel);
             return this;
@@ -255,7 +255,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Etherealness.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithEtherealness()
+        new public BandedMail EnchantWithEtherealness()
         {
             base.EnchantWithEtherealness();
             return this;
@@ -268,7 +268,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithFortification(FortificationType protectionLevel)
+        new public BandedMail EnchantWithFortification(FortificationType protectionLevel)
         {
             base.EnchantWithFortification(protectionLevel);
             return this;
@@ -279,7 +279,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Ghost Touch.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithGhostTouch()
+        new public BandedMail EnchantWithGhostTouch()
         {
             base.EnchantWithGhostTouch();
             return this;
@@ -290,7 +290,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Glamered.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithGlamered()
+        new public BandedMail EnchantWithGlamered()
         {
             base.EnchantWithGlamered();
             return this;
@@ -302,7 +302,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <param name="miracleWasUsed">Indicates whether the Miracle spell was used to create the enchantment.</param>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithInvulnerability(bool miracleWasUsed)
+        new public BandedMail EnchantWithInvulnerability(bool miracleWasUsed)
         {
             base.EnchantWithInvulnerability(miracleWasUsed);
             return this;
@@ -314,7 +314,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public FullPlate EnchantWithShadow(ShadowStrength strength)
+        new public BandedMail EnchantWithShadow(ShadowStrength strength)
         {
             base.EnchantWithShadow(strength);
             return this;
@@ -326,7 +326,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public FullPlate EnchantWithSlick(SlickStrength slickness)
+        new public BandedMail EnchantWithSlick(SlickStrength slickness)
         {
             base.EnchantWithSlick(slickness);
             return this;
@@ -339,7 +339,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
+        new public BandedMail EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSpellResistance(protectionLevel);
             return this;
@@ -350,7 +350,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Undead Controlling.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithUndeadControlling()
+        new public BandedMail EnchantWithUndeadControlling()
         {
             base.EnchantWithUndeadControlling();
             return this;
@@ -361,7 +361,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Wild.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public FullPlate EnchantWithWild()
+        new public BandedMail EnchantWithWild()
         {
             base.EnchantWithWild();
             return this;

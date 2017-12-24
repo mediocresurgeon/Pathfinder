@@ -11,63 +11,63 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
 {
     [TestFixture]
     [Parallelizable]
-    public class FullPlateTests
+    public class BandedMailTests
     {
         #region Steel
-        [Test(Description = "Ensures sensible defaults for a fresh instance of small steel full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of small steel banded mail.")]
         public void Steel_Small()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Small, FullPlateMaterial.Steel);
+            var armor = new BandedMail(SizeCategory.Small, BandedMailMaterial.Steel);
 
             // Assert
             Assert.IsFalse(armor.IsMasterwork);
             Assert.IsTrue(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(6, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
-            Assert.AreEqual(1500, armor.GetMarketPrice());
-            Assert.AreEqual(25, armor.GetWeight());
+            Assert.AreEqual(250, armor.GetMarketPrice());
+            Assert.AreEqual(17.5, armor.GetWeight());
             Assert.AreEqual(.25, armor.SpeedPenalty);
-            Assert.AreEqual("Full Plate", armor.ToString());
+            Assert.AreEqual("Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of medium steel full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of medium steel banded mail.")]
         public void Steel_Medium()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Medium, FullPlateMaterial.Steel);
+            var armor = new BandedMail(SizeCategory.Medium, BandedMailMaterial.Steel);
 
             // Assert
             Assert.IsFalse(armor.IsMasterwork);
             Assert.IsTrue(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(6, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
-            Assert.AreEqual(1500, armor.GetMarketPrice());
-            Assert.AreEqual(50, armor.GetWeight());
+            Assert.AreEqual(250, armor.GetMarketPrice());
+            Assert.AreEqual(35, armor.GetWeight());
             Assert.AreEqual(.25, armor.SpeedPenalty);
-            Assert.AreEqual("Full Plate", armor.ToString());
+            Assert.AreEqual("Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of large steel full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of large steel banded mail.")]
         public void Steel_Large()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Large, FullPlateMaterial.Steel);
+            var armor = new BandedMail(SizeCategory.Large, BandedMailMaterial.Steel);
 
             // Assert
             Assert.IsFalse(armor.IsMasterwork);
             Assert.IsTrue(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(6, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
-            Assert.AreEqual(3000, armor.GetMarketPrice());
-            Assert.AreEqual(100, armor.GetWeight());
+            Assert.AreEqual(500, armor.GetMarketPrice());
+            Assert.AreEqual(70, armor.GetWeight());
             Assert.AreEqual(.25, armor.SpeedPenalty);
-            Assert.AreEqual("Full Plate", armor.ToString());
+            Assert.AreEqual("Banded Mail", armor.ToString());
         }
 
 
@@ -75,76 +75,78 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
         public void Steel_Medium_Masterwork()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Medium, FullPlateMaterial.Steel) { IsMasterwork = true };
+            var armor = new BandedMail(SizeCategory.Medium, BandedMailMaterial.Steel) {
+                IsMasterwork = true
+            };
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsTrue(armor.MasterworkIsToggleable);
             Assert.AreEqual(5, armor.ArmorCheckPenalty());
-            Assert.AreEqual(1650, armor.GetMarketPrice());
-            Assert.AreEqual("Masterwork Full Plate", armor.ToString());
+            Assert.AreEqual(400, armor.GetMarketPrice());
+            Assert.AreEqual("Masterwork Banded Mail", armor.ToString());
         }
         #endregion
 
         #region Adamantine
-        [Test(Description = "Ensures sensible defaults for a fresh instance of small adamantine full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of small adamantine banded mail.")]
         public void Adamantine_Small_Default()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Small, FullPlateMaterial.Adamantine);
+            var armor = new BandedMail(SizeCategory.Small, BandedMailMaterial.Adamantine);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(5, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
-            Assert.AreEqual(16_500, armor.GetMarketPrice());
-            Assert.AreEqual(25, armor.GetWeight());
+            Assert.AreEqual(15_250, armor.GetMarketPrice());
+            Assert.AreEqual(17.5, armor.GetWeight());
             Assert.AreEqual(0.25, armor.SpeedPenalty);
-            Assert.AreEqual("Adamantine Full Plate", armor.ToString());
+            Assert.AreEqual("Adamantine Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of medium adamantine full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of medium adamantine banded mail.")]
         public void Adamantine_Medium_Default()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Medium, FullPlateMaterial.Adamantine);
+            var armor = new BandedMail(SizeCategory.Medium, BandedMailMaterial.Adamantine);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(5, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
-            Assert.AreEqual(16_500, armor.GetMarketPrice());
-            Assert.AreEqual(50, armor.GetWeight());
+            Assert.AreEqual(15_250, armor.GetMarketPrice());
+            Assert.AreEqual(35, armor.GetWeight());
             Assert.AreEqual(0.25, armor.SpeedPenalty);
-            Assert.AreEqual("Adamantine Full Plate", armor.ToString());
+            Assert.AreEqual("Adamantine Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of large adamantine full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of large adamantine banded mail.")]
         public void Adamantine_Large_Default()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Large, FullPlateMaterial.Adamantine);
+            var armor = new BandedMail(SizeCategory.Large, BandedMailMaterial.Adamantine);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(5, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
-            Assert.AreEqual(18_000, armor.GetMarketPrice());
-            Assert.AreEqual(100, armor.GetWeight());
+            Assert.AreEqual(15_500, armor.GetMarketPrice());
+            Assert.AreEqual(70, armor.GetWeight());
             Assert.AreEqual(0.25, armor.SpeedPenalty);
-            Assert.AreEqual("Adamantine Full Plate", armor.ToString());
+            Assert.AreEqual("Adamantine Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures that equipped an adamantine full plate applies damage reduction to the character.")]
+        [Test(Description = "Ensures that equipped an adamantine banded mail applies damage reduction to the character.")]
         public void Adamantine_ApplyTo_DamageReduction()
         {
             // Arrange
@@ -152,7 +154,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             var mockCharacter = new Mock<ICharacter>();
             mockCharacter.Setup(c => c.DamageReduction)
                          .Returns(damageReductionTracker);
-            var armor = new FullPlate(SizeCategory.Medium, FullPlateMaterial.Adamantine);
+            var armor = new BandedMail(SizeCategory.Medium, BandedMailMaterial.Adamantine);
 
             // Act
             armor.ApplyTo(mockCharacter.Object);
@@ -161,74 +163,74 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             Mock.Get(damageReductionTracker)
                 .Verify(drt => drt.Add(It.Is<Func<byte>>(calc => 3 == calc()),
                                        It.Is<String>(bpb => "—" == bpb)),
-                        "Equipping an adamantine full plate should bestow DR 3/— on the character wearing it.");
+                        "Equipping an adamantine banded mail should bestow DR 3/— on the character wearing it.");
         }
         #endregion
 
         #region Mithral
-        [Test(Description = "Ensures sensible defaults for a fresh instance of small mithral full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of small mithral banded mail.")]
         public void Mithral_Small()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Small, FullPlateMaterial.Mithral);
+            var armor = new BandedMail(SizeCategory.Small, BandedMailMaterial.Mithral);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(3, armor.ArmorCheckPenalty());
             Assert.AreEqual(3, armor.MaximumDexterityBonus());
-            Assert.AreEqual(10_500, armor.GetMarketPrice());
-            Assert.AreEqual(12.5, armor.GetWeight());
+            Assert.AreEqual(9_250, armor.GetMarketPrice());
+            Assert.AreEqual(8.75, armor.GetWeight());
             Assert.AreEqual(0.25, armor.SpeedPenalty);
-            Assert.AreEqual("Mithral Full Plate", armor.ToString());
+            Assert.AreEqual("Mithral Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of medium mithral full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of medium mithral banded mail.")]
         public void Mithral_Medium()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Medium, FullPlateMaterial.Mithral);
+            var armor = new BandedMail(SizeCategory.Medium, BandedMailMaterial.Mithral);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(3, armor.ArmorCheckPenalty());
             Assert.AreEqual(3, armor.MaximumDexterityBonus());
-            Assert.AreEqual(10_500, armor.GetMarketPrice());
-            Assert.AreEqual(25, armor.GetWeight());
+            Assert.AreEqual(9_250, armor.GetMarketPrice());
+            Assert.AreEqual(17.5, armor.GetWeight());
             Assert.AreEqual(0.25, armor.SpeedPenalty);
-            Assert.AreEqual("Mithral Full Plate", armor.ToString());
+            Assert.AreEqual("Mithral Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of large mithral full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of large mithral banded mail.")]
         public void Mithral_Large()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Large, FullPlateMaterial.Mithral);
+            var armor = new BandedMail(SizeCategory.Large, BandedMailMaterial.Mithral);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
             Assert.IsFalse(armor.MasterworkIsToggleable);
-            Assert.AreEqual(9, armor.GetArmorBonus());
+            Assert.AreEqual(7, armor.GetArmorBonus());
             Assert.AreEqual(3, armor.ArmorCheckPenalty());
             Assert.AreEqual(3, armor.MaximumDexterityBonus());
-            Assert.AreEqual(12_000, armor.GetMarketPrice());
-            Assert.AreEqual(50, armor.GetWeight());
+            Assert.AreEqual(9_500, armor.GetMarketPrice());
+            Assert.AreEqual(35, armor.GetWeight());
             Assert.AreEqual(0.25, armor.SpeedPenalty);
-            Assert.AreEqual("Mithral Full Plate", armor.ToString());
+            Assert.AreEqual("Mithral Banded Mail", armor.ToString());
         }
         #endregion
 
         #region Dragonhide
-        [Test(Description = "Ensures sensible defaults for a fresh instance of small-size dragonhide full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of small-size dragonhide banded mail.")]
         public void Dragonhide_Small()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Small, DragonhideColor.Red);
+            var armor = new BandedMail(SizeCategory.Small, DragonhideColor.Red);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
@@ -236,18 +238,18 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             Assert.AreEqual(5, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
             Assert.AreEqual(.25, armor.SpeedPenalty);
-            Assert.AreEqual(25, armor.GetWeight());
-            Assert.AreEqual(3300, armor.MundaneMarketPrice());
+            Assert.AreEqual(17.5, armor.GetWeight());
+            Assert.AreEqual(800, armor.MundaneMarketPrice());
             Assert.AreEqual(Dragonhide.Hardness, armor.Hardness.MaterialHardness);
-            Assert.AreEqual("Red Dragonhide Full Plate", armor.ToString());
+            Assert.AreEqual("Red Dragonhide Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of medium-size dragonhide full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of medium-size dragonhide banded mail.")]
         public void Dragonhide_Medium()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Medium, DragonhideColor.Red);
+            var armor = new BandedMail(SizeCategory.Medium, DragonhideColor.Red);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
@@ -255,18 +257,18 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             Assert.AreEqual(5, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
             Assert.AreEqual(.25, armor.SpeedPenalty);
-            Assert.AreEqual(50, armor.GetWeight());
-            Assert.AreEqual(3300, armor.MundaneMarketPrice());
+            Assert.AreEqual(35, armor.GetWeight());
+            Assert.AreEqual(800, armor.MundaneMarketPrice());
             Assert.AreEqual(Dragonhide.Hardness, armor.Hardness.MaterialHardness);
-            Assert.AreEqual("Red Dragonhide Full Plate", armor.ToString());
+            Assert.AreEqual("Red Dragonhide Banded Mail", armor.ToString());
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of large-size dragonhide full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of large-size dragonhide banded mail.")]
         public void Dragonhide_Large()
         {
             // Arrange
-            var armor = new FullPlate(SizeCategory.Large, DragonhideColor.Red);
+            var armor = new BandedMail(SizeCategory.Large, DragonhideColor.Red);
 
             // Assert
             Assert.IsTrue(armor.IsMasterwork);
@@ -274,10 +276,10 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
             Assert.AreEqual(5, armor.ArmorCheckPenalty());
             Assert.AreEqual(1, armor.MaximumDexterityBonus());
             Assert.AreEqual(.25, armor.SpeedPenalty);
-            Assert.AreEqual(100, armor.GetWeight());
-            Assert.AreEqual(6300, armor.MundaneMarketPrice());
+            Assert.AreEqual(70, armor.GetWeight());
+            Assert.AreEqual(1300, armor.MundaneMarketPrice());
             Assert.AreEqual(Dragonhide.Hardness, armor.Hardness.MaterialHardness);
-            Assert.AreEqual("Red Dragonhide Full Plate", armor.ToString());
+            Assert.AreEqual("Red Dragonhide Banded Mail", armor.ToString());
         }
         #endregion
     }
