@@ -8,9 +8,9 @@ using Core.Domain.Items.Materials.Paizo.CoreRulebook;
 namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 {
     /// <summary>
-    /// The materials banded mail can be made from.
+    /// The materials splint mail can be made from.
     /// </summary>
-    public enum BandedMailMaterial
+    public enum SplintMailMaterial
     {
         /// <summary>
         /// A default material.
@@ -34,30 +34,30 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
 
 
     /// <summary>
-    /// Heavy armor with a +7 AC bonus, a -6 armor check penalty, and a +1 max dex bonus.
+    /// Heavy armor with a +7 AC bonus, a -7 armor check penalty, and a +0 max dex bonus.
     /// </summary>
-    public sealed class BandedMail : Armor, IBandedMail
+    public sealed class SplintMail : Armor, ISplintMail
     {
         #region Constructor
         private const byte BASE_ARMOR_BONUS = 7;
-        private const byte ARMOR_CHECK_PENALTY = 6;
-        private const byte MAX_DEX_BONUS = 1;
-        private const double WEIGHT = 35;
-        private const double PRICE = 250;
-        private NameFragment StandardName = new NameFragment("Banded Mail", "http://www.d20pfsrd.com/equipment/Armor/banded-mail");
+        private const byte ARMOR_CHECK_PENALTY = 7;
+        private const byte MAX_DEX_BONUS = 0;
+        private const double WEIGHT = 45;
+        private const double PRICE = 200;
+        private NameFragment StandardName = new NameFragment("Splint Mail", "http://www.d20pfsrd.com/equipment/Armor/splint-mail");
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.BandedMail"/> class.
+        /// Initializes a new instance of the <see cref="T:Core.Domain.Items.Armor.Paizo.CoreRulebook.SplintMail"/> class.
         /// </summary>
         /// <param name="size">The size of the character intended to wear the armor.</param>
-        /// <param name="material">The material the banded mail is made from.</param>
+        /// <param name="material">The material the splint mail is made from.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        public BandedMail(SizeCategory size, BandedMailMaterial material)
+        public SplintMail(SizeCategory size, SplintMailMaterial material)
             : base(BASE_ARMOR_BONUS, GetHardnessForMaterial(material))
         {
             switch (material) {
-                case BandedMailMaterial.Adamantine:
+                case SplintMailMaterial.Adamantine:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
@@ -73,7 +73,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                         e.Character?.DamageReduction?.Add(drMag, drBypass);
                     };
                     break;
-                case BandedMailMaterial.Mithral:
+                case SplintMailMaterial.Mithral:
                     this.IsMasterwork = true;
                     this.MasterworkIsToggleable = false;
                     this.ArmorCheckPenalty = () => Mithral.GetArmorCheckPenalty(ARMOR_CHECK_PENALTY);
@@ -85,7 +85,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
                         StandardName
                     };
                     break;
-                case BandedMailMaterial.Steel:
+                case SplintMailMaterial.Steel:
                     this.ArmorCheckPenalty = () => StandardArmorCheckPenaltyCalculation(ARMOR_CHECK_PENALTY);
                     this.MaximumDexterityBonus = () => MAX_DEX_BONUS;
                     this.MundaneMarketPrice = () => StandardMundaneMarketPriceCalculation(MarketValueScaledBySize(size, PRICE));
@@ -104,7 +104,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <param name="size">The size of character this armor is designed for.</param>
         /// <param name="color">The color of the dragonhide.</param>
-        public BandedMail(SizeCategory size, DragonhideColor color)
+        public SplintMail(SizeCategory size, DragonhideColor color)
             : base(baseArmorBonus:   BASE_ARMOR_BONUS,
                    materialHardness: Dragonhide.Hardness)
         {
@@ -121,12 +121,12 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         }
 
 
-        private static byte GetHardnessForMaterial(BandedMailMaterial material)
+        private static byte GetHardnessForMaterial(SplintMailMaterial material)
         {
             switch (material) {
-                case BandedMailMaterial.Adamantine: return Adamantine.Hardness;
-                case BandedMailMaterial.Mithral:       return Mithral.Hardness;
-                case BandedMailMaterial.Steel:           return Steel.Hardness;
+                case SplintMailMaterial.Adamantine: return Adamantine.Hardness;
+                case SplintMailMaterial.Mithral:       return Mithral.Hardness;
+                case SplintMailMaterial.Steel:           return Steel.Hardness;
                 default:
                     throw new InvalidEnumArgumentException(nameof(material), (int)material, material.GetType());
             }
@@ -179,7 +179,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.ArgumentOutOfRangeException">Thrown when bonus is zero, or greater than five.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when attempting to apply an enchantment twice.</exception>
-        new public BandedMail EnchantWithEnhancementBonus(byte bonus)
+        new public SplintMail EnchantWithEnhancementBonus(byte bonus)
         {
             base.EnchantWithEnhancementBonus(bonus);
             return this;
@@ -192,7 +192,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
+        new public SplintMail EnchantWithAcidResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithAcidResistance(protectionLevel);
             return this;
@@ -205,7 +205,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
+        new public SplintMail EnchantWithColdResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithColdResistance(protectionLevel);
             return this;
@@ -218,7 +218,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
+        new public SplintMail EnchantWithElectricityResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithElectricityResistance(protectionLevel);
             return this;
@@ -231,7 +231,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
+        new public SplintMail EnchantWithFireResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithFireResistance(protectionLevel);
             return this;
@@ -244,7 +244,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
+        new public SplintMail EnchantWithSonicResistance(EnergyResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSonicResistance(protectionLevel);
             return this;
@@ -255,7 +255,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Etherealness.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithEtherealness()
+        new public SplintMail EnchantWithEtherealness()
         {
             base.EnchantWithEtherealness();
             return this;
@@ -268,7 +268,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithFortification(FortificationType protectionLevel)
+        new public SplintMail EnchantWithFortification(FortificationType protectionLevel)
         {
             base.EnchantWithFortification(protectionLevel);
             return this;
@@ -279,7 +279,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Ghost Touch.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithGhostTouch()
+        new public SplintMail EnchantWithGhostTouch()
         {
             base.EnchantWithGhostTouch();
             return this;
@@ -290,7 +290,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Glamered.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithGlamered()
+        new public SplintMail EnchantWithGlamered()
         {
             base.EnchantWithGlamered();
             return this;
@@ -302,7 +302,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <param name="miracleWasUsed">Indicates whether the Miracle spell was used to create the enchantment.</param>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithInvulnerability(bool miracleWasUsed)
+        new public SplintMail EnchantWithInvulnerability(bool miracleWasUsed)
         {
             base.EnchantWithInvulnerability(miracleWasUsed);
             return this;
@@ -314,7 +314,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public BandedMail EnchantWithShadow(ShadowStrength strength)
+        new public SplintMail EnchantWithShadow(ShadowStrength strength)
         {
             base.EnchantWithShadow(strength);
             return this;
@@ -326,7 +326,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when an argument is a nonstandard enum.</exception>
-        new public BandedMail EnchantWithSlick(SlickStrength slickness)
+        new public SplintMail EnchantWithSlick(SlickStrength slickness)
         {
             base.EnchantWithSlick(slickness);
             return this;
@@ -339,7 +339,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// <param name="protectionLevel">The level of protection bestowed by this armor's enchantment.</param>
         /// <exception cref="System.ComponentModel.InvalidEnumArgumentException">Thrown when the protectionLevel argument is a nonstandard enum.</exception>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
+        new public SplintMail EnchantWithSpellResistance(SpellResistanceMagnitude protectionLevel)
         {
             base.EnchantWithSpellResistance(protectionLevel);
             return this;
@@ -350,7 +350,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Undead Controlling.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithUndeadControlling()
+        new public SplintMail EnchantWithUndeadControlling()
         {
             base.EnchantWithUndeadControlling();
             return this;
@@ -361,7 +361,7 @@ namespace Core.Domain.Items.Armor.Paizo.CoreRulebook
         /// Enchants this armor with Wild.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Thrown when this armor does not already have a magical enhancement bonus, or when this enchantment has already been applied.</exception>
-        new public BandedMail EnchantWithWild()
+        new public SplintMail EnchantWithWild()
         {
             base.EnchantWithWild();
             return this;

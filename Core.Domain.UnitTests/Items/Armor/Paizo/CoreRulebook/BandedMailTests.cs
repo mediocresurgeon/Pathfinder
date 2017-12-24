@@ -71,7 +71,7 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
         }
 
 
-        [Test(Description = "Ensures sensible defaults for a fresh instance of masterwork medium steel full plate.")]
+        [Test(Description = "Ensures sensible defaults for a fresh instance of masterwork medium steel splint mail.")]
         public void Steel_Medium_Masterwork()
         {
             // Arrange
