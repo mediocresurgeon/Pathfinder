@@ -54,20 +54,6 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
         public void ApplyTo_ArmorBonusAndArmorCheckPenalty()
         {
             // Arrange
-            var affectedMovement = Mock.Of<IModifierTracker>();
-            var mockAffectedMovement = new Mock<IMovement>();
-            mockAffectedMovement.Setup(m => m.BaseSpeed)
-                                .Returns(6);
-            mockAffectedMovement.Setup(m => m.Penalties)
-                                .Returns(affectedMovement);
-
-            var unaffectedMovement = Mock.Of<IModifierTracker>();
-            var mockUnaffectedMovement = new Mock<IMovement>();
-            mockUnaffectedMovement.Setup(m => m.BaseSpeed)
-                                .Returns((byte?)null);
-            mockUnaffectedMovement.Setup(m => m.Penalties)
-                                .Returns(unaffectedMovement);
-
             var unaffectedPenalty = Mock.Of<IModifierTracker>();
             var mockUnaffectedSkill = new Mock<ISkill>();
             mockUnaffectedSkill.Setup(s => s.ArmorCheckPenaltyApplies)
@@ -90,8 +76,6 @@ namespace Core.Domain.UnitTests.Items.Armor.Paizo.CoreRulebook
                          .Returns(armorBonusTracker);
             mockCharacter.Setup(c => c.ArmorClass.MaxKeyAbilityScore)
                          .Returns(maxDexPenaltyTracker);
-            mockCharacter.Setup(c => c.MovementModes.GetAll())
-                         .Returns(new IMovement[] { mockUnaffectedMovement.Object, mockAffectedMovement.Object });
             mockCharacter.Setup(c => c.Skills.GetAllSkills())
                          .Returns(new ISkill[] { mockUnaffectedSkill.Object, mockAffectedSkill.Object });
 
